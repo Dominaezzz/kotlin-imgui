@@ -135,6 +135,9 @@ kotlin {
                         tasks.named(interopProcessingTaskName) {
                             dependsOn(extractImGui, extractCWrapper)
                         }
+                        compileImGui {
+                            dependsOn(tasks.named(interopProcessingTaskName))
+                        }
                     }
                 }
 
