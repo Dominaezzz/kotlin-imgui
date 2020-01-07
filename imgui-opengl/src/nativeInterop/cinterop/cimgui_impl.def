@@ -1,0 +1,4 @@
+package=cimgui.internal.impl
+headers=cimgui.h cimgui_impl.h
+headerFilter=cimgui_impl.h imgui_impl_*.h
+compilerOpts=-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS -DIMGUI_IMPL_OPENGL_LOADER_GL3W

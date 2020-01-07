@@ -1,0 +1,28 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    name: 'Build and Test project'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04]
+    steps:
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: 'Clone Repo'
+        uses: actions/checkout@v1
+
+      - name: 'Compile and Link'
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: 'assemble --stacktrace'
+
+      - name: 'Test'
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: 'check --stacktrace'

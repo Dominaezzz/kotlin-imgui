@@ -1,0 +1,56 @@
+package com.imgui
+
+interface Flag<T> where T : Enum<T>, T : Flag<T> {
+	val value: Int
+
+	@ImGuiInternal
+	val info: EnumInfo<T>
+
+	companion object {
+		internal operator fun <T> invoke(value: Int, info: EnumInfo<T>): Flag<T> where T : Enum<T>, T : Flag<T> {
+			return info.lookUp.getOrElse(value) { Flags(value, info) }
+		}
+
+		internal inline fun <reified T> enumInfo(): EnumInfo<T> where T : Enum<T>, T : Flag<T> {
+			val values = enumValues<T>()
+			return EnumInfo(values, values.associateBy { it.value })
+		}
+	}
+
+	@ImGuiInternal
+	class EnumInfo<T> internal constructor(
+			val values: Array<T>,
+			val lookUp: Map<Int, T>
+	) where T : Enum<T>, T : Flag<T>
+
+	private class Flags<T>(
+			override val value: Int,
+			override val info: EnumInfo<T>
+	) : Flag<T> where T : Enum<T>, T : Flag<T> {
+       override fun toString(): String {
+           return info.values.filter { it in this }.joinToString(" | ") { it.name }
+       }
+	}
+}
+
+operator fun <T> Flag<T>?.contains(other: Flag<T>?): Boolean where T : Enum<T>, T : Flag<T> {
+	if (other == null) return true
+	if (this == null) return false
+	return value and other.value == other.value
+}
+
+infix fun <T> Flag<T>.or(other: Flag<T>): Flag<T> where T : Enum<T>, T : Flag<T> {
+	return Flag(value or other.value, info)
+}
+
+infix fun <T> Flag<T>?.or(other: Flag<T>?): Flag<T>? where T : Enum<T>, T : Flag<T> {
+	if (this == null) return other
+	if (other == null) return this
+	return this or other
+}
+
+infix fun <T> Flag<T>?.and(other: Flag<T>?): Flag<T>? where T : Enum<T>, T : Flag<T> {
+	if (other == null || this == null) return null
+	val result = value and other.value
+	return if (result != 0) Flag(result, info) else null
+}
