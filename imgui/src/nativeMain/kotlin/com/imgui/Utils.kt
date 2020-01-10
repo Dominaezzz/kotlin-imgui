@@ -74,6 +74,26 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Boolean>?, block:
 	}
 }
 
+internal inline fun <T> usingProperty(prop: KMutableProperty0<UInt>, block: (CPointer<UIntVar>) -> T): T {
+	return usingVar<UIntVar, T> { nativeValue ->
+		val propValue = prop.get()
+		nativeValue.value = propValue
+		try {
+			block(nativeValue.ptr)
+		} finally {
+			if (propValue != nativeValue.value) prop.set(nativeValue.value)
+		}
+	}
+}
+
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<UInt>?, block: (CPointer<UIntVar>?) -> T): T {
+	return if (prop != null) {
+		usingProperty(prop, block)
+	} else {
+		block(null)
+	}
+}
+
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Int>, block: (CPointer<IntVar>) -> T): T {
 	return usingVar<IntVar, T> { nativeValue ->
 		val propValue = prop.get()

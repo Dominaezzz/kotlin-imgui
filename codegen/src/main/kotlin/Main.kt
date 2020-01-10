@@ -334,12 +334,13 @@ fun main(args: Array<String>) {
 					else -> TODO()
 				})
 				arguments.add(CodeBlock.of("$pinnedName.%M(0)", ADDRESS_OF))
-			} else if (arg.type == "bool*" || arg.type == "int*" || arg.type == "size_t*" || arg.type == "float*" || arg.type == "double*" || arg.type == "float&") {
+			} else if (arg.type == "bool*" || arg.type == "int*" || arg.type == "unsigned int*" || arg.type == "size_t*" || arg.type == "float*" || arg.type == "double*" || arg.type == "float&") {
 				val ptrName = "ptr${argNameKt.capitalize()}"
 
 				val propType = when (arg.type.dropLast(1)) {
 					"bool" -> BOOLEAN
 					"int" -> INT
+					"unsigned int" -> U_INT
 					"size_t" -> U_LONG
 					"float" -> FLOAT
 					"double" -> DOUBLE

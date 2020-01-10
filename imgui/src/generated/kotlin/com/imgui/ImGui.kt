@@ -30,6 +30,7 @@ import cimgui.internal.igCalcTextSize
 import cimgui.internal.igCaptureKeyboardFromApp
 import cimgui.internal.igCaptureMouseFromApp
 import cimgui.internal.igCheckbox
+import cimgui.internal.igCheckboxFlags
 import cimgui.internal.igCloseCurrentPopup
 import cimgui.internal.igCollapsingHeader
 import cimgui.internal.igCollapsingHeaderBoolPtr
@@ -455,6 +456,16 @@ object ImGui {
     fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean {
         usingProperty(v) { ptrV ->
             return igCheckbox(label, ptrV)
+        }
+    }
+
+    fun checkboxFlags(
+        label: String,
+        flags: KMutableProperty0<UInt>,
+        flagsValue: UInt
+    ): Boolean {
+        usingProperty(flags) { ptrFlags ->
+            return igCheckboxFlags(label, ptrFlags, flagsValue)
         }
     }
 
