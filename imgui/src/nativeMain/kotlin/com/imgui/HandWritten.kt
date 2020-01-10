@@ -63,7 +63,7 @@ fun ImGui.setNextWindowSizeConstraints(sizeMin: Vec2, sizeMax: Vec2, customCallb
 
 
 fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, popupMaxHeightInItems: Int = -1): Boolean {
-	usingIntProperty(currentItem) { currentItemPtr ->
+	usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			return igCombo(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
 		}
@@ -73,7 +73,7 @@ fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: List<
 fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, popupMaxHeightInItems: Int = -1): Boolean {
 	class Helper(val memScope: MemScope, val getter: (idx: Int) -> String?)
 
-	usingIntProperty(currentItem) { currentItemPtr ->
+	usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			val stableRef = StableRef.create(Helper(memScope, itemsGetter))
 			try {
@@ -99,7 +99,7 @@ fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter:
 
 
 fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, heightInItems: Int = -1): Boolean {
-	usingIntProperty(currentItem) { currentItemPtr ->
+	usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			return igListBoxStr_arr(label, currentItemPtr, items.toCStringArray(memScope), items.size, heightInItems)
 		}
@@ -109,7 +109,7 @@ fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: Lis
 fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, heightInItems: Int = -1): Boolean {
 	class Helper(val memScope: MemScope, val getter: (idx: Int) -> String?)
 
-	usingIntProperty(currentItem) { currentItemPtr ->
+	usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			val stableRef = StableRef.create(Helper(memScope, itemsGetter))
 			try {

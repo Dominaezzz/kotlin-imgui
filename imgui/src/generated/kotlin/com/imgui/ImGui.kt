@@ -327,7 +327,7 @@ object ImGui {
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiWindowFlags>? = null
     ): Boolean {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             return igBegin(name, ptrPOpen, flags?.value ?: 0)
         }
     }
@@ -393,7 +393,7 @@ object ImGui {
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiWindowFlags>? = null
     ): Boolean {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             return igBeginPopupModal(name, ptrPOpen, flags?.value ?: 0)
         }
     }
@@ -406,7 +406,7 @@ object ImGui {
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiTabItemFlags>? = null
     ): Boolean {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             return igBeginTabItem(label, ptrPOpen, flags?.value ?: 0)
         }
     }
@@ -429,8 +429,8 @@ object ImGui {
         outItemsDisplayStart: KMutableProperty0<Int>,
         outItemsDisplayEnd: KMutableProperty0<Int>
     ) {
-        usingIntProperty(outItemsDisplayStart) { ptrOutItemsDisplayStart ->
-            usingIntProperty(outItemsDisplayEnd) { ptrOutItemsDisplayEnd ->
+        usingProperty(outItemsDisplayStart) { ptrOutItemsDisplayStart ->
+            usingProperty(outItemsDisplayEnd) { ptrOutItemsDisplayEnd ->
                 igCalcListClipping(itemsCount, itemsHeight, ptrOutItemsDisplayStart,
                         ptrOutItemsDisplayEnd)
             }
@@ -453,7 +453,7 @@ object ImGui {
     }
 
     fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean {
-        usingBoolProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igCheckbox(label, ptrV)
         }
     }
@@ -470,7 +470,7 @@ object ImGui {
         pOpen: KMutableProperty0<Boolean>,
         flags: Flag<ImGuiTreeNodeFlags>? = null
     ): Boolean {
-        usingBoolProperty(pOpen) { ptrPOpen ->
+        usingProperty(pOpen) { ptrPOpen ->
             return igCollapsingHeaderBoolPtr(label, ptrPOpen, flags?.value ?: 0)
         }
     }
@@ -492,9 +492,9 @@ object ImGui {
         outG: KMutableProperty0<Float>,
         outB: KMutableProperty0<Float>
     ) {
-        usingFloatProperty(outR) { ptrOutR ->
-            usingFloatProperty(outG) { ptrOutG ->
-                usingFloatProperty(outB) { ptrOutB ->
+        usingProperty(outR) { ptrOutR ->
+            usingProperty(outG) { ptrOutG ->
+                usingProperty(outB) { ptrOutB ->
                     igColorConvertHSVtoRGB(h, s, v, ptrOutR, ptrOutG, ptrOutB)
                 }
             }
@@ -509,9 +509,9 @@ object ImGui {
         outS: KMutableProperty0<Float>,
         outV: KMutableProperty0<Float>
     ) {
-        usingFloatProperty(outH) { ptrOutH ->
-            usingFloatProperty(outS) { ptrOutS ->
-                usingFloatProperty(outV) { ptrOutV ->
+        usingProperty(outH) { ptrOutH ->
+            usingProperty(outS) { ptrOutS ->
+                usingProperty(outV) { ptrOutV ->
                     igColorConvertRGBtoHSV(r, g, b, ptrOutH, ptrOutS, ptrOutV)
                 }
             }
@@ -567,7 +567,7 @@ object ImGui {
         itemsSeparatedByZeros: String,
         popupMaxHeightInItems: Int = -1
     ): Boolean {
-        usingIntProperty(currentItem) { ptrCurrentItem ->
+        usingProperty(currentItem) { ptrCurrentItem ->
             return igComboStr(label, ptrCurrentItem, itemsSeparatedByZeros, popupMaxHeightInItems)
         }
     }
@@ -599,7 +599,7 @@ object ImGui {
         format: String = "%.3f",
         power: Float = 1.0f
     ): Boolean {
-        usingFloatProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igDragFloat(label, ptrV, vSpeed, vMin, vMax, format, power)
         }
     }
@@ -660,8 +660,8 @@ object ImGui {
         formatMax: String? = null,
         power: Float = 1.0f
     ): Boolean {
-        usingFloatProperty(vCurrentMin) { ptrVCurrentMin ->
-            usingFloatProperty(vCurrentMax) { ptrVCurrentMax ->
+        usingProperty(vCurrentMin) { ptrVCurrentMin ->
+            usingProperty(vCurrentMax) { ptrVCurrentMax ->
                 return igDragFloatRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax,
                         format, formatMax, power)
             }
@@ -676,7 +676,7 @@ object ImGui {
         vMax: Int = 0,
         format: String = "%d"
     ): Boolean {
-        usingIntProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igDragInt(label, ptrV, vSpeed, vMin, vMax, format)
         }
     }
@@ -733,8 +733,8 @@ object ImGui {
         format: String = "%d",
         formatMax: String? = null
     ): Boolean {
-        usingIntProperty(vCurrentMin) { ptrVCurrentMin ->
-            usingIntProperty(vCurrentMax) { ptrVCurrentMax ->
+        usingProperty(vCurrentMin) { ptrVCurrentMin ->
+            usingProperty(vCurrentMax) { ptrVCurrentMax ->
                 return igDragIntRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax,
                         format, formatMax)
             }
@@ -970,7 +970,7 @@ object ImGui {
         format: String = "%.6f",
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
-        usingDoubleProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igInputDouble(label, ptrV, step, stepFast, format, flags?.value ?: 0)
         }
     }
@@ -983,7 +983,7 @@ object ImGui {
         format: String = "%.3f",
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
-        usingFloatProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igInputFloat(label, ptrV, step, stepFast, format, flags?.value ?: 0)
         }
     }
@@ -1031,7 +1031,7 @@ object ImGui {
         stepFast: Int = 100,
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
-        usingIntProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igInputInt(label, ptrV, step, stepFast, flags?.value ?: 0)
         }
     }
@@ -1197,7 +1197,7 @@ object ImGui {
         pSelected: KMutableProperty0<Boolean>,
         enabled: Boolean = true
     ): Boolean {
-        usingBoolProperty(pSelected) { ptrPSelected ->
+        usingProperty(pSelected) { ptrPSelected ->
             return igMenuItemBoolPtr(label, shortcut, ptrPSelected, enabled)
         }
     }
@@ -1328,7 +1328,7 @@ object ImGui {
         v: KMutableProperty0<Int>,
         vButton: Int
     ): Boolean {
-        usingIntProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igRadioButtonIntPtr(label, ptrV, vButton)
         }
     }
@@ -1350,7 +1350,7 @@ object ImGui {
     }
 
     fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>? = null): String? {
-        usingULongPropertyN(outIniSize) { ptrOutIniSize ->
+        usingPropertyN(outIniSize) { ptrOutIniSize ->
             return igSaveIniSettingsToMemory(ptrOutIniSize)?.toKString()
         }
     }
@@ -1368,7 +1368,7 @@ object ImGui {
         flags: Flag<ImGuiSelectableFlags>? = null,
         size: Vec2 = Vec2.Zero
     ): Boolean {
-        usingBoolProperty(pSelected) { ptrPSelected ->
+        usingProperty(pSelected) { ptrPSelected ->
             return igSelectableBoolPtr(label, ptrPSelected, flags?.value ?: 0, size.toCValue())
         }
     }
@@ -1546,13 +1546,13 @@ object ImGui {
     }
 
     fun showAboutWindow(pOpen: KMutableProperty0<Boolean>? = null) {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             igShowAboutWindow(ptrPOpen)
         }
     }
 
     fun showDemoWindow(pOpen: KMutableProperty0<Boolean>? = null) {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             igShowDemoWindow(ptrPOpen)
         }
     }
@@ -1562,7 +1562,7 @@ object ImGui {
     }
 
     fun showMetricsWindow(pOpen: KMutableProperty0<Boolean>? = null) {
-        usingBoolPropertyN(pOpen) { ptrPOpen ->
+        usingPropertyN(pOpen) { ptrPOpen ->
             igShowMetricsWindow(ptrPOpen)
         }
     }
@@ -1584,7 +1584,7 @@ object ImGui {
         vDegreesMax: Float = +360.0f,
         format: String = "%.0f deg"
     ): Boolean {
-        usingFloatProperty(vRad) { ptrVRad ->
+        usingProperty(vRad) { ptrVRad ->
             return igSliderAngle(label, ptrVRad, vDegreesMin, vDegreesMax, format)
         }
     }
@@ -1597,7 +1597,7 @@ object ImGui {
         format: String = "%.3f",
         power: Float = 1.0f
     ): Boolean {
-        usingFloatProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igSliderFloat(label, ptrV, vMin, vMax, format, power)
         }
     }
@@ -1651,7 +1651,7 @@ object ImGui {
         vMax: Int,
         format: String = "%d"
     ): Boolean {
-        usingIntProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igSliderInt(label, ptrV, vMin, vMax, format)
         }
     }
@@ -1743,7 +1743,7 @@ object ImGui {
         format: String = "%.3f",
         power: Float = 1.0f
     ): Boolean {
-        usingFloatProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igVSliderFloat(label, size.toCValue(), ptrV, vMin, vMax, format, power)
         }
     }
@@ -1756,7 +1756,7 @@ object ImGui {
         vMax: Int,
         format: String = "%d"
     ): Boolean {
-        usingIntProperty(v) { ptrV ->
+        usingProperty(v) { ptrV ->
             return igVSliderInt(label, size.toCValue(), ptrV, vMin, vMax, format)
         }
     }

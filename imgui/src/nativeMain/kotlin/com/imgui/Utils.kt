@@ -54,7 +54,7 @@ internal inline fun <T> usingVec4(block: (ImVec4) -> T): T {
 	}
 }
 
-internal inline fun <T> usingBoolProperty(prop: KMutableProperty0<Boolean>, block: (CPointer<BooleanVar>) -> T): T {
+internal inline fun <T> usingProperty(prop: KMutableProperty0<Boolean>, block: (CPointer<BooleanVar>) -> T): T {
 	return usingVar<BooleanVar, T> { nativeValue ->
 		val propValue = prop.get()
 		nativeValue.value = propValue
@@ -66,15 +66,15 @@ internal inline fun <T> usingBoolProperty(prop: KMutableProperty0<Boolean>, bloc
 	}
 }
 
-internal inline fun <T> usingBoolPropertyN(prop: KMutableProperty0<Boolean>?, block: (CPointer<BooleanVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Boolean>?, block: (CPointer<BooleanVar>?) -> T): T {
 	return if (prop != null) {
-		usingBoolProperty(prop, block)
+		usingProperty(prop, block)
 	} else {
 		block(null)
 	}
 }
 
-internal inline fun <T> usingIntProperty(prop: KMutableProperty0<Int>, block: (CPointer<IntVar>) -> T): T {
+internal inline fun <T> usingProperty(prop: KMutableProperty0<Int>, block: (CPointer<IntVar>) -> T): T {
 	return usingVar<IntVar, T> { nativeValue ->
 		val propValue = prop.get()
 		nativeValue.value = propValue
@@ -86,15 +86,15 @@ internal inline fun <T> usingIntProperty(prop: KMutableProperty0<Int>, block: (C
 	}
 }
 
-internal inline fun <T> usingIntPropertyN(prop: KMutableProperty0<Int>?, block: (CPointer<IntVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Int>?, block: (CPointer<IntVar>?) -> T): T {
 	return if (prop != null) {
-		usingIntProperty(prop, block)
+		usingProperty(prop, block)
 	} else {
 		block(null)
 	}
 }
 
-internal inline fun <T> usingULongProperty(prop: KMutableProperty0<ULong>, block: (CPointer<ULongVar>) -> T): T {
+internal inline fun <T> usingProperty(prop: KMutableProperty0<ULong>, block: (CPointer<ULongVar>) -> T): T {
 	return usingVar<ULongVar, T> { nativeValue ->
 		val propValue = prop.get()
 		nativeValue.value = propValue
@@ -106,15 +106,15 @@ internal inline fun <T> usingULongProperty(prop: KMutableProperty0<ULong>, block
 	}
 }
 
-internal inline fun <T> usingULongPropertyN(prop: KMutableProperty0<ULong>?, block: (CPointer<ULongVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (CPointer<ULongVar>?) -> T): T {
 	return if (prop != null) {
-		usingULongProperty(prop, block)
+		usingProperty(prop, block)
 	} else {
 		block(null)
 	}
 }
 
-internal inline fun <T> usingFloatProperty(prop: KMutableProperty0<Float>, block: (CPointer<FloatVar>) -> T): T {
+internal inline fun <T> usingProperty(prop: KMutableProperty0<Float>, block: (CPointer<FloatVar>) -> T): T {
 	return usingVar<FloatVar, T> { nativeValue ->
 		val propValue = prop.get()
 		nativeValue.value = propValue
@@ -126,15 +126,15 @@ internal inline fun <T> usingFloatProperty(prop: KMutableProperty0<Float>, block
 	}
 }
 
-internal inline fun <T> usingFloatPropertyN(prop: KMutableProperty0<Float>?, block: (CPointer<FloatVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Float>?, block: (CPointer<FloatVar>?) -> T): T {
 	return if (prop != null) {
-		usingFloatProperty(prop, block)
+		usingProperty(prop, block)
 	} else {
 		block(null)
 	}
 }
 
-internal inline fun <T> usingDoubleProperty(prop: KMutableProperty0<Double>, block: (CPointer<DoubleVar>) -> T): T {
+internal inline fun <T> usingProperty(prop: KMutableProperty0<Double>, block: (CPointer<DoubleVar>) -> T): T {
 	return usingVar<DoubleVar, T> { nativeValue ->
 		val propValue = prop.get()
 		nativeValue.value = propValue
@@ -146,9 +146,9 @@ internal inline fun <T> usingDoubleProperty(prop: KMutableProperty0<Double>, blo
 	}
 }
 
-internal inline fun <T> usingDoublePropertyN(prop: KMutableProperty0<Double>?, block: (CPointer<DoubleVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Double>?, block: (CPointer<DoubleVar>?) -> T): T {
 	return if (prop != null) {
-		usingDoubleProperty(prop, block)
+		usingProperty(prop, block)
 	} else {
 		block(null)
 	}

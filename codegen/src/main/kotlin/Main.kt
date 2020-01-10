@@ -337,39 +337,22 @@ fun main(args: Array<String>) {
 			} else if (arg.type == "bool*" || arg.type == "int*" || arg.type == "size_t*" || arg.type == "float*" || arg.type == "double*" || arg.type == "float&") {
 				val ptrName = "ptr${argNameKt.capitalize()}"
 
-				val propType: TypeName
-				val usingFuncName: String
-				when (arg.type.dropLast(1)) {
-					"bool" -> {
-						propType = BOOLEAN
-						usingFuncName = "usingBoolProperty"
-					}
-					"int" -> {
-						propType = INT
-						usingFuncName = "usingIntProperty"
-					}
-					"size_t" -> {
-						propType = U_LONG
-						usingFuncName = "usingULongProperty"
-					}
-					"float" -> {
-						propType = FLOAT
-						usingFuncName = "usingFloatProperty"
-					}
-					"double" -> {
-						propType = DOUBLE
-						usingFuncName = "usingDoubleProperty"
-					}
+				val propType = when (arg.type.dropLast(1)) {
+					"bool" -> BOOLEAN
+					"int" -> INT
+					"size_t" -> U_LONG
+					"float" -> FLOAT
+					"double" -> DOUBLE
 					else -> TODO()
 				}
 
 				val paramType = K_MUTABLE_PROPERTY.parameterizedBy(propType)
 				val param = if (defaultValue == null) {
-					functionKt.beginControlFlow("$usingFuncName($argNameKt) { $ptrName ->")
+					functionKt.beginControlFlow("usingProperty($argNameKt) { $ptrName ->")
 					ParameterSpec.builder(argNameKt, paramType)
 				} else {
 					check(defaultValue == "((void*)0)")
-					functionKt.beginControlFlow("${usingFuncName}N($argNameKt) { $ptrName ->")
+					functionKt.beginControlFlow("usingPropertyN($argNameKt) { $ptrName ->")
 					ParameterSpec.builder(argNameKt, paramType.copy(nullable = true))
 							.defaultValue("null")
 				}.build()
