@@ -1,9 +1,18 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.HostManager
+
 plugins {
     kotlin("multiplatform")
 }
 
+val useSingleTarget: Boolean by rootProject.extra
+
 kotlin {
-    linuxX64 {
+    if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
+    if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
+    if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+
+    targets.withType<KotlinNativeTarget> {
         compilations {
             "main" {
                 defaultSourceSet {
@@ -26,18 +35,6 @@ kotlin {
                 entryPoint = "sample.main"
                 // Specify command-line arguments, if necessary:
                 runTask?.args("")
-            }
-        }
-    }
-
-    sourceSets {
-        all {
-            languageSettings.run {
-                useExperimentalAnnotation("kotlin.Experimental")
-                useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
-                useExperimentalAnnotation("com.imgui.ImGuiInternal")
-
-                enableLanguageFeature("InlineClasses")
             }
         }
     }

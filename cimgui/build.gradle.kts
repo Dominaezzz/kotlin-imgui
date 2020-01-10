@@ -2,7 +2,6 @@ import de.undercouch.gradle.tasks.download.Download
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
-import org.jetbrains.kotlin.utils.fileUtils.withReplacedExtensionOrNull
 
 plugins {
     kotlin("multiplatform")
@@ -10,17 +9,9 @@ plugins {
     `maven-publish`
 }
 
+val useSingleTarget: Boolean by rootProject.extra
+val toolChainFolderMap: Map<KonanTarget, File> by rootProject.extra
 val imGuiVersion by extra("1.73")
-
-val konanUserDir = file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
-val toolChainMap = mapOf(
-        KonanTarget.LINUX_X64 to "clang-llvm-8.0.0-linux-x86-64",
-        KonanTarget.MACOS_X64 to "clang-llvm-apple-8.0.0-darwin-macos",
-        KonanTarget.MINGW_X64 to "msys2-mingw-w64-x86_64-clang-llvm-lld-compiler_rt-8.0.1"
-)
-val toolChainFolderName = toolChainMap[HostManager.host]
-val llvmBinFolder = konanUserDir.resolve("dependencies/${toolChainFolderName}/bin")
-
 
 val downloadsDir = buildDir.resolve("downloads")
 val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")
@@ -55,62 +46,25 @@ val extractImGui by tasks.registering(Copy::class) {
     into(cimguiDir.resolve("imgui"))
 }
 
-val objDir = buildDir.resolve("lib/obj")
-val staticLibFile = buildDir.resolve("lib/libimgui.a")
-
-val compileImGui by tasks.registering(Exec::class) {
-    dependsOn(extractImGui, extractCWrapper)
-
-    val sourceFiles = listOf(
-            imguiDir.resolve("imgui.cpp"),
-            imguiDir.resolve("imgui_draw.cpp"),
-            imguiDir.resolve("imgui_demo.cpp"),
-            imguiDir.resolve("imgui_widgets.cpp"),
-            cimguiOutput.resolve("cimgui.cpp")
-    )
-
-    inputs.files(sourceFiles)
-    outputs.files(sourceFiles.map { it.withReplacedExtensionOrNull("cpp", "obj") })
-
-    environment(
-            "PATH" to "$llvmBinFolder;${System.getenv("PATH")}",
-            "CPATH" to "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-    )
-    executable = llvmBinFolder.resolve("clang++").absolutePath
-    args(
-            "-c", "-Wall",
-            "-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
-            // "-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS",
-            "-working-directory", objDir.absolutePath,
-            *sourceFiles.map { it.absolutePath }.toTypedArray()
-    )
-
-    doFirst {
-        mkdir(objDir)
-    }
-}
-val archiveImGui by tasks.registering(Exec::class) {
-    dependsOn(compileImGui)
-
-    // inputs.file(objFile)
-    outputs.file(staticLibFile)
-
-    environment("PATH", "$llvmBinFolder;${System.getenv("PATH")}")
-    executable = llvmBinFolder.resolve("llvm-ar").absolutePath
-    args(
-            "rc", staticLibFile.absolutePath,
-            objDir.resolve("cimgui.o").absolutePath,
-            objDir.resolve("imgui.o").absolutePath,
-            objDir.resolve("imgui_demo.o").absolutePath,
-            objDir.resolve("imgui_draw.o").absolutePath,
-            objDir.resolve("imgui_widgets.o").absolutePath
-    )
-}
+val sourceFiles = listOf(
+        imguiDir.resolve("imgui.cpp"),
+        imguiDir.resolve("imgui_draw.cpp"),
+        imguiDir.resolve("imgui_demo.cpp"),
+        imguiDir.resolve("imgui_widgets.cpp"),
+        cimguiOutput.resolve("cimgui.cpp")
+)
+val objFileNames = listOf(
+        "imgui.o",
+        "imgui_draw.o",
+        "imgui_demo.o",
+        "imgui_widgets.o",
+        "cimgui.o"
+)
 
 kotlin {
-    linuxX64()
-    // mingwX64()
-    // macosX64()
+    if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
+    if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
+    if (!useSingleTarget || HostManager.hostIsMac) macosX64()
 
     sourceSets {
         commonMain {
@@ -127,6 +81,48 @@ kotlin {
     }
 
     targets.withType<KotlinNativeTarget> {
+        val llvmBinFolder = toolChainFolderMap.getValue(konanTarget).resolve("bin")
+        val libDir = buildDir.resolve("lib").resolve(targetName)
+
+        val objDir = libDir.resolve("obj")
+        val staticLibFile = libDir.resolve("libimgui.a")
+
+        val objFiles = objFileNames.map { objDir.resolve(it) }
+        val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
+            dependsOn(extractImGui, extractCWrapper)
+
+            inputs.files(sourceFiles)
+            outputs.files(objFiles)
+
+            environment(
+                    "PATH" to "$llvmBinFolder;${System.getenv("PATH")}",
+                    "CPATH" to "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+            )
+            executable = llvmBinFolder.resolve("clang++").absolutePath
+            args(
+                    "-c", "-Wall",
+                    "-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
+                    // "-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS",
+                    "-working-directory", objDir.absolutePath,
+                    *sourceFiles.map { it.absolutePath }.toTypedArray()
+            )
+
+            doFirst {
+                mkdir(objDir)
+            }
+        }
+        val archiveImGui = tasks.register<Exec>("archiveImGuiFor$targetName") {
+            dependsOn(compileImGui)
+
+            inputs.files(objFiles)
+            outputs.file(staticLibFile)
+
+            environment("PATH", "$llvmBinFolder;${System.getenv("PATH")}")
+            executable = llvmBinFolder.resolve("llvm-ar").absolutePath
+            args("rc", staticLibFile.absolutePath)
+            args(objFiles.map { it.absolutePath })
+        }
+
         compilations {
             "main" {
                 cinterops {
