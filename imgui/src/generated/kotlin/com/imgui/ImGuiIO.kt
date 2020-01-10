@@ -30,11 +30,17 @@ inline class ImGuiIO(
   val keyRepeatRate: Float
     get() = ptr.pointed.KeyRepeatRate
 
+  val fonts: ImFontAtlas?
+    get() = ptr.pointed.Fonts?.let(::ImFontAtlas)
+
   val fontGlobalScale: Float
     get() = ptr.pointed.FontGlobalScale
 
   val fontAllowUserScaling: Boolean
     get() = ptr.pointed.FontAllowUserScaling
+
+  val fontDefault: ImFont?
+    get() = ptr.pointed.FontDefault?.let(::ImFont)
 
   val mouseDrawCursor: Boolean
     get() = ptr.pointed.MouseDrawCursor

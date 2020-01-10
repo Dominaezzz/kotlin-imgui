@@ -17,6 +17,15 @@ inline class ImFont(
   val fontSize: Float
     get() = ptr.pointed.FontSize
 
+  val fallbackGlyph: ImFontGlyph?
+    get() = ptr.pointed.FallbackGlyph?.let(::ImFontGlyph)
+
+  val containerAtlas: ImFontAtlas?
+    get() = ptr.pointed.ContainerAtlas?.let(::ImFontAtlas)
+
+  val configData: ImFontConfig?
+    get() = ptr.pointed.ConfigData?.let(::ImFontConfig)
+
   val configDataCount: Short
     get() = ptr.pointed.ConfigDataCount
 

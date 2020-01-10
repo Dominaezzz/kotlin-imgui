@@ -192,6 +192,16 @@ fun main(args: Array<String>) {
 								.build()
 						prop.getter(getter)
 						struct.addProperty(prop.build())
+					} else if (member.type.endsWith('*') && member.type.dropLast(1).removePrefix("const ") in structs.keys) {
+						val structNameKt = member.type.dropLast(1).removePrefix("const ")
+						val structKt = ClassName("com.imgui", structNameKt)
+
+						val prop = PropertySpec.builder(memberNameKt, structKt.copy(nullable = true))
+						val getter = FunSpec.getterBuilder()
+								.addCode("return ptr.%M.${member.name}?.let(::%T)\n", POINTED, structKt)
+								.build()
+						prop.getter(getter)
+						struct.addProperty(prop.build())
 					}
 				}
 			}

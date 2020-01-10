@@ -49,4 +49,7 @@ inline class ImFontConfig(
 
   val ellipsisChar: Char
     get() = ptr.pointed.EllipsisChar.toShort().toChar()
+
+  val dstFont: ImFont?
+    get() = ptr.pointed.DstFont?.let(::ImFont)
 }
