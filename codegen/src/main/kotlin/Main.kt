@@ -312,11 +312,13 @@ fun main(args: Array<String>) {
 				functionKt.addParameter(param.build())
 				arguments.add(CodeBlock.of("%N", argNameKt))
 			} else if (arg.type == "...") {
-				functionKt.addParameter("args", ANY.copy(nullable = true), KModifier.VARARG)
-				arguments.add(CodeBlock.of("*args"))
+				// functionKt.addParameter("args", ANY.copy(nullable = true), KModifier.VARARG)
+				// arguments.add(CodeBlock.of("*args"))
+				//
+				// // FIXME: When calling variadic C functions spread operator is supported only for *arrayOf(...)
+				// continue@defLoop
 
-				// FIXME: When calling variadic C functions spread operator is supported only for *arrayOf(...)
-				continue@defLoop
+				continue // Just skip the param.
 			} else if (arg.type == "va_list") {
 				// Explicitly not supporting va_list
 				continue@defLoop

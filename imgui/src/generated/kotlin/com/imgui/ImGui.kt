@@ -23,6 +23,7 @@ import cimgui.internal.igBeginTabBar
 import cimgui.internal.igBeginTabItem
 import cimgui.internal.igBeginTooltip
 import cimgui.internal.igBullet
+import cimgui.internal.igBulletText
 import cimgui.internal.igButton
 import cimgui.internal.igCalcItemWidth
 import cimgui.internal.igCalcListClipping
@@ -42,6 +43,7 @@ import cimgui.internal.igColorConvertU32ToFloat4
 import cimgui.internal.igColorEdit3
 import cimgui.internal.igColorEdit4
 import cimgui.internal.igColorPicker3
+import cimgui.internal.igColorPicker4
 import cimgui.internal.igColumns
 import cimgui.internal.igComboStr
 import cimgui.internal.igCreateContext
@@ -176,6 +178,7 @@ import cimgui.internal.igIsWindowAppearing
 import cimgui.internal.igIsWindowCollapsed
 import cimgui.internal.igIsWindowFocused
 import cimgui.internal.igIsWindowHovered
+import cimgui.internal.igLabelText
 import cimgui.internal.igListBoxFooter
 import cimgui.internal.igListBoxHeaderInt
 import cimgui.internal.igListBoxHeaderVec2
@@ -183,6 +186,7 @@ import cimgui.internal.igLoadIniSettingsFromDisk
 import cimgui.internal.igLoadIniSettingsFromMemory
 import cimgui.internal.igLogButtons
 import cimgui.internal.igLogFinish
+import cimgui.internal.igLogText
 import cimgui.internal.igLogToClipboard
 import cimgui.internal.igLogToFile
 import cimgui.internal.igLogToTTY
@@ -255,6 +259,7 @@ import cimgui.internal.igSetScrollX
 import cimgui.internal.igSetScrollY
 import cimgui.internal.igSetStateStorage
 import cimgui.internal.igSetTabItemClosed
+import cimgui.internal.igSetTooltip
 import cimgui.internal.igSetWindowCollapsedBool
 import cimgui.internal.igSetWindowCollapsedStr
 import cimgui.internal.igSetWindowFocus
@@ -285,10 +290,17 @@ import cimgui.internal.igSpacing
 import cimgui.internal.igStyleColorsClassic
 import cimgui.internal.igStyleColorsDark
 import cimgui.internal.igStyleColorsLight
+import cimgui.internal.igText
+import cimgui.internal.igTextColored
+import cimgui.internal.igTextDisabled
 import cimgui.internal.igTextUnformatted
+import cimgui.internal.igTextWrapped
 import cimgui.internal.igTreeNodeExStr
+import cimgui.internal.igTreeNodeExStrStr
 import cimgui.internal.igTreeNodeStr
+import cimgui.internal.igTreeNodeStrStr
 import cimgui.internal.igTreePop
+import cimgui.internal.igTreePushPtr
 import cimgui.internal.igTreePushStr
 import cimgui.internal.igUnindent
 import cimgui.internal.igVSliderFloat
@@ -418,6 +430,10 @@ object ImGui {
 
     fun bullet() {
         igBullet()
+    }
+
+    fun bulletText(fmt: String) {
+        igBulletText(fmt)
     }
 
     fun button(label: String, size: Vec2 = Vec2.Zero): Boolean = igButton(label, size.toCValue())
@@ -561,6 +577,17 @@ object ImGui {
         require(col.size >= 3)
         col.usePinned { pinnedCol ->
             return igColorPicker3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
+        }
+    }
+
+    fun colorPicker4(
+        label: String,
+        col: FloatArray,
+        flags: Flag<ImGuiColorEditFlags>? = null
+    ): Boolean {
+        require(col.size >= 4)
+        col.usePinned { pinnedCol ->
+            return igColorPicker4(label, pinnedCol.addressOf(0), flags?.value ?: 0, null)
         }
     }
 
@@ -1154,6 +1181,10 @@ object ImGui {
     fun isWindowHovered(flags: Flag<ImGuiHoveredFlags>? = null): Boolean =
             igIsWindowHovered(flags?.value ?: 0)
 
+    fun labelText(label: String, fmt: String) {
+        igLabelText(label, fmt)
+    }
+
     fun listBoxFooter() {
         igListBoxFooter()
     }
@@ -1181,6 +1212,10 @@ object ImGui {
 
     fun logFinish() {
         igLogFinish()
+    }
+
+    fun logText(fmt: String) {
+        igLogText(fmt)
     }
 
     fun logToClipboard(autoOpenDepth: Int = -1) {
@@ -1508,6 +1543,10 @@ object ImGui {
         igSetTabItemClosed(tabOrDockedWindowLabel)
     }
 
+    fun setTooltip(fmt: String) {
+        igSetTooltip(fmt)
+    }
+
     fun setWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>? = null) {
         igSetWindowCollapsedBool(collapsed, cond?.value ?: 0)
     }
@@ -1724,14 +1763,38 @@ object ImGui {
         igStyleColorsLight(dst?.ptr)
     }
 
+    fun text(fmt: String) {
+        igText(fmt)
+    }
+
+    fun textColored(col: Vec4, fmt: String) {
+        igTextColored(col.toCValue(), fmt)
+    }
+
+    fun textDisabled(fmt: String) {
+        igTextDisabled(fmt)
+    }
+
     fun textUnformatted(text: String, textEnd: String? = null) {
         igTextUnformatted(text, textEnd)
     }
 
+    fun textWrapped(fmt: String) {
+        igTextWrapped(fmt)
+    }
+
     fun treeNode(label: String): Boolean = igTreeNodeStr(label)
+
+    fun treeNode(strId: String, fmt: String): Boolean = igTreeNodeStrStr(strId, fmt)
 
     fun treeNodeEx(label: String, flags: Flag<ImGuiTreeNodeFlags>? = null): Boolean =
             igTreeNodeExStr(label, flags?.value ?: 0)
+
+    fun treeNodeEx(
+        strId: String,
+        flags: Flag<ImGuiTreeNodeFlags>,
+        fmt: String
+    ): Boolean = igTreeNodeExStrStr(strId, flags.value.convert(), fmt)
 
     fun treePop() {
         igTreePop()
@@ -1739,6 +1802,10 @@ object ImGui {
 
     fun treePush(strId: String) {
         igTreePushStr(strId)
+    }
+
+    fun treePush() {
+        igTreePushPtr(null)
     }
 
     fun unindent(indentW: Float = 0.0f) {

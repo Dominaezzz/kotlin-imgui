@@ -1,7 +1,5 @@
 package sample
 
-import cgl3w.gl3wInit
-import cimgui.internal.*
 import com.imgui.ImGui
 import com.imgui.impl.ImGuiGL3W
 import com.imgui.impl.ImGuiGLFW
@@ -42,8 +40,6 @@ class Simple {
 		}
 		Glfw.currentContext = window
 		Glfw.setSwapInterval(1) // Enable vsync
-
-		gl3wInit()
 
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
@@ -123,7 +119,7 @@ class Simple {
 		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 		run {
 			ImGui.begin("Hello, world!") // Create a window called "Hello, world!" and append into it.
-			igText("This is some useful text.")              // Display some text (you can use a format strings too)
+			ImGui.text("This is some useful text.")              // Display some text (you can use a format strings too)
 			ImGui.checkbox("Demo Window", ::showDemoWindow) // Edit bools storing our window open/close state
 
 			ImGui.checkbox("Another Window", ::showAnotherWindow)
@@ -135,9 +131,9 @@ class Simple {
 				counter++
 			}
 			ImGui.sameLine()
-			igText("counter = %d", counter)
+			ImGui.text("counter = $counter")
 
-			igText("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.framerate, io.framerate)
+			ImGui.text("Application average ${round(1000.0f / io.framerate, 3)} ms/frame (${round(io.framerate, 1)} FPS)")
 			ImGui.end()
 		}
 
@@ -145,7 +141,7 @@ class Simple {
 		if (showAnotherWindow) {
 			// Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
 			ImGui.begin("Another Window", ::showAnotherWindow)
-			igText("Hello from another window!")
+			ImGui.text("Hello from another window!")
 			if (ImGui.button("Close Me")) {
 				showAnotherWindow = false
 			}
