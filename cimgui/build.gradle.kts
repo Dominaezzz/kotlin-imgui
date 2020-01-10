@@ -90,6 +90,7 @@ kotlin {
         val objFiles = objFileNames.map { objDir.resolve(it) }
         val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
             dependsOn(extractImGui, extractCWrapper)
+            onlyIf { konanTarget == HostManager.host }
 
             inputs.files(sourceFiles)
             outputs.files(objFiles)
@@ -113,6 +114,7 @@ kotlin {
         }
         val archiveImGui = tasks.register<Exec>("archiveImGuiFor$targetName") {
             dependsOn(compileImGui)
+            onlyIf { konanTarget == HostManager.host }
 
             inputs.files(objFiles)
             outputs.file(staticLibFile)

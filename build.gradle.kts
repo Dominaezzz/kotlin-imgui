@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
 plugins {
@@ -43,6 +45,24 @@ subprojects {
 					useExperimentalAnnotation("com.imgui.ImGuiInternal")
 
 					enableLanguageFeature("InlineClasses")
+				}
+			}
+
+			// Hack until https://youtrack.jetbrains.com/issue/KT-30498
+			targets.withType<KotlinNativeTarget> {
+				// Disable cross-platform build
+				if (konanTarget != HostManager.host) {
+					compilations.all {
+						cinterops.all {
+							tasks.named(interopProcessingTaskName).configure {
+								enabled = false
+							}
+						}
+						compileKotlinTask.enabled = false
+					}
+					binaries.all {
+						linkTask.enabled = false
+					}
 				}
 			}
 		}
