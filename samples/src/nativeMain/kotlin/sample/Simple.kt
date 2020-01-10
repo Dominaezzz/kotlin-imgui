@@ -10,36 +10,23 @@ import com.kgl.opengl.glClear
 import com.kgl.opengl.glClearColor
 import com.kgl.opengl.glViewport
 
-class Simple {
+class Simple(private val window: Window) {
+	private val glfw: ImGuiGLFW
+	private val gl = ImGuiGL3W
+
 	// Our state
-	var showDemoWindow = false
-	var showAnotherWindow = false
-	var clearColor = floatArrayOf(0.45f, 0.55f, 0.60f, 1.00f)
+	private var showDemoWindow = false
+	private var showAnotherWindow = false
+	private var clearColor = floatArrayOf(0.45f, 0.55f, 0.60f, 1.00f)
 
-	var f = 0.0f
-	var counter = 0
+	private var f = 0.0f
+	private var counter = 0
 
-	fun run() {
-		// Setup window
-		Glfw.setErrorCallback { error, description ->
-			println("Glfw Error ${error}: $description");
-		}
-
-		check(Glfw.init())
-
+	init {
 		// Decide GL+GLSL versions
 
 		// GL 3.0 + GLSL 130
 		val glslVersion = "#version 130";
-		val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example") {
-			contextVersionMajor = 3
-			contextVersionMinor = 0
-
-			// openGLProfile = OpenGLProfile.Core  // 3.2+ only
-			// openGLForwardCompat = true          // 3.0+ only
-		}
-		Glfw.currentContext = window
-		Glfw.setSwapInterval(1) // Enable vsync
 
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
@@ -48,14 +35,13 @@ class Simple {
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableKeyboard.toInt() // Enable Keyboard Controls
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableGamepad.toInt()  // Enable Gamepad Controls
 
-
 		// Setup Dear ImGui style
 		ImGui.styleColorsDark()
 		// ImGui.styleColorsDark(null)
 
 		// Setup Platform/Renderer bindings
-		val glfw = ImGuiGLFW(window, true)
-		ImGuiGL3W.init(glslVersion)
+		glfw = ImGuiGLFW(window, true)
+		gl.init(glslVersion)
 
 		// Load Fonts
 		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -71,7 +57,9 @@ class Simple {
 		//io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
 		//ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 		//IM_ASSERT(font != NULL);
+	}
 
+	fun run() {
 		// Main loop
 		while (!window.shouldClose) {
 			// Poll and handle events (inputs, window resize, etc.)
@@ -82,7 +70,7 @@ class Simple {
 			Glfw.pollEvents()
 
 			// Start the Dear ImGui frame
-			ImGuiGL3W.newFrame()
+			gl.newFrame()
 			glfw.newFrame()
 			ImGui.newFrame()
 
@@ -94,18 +82,10 @@ class Simple {
 			glViewport(0, 0, display_w, display_h)
 			glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
 			glClear(GL_COLOR_BUFFER_BIT)
-			ImGuiGL3W.renderDrawData(ImGui.getDrawData())
+			gl.renderDrawData(ImGui.getDrawData())
 
 			window.swapBuffers()
 		}
-
-		// Cleanup
-		ImGuiGL3W.shutDown()
-		glfw.close()
-		ImGui.destroyContext() // ImGui.destroyContext()
-
-		window.close()
-		Glfw.terminate()
 	}
 
 	fun drawUI() {
@@ -148,9 +128,41 @@ class Simple {
 			ImGui.end()
 		}
 	}
+
+	fun close() {
+		// Cleanup
+		gl.shutDown()
+		glfw.close()
+		ImGui.destroyContext()
+	}
 }
 
 fun main(args: Array<String>) {
 	args.size
-	Simple().run()
+
+	// Setup window
+	Glfw.setErrorCallback { error, description ->
+		println("Glfw Error ${error}: $description");
+	}
+
+	check(Glfw.init())
+
+	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example") {
+		contextVersionMajor = 3
+		contextVersionMinor = 0
+
+		// openGLProfile = OpenGLProfile.Core  // 3.2+ only
+		// openGLForwardCompat = true          // 3.0+ only
+	}
+	Glfw.currentContext = window
+	Glfw.setSwapInterval(1) // Enable vsync
+
+	val simple = Simple(window)
+	try {
+		simple.run()
+	} finally {
+		simple.close()
+		window.close()
+		Glfw.terminate()
+	}
 }
