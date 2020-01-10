@@ -6,6 +6,8 @@ import cimgui.internal.ImGuiHoveredFlags_AllowWhenDisabled
 import cimgui.internal.ImGuiHoveredFlags_AllowWhenOverlapped
 import cimgui.internal.ImGuiHoveredFlags_AnyWindow
 import cimgui.internal.ImGuiHoveredFlags_ChildWindows
+import cimgui.internal.ImGuiHoveredFlags_RectOnly
+import cimgui.internal.ImGuiHoveredFlags_RootAndChildWindows
 import cimgui.internal.ImGuiHoveredFlags_RootWindow
 import kotlin.Int
 
@@ -30,5 +32,10 @@ enum class ImGuiHoveredFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiHoveredFlags> = Flag.enumInfo()
+
+    val RectOnly: Flag<ImGuiHoveredFlags> = Flag(ImGuiHoveredFlags_RectOnly.toInt(), cachedInfo)
+
+    val RootAndChildWindows: Flag<ImGuiHoveredFlags> =
+        Flag(ImGuiHoveredFlags_RootAndChildWindows.toInt(), cachedInfo)
   }
 }

@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiFocusedFlags_AnyWindow
 import cimgui.internal.ImGuiFocusedFlags_ChildWindows
+import cimgui.internal.ImGuiFocusedFlags_RootAndChildWindows
 import cimgui.internal.ImGuiFocusedFlags_RootWindow
 import kotlin.Int
 
@@ -18,5 +19,8 @@ enum class ImGuiFocusedFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiFocusedFlags> = Flag.enumInfo()
+
+    val RootAndChildWindows: Flag<ImGuiFocusedFlags> =
+        Flag(ImGuiFocusedFlags_RootAndChildWindows.toInt(), cachedInfo)
   }
 }

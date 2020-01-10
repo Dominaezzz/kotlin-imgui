@@ -13,9 +13,12 @@ import cimgui.internal.ImGuiWindowFlags_NavFlattened
 import cimgui.internal.ImGuiWindowFlags_NoBackground
 import cimgui.internal.ImGuiWindowFlags_NoBringToFrontOnFocus
 import cimgui.internal.ImGuiWindowFlags_NoCollapse
+import cimgui.internal.ImGuiWindowFlags_NoDecoration
 import cimgui.internal.ImGuiWindowFlags_NoFocusOnAppearing
+import cimgui.internal.ImGuiWindowFlags_NoInputs
 import cimgui.internal.ImGuiWindowFlags_NoMouseInputs
 import cimgui.internal.ImGuiWindowFlags_NoMove
+import cimgui.internal.ImGuiWindowFlags_NoNav
 import cimgui.internal.ImGuiWindowFlags_NoNavFocus
 import cimgui.internal.ImGuiWindowFlags_NoNavInputs
 import cimgui.internal.ImGuiWindowFlags_NoResize
@@ -87,5 +90,12 @@ enum class ImGuiWindowFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiWindowFlags> = Flag.enumInfo()
+
+    val NoNav: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoNav.toInt(), cachedInfo)
+
+    val NoDecoration: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoDecoration.toInt(),
+        cachedInfo)
+
+    val NoInputs: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoInputs.toInt(), cachedInfo)
   }
 }

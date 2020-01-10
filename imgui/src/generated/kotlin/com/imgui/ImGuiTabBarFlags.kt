@@ -1,6 +1,8 @@
 package com.imgui
 
 import cimgui.internal.ImGuiTabBarFlags_AutoSelectNewTabs
+import cimgui.internal.ImGuiTabBarFlags_FittingPolicyDefault_
+import cimgui.internal.ImGuiTabBarFlags_FittingPolicyMask_
 import cimgui.internal.ImGuiTabBarFlags_FittingPolicyResizeDown
 import cimgui.internal.ImGuiTabBarFlags_FittingPolicyScroll
 import cimgui.internal.ImGuiTabBarFlags_NoCloseWithMiddleMouseButton
@@ -33,5 +35,11 @@ enum class ImGuiTabBarFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiTabBarFlags> = Flag.enumInfo()
+
+    val FittingPolicyMask_: Flag<ImGuiTabBarFlags> =
+        Flag(ImGuiTabBarFlags_FittingPolicyMask_.toInt(), cachedInfo)
+
+    val FittingPolicyDefault_: Flag<ImGuiTabBarFlags> =
+        Flag(ImGuiTabBarFlags_FittingPolicyDefault_.toInt(), cachedInfo)
   }
 }

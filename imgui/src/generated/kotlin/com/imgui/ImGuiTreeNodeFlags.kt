@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiTreeNodeFlags_AllowItemOverlap
 import cimgui.internal.ImGuiTreeNodeFlags_Bullet
+import cimgui.internal.ImGuiTreeNodeFlags_CollapsingHeader
 import cimgui.internal.ImGuiTreeNodeFlags_DefaultOpen
 import cimgui.internal.ImGuiTreeNodeFlags_FramePadding
 import cimgui.internal.ImGuiTreeNodeFlags_Framed
@@ -51,5 +52,8 @@ enum class ImGuiTreeNodeFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiTreeNodeFlags> = Flag.enumInfo()
+
+    val CollapsingHeader: Flag<ImGuiTreeNodeFlags> =
+        Flag(ImGuiTreeNodeFlags_CollapsingHeader.toInt(), cachedInfo)
   }
 }

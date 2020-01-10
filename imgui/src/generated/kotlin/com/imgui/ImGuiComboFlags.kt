@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiComboFlags_HeightLarge
 import cimgui.internal.ImGuiComboFlags_HeightLargest
+import cimgui.internal.ImGuiComboFlags_HeightMask_
 import cimgui.internal.ImGuiComboFlags_HeightRegular
 import cimgui.internal.ImGuiComboFlags_HeightSmall
 import cimgui.internal.ImGuiComboFlags_NoArrowButton
@@ -30,5 +31,7 @@ enum class ImGuiComboFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiComboFlags> = Flag.enumInfo()
+
+    val HeightMask_: Flag<ImGuiComboFlags> = Flag(ImGuiComboFlags_HeightMask_.toInt(), cachedInfo)
   }
 }

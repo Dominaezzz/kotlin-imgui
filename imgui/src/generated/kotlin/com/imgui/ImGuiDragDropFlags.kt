@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiDragDropFlags_AcceptBeforeDelivery
 import cimgui.internal.ImGuiDragDropFlags_AcceptNoDrawDefaultRect
 import cimgui.internal.ImGuiDragDropFlags_AcceptNoPreviewTooltip
+import cimgui.internal.ImGuiDragDropFlags_AcceptPeekOnly
 import cimgui.internal.ImGuiDragDropFlags_SourceAllowNullID
 import cimgui.internal.ImGuiDragDropFlags_SourceAutoExpirePayload
 import cimgui.internal.ImGuiDragDropFlags_SourceExtern
@@ -36,5 +37,8 @@ enum class ImGuiDragDropFlags(
     get() = cachedInfo
   companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiDragDropFlags> = Flag.enumInfo()
+
+    val AcceptPeekOnly: Flag<ImGuiDragDropFlags> = Flag(ImGuiDragDropFlags_AcceptPeekOnly.toInt(),
+        cachedInfo)
   }
 }

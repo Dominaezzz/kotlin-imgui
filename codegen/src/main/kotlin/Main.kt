@@ -98,9 +98,13 @@ fun main(args: Array<String>) {
 		}
 		enum.addProperty(valueProp.build())
 
+		val compositeFlags = mutableListOf<Pair<String, CodeBlock>>()
+
 		for (enumValue in entries) {
 			val enumValueNameKt = enumValue.name.removePrefix(enumName)
 			check(enumValue.name != enumValueNameKt)
+
+			val member = MemberName("cimgui.internal", enumValue.name)
 
 			if (isBitmask) {
 				if (enumValueNameKt == "None") {
@@ -108,13 +112,15 @@ fun main(args: Array<String>) {
 				}
 				if (enumValue.calcValue != 0 && !enumValue.value.contains("<<")) {
 					// Then this value is a composite of multiple flags.
-					continue // TODO: Generate value in companion object.
+					if (!enumValueNameKt.startsWith('_')) { // Check if not internal.
+						compositeFlags.add(enumValueNameKt to CodeBlock.of("%T(%M.toInt(), cachedInfo)", FLAG, member))
+					}
+					continue
 				}
 			} else if (enumValueNameKt == "COUNT") {
 				continue
 			}
 
-			val member = MemberName("cimgui.internal", enumValue.name)
 			val constParam = if (isBitmask) {
 				CodeBlock.of("%M.toInt()", member)
 			} else {
@@ -134,8 +140,12 @@ fun main(args: Array<String>) {
 					.addProperty(PropertySpec.builder("cachedInfo", enumInfoType, KModifier.PRIVATE)
 							.initializer("%T.enumInfo()", FLAG)
 							.build())
-					.build()
-			enum.addType(companionObject)
+			for ((propName, initializer) in compositeFlags) {
+				companionObject.addProperty(PropertySpec.builder(propName, FLAG.parameterizedBy(enumClass))
+						.initializer(initializer)
+						.build())
+			}
+			enum.addType(companionObject.build())
 
 			enum.addProperty(PropertySpec.builder("info", enumInfoType, KModifier.OVERRIDE)
 					.getter(FunSpec.getterBuilder().addCode("return cachedInfo").build())
