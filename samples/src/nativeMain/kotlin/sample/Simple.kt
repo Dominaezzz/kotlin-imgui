@@ -1,18 +1,19 @@
 package sample
 
 import com.imgui.ImGui
-import com.imgui.impl.ImGuiGL3W
 import com.imgui.impl.ImGuiGLFW
+import com.imgui.impl.ImguiOpenGL3
 import com.kgl.glfw.Glfw
 import com.kgl.glfw.Window
 import com.kgl.opengl.GL_COLOR_BUFFER_BIT
 import com.kgl.opengl.glClear
 import com.kgl.opengl.glClearColor
 import com.kgl.opengl.glViewport
+import kotlinx.cinterop.pointed
 
 class Simple(private val window: Window) {
 	private val glfw: ImGuiGLFW
-	private val gl = ImGuiGL3W
+	private val gl: ImguiOpenGL3
 
 	// Our state
 	private var showDemoWindow = false
@@ -41,7 +42,7 @@ class Simple(private val window: Window) {
 
 		// Setup Platform/Renderer bindings
 		glfw = ImGuiGLFW(window, true)
-		gl.init(glslVersion)
+		gl = ImguiOpenGL3(glslVersion)
 
 		// Load Fonts
 		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -82,7 +83,7 @@ class Simple(private val window: Window) {
 			glViewport(0, 0, display_w, display_h)
 			glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
 			glClear(GL_COLOR_BUFFER_BIT)
-			gl.renderDrawData(ImGui.getDrawData())
+			gl.renderDrawData(ImGui.getDrawData().ptr.pointed)
 
 			window.swapBuffers()
 		}
@@ -131,7 +132,7 @@ class Simple(private val window: Window) {
 
 	fun close() {
 		// Cleanup
-		gl.shutDown()
+		gl.close()
 		glfw.close()
 		ImGui.destroyContext()
 	}

@@ -261,7 +261,7 @@ class ImguiOpenGL3(
 		} else {
 			0U
 		}
-		setupRenderState(drawData, fbHeight, fbHeight, vertexArrayObject)
+		setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 
 		// Will project scissor/clipping rectangles into framebuffer space
 		val clipOff = drawData.DisplayPos         // (0,0) unless using multi-viewports
