@@ -420,9 +420,14 @@ fun main(args: Array<String>) {
 					arguments.add(CodeBlock.of("%N.ptr", argNameKt))
 				}
 			} else {
-				// Skip functions with unknown param types.
-				println(overload.cimguiName + " -> " + arg.type)
-				continue@defLoop
+				// If type is unknown but has a reasonable default value, we can skip the param.
+				if (defaultValue == "((void*)0)") {
+					arguments.add(CodeBlock.of("null"))
+				} else {
+					// Skip functions with unknown param types.
+					println(overload.cimguiName + " -> " + arg.type)
+					continue@defLoop
+				}
 			}
 		}
 		val igFuncCall = buildCodeBlock {
