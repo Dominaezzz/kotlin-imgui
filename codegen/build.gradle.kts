@@ -4,13 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61"
 }
 
-group = "com.kotlinimgui"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-    jcenter()
-}
+val imGuiVersion: String by rootProject.extra
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -32,6 +26,6 @@ tasks {
 
     run.configure {
         workingDir(rootProject.projectDir.resolve("imgui/src/generated/kotlin"))
-        args(project(":cimgui").buildDir.resolve("downloads/cimgui-1.73/generator/output"))
+        args(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
     }
 }

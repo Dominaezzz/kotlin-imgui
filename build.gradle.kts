@@ -18,6 +18,7 @@ exec {
 version = stdout.toString().trim()
 group = "com.kotlin-imgui"
 
+val imGuiVersion: String by extra("1.74")
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 
 val konanUserDir: File by extra {

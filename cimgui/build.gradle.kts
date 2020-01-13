@@ -11,7 +11,7 @@ plugins {
 
 val useSingleTarget: Boolean by rootProject.extra
 val toolChainFolderMap: Map<KonanTarget, File> by rootProject.extra
-val imGuiVersion by extra("1.73")
+val imGuiVersion: String by rootProject.extra
 
 val downloadsDir = buildDir.resolve("downloads")
 val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")

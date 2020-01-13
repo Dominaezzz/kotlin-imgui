@@ -160,6 +160,7 @@ import cimgui.internal.igIsItemDeactivatedAfterEdit
 import cimgui.internal.igIsItemEdited
 import cimgui.internal.igIsItemFocused
 import cimgui.internal.igIsItemHovered
+import cimgui.internal.igIsItemToggledOpen
 import cimgui.internal.igIsItemVisible
 import cimgui.internal.igIsKeyDown
 import cimgui.internal.igIsKeyPressed
@@ -1134,6 +1135,8 @@ object ImGui {
 
     fun isItemHovered(flags: Flag<ImGuiHoveredFlags>? = null): Boolean =
             igIsItemHovered(flags?.value ?: 0)
+
+    fun isItemToggledOpen(): Boolean = igIsItemToggledOpen()
 
     fun isItemVisible(): Boolean = igIsItemVisible()
 

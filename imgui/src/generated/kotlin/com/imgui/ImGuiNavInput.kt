@@ -15,7 +15,6 @@ import cimgui.internal.ImGuiNavInput_KeyDown_
 import cimgui.internal.ImGuiNavInput_KeyLeft_
 import cimgui.internal.ImGuiNavInput_KeyMenu_
 import cimgui.internal.ImGuiNavInput_KeyRight_
-import cimgui.internal.ImGuiNavInput_KeyTab_
 import cimgui.internal.ImGuiNavInput_KeyUp_
 import cimgui.internal.ImGuiNavInput_LStickDown
 import cimgui.internal.ImGuiNavInput_LStickLeft
@@ -63,8 +62,6 @@ enum class ImGuiNavInput(
 
   KeyMenu_(ImGuiNavInput_KeyMenu_.convert()),
 
-  KeyTab_(ImGuiNavInput_KeyTab_.convert()),
-
   KeyLeft_(ImGuiNavInput_KeyLeft_.convert()),
 
   KeyRight_(ImGuiNavInput_KeyRight_.convert()),
@@ -95,7 +92,6 @@ enum class ImGuiNavInput(
       ImGuiNavInput_TweakSlow -> TweakSlow
       ImGuiNavInput_TweakFast -> TweakFast
       ImGuiNavInput_KeyMenu_ -> KeyMenu_
-      ImGuiNavInput_KeyTab_ -> KeyTab_
       ImGuiNavInput_KeyLeft_ -> KeyLeft_
       ImGuiNavInput_KeyRight_ -> KeyRight_
       ImGuiNavInput_KeyUp_ -> KeyUp_
