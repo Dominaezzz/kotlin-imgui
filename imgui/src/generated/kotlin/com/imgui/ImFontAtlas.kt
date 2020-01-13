@@ -11,6 +11,9 @@ inline class ImFontAtlas(
   val locked: Boolean
     get() = ptr.pointed.Locked
 
+  val texID: ImTextureID?
+    get() = ptr.pointed.TexID?.let(::ImTextureID)
+
   val texDesiredWidth: Int
     get() = ptr.pointed.TexDesiredWidth
 
@@ -22,4 +25,10 @@ inline class ImFontAtlas(
 
   val texHeight: Int
     get() = ptr.pointed.TexHeight
+
+  val texUvScale: Vec2
+    get() = ptr.pointed.TexUvScale.fromCValue()
+
+  val texUvWhitePixel: Vec2
+    get() = ptr.pointed.TexUvWhitePixel.fromCValue()
 }

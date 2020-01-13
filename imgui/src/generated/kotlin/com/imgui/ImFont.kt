@@ -20,6 +20,9 @@ inline class ImFont(
   val fallbackGlyph: ImFontGlyph?
     get() = ptr.pointed.FallbackGlyph?.let(::ImFontGlyph)
 
+  val displayOffset: Vec2
+    get() = ptr.pointed.DisplayOffset.fromCValue()
+
   val containerAtlas: ImFontAtlas?
     get() = ptr.pointed.ContainerAtlas?.let(::ImFontAtlas)
 

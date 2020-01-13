@@ -10,6 +10,12 @@ inline class ImDrawCmd(
   val elemCount: UInt
     get() = ptr.pointed.ElemCount
 
+  val clipRect: Vec4
+    get() = ptr.pointed.ClipRect.fromCValue()
+
+  val textureId: ImTextureID?
+    get() = ptr.pointed.TextureId?.let(::ImTextureID)
+
   val vtxOffset: UInt
     get() = ptr.pointed.VtxOffset
 

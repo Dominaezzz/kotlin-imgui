@@ -192,13 +192,21 @@ internal fun Vec4.toCValue() = cValue<ImVec4> {
 internal fun CValue<ImVec2>.fromCValue(): Vec2 {
 	return usingVec2 {
 		place(it.ptr)
-		Vec2(it.x, it.y)
+		it.fromCValue()
 	}
 }
 
 internal fun CValue<ImVec4>.fromCValue(): Vec4 {
 	return usingVec4 {
 		place(it.ptr)
-		Vec4(it.x, it.y, it.z, it.w)
+		it.fromCValue()
 	}
+}
+
+internal fun ImVec2.fromCValue(): Vec2 {
+	return Vec2(x, y)
+}
+
+internal fun ImVec4.fromCValue(): Vec4 {
+	return Vec4(x, y, z, w)
 }

@@ -326,7 +326,7 @@ import kotlinx.cinterop.usePinned
 
 object ImGui {
     fun acceptDragDropPayload(type: String, flags: Flag<ImGuiDragDropFlags>? = null): ImGuiPayload =
-            ImGuiPayload(igAcceptDragDropPayload(type, flags?.value ?: 0)!!)
+            igAcceptDragDropPayload(type, flags?.value ?: 0)!!.let(::ImGuiPayload)
 
     fun alignTextToFramePadding() {
         igAlignTextToFramePadding()
@@ -843,7 +843,7 @@ object ImGui {
         igEndTooltip()
     }
 
-    fun getBackgroundDrawList(): ImDrawList = ImDrawList(igGetBackgroundDrawList()!!)
+    fun getBackgroundDrawList(): ImDrawList = igGetBackgroundDrawList()!!.let(::ImDrawList)
 
     fun getClipboardText(): String? = igGetClipboardText()?.toKString()
 
@@ -878,20 +878,20 @@ object ImGui {
 
     fun getCursorStartPos(): Vec2 = igGetCursorStartPos().fromCValue()
 
-    fun getDragDropPayload(): ImGuiPayload = ImGuiPayload(igGetDragDropPayload()!!)
+    fun getDragDropPayload(): ImGuiPayload = igGetDragDropPayload()!!.let(::ImGuiPayload)
 
-    fun getDrawData(): ImDrawData = ImDrawData(igGetDrawData()!!)
+    fun getDrawData(): ImDrawData = igGetDrawData()!!.let(::ImDrawData)
 
     fun getDrawListSharedData(): ImDrawListSharedData =
             igGetDrawListSharedData()!!.let(::ImDrawListSharedData)
 
-    fun getFont(): ImFont = ImFont(igGetFont()!!)
+    fun getFont(): ImFont = igGetFont()!!.let(::ImFont)
 
     fun getFontSize(): Float = igGetFontSize()
 
     fun getFontTexUvWhitePixel(): Vec2 = igGetFontTexUvWhitePixel().fromCValue()
 
-    fun getForegroundDrawList(): ImDrawList = ImDrawList(igGetForegroundDrawList()!!)
+    fun getForegroundDrawList(): ImDrawList = igGetForegroundDrawList()!!.let(::ImDrawList)
 
     fun getFrameCount(): Int = igGetFrameCount()
 
@@ -904,7 +904,7 @@ object ImGui {
     fun getID(strIdBegin: String, strIdEnd: String): ImGuiID = igGetIDRange(strIdBegin,
             strIdEnd).let(::ImGuiID)
 
-    fun getIO(): ImGuiIO = ImGuiIO(igGetIO()!!)
+    fun getIO(): ImGuiIO = igGetIO()!!.let(::ImGuiIO)
 
     fun getItemRectMax(): Vec2 = igGetItemRectMax().fromCValue()
 
@@ -937,15 +937,15 @@ object ImGui {
 
     fun getScrollY(): Float = igGetScrollY()
 
-    fun getStateStorage(): ImGuiStorage = ImGuiStorage(igGetStateStorage()!!)
+    fun getStateStorage(): ImGuiStorage = igGetStateStorage()!!.let(::ImGuiStorage)
 
-    fun getStyle(): ImGuiStyle = ImGuiStyle(igGetStyle()!!)
+    fun getStyle(): ImGuiStyle = igGetStyle()!!.let(::ImGuiStyle)
 
     fun getStyleColorName(idx: ImGuiCol): String? =
             igGetStyleColorName(idx.value.convert())?.toKString()
 
     fun getStyleColorVec4(idx: ImGuiCol): ImVec4 =
-            ImVec4(igGetStyleColorVec4(idx.value.convert())!!)
+            igGetStyleColorVec4(idx.value.convert())!!.let(::ImVec4)
 
     fun getTextLineHeight(): Float = igGetTextLineHeight()
 
@@ -963,7 +963,7 @@ object ImGui {
 
     fun getWindowContentRegionWidth(): Float = igGetWindowContentRegionWidth()
 
-    fun getWindowDrawList(): ImDrawList = ImDrawList(igGetWindowDrawList()!!)
+    fun getWindowDrawList(): ImDrawList = igGetWindowDrawList()!!.let(::ImDrawList)
 
     fun getWindowHeight(): Float = igGetWindowHeight()
 

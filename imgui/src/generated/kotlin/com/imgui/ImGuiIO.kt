@@ -3,17 +3,28 @@ package com.imgui
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.toKString
 
 inline class ImGuiIO(
   val ptr: CPointer<cimgui.internal.ImGuiIO>
 ) {
+  val displaySize: Vec2
+    get() = ptr.pointed.DisplaySize.fromCValue()
+
   val deltaTime: Float
     get() = ptr.pointed.DeltaTime
 
   val iniSavingRate: Float
     get() = ptr.pointed.IniSavingRate
+
+  val iniFilename: String
+    get() = ptr.pointed.IniFilename!!.toKString()
+
+  val logFilename: String
+    get() = ptr.pointed.LogFilename!!.toKString()
 
   val mouseDoubleClickTime: Float
     get() = ptr.pointed.MouseDoubleClickTime
@@ -42,6 +53,9 @@ inline class ImGuiIO(
   val fontDefault: ImFont?
     get() = ptr.pointed.FontDefault?.let(::ImFont)
 
+  val displayFramebufferScale: Vec2
+    get() = ptr.pointed.DisplayFramebufferScale.fromCValue()
+
   val mouseDrawCursor: Boolean
     get() = ptr.pointed.MouseDrawCursor
 
@@ -59,6 +73,15 @@ inline class ImGuiIO(
 
   val configWindowsMemoryCompactTimer: Float
     get() = ptr.pointed.ConfigWindowsMemoryCompactTimer
+
+  val backendPlatformName: String
+    get() = ptr.pointed.BackendPlatformName!!.toKString()
+
+  val backendRendererName: String
+    get() = ptr.pointed.BackendRendererName!!.toKString()
+
+  val mousePos: Vec2
+    get() = ptr.pointed.MousePos.fromCValue()
 
   val mouseWheel: Float
     get() = ptr.pointed.MouseWheel
@@ -116,4 +139,10 @@ inline class ImGuiIO(
 
   val metricsActiveAllocations: Int
     get() = ptr.pointed.MetricsActiveAllocations
+
+  val mouseDelta: Vec2
+    get() = ptr.pointed.MouseDelta.fromCValue()
+
+  val mousePosPrev: Vec2
+    get() = ptr.pointed.MousePosPrev.fromCValue()
 }

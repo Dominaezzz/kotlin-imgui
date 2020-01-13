@@ -32,6 +32,12 @@ inline class ImFontConfig(
   val pixelSnapH: Boolean
     get() = ptr.pointed.PixelSnapH
 
+  val glyphExtraSpacing: Vec2
+    get() = ptr.pointed.GlyphExtraSpacing.fromCValue()
+
+  val glyphOffset: Vec2
+    get() = ptr.pointed.GlyphOffset.fromCValue()
+
   val glyphMinAdvanceX: Float
     get() = ptr.pointed.GlyphMinAdvanceX
 

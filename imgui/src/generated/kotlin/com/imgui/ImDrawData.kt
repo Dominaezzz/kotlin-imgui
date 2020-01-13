@@ -19,4 +19,13 @@ inline class ImDrawData(
 
   val totalVtxCount: Int
     get() = ptr.pointed.TotalVtxCount
+
+  val displayPos: Vec2
+    get() = ptr.pointed.DisplayPos.fromCValue()
+
+  val displaySize: Vec2
+    get() = ptr.pointed.DisplaySize.fromCValue()
+
+  val framebufferScale: Vec2
+    get() = ptr.pointed.FramebufferScale.fromCValue()
 }

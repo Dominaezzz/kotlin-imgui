@@ -27,6 +27,9 @@ inline class ImFontAtlasCustomRect(
   val glyphAdvanceX: Float
     get() = ptr.pointed.GlyphAdvanceX
 
+  val glyphOffset: Vec2
+    get() = ptr.pointed.GlyphOffset.fromCValue()
+
   val font: ImFont?
     get() = ptr.pointed.Font?.let(::ImFont)
 }

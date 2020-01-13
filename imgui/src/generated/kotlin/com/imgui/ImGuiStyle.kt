@@ -11,11 +11,20 @@ inline class ImGuiStyle(
   val alpha: Float
     get() = ptr.pointed.Alpha
 
+  val windowPadding: Vec2
+    get() = ptr.pointed.WindowPadding.fromCValue()
+
   val windowRounding: Float
     get() = ptr.pointed.WindowRounding
 
   val windowBorderSize: Float
     get() = ptr.pointed.WindowBorderSize
+
+  val windowMinSize: Vec2
+    get() = ptr.pointed.WindowMinSize.fromCValue()
+
+  val windowTitleAlign: Vec2
+    get() = ptr.pointed.WindowTitleAlign.fromCValue()
 
   val childRounding: Float
     get() = ptr.pointed.ChildRounding
@@ -29,11 +38,23 @@ inline class ImGuiStyle(
   val popupBorderSize: Float
     get() = ptr.pointed.PopupBorderSize
 
+  val framePadding: Vec2
+    get() = ptr.pointed.FramePadding.fromCValue()
+
   val frameRounding: Float
     get() = ptr.pointed.FrameRounding
 
   val frameBorderSize: Float
     get() = ptr.pointed.FrameBorderSize
+
+  val itemSpacing: Vec2
+    get() = ptr.pointed.ItemSpacing.fromCValue()
+
+  val itemInnerSpacing: Vec2
+    get() = ptr.pointed.ItemInnerSpacing.fromCValue()
+
+  val touchExtraPadding: Vec2
+    get() = ptr.pointed.TouchExtraPadding.fromCValue()
 
   val indentSpacing: Float
     get() = ptr.pointed.IndentSpacing
@@ -58,6 +79,18 @@ inline class ImGuiStyle(
 
   val tabBorderSize: Float
     get() = ptr.pointed.TabBorderSize
+
+  val buttonTextAlign: Vec2
+    get() = ptr.pointed.ButtonTextAlign.fromCValue()
+
+  val selectableTextAlign: Vec2
+    get() = ptr.pointed.SelectableTextAlign.fromCValue()
+
+  val displayWindowPadding: Vec2
+    get() = ptr.pointed.DisplayWindowPadding.fromCValue()
+
+  val displaySafeAreaPadding: Vec2
+    get() = ptr.pointed.DisplaySafeAreaPadding.fromCValue()
 
   val mouseCursorScale: Float
     get() = ptr.pointed.MouseCursorScale

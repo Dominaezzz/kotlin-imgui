@@ -11,6 +11,12 @@ inline class ImGuiPayload(
   val dataSize: Int
     get() = ptr.pointed.DataSize
 
+  val sourceId: ImGuiID
+    get() = ptr.pointed.SourceId.let(::ImGuiID)
+
+  val sourceParentId: ImGuiID
+    get() = ptr.pointed.SourceParentId.let(::ImGuiID)
+
   val dataFrameCount: Int
     get() = ptr.pointed.DataFrameCount
 

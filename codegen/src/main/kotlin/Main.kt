@@ -176,33 +176,24 @@ fun main(args: Array<String>) {
 			val memberNameKt = member.name.decapitalize()
 
 			if (member.size == null) {
-				val ktType = simpleTypeMap[member.type]
-				if (ktType != null) {
-					val prop = PropertySpec.builder(memberNameKt, ktType)
-					val getter = FunSpec.getterBuilder()
-							.addCode("return ptr.%M.${member.name}\n", POINTED)
-							.build()
-					prop.getter(getter)
-					struct.addProperty(prop.build())
-				} else {
-					if (member.type == "ImWchar") {
-						val prop = PropertySpec.builder(memberNameKt, CHAR)
-						val getter = FunSpec.getterBuilder()
-								.addCode("return ptr.%M.${member.name}.toShort().toChar()\n", POINTED)
-								.build()
-						prop.getter(getter)
-						struct.addProperty(prop.build())
-					} else if (member.type.endsWith('*') && member.type.dropLast(1).removePrefix("const ") in structs.keys) {
-						val structNameKt = member.type.dropLast(1).removePrefix("const ")
-						val structKt = ClassName("com.imgui", structNameKt)
+				// TODO: Improve this here with a white list of functions.
+				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
+				val shouldAssert = !canBeNull || member.type == "const char*"
+				try {
+					val (typeKt, converter) = convertNativeTypeToKt(member.type, structs.keys)
+					// If return value can be null and we're not asserting, then we return nullable.
+					val prop = PropertySpec.builder(memberNameKt, typeKt.copy(canBeNull && !shouldAssert))
 
-						val prop = PropertySpec.builder(memberNameKt, structKt.copy(nullable = true))
-						val getter = FunSpec.getterBuilder()
-								.addCode("return ptr.%M.${member.name}?.let(::%T)\n", POINTED, structKt)
-								.build()
-						prop.getter(getter)
-						struct.addProperty(prop.build())
-					}
+					val getter = FunSpec.getterBuilder()
+					getter.addCode("return ptr.%M.%N", POINTED, member.name)
+					if (canBeNull) getter.addCode(if (shouldAssert) "!!" else "?")
+					getter.addCode(converter)
+					getter.addCode("\n")
+					prop.getter(getter.build())
+					struct.addProperty(prop.build())
+				} catch (e: NotImplementedError) {
+					// Skip members with non-trivial type.
+					continue
 				}
 			}
 		}
@@ -440,49 +431,20 @@ fun main(args: Array<String>) {
 		if (overload.returnType == "void") {
 			functionKt.addCode(igFuncCall)
 			functionKt.addCode("\n")
-		} else if (overload.returnType == "const char*") {
-			functionKt.returns(STRING.copy(nullable = true))
-			functionKt.addCode("return ")
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode("?.%M()\n", TO_KSTRING)
-		} else if (overload.returnType == "ImVec2") {
-			functionKt.returns(VEC2)
-			functionKt.addCode("return ")
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode(".fromCValue()\n")
-		} else if (overload.returnType == "ImVec4") {
-			functionKt.returns(VEC4)
-			functionKt.addCode("return ")
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode(".fromCValue()\n")
-		} else if (overload.returnType in valueTypes) {
-			val type = ClassName("com.imgui", overload.returnType)
-			functionKt.returns(type)
-			functionKt.addCode("return ")
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode(".let(::%T)\n", type)
-		} else if (overload.returnType.dropLast(1) in privateTypes) {
-			val type = ClassName("com.imgui", overload.returnType.dropLast(1))
-			functionKt.returns(type)
-			functionKt.addCode("return ")
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode("!!.let(::%T)\n", type)
-		} else if (overload.returnType.endsWith('*') && overload.returnType.dropLast(1).removePrefix("const ") in structs.keys) {
-			val structNameKt = overload.returnType.dropLast(1).removePrefix("const ")
-			val structKt = ClassName("com.imgui", structNameKt)
-
-			functionKt.returns(structKt)
-			functionKt.addCode("return %T(", structKt)
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode("!!)\n")
 		} else {
-			val ktType = simpleTypeMap[overload.returnType]
-			if (ktType != null) {
-				functionKt.returns(ktType)
+			// TODO: Improve this here with a white list of functions.
+			val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
+			val shouldAssert = overload.returnType != "const char*"
+			try {
+				val (typeKt, converter) = convertNativeTypeToKt(overload.returnType, structs.keys)
+				// If return value can be null and we're not asserting, then we return nullable.
+				functionKt.returns(typeKt.copy(canBeNull && !shouldAssert))
 				functionKt.addCode("return ")
 				functionKt.addCode(igFuncCall)
+				if (canBeNull) functionKt.addCode(if (shouldAssert) "!!" else "?")
+				functionKt.addCode(converter)
 				functionKt.addCode("\n")
-			} else {
+			} catch (e: NotImplementedError) {
 				// Skip functions with non-trivial return value.
 				println(overload.cimguiName + " returns " + overload.returnType)
 				continue
@@ -495,6 +457,38 @@ fun main(args: Array<String>) {
 	FileSpec.get("com.imgui", imguiObj.build())
 			.toBuilder().indent("    ").build()
 			.writeTo(outputDir)
+}
+
+// Returns an appendable converter, to convert from cimgui value to Kotlin value.
+fun convertNativeTypeToKt(type: String, structNames: Set<String>): Pair<TypeName, CodeBlock> {
+	val imGuiPackageName = "com.imgui"
+
+	return when (type) {
+		"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
+		"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
+		"ImVec4" -> VEC4 to CodeBlock.of(".fromCValue()")
+		"ImWchar" -> CHAR to CodeBlock.of(".toShort().toChar()")
+		in valueTypes -> {
+			val typeKt = ClassName(imGuiPackageName, type)
+			typeKt to CodeBlock.of(".let(::%T)", typeKt)
+		}
+		in simpleTypeMap.keys -> simpleTypeMap.getValue(type) to CodeBlock.of("")
+		else -> {
+			if (type.endsWith('*')) {
+				// ImGuiContext* -> ImGuiContext
+				// const ImVec4* -> ImVec4
+				val derefType = type.dropLast(1).removePrefix("const ")
+				if (derefType in privateTypes || derefType in structNames) {
+					val typeKt = ClassName(imGuiPackageName, derefType)
+					typeKt to CodeBlock.of(".let(::%T)", typeKt)
+				} else {
+					TODO()
+				}
+			} else {
+				TODO()
+			}
+		}
+	}
 }
 
 @Serializable
