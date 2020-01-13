@@ -1,5 +1,6 @@
 package com.imgui
 
+import cimgui.internal.ImGuiTabBarFlags_
 import cimgui.internal.ImGuiTabBarFlags_AutoSelectNewTabs
 import cimgui.internal.ImGuiTabBarFlags_FittingPolicyDefault_
 import cimgui.internal.ImGuiTabBarFlags_FittingPolicyMask_
@@ -10,26 +11,26 @@ import cimgui.internal.ImGuiTabBarFlags_NoTabListScrollingButtons
 import cimgui.internal.ImGuiTabBarFlags_NoTooltip
 import cimgui.internal.ImGuiTabBarFlags_Reorderable
 import cimgui.internal.ImGuiTabBarFlags_TabListPopupButton
-import kotlin.Int
+import kotlinx.cinterop.convert
 
 enum class ImGuiTabBarFlags(
-  override val value: Int
+  override val value: cimgui.internal.ImGuiTabBarFlags
 ) : Flag<ImGuiTabBarFlags> {
-  Reorderable(ImGuiTabBarFlags_Reorderable.toInt()),
+  Reorderable(ImGuiTabBarFlags_Reorderable.convert()),
 
-  AutoSelectNewTabs(ImGuiTabBarFlags_AutoSelectNewTabs.toInt()),
+  AutoSelectNewTabs(ImGuiTabBarFlags_AutoSelectNewTabs.convert()),
 
-  TabListPopupButton(ImGuiTabBarFlags_TabListPopupButton.toInt()),
+  TabListPopupButton(ImGuiTabBarFlags_TabListPopupButton.convert()),
 
-  NoCloseWithMiddleMouseButton(ImGuiTabBarFlags_NoCloseWithMiddleMouseButton.toInt()),
+  NoCloseWithMiddleMouseButton(ImGuiTabBarFlags_NoCloseWithMiddleMouseButton.convert()),
 
-  NoTabListScrollingButtons(ImGuiTabBarFlags_NoTabListScrollingButtons.toInt()),
+  NoTabListScrollingButtons(ImGuiTabBarFlags_NoTabListScrollingButtons.convert()),
 
-  NoTooltip(ImGuiTabBarFlags_NoTooltip.toInt()),
+  NoTooltip(ImGuiTabBarFlags_NoTooltip.convert()),
 
-  FittingPolicyResizeDown(ImGuiTabBarFlags_FittingPolicyResizeDown.toInt()),
+  FittingPolicyResizeDown(ImGuiTabBarFlags_FittingPolicyResizeDown.convert()),
 
-  FittingPolicyScroll(ImGuiTabBarFlags_FittingPolicyScroll.toInt());
+  FittingPolicyScroll(ImGuiTabBarFlags_FittingPolicyScroll.convert());
 
   override val info: Flag.EnumInfo<ImGuiTabBarFlags>
     get() = cachedInfo
@@ -41,5 +42,22 @@ enum class ImGuiTabBarFlags(
 
     val FittingPolicyDefault_: Flag<ImGuiTabBarFlags> =
         Flag(ImGuiTabBarFlags_FittingPolicyDefault_.toInt(), cachedInfo)
+
+    fun from(value: cimgui.internal.ImGuiTabBarFlags): ImGuiTabBarFlags = when
+        (value.convert<ImGuiTabBarFlags_>()) {
+      ImGuiTabBarFlags_Reorderable -> Reorderable
+      ImGuiTabBarFlags_AutoSelectNewTabs -> AutoSelectNewTabs
+      ImGuiTabBarFlags_TabListPopupButton -> TabListPopupButton
+      ImGuiTabBarFlags_NoCloseWithMiddleMouseButton -> NoCloseWithMiddleMouseButton
+      ImGuiTabBarFlags_NoTabListScrollingButtons -> NoTabListScrollingButtons
+      ImGuiTabBarFlags_NoTooltip -> NoTooltip
+      ImGuiTabBarFlags_FittingPolicyResizeDown -> FittingPolicyResizeDown
+      ImGuiTabBarFlags_FittingPolicyScroll -> FittingPolicyScroll
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+
+    fun fromMultiple(value: cimgui.internal.ImGuiTabBarFlags): Flag<ImGuiTabBarFlags> =
+        Flag(value.convert(), cachedInfo)
   }
 }

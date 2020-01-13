@@ -1,5 +1,6 @@
 package com.imgui
 
+import cimgui.internal.ImGuiWindowFlags_
 import cimgui.internal.ImGuiWindowFlags_AlwaysAutoResize
 import cimgui.internal.ImGuiWindowFlags_AlwaysHorizontalScrollbar
 import cimgui.internal.ImGuiWindowFlags_AlwaysUseWindowPadding
@@ -29,62 +30,62 @@ import cimgui.internal.ImGuiWindowFlags_NoTitleBar
 import cimgui.internal.ImGuiWindowFlags_Popup
 import cimgui.internal.ImGuiWindowFlags_Tooltip
 import cimgui.internal.ImGuiWindowFlags_UnsavedDocument
-import kotlin.Int
+import kotlinx.cinterop.convert
 
 enum class ImGuiWindowFlags(
-  override val value: Int
+  override val value: cimgui.internal.ImGuiWindowFlags
 ) : Flag<ImGuiWindowFlags> {
-  NoTitleBar(ImGuiWindowFlags_NoTitleBar.toInt()),
+  NoTitleBar(ImGuiWindowFlags_NoTitleBar.convert()),
 
-  NoResize(ImGuiWindowFlags_NoResize.toInt()),
+  NoResize(ImGuiWindowFlags_NoResize.convert()),
 
-  NoMove(ImGuiWindowFlags_NoMove.toInt()),
+  NoMove(ImGuiWindowFlags_NoMove.convert()),
 
-  NoScrollbar(ImGuiWindowFlags_NoScrollbar.toInt()),
+  NoScrollbar(ImGuiWindowFlags_NoScrollbar.convert()),
 
-  NoScrollWithMouse(ImGuiWindowFlags_NoScrollWithMouse.toInt()),
+  NoScrollWithMouse(ImGuiWindowFlags_NoScrollWithMouse.convert()),
 
-  NoCollapse(ImGuiWindowFlags_NoCollapse.toInt()),
+  NoCollapse(ImGuiWindowFlags_NoCollapse.convert()),
 
-  AlwaysAutoResize(ImGuiWindowFlags_AlwaysAutoResize.toInt()),
+  AlwaysAutoResize(ImGuiWindowFlags_AlwaysAutoResize.convert()),
 
-  NoBackground(ImGuiWindowFlags_NoBackground.toInt()),
+  NoBackground(ImGuiWindowFlags_NoBackground.convert()),
 
-  NoSavedSettings(ImGuiWindowFlags_NoSavedSettings.toInt()),
+  NoSavedSettings(ImGuiWindowFlags_NoSavedSettings.convert()),
 
-  NoMouseInputs(ImGuiWindowFlags_NoMouseInputs.toInt()),
+  NoMouseInputs(ImGuiWindowFlags_NoMouseInputs.convert()),
 
-  MenuBar(ImGuiWindowFlags_MenuBar.toInt()),
+  MenuBar(ImGuiWindowFlags_MenuBar.convert()),
 
-  HorizontalScrollbar(ImGuiWindowFlags_HorizontalScrollbar.toInt()),
+  HorizontalScrollbar(ImGuiWindowFlags_HorizontalScrollbar.convert()),
 
-  NoFocusOnAppearing(ImGuiWindowFlags_NoFocusOnAppearing.toInt()),
+  NoFocusOnAppearing(ImGuiWindowFlags_NoFocusOnAppearing.convert()),
 
-  NoBringToFrontOnFocus(ImGuiWindowFlags_NoBringToFrontOnFocus.toInt()),
+  NoBringToFrontOnFocus(ImGuiWindowFlags_NoBringToFrontOnFocus.convert()),
 
-  AlwaysVerticalScrollbar(ImGuiWindowFlags_AlwaysVerticalScrollbar.toInt()),
+  AlwaysVerticalScrollbar(ImGuiWindowFlags_AlwaysVerticalScrollbar.convert()),
 
-  AlwaysHorizontalScrollbar(ImGuiWindowFlags_AlwaysHorizontalScrollbar.toInt()),
+  AlwaysHorizontalScrollbar(ImGuiWindowFlags_AlwaysHorizontalScrollbar.convert()),
 
-  AlwaysUseWindowPadding(ImGuiWindowFlags_AlwaysUseWindowPadding.toInt()),
+  AlwaysUseWindowPadding(ImGuiWindowFlags_AlwaysUseWindowPadding.convert()),
 
-  NoNavInputs(ImGuiWindowFlags_NoNavInputs.toInt()),
+  NoNavInputs(ImGuiWindowFlags_NoNavInputs.convert()),
 
-  NoNavFocus(ImGuiWindowFlags_NoNavFocus.toInt()),
+  NoNavFocus(ImGuiWindowFlags_NoNavFocus.convert()),
 
-  UnsavedDocument(ImGuiWindowFlags_UnsavedDocument.toInt()),
+  UnsavedDocument(ImGuiWindowFlags_UnsavedDocument.convert()),
 
-  NavFlattened(ImGuiWindowFlags_NavFlattened.toInt()),
+  NavFlattened(ImGuiWindowFlags_NavFlattened.convert()),
 
-  ChildWindow(ImGuiWindowFlags_ChildWindow.toInt()),
+  ChildWindow(ImGuiWindowFlags_ChildWindow.convert()),
 
-  Tooltip(ImGuiWindowFlags_Tooltip.toInt()),
+  Tooltip(ImGuiWindowFlags_Tooltip.convert()),
 
-  Popup(ImGuiWindowFlags_Popup.toInt()),
+  Popup(ImGuiWindowFlags_Popup.convert()),
 
-  Modal(ImGuiWindowFlags_Modal.toInt()),
+  Modal(ImGuiWindowFlags_Modal.convert()),
 
-  ChildMenu(ImGuiWindowFlags_ChildMenu.toInt());
+  ChildMenu(ImGuiWindowFlags_ChildMenu.convert());
 
   override val info: Flag.EnumInfo<ImGuiWindowFlags>
     get() = cachedInfo
@@ -97,5 +98,40 @@ enum class ImGuiWindowFlags(
         cachedInfo)
 
     val NoInputs: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoInputs.toInt(), cachedInfo)
+
+    fun from(value: cimgui.internal.ImGuiWindowFlags): ImGuiWindowFlags = when
+        (value.convert<ImGuiWindowFlags_>()) {
+      ImGuiWindowFlags_NoTitleBar -> NoTitleBar
+      ImGuiWindowFlags_NoResize -> NoResize
+      ImGuiWindowFlags_NoMove -> NoMove
+      ImGuiWindowFlags_NoScrollbar -> NoScrollbar
+      ImGuiWindowFlags_NoScrollWithMouse -> NoScrollWithMouse
+      ImGuiWindowFlags_NoCollapse -> NoCollapse
+      ImGuiWindowFlags_AlwaysAutoResize -> AlwaysAutoResize
+      ImGuiWindowFlags_NoBackground -> NoBackground
+      ImGuiWindowFlags_NoSavedSettings -> NoSavedSettings
+      ImGuiWindowFlags_NoMouseInputs -> NoMouseInputs
+      ImGuiWindowFlags_MenuBar -> MenuBar
+      ImGuiWindowFlags_HorizontalScrollbar -> HorizontalScrollbar
+      ImGuiWindowFlags_NoFocusOnAppearing -> NoFocusOnAppearing
+      ImGuiWindowFlags_NoBringToFrontOnFocus -> NoBringToFrontOnFocus
+      ImGuiWindowFlags_AlwaysVerticalScrollbar -> AlwaysVerticalScrollbar
+      ImGuiWindowFlags_AlwaysHorizontalScrollbar -> AlwaysHorizontalScrollbar
+      ImGuiWindowFlags_AlwaysUseWindowPadding -> AlwaysUseWindowPadding
+      ImGuiWindowFlags_NoNavInputs -> NoNavInputs
+      ImGuiWindowFlags_NoNavFocus -> NoNavFocus
+      ImGuiWindowFlags_UnsavedDocument -> UnsavedDocument
+      ImGuiWindowFlags_NavFlattened -> NavFlattened
+      ImGuiWindowFlags_ChildWindow -> ChildWindow
+      ImGuiWindowFlags_Tooltip -> Tooltip
+      ImGuiWindowFlags_Popup -> Popup
+      ImGuiWindowFlags_Modal -> Modal
+      ImGuiWindowFlags_ChildMenu -> ChildMenu
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+
+    fun fromMultiple(value: cimgui.internal.ImGuiWindowFlags): Flag<ImGuiWindowFlags> =
+        Flag(value.convert(), cachedInfo)
   }
 }

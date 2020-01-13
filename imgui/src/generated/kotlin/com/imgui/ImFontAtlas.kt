@@ -11,6 +11,9 @@ inline class ImFontAtlas(
   val locked: Boolean
     get() = ptr.pointed.Locked
 
+  val flags: Flag<ImFontAtlasFlags>
+    get() = ptr.pointed.Flags.let { ImFontAtlasFlags.fromMultiple(it) }
+
   val texID: ImTextureID?
     get() = ptr.pointed.TexID?.let(::ImTextureID)
 

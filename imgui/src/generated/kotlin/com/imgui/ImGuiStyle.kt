@@ -26,6 +26,9 @@ inline class ImGuiStyle(
   val windowTitleAlign: Vec2
     get() = ptr.pointed.WindowTitleAlign.fromCValue()
 
+  val windowMenuButtonPosition: ImGuiDir
+    get() = ptr.pointed.WindowMenuButtonPosition.let { ImGuiDir.from(it) }
+
   val childRounding: Float
     get() = ptr.pointed.ChildRounding
 
@@ -79,6 +82,9 @@ inline class ImGuiStyle(
 
   val tabBorderSize: Float
     get() = ptr.pointed.TabBorderSize
+
+  val colorButtonPosition: ImGuiDir
+    get() = ptr.pointed.ColorButtonPosition.let { ImGuiDir.from(it) }
 
   val buttonTextAlign: Vec2
     get() = ptr.pointed.ButtonTextAlign.fromCValue()

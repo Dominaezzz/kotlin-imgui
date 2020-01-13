@@ -1,5 +1,6 @@
 package com.imgui
 
+import cimgui.internal.ImGuiComboFlags_
 import cimgui.internal.ImGuiComboFlags_HeightLarge
 import cimgui.internal.ImGuiComboFlags_HeightLargest
 import cimgui.internal.ImGuiComboFlags_HeightMask_
@@ -8,24 +9,24 @@ import cimgui.internal.ImGuiComboFlags_HeightSmall
 import cimgui.internal.ImGuiComboFlags_NoArrowButton
 import cimgui.internal.ImGuiComboFlags_NoPreview
 import cimgui.internal.ImGuiComboFlags_PopupAlignLeft
-import kotlin.Int
+import kotlinx.cinterop.convert
 
 enum class ImGuiComboFlags(
-  override val value: Int
+  override val value: cimgui.internal.ImGuiComboFlags
 ) : Flag<ImGuiComboFlags> {
-  PopupAlignLeft(ImGuiComboFlags_PopupAlignLeft.toInt()),
+  PopupAlignLeft(ImGuiComboFlags_PopupAlignLeft.convert()),
 
-  HeightSmall(ImGuiComboFlags_HeightSmall.toInt()),
+  HeightSmall(ImGuiComboFlags_HeightSmall.convert()),
 
-  HeightRegular(ImGuiComboFlags_HeightRegular.toInt()),
+  HeightRegular(ImGuiComboFlags_HeightRegular.convert()),
 
-  HeightLarge(ImGuiComboFlags_HeightLarge.toInt()),
+  HeightLarge(ImGuiComboFlags_HeightLarge.convert()),
 
-  HeightLargest(ImGuiComboFlags_HeightLargest.toInt()),
+  HeightLargest(ImGuiComboFlags_HeightLargest.convert()),
 
-  NoArrowButton(ImGuiComboFlags_NoArrowButton.toInt()),
+  NoArrowButton(ImGuiComboFlags_NoArrowButton.convert()),
 
-  NoPreview(ImGuiComboFlags_NoPreview.toInt());
+  NoPreview(ImGuiComboFlags_NoPreview.convert());
 
   override val info: Flag.EnumInfo<ImGuiComboFlags>
     get() = cachedInfo
@@ -33,5 +34,21 @@ enum class ImGuiComboFlags(
     private val cachedInfo: Flag.EnumInfo<ImGuiComboFlags> = Flag.enumInfo()
 
     val HeightMask_: Flag<ImGuiComboFlags> = Flag(ImGuiComboFlags_HeightMask_.toInt(), cachedInfo)
+
+    fun from(value: cimgui.internal.ImGuiComboFlags): ImGuiComboFlags = when
+        (value.convert<ImGuiComboFlags_>()) {
+      ImGuiComboFlags_PopupAlignLeft -> PopupAlignLeft
+      ImGuiComboFlags_HeightSmall -> HeightSmall
+      ImGuiComboFlags_HeightRegular -> HeightRegular
+      ImGuiComboFlags_HeightLarge -> HeightLarge
+      ImGuiComboFlags_HeightLargest -> HeightLargest
+      ImGuiComboFlags_NoArrowButton -> NoArrowButton
+      ImGuiComboFlags_NoPreview -> NoPreview
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+
+    fun fromMultiple(value: cimgui.internal.ImGuiComboFlags): Flag<ImGuiComboFlags> =
+        Flag(value.convert(), cachedInfo)
   }
 }

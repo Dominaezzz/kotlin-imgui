@@ -24,53 +24,85 @@ import cimgui.internal.ImGuiNavInput_LStickUp
 import cimgui.internal.ImGuiNavInput_Menu
 import cimgui.internal.ImGuiNavInput_TweakFast
 import cimgui.internal.ImGuiNavInput_TweakSlow
+import kotlinx.cinterop.convert
 
 enum class ImGuiNavInput(
-  val value: ImGuiNavInput_
+  val value: cimgui.internal.ImGuiNavInput
 ) {
-  Activate(ImGuiNavInput_Activate),
+  Activate(ImGuiNavInput_Activate.convert()),
 
-  Cancel(ImGuiNavInput_Cancel),
+  Cancel(ImGuiNavInput_Cancel.convert()),
 
-  Input(ImGuiNavInput_Input),
+  Input(ImGuiNavInput_Input.convert()),
 
-  Menu(ImGuiNavInput_Menu),
+  Menu(ImGuiNavInput_Menu.convert()),
 
-  DpadLeft(ImGuiNavInput_DpadLeft),
+  DpadLeft(ImGuiNavInput_DpadLeft.convert()),
 
-  DpadRight(ImGuiNavInput_DpadRight),
+  DpadRight(ImGuiNavInput_DpadRight.convert()),
 
-  DpadUp(ImGuiNavInput_DpadUp),
+  DpadUp(ImGuiNavInput_DpadUp.convert()),
 
-  DpadDown(ImGuiNavInput_DpadDown),
+  DpadDown(ImGuiNavInput_DpadDown.convert()),
 
-  LStickLeft(ImGuiNavInput_LStickLeft),
+  LStickLeft(ImGuiNavInput_LStickLeft.convert()),
 
-  LStickRight(ImGuiNavInput_LStickRight),
+  LStickRight(ImGuiNavInput_LStickRight.convert()),
 
-  LStickUp(ImGuiNavInput_LStickUp),
+  LStickUp(ImGuiNavInput_LStickUp.convert()),
 
-  LStickDown(ImGuiNavInput_LStickDown),
+  LStickDown(ImGuiNavInput_LStickDown.convert()),
 
-  FocusPrev(ImGuiNavInput_FocusPrev),
+  FocusPrev(ImGuiNavInput_FocusPrev.convert()),
 
-  FocusNext(ImGuiNavInput_FocusNext),
+  FocusNext(ImGuiNavInput_FocusNext.convert()),
 
-  TweakSlow(ImGuiNavInput_TweakSlow),
+  TweakSlow(ImGuiNavInput_TweakSlow.convert()),
 
-  TweakFast(ImGuiNavInput_TweakFast),
+  TweakFast(ImGuiNavInput_TweakFast.convert()),
 
-  KeyMenu_(ImGuiNavInput_KeyMenu_),
+  KeyMenu_(ImGuiNavInput_KeyMenu_.convert()),
 
-  KeyTab_(ImGuiNavInput_KeyTab_),
+  KeyTab_(ImGuiNavInput_KeyTab_.convert()),
 
-  KeyLeft_(ImGuiNavInput_KeyLeft_),
+  KeyLeft_(ImGuiNavInput_KeyLeft_.convert()),
 
-  KeyRight_(ImGuiNavInput_KeyRight_),
+  KeyRight_(ImGuiNavInput_KeyRight_.convert()),
 
-  KeyUp_(ImGuiNavInput_KeyUp_),
+  KeyUp_(ImGuiNavInput_KeyUp_.convert()),
 
-  KeyDown_(ImGuiNavInput_KeyDown_),
+  KeyDown_(ImGuiNavInput_KeyDown_.convert()),
 
-  InternalStart_(ImGuiNavInput_InternalStart_);
+  InternalStart_(ImGuiNavInput_InternalStart_.convert());
+
+  companion object {
+    fun from(value: cimgui.internal.ImGuiNavInput): ImGuiNavInput = when
+        (value.convert<ImGuiNavInput_>()) {
+      ImGuiNavInput_Activate -> Activate
+      ImGuiNavInput_Cancel -> Cancel
+      ImGuiNavInput_Input -> Input
+      ImGuiNavInput_Menu -> Menu
+      ImGuiNavInput_DpadLeft -> DpadLeft
+      ImGuiNavInput_DpadRight -> DpadRight
+      ImGuiNavInput_DpadUp -> DpadUp
+      ImGuiNavInput_DpadDown -> DpadDown
+      ImGuiNavInput_LStickLeft -> LStickLeft
+      ImGuiNavInput_LStickRight -> LStickRight
+      ImGuiNavInput_LStickUp -> LStickUp
+      ImGuiNavInput_LStickDown -> LStickDown
+      ImGuiNavInput_FocusPrev -> FocusPrev
+      ImGuiNavInput_FocusNext -> FocusNext
+      ImGuiNavInput_TweakSlow -> TweakSlow
+      ImGuiNavInput_TweakFast -> TweakFast
+      ImGuiNavInput_KeyMenu_ -> KeyMenu_
+      ImGuiNavInput_KeyTab_ -> KeyTab_
+      ImGuiNavInput_KeyLeft_ -> KeyLeft_
+      ImGuiNavInput_KeyRight_ -> KeyRight_
+      ImGuiNavInput_KeyUp_ -> KeyUp_
+      ImGuiNavInput_KeyDown_ -> KeyDown_
+      ImGuiNavInput_InternalStart_ -> InternalStart_
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+  }
 }

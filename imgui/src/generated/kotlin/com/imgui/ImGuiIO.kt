@@ -11,6 +11,12 @@ import kotlinx.cinterop.toKString
 inline class ImGuiIO(
   val ptr: CPointer<cimgui.internal.ImGuiIO>
 ) {
+  val configFlags: Flag<ImGuiConfigFlags>
+    get() = ptr.pointed.ConfigFlags.let { ImGuiConfigFlags.fromMultiple(it) }
+
+  val backendFlags: Flag<ImGuiBackendFlags>
+    get() = ptr.pointed.BackendFlags.let { ImGuiBackendFlags.fromMultiple(it) }
+
   val displaySize: Vec2
     get() = ptr.pointed.DisplaySize.fromCValue()
 

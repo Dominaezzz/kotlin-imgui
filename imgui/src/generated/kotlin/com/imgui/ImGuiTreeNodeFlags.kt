@@ -1,5 +1,6 @@
 package com.imgui
 
+import cimgui.internal.ImGuiTreeNodeFlags_
 import cimgui.internal.ImGuiTreeNodeFlags_AllowItemOverlap
 import cimgui.internal.ImGuiTreeNodeFlags_Bullet
 import cimgui.internal.ImGuiTreeNodeFlags_CollapsingHeader
@@ -15,38 +16,38 @@ import cimgui.internal.ImGuiTreeNodeFlags_OpenOnDoubleClick
 import cimgui.internal.ImGuiTreeNodeFlags_Selected
 import cimgui.internal.ImGuiTreeNodeFlags_SpanAvailWidth
 import cimgui.internal.ImGuiTreeNodeFlags_SpanFullWidth
-import kotlin.Int
+import kotlinx.cinterop.convert
 
 enum class ImGuiTreeNodeFlags(
-  override val value: Int
+  override val value: cimgui.internal.ImGuiTreeNodeFlags
 ) : Flag<ImGuiTreeNodeFlags> {
-  Selected(ImGuiTreeNodeFlags_Selected.toInt()),
+  Selected(ImGuiTreeNodeFlags_Selected.convert()),
 
-  Framed(ImGuiTreeNodeFlags_Framed.toInt()),
+  Framed(ImGuiTreeNodeFlags_Framed.convert()),
 
-  AllowItemOverlap(ImGuiTreeNodeFlags_AllowItemOverlap.toInt()),
+  AllowItemOverlap(ImGuiTreeNodeFlags_AllowItemOverlap.convert()),
 
-  NoTreePushOnOpen(ImGuiTreeNodeFlags_NoTreePushOnOpen.toInt()),
+  NoTreePushOnOpen(ImGuiTreeNodeFlags_NoTreePushOnOpen.convert()),
 
-  NoAutoOpenOnLog(ImGuiTreeNodeFlags_NoAutoOpenOnLog.toInt()),
+  NoAutoOpenOnLog(ImGuiTreeNodeFlags_NoAutoOpenOnLog.convert()),
 
-  DefaultOpen(ImGuiTreeNodeFlags_DefaultOpen.toInt()),
+  DefaultOpen(ImGuiTreeNodeFlags_DefaultOpen.convert()),
 
-  OpenOnDoubleClick(ImGuiTreeNodeFlags_OpenOnDoubleClick.toInt()),
+  OpenOnDoubleClick(ImGuiTreeNodeFlags_OpenOnDoubleClick.convert()),
 
-  OpenOnArrow(ImGuiTreeNodeFlags_OpenOnArrow.toInt()),
+  OpenOnArrow(ImGuiTreeNodeFlags_OpenOnArrow.convert()),
 
-  Leaf(ImGuiTreeNodeFlags_Leaf.toInt()),
+  Leaf(ImGuiTreeNodeFlags_Leaf.convert()),
 
-  Bullet(ImGuiTreeNodeFlags_Bullet.toInt()),
+  Bullet(ImGuiTreeNodeFlags_Bullet.convert()),
 
-  FramePadding(ImGuiTreeNodeFlags_FramePadding.toInt()),
+  FramePadding(ImGuiTreeNodeFlags_FramePadding.convert()),
 
-  SpanAvailWidth(ImGuiTreeNodeFlags_SpanAvailWidth.toInt()),
+  SpanAvailWidth(ImGuiTreeNodeFlags_SpanAvailWidth.convert()),
 
-  SpanFullWidth(ImGuiTreeNodeFlags_SpanFullWidth.toInt()),
+  SpanFullWidth(ImGuiTreeNodeFlags_SpanFullWidth.convert()),
 
-  NavLeftJumpsBackHere(ImGuiTreeNodeFlags_NavLeftJumpsBackHere.toInt());
+  NavLeftJumpsBackHere(ImGuiTreeNodeFlags_NavLeftJumpsBackHere.convert());
 
   override val info: Flag.EnumInfo<ImGuiTreeNodeFlags>
     get() = cachedInfo
@@ -55,5 +56,28 @@ enum class ImGuiTreeNodeFlags(
 
     val CollapsingHeader: Flag<ImGuiTreeNodeFlags> =
         Flag(ImGuiTreeNodeFlags_CollapsingHeader.toInt(), cachedInfo)
+
+    fun from(value: cimgui.internal.ImGuiTreeNodeFlags): ImGuiTreeNodeFlags = when
+        (value.convert<ImGuiTreeNodeFlags_>()) {
+      ImGuiTreeNodeFlags_Selected -> Selected
+      ImGuiTreeNodeFlags_Framed -> Framed
+      ImGuiTreeNodeFlags_AllowItemOverlap -> AllowItemOverlap
+      ImGuiTreeNodeFlags_NoTreePushOnOpen -> NoTreePushOnOpen
+      ImGuiTreeNodeFlags_NoAutoOpenOnLog -> NoAutoOpenOnLog
+      ImGuiTreeNodeFlags_DefaultOpen -> DefaultOpen
+      ImGuiTreeNodeFlags_OpenOnDoubleClick -> OpenOnDoubleClick
+      ImGuiTreeNodeFlags_OpenOnArrow -> OpenOnArrow
+      ImGuiTreeNodeFlags_Leaf -> Leaf
+      ImGuiTreeNodeFlags_Bullet -> Bullet
+      ImGuiTreeNodeFlags_FramePadding -> FramePadding
+      ImGuiTreeNodeFlags_SpanAvailWidth -> SpanAvailWidth
+      ImGuiTreeNodeFlags_SpanFullWidth -> SpanFullWidth
+      ImGuiTreeNodeFlags_NavLeftJumpsBackHere -> NavLeftJumpsBackHere
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+
+    fun fromMultiple(value: cimgui.internal.ImGuiTreeNodeFlags): Flag<ImGuiTreeNodeFlags> =
+        Flag(value.convert(), cachedInfo)
   }
 }

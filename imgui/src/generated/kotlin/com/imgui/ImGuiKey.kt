@@ -23,51 +23,81 @@ import cimgui.internal.ImGuiKey_V
 import cimgui.internal.ImGuiKey_X
 import cimgui.internal.ImGuiKey_Y
 import cimgui.internal.ImGuiKey_Z
+import kotlinx.cinterop.convert
 
 enum class ImGuiKey(
-  val value: ImGuiKey_
+  val value: cimgui.internal.ImGuiKey
 ) {
-  Tab(ImGuiKey_Tab),
+  Tab(ImGuiKey_Tab.convert()),
 
-  LeftArrow(ImGuiKey_LeftArrow),
+  LeftArrow(ImGuiKey_LeftArrow.convert()),
 
-  RightArrow(ImGuiKey_RightArrow),
+  RightArrow(ImGuiKey_RightArrow.convert()),
 
-  UpArrow(ImGuiKey_UpArrow),
+  UpArrow(ImGuiKey_UpArrow.convert()),
 
-  DownArrow(ImGuiKey_DownArrow),
+  DownArrow(ImGuiKey_DownArrow.convert()),
 
-  PageUp(ImGuiKey_PageUp),
+  PageUp(ImGuiKey_PageUp.convert()),
 
-  PageDown(ImGuiKey_PageDown),
+  PageDown(ImGuiKey_PageDown.convert()),
 
-  Home(ImGuiKey_Home),
+  Home(ImGuiKey_Home.convert()),
 
-  End(ImGuiKey_End),
+  End(ImGuiKey_End.convert()),
 
-  Insert(ImGuiKey_Insert),
+  Insert(ImGuiKey_Insert.convert()),
 
-  Delete(ImGuiKey_Delete),
+  Delete(ImGuiKey_Delete.convert()),
 
-  Backspace(ImGuiKey_Backspace),
+  Backspace(ImGuiKey_Backspace.convert()),
 
-  Space(ImGuiKey_Space),
+  Space(ImGuiKey_Space.convert()),
 
-  Enter(ImGuiKey_Enter),
+  Enter(ImGuiKey_Enter.convert()),
 
-  Escape(ImGuiKey_Escape),
+  Escape(ImGuiKey_Escape.convert()),
 
-  KeyPadEnter(ImGuiKey_KeyPadEnter),
+  KeyPadEnter(ImGuiKey_KeyPadEnter.convert()),
 
-  A(ImGuiKey_A),
+  A(ImGuiKey_A.convert()),
 
-  C(ImGuiKey_C),
+  C(ImGuiKey_C.convert()),
 
-  V(ImGuiKey_V),
+  V(ImGuiKey_V.convert()),
 
-  X(ImGuiKey_X),
+  X(ImGuiKey_X.convert()),
 
-  Y(ImGuiKey_Y),
+  Y(ImGuiKey_Y.convert()),
 
-  Z(ImGuiKey_Z);
+  Z(ImGuiKey_Z.convert());
+
+  companion object {
+    fun from(value: cimgui.internal.ImGuiKey): ImGuiKey = when (value.convert<ImGuiKey_>()) {
+      ImGuiKey_Tab -> Tab
+      ImGuiKey_LeftArrow -> LeftArrow
+      ImGuiKey_RightArrow -> RightArrow
+      ImGuiKey_UpArrow -> UpArrow
+      ImGuiKey_DownArrow -> DownArrow
+      ImGuiKey_PageUp -> PageUp
+      ImGuiKey_PageDown -> PageDown
+      ImGuiKey_Home -> Home
+      ImGuiKey_End -> End
+      ImGuiKey_Insert -> Insert
+      ImGuiKey_Delete -> Delete
+      ImGuiKey_Backspace -> Backspace
+      ImGuiKey_Space -> Space
+      ImGuiKey_Enter -> Enter
+      ImGuiKey_Escape -> Escape
+      ImGuiKey_KeyPadEnter -> KeyPadEnter
+      ImGuiKey_A -> A
+      ImGuiKey_C -> C
+      ImGuiKey_V -> V
+      ImGuiKey_X -> X
+      ImGuiKey_Y -> Y
+      ImGuiKey_Z -> Z
+      else -> throw NoSuchElementException("""Unknown enum constant $value""")
+    }
+
+  }
 }

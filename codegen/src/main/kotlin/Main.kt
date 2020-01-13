@@ -78,12 +78,53 @@ fun main(args: Array<String>) {
 			.filter { (enumName, entries) ->
 				enumName.endsWith("Flags_") || entries.any { it.value.contains("<<") }
 			}.map { it.key }.toSet()
+
+	// Returns an appendable converter, to convert from cimgui value to Kotlin value.
+	fun convertNativeTypeToKt(type: String): Pair<TypeName, CodeBlock> {
+		val imGuiPackageName = "com.imgui"
+
+		return when (type) {
+			"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
+			"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
+			"ImVec4" -> VEC4 to CodeBlock.of(".fromCValue()")
+			"ImWchar" -> CHAR to CodeBlock.of(".toShort().toChar()")
+			in valueTypes -> {
+				val typeKt = ClassName(imGuiPackageName, type)
+				typeKt to CodeBlock.of(".let(::%T)", typeKt)
+			}
+			in simpleTypeMap.keys -> simpleTypeMap.getValue(type) to CodeBlock.of("")
+			else -> {
+				if ("${type}_"  in enums.keys) {
+					val enumType = ClassName(imGuiPackageName, type)
+					if ("${type}_" in enumBitMasks){
+						val typeKt = FLAG.parameterizedBy(enumType)
+						typeKt to CodeBlock.of(".let { %T.fromMultiple(it) }", enumType)
+					} else {
+						enumType to CodeBlock.of(".let { %T.from(it) }", enumType)
+					}
+				} else if (type.endsWith('*')) {
+					// ImGuiContext* -> ImGuiContext
+					// const ImVec4* -> ImVec4
+					val derefType = type.dropLast(1).removePrefix("const ")
+					if (derefType in privateTypes || derefType in structs.keys) {
+						val typeKt = ClassName(imGuiPackageName, derefType)
+						typeKt to CodeBlock.of(".let(::%T)", typeKt)
+					} else {
+						TODO()
+					}
+				} else {
+					TODO()
+				}
+			}
+		}
+	}
+
 	for ((enumName, entries) in enums) {
 		val isBitmask = enumName in enumBitMasks
 
 		val enumNameKt = enumName.dropLast(1) // Remove trailing underscore.
 		val enumClass = ClassName("com.imgui", enumNameKt)
-		val enumValueType = if (isBitmask) INT else ClassName("cimgui.internal", enumName)
+		val enumValueType = ClassName("cimgui.internal", enumNameKt)
 
 		val enum = TypeSpec.enumBuilder(enumClass)
 		enum.primaryConstructor(FunSpec.constructorBuilder()
@@ -99,6 +140,8 @@ fun main(args: Array<String>) {
 		enum.addProperty(valueProp.build())
 
 		val compositeFlags = mutableListOf<Pair<String, CodeBlock>>()
+		val lookUpTable = CodeBlock.builder()
+		lookUpTable.beginControlFlow("when (value.%M<%T>())", CONVERT, ClassName("cimgui.internal", enumName))
 
 		for (enumValue in entries) {
 			val enumValueNameKt = enumValue.name.removePrefix(enumName)
@@ -121,23 +164,30 @@ fun main(args: Array<String>) {
 				continue
 			}
 
-			val constParam = if (isBitmask) {
-				CodeBlock.of("%M.toInt()", member)
-			} else {
-				CodeBlock.of("%M", member)
-			}
+			val constParam = CodeBlock.of("%M.%M()", member, CONVERT)
 			enum.addEnumConstant(enumValueNameKt, TypeSpec.anonymousClassBuilder()
 					.addSuperclassConstructorParameter(constParam)
 					.build())
+			lookUpTable.addStatement("%N -> %N", enumValue.name, enumValueNameKt)
 		}
+
+		lookUpTable.addStatement("else -> throw NoSuchElementException(%P)", "Unknown enum constant \$value")
+		lookUpTable.endControlFlow()
+
+		val companionObject = TypeSpec.companionObjectBuilder()
+
+		companionObject.addFunction(FunSpec.builder("from")
+				.returns(enumClass)
+				.addParameter("value", enumValueType)
+				.addStatement("return %L", lookUpTable.build())
+				.build())
 
 		if (isBitmask) {
 			val enumInfoType = FLAG
 					.nestedClass("EnumInfo")
 					.parameterizedBy(enumClass)
 
-			val companionObject = TypeSpec.companionObjectBuilder()
-					.addProperty(PropertySpec.builder("cachedInfo", enumInfoType, KModifier.PRIVATE)
+			companionObject.addProperty(PropertySpec.builder("cachedInfo", enumInfoType, KModifier.PRIVATE)
 							.initializer("%T.enumInfo()", FLAG)
 							.build())
 			for ((propName, initializer) in compositeFlags) {
@@ -145,12 +195,18 @@ fun main(args: Array<String>) {
 						.initializer(initializer)
 						.build())
 			}
-			enum.addType(companionObject.build())
+
+			companionObject.addFunction(FunSpec.builder("fromMultiple")
+					.returns(FLAG.parameterizedBy(enumClass))
+					.addParameter("value", enumValueType)
+					.addStatement("return %T(value.%M(), cachedInfo)", FLAG, CONVERT)
+					.build())
 
 			enum.addProperty(PropertySpec.builder("info", enumInfoType, KModifier.OVERRIDE)
 					.getter(FunSpec.getterBuilder().addCode("return cachedInfo").build())
 					.build())
 		}
+		enum.addType(companionObject.build())
 
 		FileSpec.get("com.imgui", enum.build()).writeTo(outputDir)
 	}
@@ -180,7 +236,7 @@ fun main(args: Array<String>) {
 				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
 				val shouldAssert = !canBeNull || member.type == "const char*"
 				try {
-					val (typeKt, converter) = convertNativeTypeToKt(member.type, structs.keys)
+					val (typeKt, converter) = convertNativeTypeToKt(member.type)
 					// If return value can be null and we're not asserting, then we return nullable.
 					val prop = PropertySpec.builder(memberNameKt, typeKt.copy(canBeNull && !shouldAssert))
 
@@ -436,7 +492,7 @@ fun main(args: Array<String>) {
 			val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
 			val shouldAssert = overload.returnType != "const char*"
 			try {
-				val (typeKt, converter) = convertNativeTypeToKt(overload.returnType, structs.keys)
+				val (typeKt, converter) = convertNativeTypeToKt(overload.returnType)
 				// If return value can be null and we're not asserting, then we return nullable.
 				functionKt.returns(typeKt.copy(canBeNull && !shouldAssert))
 				functionKt.addCode("return ")
@@ -457,38 +513,6 @@ fun main(args: Array<String>) {
 	FileSpec.get("com.imgui", imguiObj.build())
 			.toBuilder().indent("    ").build()
 			.writeTo(outputDir)
-}
-
-// Returns an appendable converter, to convert from cimgui value to Kotlin value.
-fun convertNativeTypeToKt(type: String, structNames: Set<String>): Pair<TypeName, CodeBlock> {
-	val imGuiPackageName = "com.imgui"
-
-	return when (type) {
-		"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
-		"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
-		"ImVec4" -> VEC4 to CodeBlock.of(".fromCValue()")
-		"ImWchar" -> CHAR to CodeBlock.of(".toShort().toChar()")
-		in valueTypes -> {
-			val typeKt = ClassName(imGuiPackageName, type)
-			typeKt to CodeBlock.of(".let(::%T)", typeKt)
-		}
-		in simpleTypeMap.keys -> simpleTypeMap.getValue(type) to CodeBlock.of("")
-		else -> {
-			if (type.endsWith('*')) {
-				// ImGuiContext* -> ImGuiContext
-				// const ImVec4* -> ImVec4
-				val derefType = type.dropLast(1).removePrefix("const ")
-				if (derefType in privateTypes || derefType in structNames) {
-					val typeKt = ClassName(imGuiPackageName, derefType)
-					typeKt to CodeBlock.of(".let(::%T)", typeKt)
-				} else {
-					TODO()
-				}
-			} else {
-				TODO()
-			}
-		}
-	}
 }
 
 @Serializable
