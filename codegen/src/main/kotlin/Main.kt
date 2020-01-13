@@ -61,7 +61,10 @@ fun String.snakeToPascalCase(abbreviations: Set<String> = emptySet()): String {
 			.joinToString("")
 }
 
-val cArrayRegex = Regex("[a-z]+\\[[2-9]\\]")
+val cArrayRegex = Regex("([a-z]+)\\[([2-9])]")
+
+val vec2Regex = Regex("ImVec2\\((-?\\d+),(-?\\d+)\\)")
+val vec4Regex = Regex("ImVec4\\((-?\\d+),(-?\\d+),(-?\\d+),(-?\\d+)\\)")
 
 @UnstableDefault
 @ImplicitReflectionSerializer
@@ -119,6 +122,64 @@ fun main(args: Array<String>) {
 				}
 			}
 		}
+	}
+
+	data class FuncArg(val type: TypeName, val converter: CodeBlock = CodeBlock.of(""), val propToPtr: Boolean = false)
+
+	// Returns a appendable converter, to convert from (return) Kotlin type to cimgui value.
+	fun convertKotlinTypeToNative(type: String): FuncArg {
+		val imGuiPackageName = "com.imgui"
+
+		val simpleKtType = simpleTypeMap[type]
+		if (simpleKtType != null) {
+			return FuncArg(simpleKtType)
+		}
+		if (type in valueTypes) {
+			return FuncArg(ClassName("com.imgui", type), CodeBlock.of(".value"))
+		}
+		if (type == "const char*") {
+			return FuncArg(STRING)
+		}
+		if ("${type}_" in enums.keys) {
+			val isBitFlags = "${type}_" in enumBitMasks
+			val enumKt = ClassName("com.imgui", type)
+			val paramType = if (isBitFlags) FLAG.parameterizedBy(enumKt) else enumKt
+			val conv = if (isBitFlags) {
+				CodeBlock.of(".value ?: 0")
+			} else {
+				CodeBlock.of(".value.%M()", CONVERT)
+			}
+			return FuncArg(paramType, conv)
+		}
+		if (type == "const ImVec2" || type == "ImVec2") {
+			return FuncArg(VEC2, CodeBlock.of(".toCValue()"))
+		}
+		if (type == "const ImVec4" || type == "ImVec4") {
+			return FuncArg(VEC4, CodeBlock.of(".toCValue()"))
+		}
+		if (type.endsWith('*')) {
+			val derefType = type.dropLast(1).removePrefix("const ")
+			if (derefType in privateTypes || derefType in structs.keys) {
+				val typeKt = ClassName(imGuiPackageName, derefType)
+				return FuncArg(typeKt, CodeBlock.of(".ptr"))
+			}
+			if (type == "bool*" || type == "int*" || type == "unsigned int*" || type == "size_t*" || type == "float*" || type == "double*") {
+				val propType = when (derefType) {
+					"bool" -> BOOLEAN
+					"int" -> INT
+					"unsigned int" -> U_INT
+					"size_t" -> U_LONG
+					"float" -> FLOAT
+					"double" -> DOUBLE
+					else -> TODO()
+				}
+				return FuncArg(K_MUTABLE_PROPERTY.parameterizedBy(propType), propToPtr = true)
+			}
+		}
+		if (type == "float&") {
+			return FuncArg(K_MUTABLE_PROPERTY.parameterizedBy(FLOAT), propToPtr = true)
+		}
+		TODO()
 	}
 
 	for ((enumName, entries) in enums) {
@@ -319,163 +380,79 @@ fun main(args: Array<String>) {
 			val argNameKt = arg.name.snakeToPascalCase().decapitalize()
 			val defaultValue = defaultMap[arg.name]
 
-			val ktType = simpleTypeMap[arg.type]
-			if (ktType != null) {
-				val param = ParameterSpec.builder(argNameKt, ktType)
-				if (defaultValue != null) {
-					if (ktType == U_LONG) {
-						param.defaultValue("${defaultValue}uL")
-					} else {
-						param.defaultValue(defaultValue)
-					}
-				}
-				functionKt.addParameter(param.build())
-				arguments.add(CodeBlock.of("%N", argNameKt))
-			} else if (arg.type in valueTypes) {
-				functionKt.addParameter(argNameKt, ClassName("com.imgui", arg.type))
-				arguments.add(CodeBlock.of("%N.value", argNameKt))
-			} else if (arg.type.dropLast(1) in privateTypes) {
-				val type = ClassName("com.imgui", arg.type.dropLast(1))
-				if (defaultValue != null) {
-					check(defaultValue == "((void*)0)")
-					val param = ParameterSpec.builder(argNameKt, type.copy(nullable = true))
-							.defaultValue("null")
-					functionKt.addParameter(param.build())
-					arguments.add(CodeBlock.of("%N?.ptr", argNameKt))
-				} else {
-					functionKt.addParameter(argNameKt, type)
-					arguments.add(CodeBlock.of("%N.ptr", argNameKt))
-				}
-			} else if (arg.type == "const char*") {
-				val param = if (defaultValue != null) {
-					if (defaultValue == "((void*)0)") {
-						ParameterSpec.builder(argNameKt, STRING.copy(nullable = true))
-								.defaultValue("null")
-					} else {
-						ParameterSpec.builder(argNameKt, STRING)
-								.defaultValue("%L", defaultValue)
-					}
-				} else {
-					ParameterSpec.builder(argNameKt, STRING)
-				}
-				functionKt.addParameter(param.build())
-				arguments.add(CodeBlock.of("%N", argNameKt))
-			} else if (arg.type == "...") {
-				// functionKt.addParameter("args", ANY.copy(nullable = true), KModifier.VARARG)
-				// arguments.add(CodeBlock.of("*args"))
-				//
-				// // FIXME: When calling variadic C functions spread operator is supported only for *arrayOf(...)
-				// continue@defLoop
+			// Explicitly not supporting va_list functions.
+			if (arg.type == "va_list") continue@defLoop
 
-				continue // Just skip the param.
-			} else if (arg.type == "va_list") {
-				// Explicitly not supporting va_list
-				continue@defLoop
-			} else if (arg.type + "_" in enums.keys) {
-				val isBitFlags = arg.type + "_" in enumBitMasks
-				val enumKt = ClassName("com.imgui", arg.type)
-				val paramType = if (isBitFlags) FLAG.parameterizedBy(enumKt) else enumKt
-				val param = if (defaultValue != null) {
-					if (isBitFlags && defaultValue == "0") {
-						ParameterSpec.builder(argNameKt, paramType.copy(nullable = true))
-								.defaultValue("null")
-					} else {
-						ParameterSpec.builder(argNameKt, paramType).defaultValue(defaultValue)
-					}
-				} else {
-					ParameterSpec.builder(argNameKt, paramType)
-				}
-				val builtParam = param.build()
-				functionKt.addParameter(builtParam)
-				if (builtParam.type.isNullable) {
-					arguments.add(CodeBlock.of("%N?.value ?: 0", argNameKt))
-				} else {
-					arguments.add(CodeBlock.of("%N.value.%M()", argNameKt, CONVERT))
-				}
-			} else if (arg.type matches cArrayRegex) {
-				val size = arg.type.substring(arg.type.lastIndex - 1, arg.type.lastIndex).toInt()
-				functionKt.addCode("require($argNameKt.size >= $size)\n")
+			// Just skip the param. KN doesn't support this yet.
+			if (arg.type == "...") continue
+
+			if (arg.type matches cArrayRegex) {
+				val (elemType, sizeStr) = cArrayRegex.matchEntire(arg.type)!!.destructured
+
+				functionKt.addCode("require($argNameKt.size >= ${sizeStr.toInt()})\n")
 				val pinnedName = "pinned${argNameKt.capitalize()}"
 				functionKt.beginControlFlow("$argNameKt.%M { $pinnedName ->", USE_PINNED)
 				endControlFlowCount++
 
-				functionKt.addParameter(argNameKt, when (arg.type.substringBefore('[')) {
+				val paramType = when (elemType) {
 					"int" -> INT_ARRAY
 					"float" -> FLOAT_ARRAY
 					else -> TODO()
-				})
+				}
+				check(defaultValue == null)
+				functionKt.addParameter(argNameKt, paramType)
 				arguments.add(CodeBlock.of("$pinnedName.%M(0)", ADDRESS_OF))
-			} else if (arg.type == "bool*" || arg.type == "int*" || arg.type == "unsigned int*" || arg.type == "size_t*" || arg.type == "float*" || arg.type == "double*" || arg.type == "float&") {
-				val ptrName = "ptr${argNameKt.capitalize()}"
-
-				val propType = when (arg.type.dropLast(1)) {
-					"bool" -> BOOLEAN
-					"int" -> INT
-					"unsigned int" -> U_INT
-					"size_t" -> U_LONG
-					"float" -> FLOAT
-					"double" -> DOUBLE
-					else -> TODO()
-				}
-
-				val paramType = K_MUTABLE_PROPERTY.parameterizedBy(propType)
-				val param = if (defaultValue == null) {
-					functionKt.beginControlFlow("usingProperty($argNameKt) { $ptrName ->")
-					ParameterSpec.builder(argNameKt, paramType)
-				} else {
-					check(defaultValue == "((void*)0)")
-					functionKt.beginControlFlow("usingPropertyN($argNameKt) { $ptrName ->")
-					ParameterSpec.builder(argNameKt, paramType.copy(nullable = true))
-							.defaultValue("null")
-				}.build()
-				endControlFlowCount++
-				functionKt.addParameter(param)
-				arguments.add(CodeBlock.of("%N", ptrName))
-			} else if (arg.type == "const ImVec2" || arg.type == "ImVec2") {
-				val param = ParameterSpec.builder(argNameKt, VEC2)
-				if (defaultValue != null) {
-					if (defaultValue == "ImVec2(0,0)") {
-						param.defaultValue("Vec2.Zero")
-					} else {
-						val (x, y) = defaultValue.substringAfter('(').dropLast(1).split(',')
-						param.defaultValue("Vec2(${x}f, ${y}f)")
-					}
-				}
-				functionKt.addParameter(param.build())
-				arguments.add(CodeBlock.of("%N.toCValue()", argNameKt))
-			} else if (arg.type == "const ImVec4") {
-				val param = ParameterSpec.builder(argNameKt, VEC4)
-				if (defaultValue != null) {
-					if (defaultValue == "ImVec4(0,0,0,0)") {
-						param.defaultValue("Vec4.Zero")
-					} else {
-						val (x, y, z, w) = defaultValue.substringAfter('(').dropLast(1).split(',')
-						param.defaultValue("Vec4(${x}f, ${y}f, ${z}f, ${w}f)")
-					}
-				}
-				functionKt.addParameter(param.build())
-				arguments.add(CodeBlock.of("%N.toCValue()", argNameKt))
-			}  else if (arg.type.endsWith('*') && arg.type.dropLast(1).removePrefix("const ") in structs.keys) {
-				val structNameKt = arg.type.dropLast(1).removePrefix("const ")
-				val structKt = ClassName("com.imgui", structNameKt)
-				if (defaultValue != null) {
-					check(defaultValue == "((void*)0)")
-					val param = ParameterSpec.builder(argNameKt, structKt.copy(nullable = true))
-					param.defaultValue("null")
-					functionKt.addParameter(param.build())
-					arguments.add(CodeBlock.of("%N?.ptr", argNameKt))
-				} else {
-					functionKt.addParameter(argNameKt, structKt)
-					arguments.add(CodeBlock.of("%N.ptr", argNameKt))
-				}
 			} else {
-				// If type is unknown but has a reasonable default value, we can skip the param.
-				if (defaultValue == "((void*)0)") {
-					arguments.add(CodeBlock.of("null"))
-				} else {
-					// Skip functions with unknown param types.
-					println(overload.cimguiName + " -> " + arg.type)
-					continue@defLoop
+				try {
+					val (type, converter, propToPtr) = convertKotlinTypeToNative(arg.type)
+
+					val paramType = type.copy(nullable = defaultValue == "((void*)0)" || (type is ParameterizedTypeName && defaultValue == "0"))
+					if (propToPtr) {
+						val ptrName = "ptr${argNameKt.capitalize()}"
+						if (paramType.isNullable) {
+							functionKt.beginControlFlow("usingPropertyN($argNameKt) { $ptrName ->")
+						} else {
+							functionKt.beginControlFlow("usingProperty($argNameKt) { $ptrName ->")
+						}
+						endControlFlowCount++
+					}
+
+					val param = ParameterSpec.builder(argNameKt, paramType)
+					if (defaultValue != null) {
+						val value = if (defaultValue.startsWith('"')) {
+							CodeBlock.of("%L", defaultValue)
+						} else {
+							CodeBlock.of(when {
+								defaultValue == "((void*)0)" -> "null"
+								type == U_LONG -> "${defaultValue}uL"
+								defaultValue == "ImVec2(0,0)" -> "Vec2.Zero"
+								defaultValue == "ImVec4(0,0,0,0)" -> "Vec4.Zero"
+								defaultValue matches vec2Regex -> vec2Regex.replace(defaultValue, "Vec2($1f, $2f)")
+								defaultValue matches vec4Regex -> vec4Regex.replace(defaultValue, "Vec4($1f, $2f, $3f, $4f)")
+								// For enum flags.
+								type is ParameterizedTypeName && defaultValue == "0" -> "null"
+								else -> defaultValue
+							})
+						}
+						param.defaultValue(value)
+					}
+
+					functionKt.addParameter(param.build())
+					val passedArgName = if (propToPtr) "ptr${argNameKt.capitalize()}" else argNameKt
+					if (paramType.isNullable && !(propToPtr || arg.type == "const char*")) {
+						arguments.add(CodeBlock.of("%N?%L", passedArgName, converter))
+					} else {
+						arguments.add(CodeBlock.of("%N%L", passedArgName, converter))
+					}
+				} catch (e: NotImplementedError) {
+					// If type is unknown but has a reasonable default value, we can skip the param.
+					if (defaultValue == "((void*)0)") {
+						arguments.add(CodeBlock.of("null"))
+					} else {
+						// Skip functions with unknown param types.
+						println(overload.cimguiName + " -> " + arg.type)
+						continue@defLoop
+					}
 				}
 			}
 		}

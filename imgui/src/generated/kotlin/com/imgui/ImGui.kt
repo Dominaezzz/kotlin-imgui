@@ -1428,7 +1428,7 @@ object ImGui {
     }
 
     fun setColorEditOptions(flags: Flag<ImGuiColorEditFlags>) {
-        igSetColorEditOptions(flags.value.convert())
+        igSetColorEditOptions(flags.value ?: 0)
     }
 
     fun setColumnOffset(columnIndex: Int, offsetX: Float) {
@@ -1794,7 +1794,7 @@ object ImGui {
         strId: String,
         flags: Flag<ImGuiTreeNodeFlags>,
         fmt: String
-    ): Boolean = igTreeNodeExStrStr(strId, flags.value.convert(), fmt)
+    ): Boolean = igTreeNodeExStrStr(strId, flags.value ?: 0, fmt)
 
     fun treePop() {
         igTreePop()
