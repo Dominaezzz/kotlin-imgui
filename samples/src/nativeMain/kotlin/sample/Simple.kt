@@ -38,7 +38,7 @@ class Simple(private val window: Window) {
 
 		// Setup Dear ImGui style
 		ImGui.styleColorsDark()
-		// ImGui.styleColorsDark(null)
+		// ImGui.styleColorsDark()
 
 		// Setup Platform/Renderer bindings
 		glfw = ImGuiGLFW(window, true)
@@ -83,7 +83,7 @@ class Simple(private val window: Window) {
 			glViewport(0, 0, display_w, display_h)
 			glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
 			glClear(GL_COLOR_BUFFER_BIT)
-			gl.renderDrawData(ImGui.getDrawData().ptr.pointed)
+			gl.renderDrawData(ImGui.getDrawData())
 
 			window.swapBuffers()
 		}
