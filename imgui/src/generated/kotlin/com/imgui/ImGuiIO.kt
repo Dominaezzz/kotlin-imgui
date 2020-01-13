@@ -1,9 +1,15 @@
 package com.imgui
 
+import cimgui.internal.ImGuiIO_AddInputCharacter
+import cimgui.internal.ImGuiIO_AddInputCharactersUTF8
+import cimgui.internal.ImGuiIO_ClearInputCharacters
+import cimgui.internal.ImGuiIO_ImGuiIO
+import cimgui.internal.ImGuiIO_destroy
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
@@ -151,4 +157,22 @@ inline class ImGuiIO(
 
   val mousePosPrev: Vec2
     get() = ptr.pointed.MousePosPrev.fromCValue()
+
+  constructor() : this(ImGuiIO_ImGuiIO()!!)
+
+  fun addInputCharacter(c: UInt) {
+    ImGuiIO_AddInputCharacter(ptr, c)
+  }
+
+  fun addInputCharactersUTF8(str: String) {
+    ImGuiIO_AddInputCharactersUTF8(ptr, str)
+  }
+
+  fun clearInputCharacters() {
+    ImGuiIO_ClearInputCharacters(ptr)
+  }
+
+  fun destroy() {
+    ImGuiIO_destroy(ptr)
+  }
 }

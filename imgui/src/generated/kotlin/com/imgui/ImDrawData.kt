@@ -1,5 +1,10 @@
 package com.imgui
 
+import cimgui.internal.ImDrawData_Clear
+import cimgui.internal.ImDrawData_DeIndexAllBuffers
+import cimgui.internal.ImDrawData_ImDrawData
+import cimgui.internal.ImDrawData_ScaleClipRects
+import cimgui.internal.ImDrawData_destroy
 import kotlin.Boolean
 import kotlin.Int
 import kotlinx.cinterop.CPointer
@@ -28,4 +33,22 @@ inline class ImDrawData(
 
   val framebufferScale: Vec2
     get() = ptr.pointed.FramebufferScale.fromCValue()
+
+  constructor() : this(ImDrawData_ImDrawData()!!)
+
+  fun clear() {
+    ImDrawData_Clear(ptr)
+  }
+
+  fun deIndexAllBuffers() {
+    ImDrawData_DeIndexAllBuffers(ptr)
+  }
+
+  fun scaleClipRects(fbScale: Vec2) {
+    ImDrawData_ScaleClipRects(ptr, fbScale.toCValue())
+  }
+
+  fun destroy() {
+    ImDrawData_destroy(ptr)
+  }
 }

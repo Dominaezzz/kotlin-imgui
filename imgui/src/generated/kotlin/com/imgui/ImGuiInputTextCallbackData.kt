@@ -1,8 +1,14 @@
 package com.imgui
 
+import cimgui.internal.ImGuiInputTextCallbackData_DeleteChars
+import cimgui.internal.ImGuiInputTextCallbackData_HasSelection
+import cimgui.internal.ImGuiInputTextCallbackData_ImGuiInputTextCallbackData
+import cimgui.internal.ImGuiInputTextCallbackData_InsertChars
+import cimgui.internal.ImGuiInputTextCallbackData_destroy
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
@@ -38,4 +44,24 @@ inline class ImGuiInputTextCallbackData(
 
   val selectionEnd: Int
     get() = ptr.pointed.SelectionEnd
+
+  constructor() : this(ImGuiInputTextCallbackData_ImGuiInputTextCallbackData()!!)
+
+  fun deleteChars(pos: Int, bytesCount: Int) {
+    ImGuiInputTextCallbackData_DeleteChars(ptr, pos, bytesCount)
+  }
+
+  fun hasSelection(): Boolean = ImGuiInputTextCallbackData_HasSelection(ptr)
+
+  fun insertChars(
+    pos: Int,
+    text: String,
+    textEnd: String? = null
+  ) {
+    ImGuiInputTextCallbackData_InsertChars(ptr, pos, text, textEnd)
+  }
+
+  fun destroy() {
+    ImGuiInputTextCallbackData_destroy(ptr)
+  }
 }

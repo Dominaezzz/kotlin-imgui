@@ -1,5 +1,9 @@
 package com.imgui
 
+import cimgui.internal.ImFontAtlasCustomRect_ImFontAtlasCustomRect
+import cimgui.internal.ImFontAtlasCustomRect_IsPacked
+import cimgui.internal.ImFontAtlasCustomRect_destroy
+import kotlin.Boolean
 import kotlin.Float
 import kotlin.UInt
 import kotlin.UShort
@@ -32,4 +36,12 @@ inline class ImFontAtlasCustomRect(
 
   val font: ImFont?
     get() = ptr.pointed.Font?.let(::ImFont)
+
+  constructor() : this(ImFontAtlasCustomRect_ImFontAtlasCustomRect()!!)
+
+  fun isPacked(): Boolean = ImFontAtlasCustomRect_IsPacked(ptr)
+
+  fun destroy() {
+    ImFontAtlasCustomRect_destroy(ptr)
+  }
 }

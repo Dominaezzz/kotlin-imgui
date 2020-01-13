@@ -1,5 +1,8 @@
 package com.imgui
 
+import cimgui.internal.ImGuiStyle_ImGuiStyle
+import cimgui.internal.ImGuiStyle_ScaleAllSizes
+import cimgui.internal.ImGuiStyle_destroy
 import kotlin.Boolean
 import kotlin.Float
 import kotlinx.cinterop.CPointer
@@ -109,4 +112,14 @@ inline class ImGuiStyle(
 
   val curveTessellationTol: Float
     get() = ptr.pointed.CurveTessellationTol
+
+  constructor() : this(ImGuiStyle_ImGuiStyle()!!)
+
+  fun scaleAllSizes(scaleFactor: Float) {
+    ImGuiStyle_ScaleAllSizes(ptr, scaleFactor)
+  }
+
+  fun destroy() {
+    ImGuiStyle_destroy(ptr)
+  }
 }

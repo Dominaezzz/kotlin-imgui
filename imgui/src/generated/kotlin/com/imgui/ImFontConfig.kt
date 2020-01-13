@@ -1,12 +1,16 @@
 package com.imgui
 
+import cimgui.internal.ImFontConfig_ImFontConfig
+import cimgui.internal.ImFontConfig_destroy
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Float
 import kotlin.Int
+import kotlin.String
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.toKString
 
 inline class ImFontConfig(
   val ptr: CPointer<cimgui.internal.ImFontConfig>
@@ -38,6 +42,9 @@ inline class ImFontConfig(
   val glyphOffset: Vec2
     get() = ptr.pointed.GlyphOffset.fromCValue()
 
+  val glyphRanges: String?
+    get() = ptr.pointed.GlyphRanges?.toKString()
+
   val glyphMinAdvanceX: Float
     get() = ptr.pointed.GlyphMinAdvanceX
 
@@ -58,4 +65,10 @@ inline class ImFontConfig(
 
   val dstFont: ImFont?
     get() = ptr.pointed.DstFont?.let(::ImFont)
+
+  constructor() : this(ImFontConfig_ImFontConfig()!!)
+
+  fun destroy() {
+    ImFontConfig_destroy(ptr)
+  }
 }

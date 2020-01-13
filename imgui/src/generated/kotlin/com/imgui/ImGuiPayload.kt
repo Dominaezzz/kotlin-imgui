@@ -1,7 +1,14 @@
 package com.imgui
 
+import cimgui.internal.ImGuiPayload_Clear
+import cimgui.internal.ImGuiPayload_ImGuiPayload
+import cimgui.internal.ImGuiPayload_IsDataType
+import cimgui.internal.ImGuiPayload_IsDelivery
+import cimgui.internal.ImGuiPayload_IsPreview
+import cimgui.internal.ImGuiPayload_destroy
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
@@ -25,4 +32,20 @@ inline class ImGuiPayload(
 
   val delivery: Boolean
     get() = ptr.pointed.Delivery
+
+  constructor() : this(ImGuiPayload_ImGuiPayload()!!)
+
+  fun clear() {
+    ImGuiPayload_Clear(ptr)
+  }
+
+  fun isDataType(type: String): Boolean = ImGuiPayload_IsDataType(ptr, type)
+
+  fun isDelivery(): Boolean = ImGuiPayload_IsDelivery(ptr)
+
+  fun isPreview(): Boolean = ImGuiPayload_IsPreview(ptr)
+
+  fun destroy() {
+    ImGuiPayload_destroy(ptr)
+  }
 }

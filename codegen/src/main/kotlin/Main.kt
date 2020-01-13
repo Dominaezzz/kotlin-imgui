@@ -12,6 +12,7 @@ import java.nio.file.Paths
 
 val POINTED = MemberName("kotlinx.cinterop", "pointed")
 val CONVERT = MemberName("kotlinx.cinterop", "convert")
+val WCSTR = MemberName("kotlinx.cinterop", "wcstr")
 val TO_KSTRING = MemberName("kotlinx.cinterop", "toKString")
 val USE_PINNED = MemberName("kotlinx.cinterop", "usePinned")
 val ADDRESS_OF = MemberName("kotlinx.cinterop", "addressOf")
@@ -90,6 +91,7 @@ fun main(args: Array<String>) {
 
 		return when (type) {
 			"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
+			"const ImWchar*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
 			"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
 			"ImVec4" -> VEC4 to CodeBlock.of(".fromCValue()")
 			"ImWchar" -> CHAR to CodeBlock.of(".toShort().toChar()")
@@ -139,6 +141,12 @@ fun main(args: Array<String>) {
 		}
 		if (type == "const char*") {
 			return FuncArg(STRING)
+		}
+		if (type == "const ImWchar*") {
+			return FuncArg(STRING, CodeBlock.of(".%M", WCSTR))
+		}
+		if (type == "ImWchar") {
+			return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"))
 		}
 		if ("${type}_" in enums.keys) {
 			val isBitFlags = "${type}_" in enumBitMasks
@@ -274,7 +282,7 @@ fun main(args: Array<String>) {
 		FileSpec.get("com.imgui", enum.build()).writeTo(outputDir)
 	}
 
-	for ((structName, members) in structs) {
+	val structMap: Map<String, TypeSpec.Builder> = structs.mapValues { (structName, members) ->
 		val imguiStructClass = ClassName("cimgui.internal", structName)
 
 		val pointerClass = C_POINTER.parameterizedBy(imguiStructClass)
@@ -317,7 +325,7 @@ fun main(args: Array<String>) {
 			}
 		}
 
-		FileSpec.get("com.imgui", struct.build()).writeTo(outputDir)
+		struct
 	}
 
 	for (valueType in valueTypes) {
@@ -362,9 +370,17 @@ fun main(args: Array<String>) {
 		if (defName.endsWith("Scalar") || defName.endsWith("ScalarN")) continue
 
 		// Skip member functions for now.
-		if (overload.structName.isNotEmpty() || overload.functionName == null) continue
+		val isMemberFunction = overload.structName.isNotEmpty() || overload.functionName == null
 
-		val functionKt = FunSpec.builder(overload.functionName.decapitalize())
+		// TODO: Some design choices to be made here.
+		if (overload.structName == "ImVector") continue
+
+		val functionKt = when {
+			overload.isCtor -> FunSpec.constructorBuilder()
+			overload.isDtor -> FunSpec.builder("destroy")
+			else -> FunSpec.builder(overload.functionName!!.decapitalize())
+		}
+
 		val cimguiFun = MemberName("cimgui.internal",
 				overload.overloadedCimguiName ?: overload.cimguiName)
 
@@ -378,7 +394,14 @@ fun main(args: Array<String>) {
 		val arguments = mutableListOf<CodeBlock>()
 		for (arg in overload.argsT) {
 			val argNameKt = arg.name.snakeToPascalCase().decapitalize()
-			val defaultValue = defaultMap[arg.name]
+			val defaultValue = defaultMap[arg.name]?.let {
+				// Must be a better way to do this.
+				if (it == "(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))") {
+					"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
+				} else {
+					it
+				}
+			}
 
 			// Explicitly not supporting va_list functions.
 			if (arg.type == "va_list") continue@defLoop
@@ -386,7 +409,9 @@ fun main(args: Array<String>) {
 			// Just skip the param. KN doesn't support this yet.
 			if (arg.type == "...") continue
 
-			if (arg.type matches cArrayRegex) {
+			if (isMemberFunction && arg.name == "self") {
+				arguments.add(CodeBlock.of("ptr"))
+			} else if (arg.type matches cArrayRegex) {
 				val (elemType, sizeStr) = cArrayRegex.matchEntire(arg.type)!!.destructured
 
 				functionKt.addCode("require($argNameKt.size >= ${sizeStr.toInt()})\n")
@@ -431,6 +456,7 @@ fun main(args: Array<String>) {
 								defaultValue matches vec4Regex -> vec4Regex.replace(defaultValue, "Vec4($1f, $2f, $3f, $4f)")
 								// For enum flags.
 								type is ParameterizedTypeName && defaultValue == "0" -> "null"
+								type is ParameterizedTypeName -> defaultValue.replaceFirst('_', '.')
 								else -> defaultValue
 							})
 						}
@@ -462,14 +488,22 @@ fun main(args: Array<String>) {
 			add(")")
 		}
 
-		checkNotNull(overload.returnType)
-		if (overload.returnType == "void") {
+		if (overload.returnType == null) {
+			check(isMemberFunction)
+			if (overload.isCtor) {
+				functionKt.callThisConstructor(CodeBlock.of("%L!!", igFuncCall))
+			} else {
+				check(overload.isDtor)
+				functionKt.addCode(igFuncCall)
+				functionKt.addCode("\n")
+			}
+		} else if (overload.returnType == "void") {
 			functionKt.addCode(igFuncCall)
 			functionKt.addCode("\n")
 		} else {
 			// TODO: Improve this here with a white list of functions.
 			val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
-			val shouldAssert = overload.returnType != "const char*"
+			val shouldAssert = overload.returnType != "const char*" || overload.returnType == "const ImWchar*"
 			try {
 				val (typeKt, converter) = convertNativeTypeToKt(overload.returnType)
 				// If return value can be null and we're not asserting, then we return nullable.
@@ -487,9 +521,17 @@ fun main(args: Array<String>) {
 		}
 		repeat(endControlFlowCount) { functionKt.endControlFlow() }
 
-		imguiObj.addFunction(functionKt.build())
+		if (isMemberFunction) {
+			structMap[overload.structName]?.addFunction(functionKt.build())
+		} else {
+			imguiObj.addFunction(functionKt.build())
+		}
 	}
 	FileSpec.get("com.imgui", imguiObj.build())
 			.toBuilder().indent("    ").build()
 			.writeTo(outputDir)
+
+	structMap.values.forEach { struct ->
+		FileSpec.get("com.imgui", struct.build()).writeTo(outputDir)
+	}
 }

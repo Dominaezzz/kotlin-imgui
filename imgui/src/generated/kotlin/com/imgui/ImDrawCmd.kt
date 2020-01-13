@@ -1,5 +1,7 @@
 package com.imgui
 
+import cimgui.internal.ImDrawCmd_ImDrawCmd
+import cimgui.internal.ImDrawCmd_destroy
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
@@ -21,4 +23,10 @@ inline class ImDrawCmd(
 
   val idxOffset: UInt
     get() = ptr.pointed.IdxOffset
+
+  constructor() : this(ImDrawCmd_ImDrawCmd()!!)
+
+  fun destroy() {
+    ImDrawCmd_destroy(ptr)
+  }
 }
