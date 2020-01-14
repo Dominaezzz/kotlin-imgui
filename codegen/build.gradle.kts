@@ -25,7 +25,7 @@ tasks {
     }
 
     run.configure {
-        workingDir(rootProject.projectDir.resolve("imgui/src/generated/kotlin"))
+        workingDir(rootProject.projectDir.resolve("imgui/src"))
         args(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
     }
 }

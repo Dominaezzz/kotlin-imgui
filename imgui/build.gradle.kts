@@ -17,7 +17,7 @@ kotlin {
         compilations {
             "main" {
                 defaultSourceSet {
-                    kotlin.srcDir("src/generated/kotlin")
+                    kotlin.srcDir("src/nativeMain/generated")
                     kotlin.srcDir("src/nativeMain/kotlin")
                 }
 

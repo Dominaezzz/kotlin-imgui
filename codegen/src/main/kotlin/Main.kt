@@ -72,6 +72,7 @@ fun main(args: Array<String>) {
 	val inputDir = Paths.get(args[0])
 
 	val outputDir = Paths.get(".").toAbsolutePath()
+			.resolve("nativeMain").resolve("generated")
 
 	val definitionsStr = inputDir.resolve("definitions.json").toFile().readText()
 	val structsAndEnumsStr = inputDir.resolve("structs_and_enums.json").toFile().readText()
