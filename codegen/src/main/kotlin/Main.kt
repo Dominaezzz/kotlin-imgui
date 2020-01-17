@@ -340,7 +340,8 @@ fun main(args: Array<String>) {
 			emptyMap()
 		}
 
-		var endControlFlowCount = 0
+		val checks = mutableListOf<CodeBlock>()
+		val scopedHelpers = mutableListOf<CodeBlock>()
 		val arguments = mutableListOf<CodeBlock>()
 		for (arg in overload.argsT) {
 			val argNameKt = arg.name.snakeToPascalCase().decapitalize()
@@ -364,10 +365,9 @@ fun main(args: Array<String>) {
 			} else if (arg.type matches cArrayRegex) {
 				val (elemType, sizeStr) = cArrayRegex.matchEntire(arg.type)!!.destructured
 
-				functionKt.addCode("require($argNameKt.size >= ${sizeStr.toInt()})\n")
+				checks.add(CodeBlock.of("require($argNameKt.size >= ${sizeStr.toInt()})"))
 				val pinnedName = "pinned${argNameKt.capitalize()}"
-				functionKt.beginControlFlow("$argNameKt.%M { $pinnedName ->", USE_PINNED)
-				endControlFlowCount++
+				scopedHelpers.add(CodeBlock.of("$argNameKt.%M { $pinnedName ->", USE_PINNED))
 
 				val paramType = when (elemType) {
 					"int" -> INT_ARRAY
@@ -387,12 +387,12 @@ fun main(args: Array<String>) {
 					val paramType = type.copy(nullable = isNullable)
 					if (propToPtr) {
 						val ptrName = "ptr${argNameKt.capitalize()}"
-						if (paramType.isNullable) {
-							functionKt.beginControlFlow("usingPropertyN($argNameKt) { $ptrName ->")
+						val helper = if (isNullable) {
+							CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
 						} else {
-							functionKt.beginControlFlow("usingProperty($argNameKt) { $ptrName ->")
+							CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
 						}
-						endControlFlowCount++
+						scopedHelpers.add(helper)
 					}
 
 					val param = ParameterSpec.builder(argNameKt, paramType)
@@ -431,14 +431,26 @@ fun main(args: Array<String>) {
 				}
 			}
 		}
+
 		val igFuncCall = buildCodeBlock {
+			for (helper in scopedHelpers) {
+				add(helper)
+				add("\n")
+				indent()
+			}
 			add("%M(", cimguiFun)
 			add(arguments.joinToCode())
 			add(")")
+			for (helper in scopedHelpers) {
+				add("\n")
+				unindent()
+				add("}")
+			}
 		}
 
 		if (overload.returnType == null) {
 			check(isMemberFunction)
+			check(checks.isEmpty())
 			if (overload.isCtor) {
 				functionKt.callThisConstructor(CodeBlock.of("%L!!", igFuncCall))
 			} else {
@@ -446,29 +458,34 @@ fun main(args: Array<String>) {
 				functionKt.addCode(igFuncCall)
 				functionKt.addCode("\n")
 			}
-		} else if (overload.returnType == "void") {
-			functionKt.addCode(igFuncCall)
-			functionKt.addCode("\n")
 		} else {
-			// TODO: Improve this here with a white list of functions.
-			val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
-			val shouldAssert = overload.returnType != "const char*" || overload.returnType == "const ImWchar*"
-			try {
-				val (typeKt, converter) = convertNativeTypeToKt(overload.returnType)
-				// If return value can be null and we're not asserting, then we return nullable.
-				functionKt.returns(typeKt.copy(canBeNull && !shouldAssert))
-				functionKt.addCode("return ")
-				functionKt.addCode(igFuncCall)
-				if (canBeNull) functionKt.addCode(if (shouldAssert) "!!" else "?")
-				functionKt.addCode(converter)
+			for (it in checks) {
+				functionKt.addCode(it)
 				functionKt.addCode("\n")
-			} catch (e: NotImplementedError) {
-				// Skip functions with non-trivial return value.
-				println(overload.cimguiName + " returns " + overload.returnType)
-				continue
+			}
+			if (overload.returnType == "void") {
+				functionKt.addCode(igFuncCall)
+				functionKt.addCode("\n")
+			} else {
+				// TODO: Improve this here with a white list of functions.
+				val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
+				val shouldAssert = overload.returnType != "const char*" || overload.returnType == "const ImWchar*"
+				try {
+					val (typeKt, converter) = convertNativeTypeToKt(overload.returnType)
+					// If return value can be null and we're not asserting, then we return nullable.
+					functionKt.returns(typeKt.copy(canBeNull && !shouldAssert))
+					functionKt.addCode("return ")
+					functionKt.addCode(igFuncCall)
+					if (canBeNull) functionKt.addCode(if (shouldAssert) "!!" else "?")
+					functionKt.addCode(converter)
+					functionKt.addCode("\n")
+				} catch (e: NotImplementedError) {
+					// Skip functions with non-trivial return value.
+					println(overload.cimguiName + " returns " + overload.returnType)
+					continue
+				}
 			}
 		}
-		repeat(endControlFlowCount) { functionKt.endControlFlow() }
 
 		if (isMemberFunction) {
 			structFunctions.getOrPut(overload.structName) { mutableListOf() }.add(functionKt.build())

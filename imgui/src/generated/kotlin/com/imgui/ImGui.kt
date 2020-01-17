@@ -338,10 +338,8 @@ object ImGui {
         name: String,
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiWindowFlags>? = null
-    ): Boolean {
-        usingPropertyN(pOpen) { ptrPOpen ->
-            return igBegin(name, ptrPOpen, flags?.value ?: 0)
-        }
+    ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
+        igBegin(name, ptrPOpen, flags?.value ?: 0)
     }
 
     fun beginChild(
@@ -404,10 +402,8 @@ object ImGui {
         name: String,
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiWindowFlags>? = null
-    ): Boolean {
-        usingPropertyN(pOpen) { ptrPOpen ->
-            return igBeginPopupModal(name, ptrPOpen, flags?.value ?: 0)
-        }
+    ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
+        igBeginPopupModal(name, ptrPOpen, flags?.value ?: 0)
     }
 
     fun beginTabBar(strId: String, flags: Flag<ImGuiTabBarFlags>? = null): Boolean =
@@ -417,10 +413,8 @@ object ImGui {
         label: String,
         pOpen: KMutableProperty0<Boolean>? = null,
         flags: Flag<ImGuiTabItemFlags>? = null
-    ): Boolean {
-        usingPropertyN(pOpen) { ptrPOpen ->
-            return igBeginTabItem(label, ptrPOpen, flags?.value ?: 0)
-        }
+    ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
+        igBeginTabItem(label, ptrPOpen, flags?.value ?: 0)
     }
 
     fun beginTooltip() {
@@ -468,20 +462,16 @@ object ImGui {
         igCaptureMouseFromApp(wantCaptureMouseValue)
     }
 
-    fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean {
-        usingProperty(v) { ptrV ->
-            return igCheckbox(label, ptrV)
-        }
+    fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean = usingProperty(v) { ptrV ->
+        igCheckbox(label, ptrV)
     }
 
     fun checkboxFlags(
         label: String,
         flags: KMutableProperty0<UInt>,
         flagsValue: UInt
-    ): Boolean {
-        usingProperty(flags) { ptrFlags ->
-            return igCheckboxFlags(label, ptrFlags, flagsValue)
-        }
+    ): Boolean = usingProperty(flags) { ptrFlags ->
+        igCheckboxFlags(label, ptrFlags, flagsValue)
     }
 
     fun closeCurrentPopup() {
@@ -495,10 +485,8 @@ object ImGui {
         label: String,
         pOpen: KMutableProperty0<Boolean>,
         flags: Flag<ImGuiTreeNodeFlags>? = null
-    ): Boolean {
-        usingProperty(pOpen) { ptrPOpen ->
-            return igCollapsingHeaderBoolPtr(label, ptrPOpen, flags?.value ?: 0)
-        }
+    ): Boolean = usingProperty(pOpen) { ptrPOpen ->
+        igCollapsingHeaderBoolPtr(label, ptrPOpen, flags?.value ?: 0)
     }
 
     fun colorButton(
@@ -552,8 +540,8 @@ object ImGui {
         flags: Flag<ImGuiColorEditFlags>? = null
     ): Boolean {
         require(col.size >= 3)
-        col.usePinned { pinnedCol ->
-            return igColorEdit3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
+        return col.usePinned { pinnedCol ->
+            igColorEdit3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -563,8 +551,8 @@ object ImGui {
         flags: Flag<ImGuiColorEditFlags>? = null
     ): Boolean {
         require(col.size >= 4)
-        col.usePinned { pinnedCol ->
-            return igColorEdit4(label, pinnedCol.addressOf(0), flags?.value ?: 0)
+        return col.usePinned { pinnedCol ->
+            igColorEdit4(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -574,8 +562,8 @@ object ImGui {
         flags: Flag<ImGuiColorEditFlags>? = null
     ): Boolean {
         require(col.size >= 3)
-        col.usePinned { pinnedCol ->
-            return igColorPicker3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
+        return col.usePinned { pinnedCol ->
+            igColorPicker3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -585,8 +573,8 @@ object ImGui {
         flags: Flag<ImGuiColorEditFlags>? = null
     ): Boolean {
         require(col.size >= 4)
-        col.usePinned { pinnedCol ->
-            return igColorPicker4(label, pinnedCol.addressOf(0), flags?.value ?: 0, null)
+        return col.usePinned { pinnedCol ->
+            igColorPicker4(label, pinnedCol.addressOf(0), flags?.value ?: 0, null)
         }
     }
 
@@ -603,10 +591,8 @@ object ImGui {
         currentItem: KMutableProperty0<Int>,
         itemsSeparatedByZeros: String,
         popupMaxHeightInItems: Int = -1
-    ): Boolean {
-        usingProperty(currentItem) { ptrCurrentItem ->
-            return igComboStr(label, ptrCurrentItem, itemsSeparatedByZeros, popupMaxHeightInItems)
-        }
+    ): Boolean = usingProperty(currentItem) { ptrCurrentItem ->
+        igComboStr(label, ptrCurrentItem, itemsSeparatedByZeros, popupMaxHeightInItems)
     }
 
     fun createContext(sharedFontAtlas: ImFontAtlas? = null): ImGuiContext =
@@ -635,10 +621,8 @@ object ImGui {
         vMax: Float = 0.0f,
         format: String = "%.3f",
         power: Float = 1.0f
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igDragFloat(label, ptrV, vSpeed, vMin, vMax, format, power)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igDragFloat(label, ptrV, vSpeed, vMin, vMax, format, power)
     }
 
     fun dragFloat2(
@@ -651,8 +635,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igDragFloat2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igDragFloat2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
@@ -666,8 +650,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igDragFloat3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igDragFloat3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
@@ -681,8 +665,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igDragFloat4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igDragFloat4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
@@ -696,12 +680,10 @@ object ImGui {
         format: String = "%.3f",
         formatMax: String? = null,
         power: Float = 1.0f
-    ): Boolean {
-        usingProperty(vCurrentMin) { ptrVCurrentMin ->
-            usingProperty(vCurrentMax) { ptrVCurrentMax ->
-                return igDragFloatRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax,
-                        format, formatMax, power)
-            }
+    ): Boolean = usingProperty(vCurrentMin) { ptrVCurrentMin ->
+        usingProperty(vCurrentMax) { ptrVCurrentMax ->
+            igDragFloatRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax, format,
+                    formatMax, power)
         }
     }
 
@@ -712,10 +694,8 @@ object ImGui {
         vMin: Int = 0,
         vMax: Int = 0,
         format: String = "%d"
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igDragInt(label, ptrV, vSpeed, vMin, vMax, format)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igDragInt(label, ptrV, vSpeed, vMin, vMax, format)
     }
 
     fun dragInt2(
@@ -727,8 +707,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igDragInt2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igDragInt2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
@@ -741,8 +721,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igDragInt3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igDragInt3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
@@ -755,8 +735,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igDragInt4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igDragInt4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
@@ -769,12 +749,10 @@ object ImGui {
         vMax: Int = 0,
         format: String = "%d",
         formatMax: String? = null
-    ): Boolean {
-        usingProperty(vCurrentMin) { ptrVCurrentMin ->
-            usingProperty(vCurrentMax) { ptrVCurrentMax ->
-                return igDragIntRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax,
-                        format, formatMax)
-            }
+    ): Boolean = usingProperty(vCurrentMin) { ptrVCurrentMin ->
+        usingProperty(vCurrentMax) { ptrVCurrentMax ->
+            igDragIntRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax, format,
+                    formatMax)
         }
     }
 
@@ -1004,10 +982,8 @@ object ImGui {
         stepFast: Double = 0.0,
         format: String = "%.6f",
         flags: Flag<ImGuiInputTextFlags>? = null
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igInputDouble(label, ptrV, step, stepFast, format, flags?.value ?: 0)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igInputDouble(label, ptrV, step, stepFast, format, flags?.value ?: 0)
     }
 
     fun inputFloat(
@@ -1017,10 +993,8 @@ object ImGui {
         stepFast: Float = 0.0f,
         format: String = "%.3f",
         flags: Flag<ImGuiInputTextFlags>? = null
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igInputFloat(label, ptrV, step, stepFast, format, flags?.value ?: 0)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igInputFloat(label, ptrV, step, stepFast, format, flags?.value ?: 0)
     }
 
     fun inputFloat2(
@@ -1030,8 +1004,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igInputFloat2(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputFloat2(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
@@ -1042,8 +1016,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igInputFloat3(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputFloat3(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
@@ -1054,8 +1028,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igInputFloat4(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputFloat4(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
@@ -1065,10 +1039,8 @@ object ImGui {
         step: Int = 1,
         stepFast: Int = 100,
         flags: Flag<ImGuiInputTextFlags>? = null
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igInputInt(label, ptrV, step, stepFast, flags?.value ?: 0)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igInputInt(label, ptrV, step, stepFast, flags?.value ?: 0)
     }
 
     fun inputInt2(
@@ -1077,8 +1049,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igInputInt2(label, pinnedV.addressOf(0), flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputInt2(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -1088,8 +1060,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igInputInt3(label, pinnedV.addressOf(0), flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputInt3(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -1099,8 +1071,8 @@ object ImGui {
         flags: Flag<ImGuiInputTextFlags>? = null
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igInputInt4(label, pinnedV.addressOf(0), flags?.value ?: 0)
+        return v.usePinned { pinnedV ->
+            igInputInt4(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
@@ -1241,10 +1213,8 @@ object ImGui {
         shortcut: String,
         pSelected: KMutableProperty0<Boolean>,
         enabled: Boolean = true
-    ): Boolean {
-        usingProperty(pSelected) { ptrPSelected ->
-            return igMenuItemBoolPtr(label, shortcut, ptrPSelected, enabled)
-        }
+    ): Boolean = usingProperty(pSelected) { ptrPSelected ->
+        igMenuItemBoolPtr(label, shortcut, ptrPSelected, enabled)
     }
 
     fun newFrame() {
@@ -1372,10 +1342,8 @@ object ImGui {
         label: String,
         v: KMutableProperty0<Int>,
         vButton: Int
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igRadioButtonIntPtr(label, ptrV, vButton)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igRadioButtonIntPtr(label, ptrV, vButton)
     }
 
     fun render() {
@@ -1394,11 +1362,10 @@ object ImGui {
         igSaveIniSettingsToDisk(iniFilename)
     }
 
-    fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>? = null): String? {
-        usingPropertyN(outIniSize) { ptrOutIniSize ->
-            return igSaveIniSettingsToMemory(ptrOutIniSize)?.toKString()
-        }
-    }
+    fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>? = null): String? =
+            usingPropertyN(outIniSize) { ptrOutIniSize ->
+        igSaveIniSettingsToMemory(ptrOutIniSize)
+    }?.toKString()
 
     fun selectable(
         label: String,
@@ -1412,10 +1379,8 @@ object ImGui {
         pSelected: KMutableProperty0<Boolean>,
         flags: Flag<ImGuiSelectableFlags>? = null,
         size: Vec2 = Vec2.Zero
-    ): Boolean {
-        usingProperty(pSelected) { ptrPSelected ->
-            return igSelectableBoolPtr(label, ptrPSelected, flags?.value ?: 0, size.toCValue())
-        }
+    ): Boolean = usingProperty(pSelected) { ptrPSelected ->
+        igSelectableBoolPtr(label, ptrPSelected, flags?.value ?: 0, size.toCValue())
     }
 
     fun separator() {
@@ -1632,10 +1597,8 @@ object ImGui {
         vDegreesMin: Float = -360.0f,
         vDegreesMax: Float = +360.0f,
         format: String = "%.0f deg"
-    ): Boolean {
-        usingProperty(vRad) { ptrVRad ->
-            return igSliderAngle(label, ptrVRad, vDegreesMin, vDegreesMax, format)
-        }
+    ): Boolean = usingProperty(vRad) { ptrVRad ->
+        igSliderAngle(label, ptrVRad, vDegreesMin, vDegreesMax, format)
     }
 
     fun sliderFloat(
@@ -1645,10 +1608,8 @@ object ImGui {
         vMax: Float,
         format: String = "%.3f",
         power: Float = 1.0f
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igSliderFloat(label, ptrV, vMin, vMax, format, power)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igSliderFloat(label, ptrV, vMin, vMax, format, power)
     }
 
     fun sliderFloat2(
@@ -1660,8 +1621,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igSliderFloat2(label, pinnedV.addressOf(0), vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igSliderFloat2(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
@@ -1674,8 +1635,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igSliderFloat3(label, pinnedV.addressOf(0), vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igSliderFloat3(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
@@ -1688,8 +1649,8 @@ object ImGui {
         power: Float = 1.0f
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igSliderFloat4(label, pinnedV.addressOf(0), vMin, vMax, format, power)
+        return v.usePinned { pinnedV ->
+            igSliderFloat4(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
@@ -1699,10 +1660,8 @@ object ImGui {
         vMin: Int,
         vMax: Int,
         format: String = "%d"
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igSliderInt(label, ptrV, vMin, vMax, format)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igSliderInt(label, ptrV, vMin, vMax, format)
     }
 
     fun sliderInt2(
@@ -1713,8 +1672,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 2)
-        v.usePinned { pinnedV ->
-            return igSliderInt2(label, pinnedV.addressOf(0), vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igSliderInt2(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
@@ -1726,8 +1685,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 3)
-        v.usePinned { pinnedV ->
-            return igSliderInt3(label, pinnedV.addressOf(0), vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igSliderInt3(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
@@ -1739,8 +1698,8 @@ object ImGui {
         format: String = "%d"
     ): Boolean {
         require(v.size >= 4)
-        v.usePinned { pinnedV ->
-            return igSliderInt4(label, pinnedV.addressOf(0), vMin, vMax, format)
+        return v.usePinned { pinnedV ->
+            igSliderInt4(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
@@ -1819,10 +1778,8 @@ object ImGui {
         vMax: Float,
         format: String = "%.3f",
         power: Float = 1.0f
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igVSliderFloat(label, size.toCValue(), ptrV, vMin, vMax, format, power)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igVSliderFloat(label, size.toCValue(), ptrV, vMin, vMax, format, power)
     }
 
     fun vSliderInt(
@@ -1832,10 +1789,8 @@ object ImGui {
         vMin: Int,
         vMax: Int,
         format: String = "%d"
-    ): Boolean {
-        usingProperty(v) { ptrV ->
-            return igVSliderInt(label, size.toCValue(), ptrV, vMin, vMax, format)
-        }
+    ): Boolean = usingProperty(v) { ptrV ->
+        igVSliderInt(label, size.toCValue(), ptrV, vMin, vMax, format)
     }
 
     fun value(prefix: String, b: Boolean) {
