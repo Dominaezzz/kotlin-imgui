@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization") version "1.3.61"
     application
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61"
 }
 
 val imGuiVersion: String by rootProject.extra
