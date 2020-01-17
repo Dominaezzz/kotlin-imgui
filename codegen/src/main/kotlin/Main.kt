@@ -281,52 +281,6 @@ fun main(args: Array<String>) {
 		FileSpec.get("com.imgui", enum.build()).writeTo(outputDir)
 	}
 
-	val structMap: Map<String, TypeSpec.Builder> = structs.mapValues { (structName, members) ->
-		val imguiStructClass = ClassName("cimgui.internal", structName)
-
-		val pointerClass = C_POINTER.parameterizedBy(imguiStructClass)
-		val struct = TypeSpec.classBuilder(structName)
-				.addModifiers(KModifier.INLINE)
-				.primaryConstructor(FunSpec.constructorBuilder()
-						.addParameter("ptr", pointerClass)
-						.build())
-				.addProperty(PropertySpec.builder("ptr", pointerClass)
-						// .addModifiers(KModifier.INTERNAL)
-						.initializer("ptr")
-						.build())
-
-		for (member in members) {
-			// Skip imgui internal/private members.
-			if (member.name.startsWith('_')) continue
-
-			val memberNameKt = member.name.decapitalize()
-
-			if (member.size == null) {
-				// TODO: Improve this here with a white list of functions.
-				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
-				val shouldAssert = !canBeNull || member.type == "const char*"
-				try {
-					val (typeKt, converter) = convertNativeTypeToKt(member.type)
-					// If return value can be null and we're not asserting, then we return nullable.
-					val prop = PropertySpec.builder(memberNameKt, typeKt.copy(canBeNull && !shouldAssert))
-
-					val getter = FunSpec.getterBuilder()
-					getter.addCode("return ptr.%M.%N", POINTED, member.name)
-					if (canBeNull) getter.addCode(if (shouldAssert) "!!" else "?")
-					getter.addCode(converter)
-					getter.addCode("\n")
-					prop.getter(getter.build())
-					struct.addProperty(prop.build())
-				} catch (e: NotImplementedError) {
-					// Skip members with non-trivial type.
-					continue
-				}
-			}
-		}
-
-		struct
-	}
-
 	for (valueType in valueTypes) {
 		val pointerClass = ClassName("cimgui.internal", valueType)
 		val type = TypeSpec.classBuilder(valueType)
@@ -357,6 +311,7 @@ fun main(args: Array<String>) {
 		FileSpec.get("com.imgui", type).writeTo(outputDir)
 	}
 
+	val structFunctions = mutableMapOf<String, MutableList<FunSpec>>()
 	val imguiObj = TypeSpec.objectBuilder("ImGui")
 	defLoop@for (overload in definitions.flatMap { (_, overloads) -> overloads }) {
 		// TODO: Not needed in wrapper.
@@ -521,7 +476,7 @@ fun main(args: Array<String>) {
 		repeat(endControlFlowCount) { functionKt.endControlFlow() }
 
 		if (isMemberFunction) {
-			structMap[overload.structName]?.addFunction(functionKt.build())
+			structFunctions.getOrPut(overload.structName) { mutableListOf() }.add(functionKt.build())
 		} else {
 			imguiObj.addFunction(functionKt.build())
 		}
@@ -530,7 +485,51 @@ fun main(args: Array<String>) {
 			.toBuilder().indent("    ").build()
 			.writeTo(outputDir)
 
-	structMap.values.forEach { struct ->
+	for ((structName, members) in structs) {
+		val imguiStructClass = ClassName("cimgui.internal", structName)
+
+		val pointerClass = C_POINTER.parameterizedBy(imguiStructClass)
+		val struct = TypeSpec.classBuilder(structName)
+				.addModifiers(KModifier.INLINE)
+				.primaryConstructor(FunSpec.constructorBuilder()
+						.addParameter("ptr", pointerClass)
+						.build())
+				.addProperty(PropertySpec.builder("ptr", pointerClass)
+						// .addModifiers(KModifier.INTERNAL)
+						.initializer("ptr")
+						.build())
+
+		for (member in members) {
+			// Skip imgui internal/private members.
+			if (member.name.startsWith('_')) continue
+
+			val memberNameKt = member.name.decapitalize()
+
+			if (member.size == null) {
+				// TODO: Improve this here with a white list of functions.
+				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
+				val shouldAssert = !canBeNull || member.type == "const char*"
+				try {
+					val (typeKt, converter) = convertNativeTypeToKt(member.type)
+					// If return value can be null and we're not asserting, then we return nullable.
+					val prop = PropertySpec.builder(memberNameKt, typeKt.copy(canBeNull && !shouldAssert))
+
+					val getter = FunSpec.getterBuilder()
+					getter.addCode("return ptr.%M.%N", POINTED, member.name)
+					if (canBeNull) getter.addCode(if (shouldAssert) "!!" else "?")
+					getter.addCode(converter)
+					getter.addCode("\n")
+					prop.getter(getter.build())
+					struct.addProperty(prop.build())
+				} catch (e: NotImplementedError) {
+					// Skip members with non-trivial type.
+					continue
+				}
+			}
+		}
+
+		struct.addFunctions(structFunctions[structName] ?: emptyList())
+
 		FileSpec.get("com.imgui", struct.build()).writeTo(outputDir)
 	}
 }
