@@ -150,7 +150,7 @@ inline class ImDrawList(
     roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
   ) {
     ImDrawList_AddImageRounded(ptr, userTextureId.value, pMin.toCValue(), pMax.toCValue(),
-        uvMin.toCValue(), uvMax.toCValue(), col, rounding, roundingCorners.value ?: 0)
+        uvMin.toCValue(), uvMax.toCValue(), col, rounding, roundingCorners.value)
   }
 
   fun addLine(
@@ -202,8 +202,8 @@ inline class ImDrawList(
     roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All,
     thickness: Float = 1.0f
   ) {
-    ImDrawList_AddRect(ptr, pMin.toCValue(), pMax.toCValue(), col, rounding, roundingCorners.value
-        ?: 0, thickness)
+    ImDrawList_AddRect(ptr, pMin.toCValue(), pMax.toCValue(), col, rounding, roundingCorners.value,
+        thickness)
   }
 
   fun addRectFilled(
@@ -214,7 +214,7 @@ inline class ImDrawList(
     roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
   ) {
     ImDrawList_AddRectFilled(ptr, pMin.toCValue(), pMax.toCValue(), col, rounding,
-        roundingCorners.value ?: 0)
+        roundingCorners.value)
   }
 
   fun addRectFilledMultiColor(
@@ -347,8 +347,8 @@ inline class ImDrawList(
     rounding: Float = 0.0f,
     roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
   ) {
-    ImDrawList_PathRect(ptr, rectMin.toCValue(), rectMax.toCValue(), rounding, roundingCorners.value
-        ?: 0)
+    ImDrawList_PathRect(ptr, rectMin.toCValue(), rectMax.toCValue(), rounding,
+        roundingCorners.value)
   }
 
   fun pathStroke(

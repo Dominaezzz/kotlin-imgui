@@ -321,7 +321,6 @@ import kotlin.UInt
 import kotlin.ULong
 import kotlin.reflect.KMutableProperty0
 import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.convert
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.usePinned
 
@@ -333,8 +332,7 @@ object ImGui {
         igAlignTextToFramePadding()
     }
 
-    fun arrowButton(strId: String, dir: ImGuiDir): Boolean = igArrowButton(strId,
-            dir.value.convert())
+    fun arrowButton(strId: String, dir: ImGuiDir): Boolean = igArrowButton(strId, dir.value)
 
     fun begin(
         name: String,
@@ -848,8 +846,8 @@ object ImGui {
 
     fun getClipboardText(): String? = igGetClipboardText()?.toKString()
 
-    fun getColorU32(idx: ImGuiCol, alphaMul: Float = 1.0f): UInt =
-            igGetColorU32(idx.value.convert(), alphaMul)
+    fun getColorU32(idx: ImGuiCol, alphaMul: Float = 1.0f): UInt = igGetColorU32(idx.value,
+            alphaMul)
 
     fun getColorU32(col: Vec4): UInt = igGetColorU32Vec4(col.toCValue())
 
@@ -913,7 +911,7 @@ object ImGui {
 
     fun getItemRectSize(): Vec2 = igGetItemRectSize().fromCValue()
 
-    fun getKeyIndex(imguiKey: ImGuiKey): Int = igGetKeyIndex(imguiKey.value.convert())
+    fun getKeyIndex(imguiKey: ImGuiKey): Int = igGetKeyIndex(imguiKey.value)
 
     fun getKeyPressedAmount(
         keyIndex: Int,
@@ -942,11 +940,9 @@ object ImGui {
 
     fun getStyle(): ImGuiStyle = igGetStyle()!!.let(::ImGuiStyle)
 
-    fun getStyleColorName(idx: ImGuiCol): String? =
-            igGetStyleColorName(idx.value.convert())?.toKString()
+    fun getStyleColorName(idx: ImGuiCol): String? = igGetStyleColorName(idx.value)?.toKString()
 
-    fun getStyleColorVec4(idx: ImGuiCol): ImVec4 =
-            igGetStyleColorVec4(idx.value.convert())!!.let(::ImVec4)
+    fun getStyleColorVec4(idx: ImGuiCol): ImVec4 = igGetStyleColorVec4(idx.value)!!.let(::ImVec4)
 
     fun getTextLineHeight(): Float = igGetTextLineHeight()
 
@@ -1351,19 +1347,19 @@ object ImGui {
     }
 
     fun pushStyleColor(idx: ImGuiCol, col: UInt) {
-        igPushStyleColorU32(idx.value.convert(), col)
+        igPushStyleColorU32(idx.value, col)
     }
 
     fun pushStyleColor(idx: ImGuiCol, col: Vec4) {
-        igPushStyleColor(idx.value.convert(), col.toCValue())
+        igPushStyleColor(idx.value, col.toCValue())
     }
 
     fun pushStyleVar(idx: ImGuiStyleVar, `val`: Float) {
-        igPushStyleVarFloat(idx.value.convert(), `val`)
+        igPushStyleVarFloat(idx.value, `val`)
     }
 
     fun pushStyleVar(idx: ImGuiStyleVar, `val`: Vec2) {
-        igPushStyleVarVec2(idx.value.convert(), `val`.toCValue())
+        igPushStyleVarVec2(idx.value, `val`.toCValue())
     }
 
     fun pushTextWrapPos(wrapLocalPosX: Float = 0.0f) {
@@ -1431,7 +1427,7 @@ object ImGui {
     }
 
     fun setColorEditOptions(flags: Flag<ImGuiColorEditFlags>) {
-        igSetColorEditOptions(flags.value ?: 0)
+        igSetColorEditOptions(flags.value)
     }
 
     fun setColumnOffset(columnIndex: Int, offsetX: Float) {
@@ -1475,7 +1471,7 @@ object ImGui {
     }
 
     fun setMouseCursor(type: ImGuiMouseCursor) {
-        igSetMouseCursor(type.value.convert())
+        igSetMouseCursor(type.value)
     }
 
     fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>? = null) {
@@ -1797,7 +1793,7 @@ object ImGui {
         strId: String,
         flags: Flag<ImGuiTreeNodeFlags>,
         fmt: String
-    ): Boolean = igTreeNodeExStrStr(strId, flags.value ?: 0, fmt)
+    ): Boolean = igTreeNodeExStrStr(strId, flags.value, fmt)
 
     fun treePop() {
         igTreePop()

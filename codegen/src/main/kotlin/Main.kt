@@ -127,48 +127,44 @@ fun main(args: Array<String>) {
 
 	data class FuncArg(val type: TypeName, val converter: CodeBlock = CodeBlock.of(""), val propToPtr: Boolean = false)
 
-	// Returns a appendable converter, to convert from (return) Kotlin type to cimgui value.
-	fun convertKotlinTypeToNative(type: String): FuncArg {
+	// Returns a appendable converter, to convert from (returned) Kotlin type to cimgui value.
+	fun convertKotlinTypeToNative(type: String, isNullable: Boolean, assertIfNull: Boolean): FuncArg {
 		val imGuiPackageName = "com.imgui"
+
+		val nullOp = if (isNullable) {
+			if (assertIfNull) "!!" else "?"
+		} else {
+			""
+		}
 
 		val simpleKtType = simpleTypeMap[type]
 		if (simpleKtType != null) {
 			return FuncArg(simpleKtType)
 		}
 		if (type in valueTypes) {
-			return FuncArg(ClassName("com.imgui", type), CodeBlock.of(".value"))
+			return FuncArg(ClassName("com.imgui", type), CodeBlock.of("$nullOp.value"))
 		}
-		if (type == "const char*") {
-			return FuncArg(STRING)
-		}
-		if (type == "const ImWchar*") {
-			return FuncArg(STRING, CodeBlock.of(".%M", WCSTR))
-		}
-		if (type == "ImWchar") {
-			return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"))
-		}
+		if (type == "const char*") return FuncArg(STRING)
+		if (type == "const ImWchar*") return FuncArg(STRING, CodeBlock.of("$nullOp.%M", WCSTR))
+		if (type == "ImWchar") return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"))
 		if ("${type}_" in enums.keys) {
 			val isBitFlags = "${type}_" in enumBitMasks
 			val enumKt = ClassName("com.imgui", type)
 			val paramType = if (isBitFlags) FLAG.parameterizedBy(enumKt) else enumKt
-			val conv = if (isBitFlags) {
-				CodeBlock.of(".value ?: 0")
+			val conv = if (isBitFlags && isNullable && !assertIfNull) {
+				CodeBlock.of("$nullOp.value ?: 0")
 			} else {
-				CodeBlock.of(".value.%M()", CONVERT)
+				CodeBlock.of("$nullOp.value")
 			}
 			return FuncArg(paramType, conv)
 		}
-		if (type == "const ImVec2" || type == "ImVec2") {
-			return FuncArg(VEC2, CodeBlock.of(".toCValue()"))
-		}
-		if (type == "const ImVec4" || type == "ImVec4") {
-			return FuncArg(VEC4, CodeBlock.of(".toCValue()"))
-		}
+		if (type == "const ImVec2" || type == "ImVec2") return FuncArg(VEC2, CodeBlock.of("$nullOp.toCValue()"))
+		if (type == "const ImVec4" || type == "ImVec4") return FuncArg(VEC4, CodeBlock.of("$nullOp.toCValue()"))
 		if (type.endsWith('*')) {
 			val derefType = type.dropLast(1).removePrefix("const ")
 			if (derefType in privateTypes || derefType in structs.keys) {
 				val typeKt = ClassName(imGuiPackageName, derefType)
-				return FuncArg(typeKt, CodeBlock.of(".ptr"))
+				return FuncArg(typeKt, CodeBlock.of("$nullOp.ptr"))
 			}
 			if (type == "bool*" || type == "int*" || type == "unsigned int*" || type == "size_t*" || type == "float*" || type == "double*") {
 				val propType = when (derefType) {
@@ -383,9 +379,12 @@ fun main(args: Array<String>) {
 				arguments.add(CodeBlock.of("$pinnedName.%M(0)", ADDRESS_OF))
 			} else {
 				try {
-					val (type, converter, propToPtr) = convertKotlinTypeToNative(arg.type)
+					val isBitMask = "${arg.type}_" in enumBitMasks
+					val isNullable = defaultValue == "((void*)0)" || (isBitMask && defaultValue == "0")
 
-					val paramType = type.copy(nullable = defaultValue == "((void*)0)" || (type is ParameterizedTypeName && defaultValue == "0"))
+					val (type, converter, propToPtr) = convertKotlinTypeToNative(arg.type, isNullable, false)
+
+					val paramType = type.copy(nullable = isNullable)
 					if (propToPtr) {
 						val ptrName = "ptr${argNameKt.capitalize()}"
 						if (paramType.isNullable) {
@@ -409,8 +408,8 @@ fun main(args: Array<String>) {
 								defaultValue matches vec2Regex -> vec2Regex.replace(defaultValue, "Vec2($1f, $2f)")
 								defaultValue matches vec4Regex -> vec4Regex.replace(defaultValue, "Vec4($1f, $2f, $3f, $4f)")
 								// For enum flags.
-								type is ParameterizedTypeName && defaultValue == "0" -> "null"
-								type is ParameterizedTypeName -> defaultValue.replaceFirst('_', '.')
+								isBitMask && defaultValue == "0" -> "null"
+								isBitMask -> defaultValue.replaceFirst('_', '.')
 								else -> defaultValue
 							})
 						}
@@ -419,11 +418,7 @@ fun main(args: Array<String>) {
 
 					functionKt.addParameter(param.build())
 					val passedArgName = if (propToPtr) "ptr${argNameKt.capitalize()}" else argNameKt
-					if (paramType.isNullable && !(propToPtr || arg.type == "const char*")) {
-						arguments.add(CodeBlock.of("%N?%L", passedArgName, converter))
-					} else {
-						arguments.add(CodeBlock.of("%N%L", passedArgName, converter))
-					}
+					arguments.add(CodeBlock.of("%N%L", passedArgName, converter))
 				} catch (e: NotImplementedError) {
 					// If type is unknown but has a reasonable default value, we can skip the param.
 					if (defaultValue == "((void*)0)") {
