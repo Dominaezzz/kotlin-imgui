@@ -35,8 +35,7 @@ val simpleTypeMap = mapOf(
 )
 val valueTypes = setOf(
 		"ImGuiID",
-		"ImTextureID",
-		"ImGuiMouseCursor"
+		"ImTextureID"
 )
 val privateTypes = setOf(
 		"ImDrawListSharedData",

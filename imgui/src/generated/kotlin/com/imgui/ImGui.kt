@@ -921,7 +921,7 @@ object ImGui {
         rate: Float
     ): Int = igGetKeyPressedAmount(keyIndex, repeatDelay, rate)
 
-    fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let(::ImGuiMouseCursor)
+    fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let { ImGuiMouseCursor.from(it) }
 
     fun getMouseDragDelta(button: Int = 0, lockThreshold: Float = -1.0f): Vec2 =
             igGetMouseDragDelta(button, lockThreshold).fromCValue()
@@ -1475,7 +1475,7 @@ object ImGui {
     }
 
     fun setMouseCursor(type: ImGuiMouseCursor) {
-        igSetMouseCursor(type.value)
+        igSetMouseCursor(type.value.convert())
     }
 
     fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>? = null) {
