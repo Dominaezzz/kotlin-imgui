@@ -1,6 +1,8 @@
 package com.imgui.impl
 
 import cimgui.internal.*
+import com.imgui.ImGui
+import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
 import copengl.GLuint
 import kotlinx.cinterop.*
@@ -48,11 +50,11 @@ class ImguiOpenGL3(
 	private val elementsHandle: UInt
 
 	init {
-		val io = igGetIO()!!.pointed
+		val io = ImGui.getIO().ptr.pointed
 		// io.BackendRendererName = "ImGui OpenGL3".cstr
 		if (useDrawWithBaseVertex) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
-			io.BackendFlags = io.BackendFlags or ImGuiBackendFlags_RendererHasVtxOffset.toInt()
+			io.BackendFlags = io.BackendFlags or ImGuiBackendFlags.RendererHasVtxOffset.value
 		}
 
 		// Make a dummy GL call (we don't actually need the result)
@@ -339,7 +341,7 @@ class ImguiOpenGL3(
 	}
 
 	private fun createFontsTexture() {
-		val io = igGetIO()!!.pointed
+		val io = ImGui.getIO().ptr.pointed
 
 		val lastTexture = glGetInteger(GL_TEXTURE_BINDING_2D)
 
@@ -367,7 +369,7 @@ class ImguiOpenGL3(
 	}
 
 	private fun destroyFontsTexture() {
-		val io = igGetIO()!!.pointed
+		val io = ImGui.getIO().ptr.pointed
 		glDeleteTextures(1, cValuesOf(fontTexture))
 		io.Fonts!!.pointed.TexID = null
 	}

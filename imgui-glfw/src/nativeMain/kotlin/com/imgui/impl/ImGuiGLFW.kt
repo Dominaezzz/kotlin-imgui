@@ -1,20 +1,17 @@
 package com.imgui.impl
 
 import cglfw.*
-import com.imgui.ImGuiKey
-import com.imgui.ImGuiNavInput
-import cimgui.internal.*
+import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
 import kotlinx.cinterop.*
 import kotlinx.io.core.Closeable
 import platform.posix.memset
 
-@ExperimentalUnsignedTypes
-class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolean): Closeable {
+class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeable {
 	private var time: Double = 0.0
 	private val mouseJustPressed = BooleanArray(5) { false }
-	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor_COUNT) { null }
+	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
 
 	private val prevUserCallbackMouseButton: MouseButtonCallback? = null
 	private val prevUserCallbackScroll: ScrollCallback? = null
@@ -22,14 +19,14 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 	private val prevUserCallbackChar: CharCallback? = null
 
 	init {
-		val io = igGetIO()!!.pointed
-		io.BackendFlags = io.BackendFlags or ImGuiBackendFlags_HasMouseCursors.toInt()
-		io.BackendFlags = io.BackendFlags or ImGuiBackendFlags_HasSetMousePos.toInt()
+		val io = ImGui.getIO().ptr.pointed
+		io.BackendFlags = io.BackendFlags or ImGuiBackendFlags.HasMouseCursors.value
+		io.BackendFlags = io.BackendFlags or ImGuiBackendFlags.HasSetMousePos.value
 		// io.BackendPlatformName = "ImguiGlfw".cstr
 
 		// Keyboard mapping.
 		inline fun mapKey(imGuiKey: ImGuiKey, key: KeyboardKey) {
-			io.KeyMap[imGuiKey.value.toInt()] = key.ordinal
+			io.KeyMap[imGuiKey.value] = key.ordinal
 		}
 		mapKey(ImGuiKey.Tab, KeyboardKey.TAB)
 		mapKey(ImGuiKey.LeftArrow, KeyboardKey.LEFT)
@@ -62,14 +59,14 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 			glfwGetClipboardString(userData?.reinterpret())
 		}
 
-		mouseCursors[ImGuiMouseCursor_Arrow] = Cursor(Cursor.Standard.Arrow)
-		mouseCursors[ImGuiMouseCursor_TextInput] = Cursor(Cursor.Standard.IBeam)
-		mouseCursors[ImGuiMouseCursor_ResizeAll] = Cursor(Cursor.Standard.Arrow)   // FIXME: GLFW doesn't have this.
-		mouseCursors[ImGuiMouseCursor_ResizeNS] = Cursor(Cursor.Standard.VResize)
-		mouseCursors[ImGuiMouseCursor_ResizeEW] = Cursor(Cursor.Standard.HResize)
-		mouseCursors[ImGuiMouseCursor_ResizeNESW] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
-		mouseCursors[ImGuiMouseCursor_ResizeNWSE] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
-		mouseCursors[ImGuiMouseCursor_Hand] = Cursor(Cursor.Standard.Hand)
+		mouseCursors[ImGuiMouseCursor.Arrow.value] = Cursor(Cursor.Standard.Arrow)
+		mouseCursors[ImGuiMouseCursor.TextInput.value] = Cursor(Cursor.Standard.IBeam)
+		mouseCursors[ImGuiMouseCursor.ResizeAll.value] = Cursor(Cursor.Standard.Arrow)   // FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.ResizeNS.value] = Cursor(Cursor.Standard.VResize)
+		mouseCursors[ImGuiMouseCursor.ResizeEW.value] = Cursor(Cursor.Standard.HResize)
+		mouseCursors[ImGuiMouseCursor.ResizeNESW.value] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.ResizeNWSE.value] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.Hand.value] = Cursor(Cursor.Standard.Hand)
 
 		// prevUserCallbackMouseButton = null
 		// prevUserCallbackScroll = null
@@ -94,7 +91,7 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 	fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
 		prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
 
-		val io = igGetIO()!!.pointed
+		val io = ImGui.getIO().ptr.pointed
 		io.MouseWheelH += offsetX.toFloat()
 		io.MouseWheel += offsetY.toFloat()
 	}
@@ -102,7 +99,7 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 	fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
 		prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
 
-		val io = igGetIO()!!.pointed
+		val io = ImGui.getIO().ptr.pointed
 		if (action == Action.Press) {
 			io.KeysDown[key.ordinal].value = true
 		}
@@ -120,15 +117,16 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 	fun charCallback(window: Window, codepoint: UInt) {
 		prevUserCallbackChar?.invoke(window, codepoint)
 
-		val io = igGetIO()!!.pointed
-		ImGuiIO_AddInputCharacter(io.ptr, codepoint)
+		val io = ImGui.getIO()
+		io.addInputCharacter(codepoint)
 	}
 
 	fun newFrame() {
-		val io = igGetIO()!!.pointed
-		assert(ImFontAtlas_IsBuilt(io.Fonts)) {
+		val ioObj = ImGui.getIO()
+		assert(ioObj.fonts!!.isBuilt()) {
 			"Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame()."
 		}
+		val io = ioObj.ptr.pointed
 
 		// Setup display size (every frame to accommodate for window resizing)
 		val (w, h) = window.size
@@ -171,16 +169,16 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 
 		// Update mouse cursor.
 		run {
-			val changeDisabled = io.ConfigFlags and ImGuiConfigFlags_NoMouseCursorChange.toInt() != 0
+			val changeDisabled = io.ConfigFlags and ImGuiConfigFlags.NoMouseCursorChange.value != 0
 			if (!changeDisabled && window.cursorMode != CursorMode.Disabled) {
-				val imguiCursor = igGetMouseCursor()
-				if (imguiCursor == ImGuiMouseCursor_None || io.MouseDrawCursor) {
+				val imguiCursor = ImGui.getMouseCursor()
+				if (imguiCursor == ImGuiMouseCursor.None || io.MouseDrawCursor) {
 					// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
-					glfwSetInputMode(window.ptr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN)
+					window.cursorMode = CursorMode.Hidden
 				} else {
 					// Show OS mouse cursor
 					// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
-					window.setCursor(mouseCursors[imguiCursor] ?: mouseCursors[ImGuiMouseCursor_Arrow])
+					window.setCursor(mouseCursors[imguiCursor.value] ?: mouseCursors[ImGuiMouseCursor.Arrow.value])
 					window.cursorMode = CursorMode.Normal
 				}
 			}
@@ -188,8 +186,8 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 
 		// Update gamepads
 		run {
-			memset(io.NavInputs, 0, sizeOf<FloatVar>().toULong() * ImGuiNavInput_COUNT)
-			if (io.ConfigFlags and ImGuiConfigFlags_NavEnableGamepad.toInt() != 0) {
+			memset(io.NavInputs, 0, sizeOf<FloatVar>().toULong() * ImGuiNavInput.values().size.toUInt())
+			if (io.ConfigFlags and ImGuiConfigFlags.NavEnableGamepad.value != 0) {
 
 				val axes = Joystick._1.axes!!
 				val buttons = Joystick._1.buttons!!
@@ -198,15 +196,15 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 
 				inline fun mapButton(navNo: ImGuiNavInput, buttonNo: Int) {
 					if (buttonsCount > buttonNo && buttons[buttonNo] == Action.Press) {
-						io.NavInputs[navNo.value.toInt()] = 1.0f
+						io.NavInputs[navNo.value] = 1.0f
 					}
 				}
 				inline fun mapAnalog(navNo: ImGuiNavInput, axisNo: Int, v0: Float, v1: Float) {
 					var v = if (axesCount > axisNo) axes[axesCount] else v0
 					v = (v - v0) / (v1 - v0)
 					v = v.coerceAtMost(1.0f)
-					if (io.NavInputs[navNo.value.toInt()] < v) {
-						io.NavInputs[navNo.value.toInt()] = v
+					if (io.NavInputs[navNo.value] < v) {
+						io.NavInputs[navNo.value] = v
 					}
 				}
 
@@ -228,9 +226,9 @@ class ImGuiGLFW(private val window: Window, private val installCallbacks: Boolea
 				mapAnalog(ImGuiNavInput.LStickDown, 1,  -0.3f,  -0.9f)
 
 				if (axesCount > 0 && buttonsCount > 0) {
-					io.BackendFlags = io.BackendFlags or ImGuiBackendFlags_HasGamepad.toInt()
+					io.BackendFlags = io.BackendFlags or ImGuiBackendFlags.HasGamepad.value
 				} else {
-					io.BackendFlags = io.BackendFlags and -ImGuiBackendFlags_HasGamepad.toInt()
+					io.BackendFlags = io.BackendFlags and ImGuiBackendFlags.HasGamepad.value.inv()
 				}
 			}
 		}
