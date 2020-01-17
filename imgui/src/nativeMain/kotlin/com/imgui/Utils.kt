@@ -54,16 +54,26 @@ internal inline fun <T> usingVec4(block: (ImVec4) -> T): T {
 	}
 }
 
-internal inline fun <T> usingProperty(prop: KMutableProperty0<Boolean>, block: (CPointer<BooleanVar>) -> T): T {
-	return usingVar<BooleanVar, T> { nativeValue ->
+internal inline fun <T, TProp, reified TVar : CPrimitiveVar> usingGeneralProperty(
+		prop: KMutableProperty0<TProp>,
+		getValue: (TVar) -> TProp,
+		setValue: (TVar, TProp) -> Unit,
+		block: (CPointer<TVar>) -> T
+): T {
+	return usingVar<TVar, T> { nativeValue ->
 		val propValue = prop.get()
-		nativeValue.value = propValue
+		setValue(nativeValue, propValue)
 		try {
 			block(nativeValue.ptr)
 		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
+			val newValue = getValue(nativeValue)
+			if (propValue != newValue) prop.set(newValue)
 		}
 	}
+}
+
+internal inline fun <T> usingProperty(prop: KMutableProperty0<Boolean>, block: (CPointer<BooleanVar>) -> T): T {
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Boolean>?, block: (CPointer<BooleanVar>?) -> T): T {
@@ -75,15 +85,7 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Boolean>?, block:
 }
 
 internal inline fun <T> usingProperty(prop: KMutableProperty0<UInt>, block: (CPointer<UIntVar>) -> T): T {
-	return usingVar<UIntVar, T> { nativeValue ->
-		val propValue = prop.get()
-		nativeValue.value = propValue
-		try {
-			block(nativeValue.ptr)
-		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
-		}
-	}
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<UInt>?, block: (CPointer<UIntVar>?) -> T): T {
@@ -95,15 +97,7 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<UInt>?, block: (C
 }
 
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Int>, block: (CPointer<IntVar>) -> T): T {
-	return usingVar<IntVar, T> { nativeValue ->
-		val propValue = prop.get()
-		nativeValue.value = propValue
-		try {
-			block(nativeValue.ptr)
-		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
-		}
-	}
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Int>?, block: (CPointer<IntVar>?) -> T): T {
@@ -115,15 +109,7 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Int>?, block: (CP
 }
 
 internal inline fun <T> usingProperty(prop: KMutableProperty0<ULong>, block: (CPointer<ULongVar>) -> T): T {
-	return usingVar<ULongVar, T> { nativeValue ->
-		val propValue = prop.get()
-		nativeValue.value = propValue
-		try {
-			block(nativeValue.ptr)
-		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
-		}
-	}
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (CPointer<ULongVar>?) -> T): T {
@@ -135,15 +121,7 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (
 }
 
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Float>, block: (CPointer<FloatVar>) -> T): T {
-	return usingVar<FloatVar, T> { nativeValue ->
-		val propValue = prop.get()
-		nativeValue.value = propValue
-		try {
-			block(nativeValue.ptr)
-		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
-		}
-	}
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Float>?, block: (CPointer<FloatVar>?) -> T): T {
@@ -155,15 +133,7 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Float>?, block: (
 }
 
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Double>, block: (CPointer<DoubleVar>) -> T): T {
-	return usingVar<DoubleVar, T> { nativeValue ->
-		val propValue = prop.get()
-		nativeValue.value = propValue
-		try {
-			block(nativeValue.ptr)
-		} finally {
-			if (propValue != nativeValue.value) prop.set(nativeValue.value)
-		}
-	}
+	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
 }
 
 internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Double>?, block: (CPointer<DoubleVar>?) -> T): T {
