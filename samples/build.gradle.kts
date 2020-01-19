@@ -8,9 +8,9 @@ plugins {
 val useSingleTarget: Boolean by rootProject.extra
 
 kotlin {
-    if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-    if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-    if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+    if (HostManager.hostIsLinux) linuxX64()
+    if (HostManager.hostIsMingw) mingwX64()
+    if (HostManager.hostIsMac) macosX64()
 
     targets.withType<KotlinNativeTarget> {
         compilations {
