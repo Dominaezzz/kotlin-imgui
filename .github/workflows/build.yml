@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: 'Install OpenGL'
         run: |
-          sudo apt install libglu1-mesa-dev
+          sudo apt-get update
+          sudo apt install -y libglu1-mesa-dev
         if: matrix.os == 'ubuntu-latest'
 
       - uses: actions/setup-java@v1
