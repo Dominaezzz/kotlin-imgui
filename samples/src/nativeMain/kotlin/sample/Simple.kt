@@ -4,6 +4,7 @@ import com.imgui.ImGui
 import com.imgui.impl.ImGuiGLFW
 import com.imgui.impl.ImguiOpenGL3
 import com.kgl.glfw.Glfw
+import com.kgl.glfw.OpenGLProfile
 import com.kgl.glfw.Window
 import com.kgl.opengl.GL_COLOR_BUFFER_BIT
 import com.kgl.opengl.glClear
@@ -27,7 +28,7 @@ class Simple(private val window: Window) {
 		// Decide GL+GLSL versions
 
 		// GL 3.0 + GLSL 130
-		val glslVersion = "#version 130";
+		val glslVersion = if (Platform.osFamily == OsFamily.MACOSX) "#version 150" else "#version 130"
 
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
@@ -149,11 +150,17 @@ fun main(args: Array<String>) {
 	check(Glfw.init())
 
 	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example") {
-		contextVersionMajor = 3
-		contextVersionMinor = 0
-
-		// openGLProfile = OpenGLProfile.Core  // 3.2+ only
-		// openGLForwardCompat = true          // 3.0+ only
+		if (Platform.osFamily == OsFamily.MACOSX) {
+			contextVersionMajor = 3
+			contextVersionMinor = 2
+			openGLProfile = OpenGLProfile.Core  // 3.2+ only
+			openGLForwardCompat = true          // Required on Mac
+		} else {
+			contextVersionMajor = 3
+			contextVersionMinor = 0
+			// openGLProfile = OpenGLProfile.Core  // 3.2+ only
+			// openGLForwardCompat = true          // 3.0+ only
+		}
 	}
 	Glfw.currentContext = window
 	Glfw.setSwapInterval(1) // Enable vsync
