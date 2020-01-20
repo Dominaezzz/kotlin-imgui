@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.HostManager
-import org.jetbrains.kotlin.konan.target.KonanTarget
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -20,19 +19,6 @@ group = "com.kotlin-imgui"
 
 val imGuiVersion: String by extra("1.74")
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
-
-val konanUserDir: File by extra {
-	file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
-}
-val toolChainFolderMap: Map<KonanTarget, File> by extra {
-	val deps = konanUserDir.resolve("dependencies")
-
-	mapOf(
-			KonanTarget.LINUX_X64 to "clang-llvm-8.0.0-linux-x86-64",
-			KonanTarget.MACOS_X64 to "clang-llvm-apple-8.0.0-darwin-macos",
-			KonanTarget.MINGW_X64 to "msys2-mingw-w64-x86_64-clang-llvm-lld-compiler_rt-8.0.1"
-	).mapValues { deps.resolve(it.value) }
-}
 
 subprojects {
 	group = rootProject.group
@@ -59,7 +45,7 @@ subprojects {
 			// Hack until https://youtrack.jetbrains.com/issue/KT-30498
 			targets.withType<KotlinNativeTarget> {
 				// Disable cross-platform build
-				if (konanTarget != HostManager.host) {
+				if (!HostManager().isEnabled(konanTarget)) {
 					compilations.all {
 						cinterops.all {
 							tasks.named(interopProcessingTaskName).configure {

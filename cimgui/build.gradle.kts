@@ -10,8 +10,59 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
-val toolChainFolderMap: Map<KonanTarget, File> by rootProject.extra
 val imGuiVersion: String by rootProject.extra
+
+val konanUserDir = file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
+val konanDeps = konanUserDir.resolve("dependencies")
+val toolChainFolder = when (HostManager.host) {
+    KonanTarget.LINUX_X64 -> "clang-llvm-8.0.0-linux-x86-64"
+    KonanTarget.MACOS_X64 -> "clang-llvm-apple-8.0.0-darwin-macos"
+    KonanTarget.MINGW_X64 -> "msys2-mingw-w64-x86_64-clang-llvm-lld-compiler_rt-8.0.1"
+    else -> TODO()
+}
+val llvmBinFolder = konanDeps.resolve(toolChainFolder).resolve("bin")
+val androidSysRootParent = konanDeps.resolve("target-sysroot-1-android_ndk").resolve("android-21")
+
+data class TargetInfo(val targetName: String, val sysRoot: File, val clangArgs: List<String> = emptyList())
+val targetInfoMap = mapOf(
+        KonanTarget.LINUX_X64 to TargetInfo(
+                "x86_64-unknown-linux-gnu",
+                konanDeps.resolve("target-gcc-toolchain-3-linux-x86-64/x86_64-unknown-linux-gnu/sysroot")
+        ),
+        KonanTarget.MACOS_X64 to TargetInfo(
+                "x86_64-apple-darwin10", // Not sure about this but it doesn't matter yet.
+                konanDeps.resolve("target-sysroot-10-macos_x64")
+        ),
+        KonanTarget.MINGW_X64 to TargetInfo(
+                "x86_64-w64-mingw32",
+                konanDeps.resolve("msys2-mingw-w64-x86_64-clang-llvm-lld-compiler_rt-8.0.1")
+        ),
+        KonanTarget.MINGW_X86 to TargetInfo(
+                "i686-w64-mingw32",
+                konanDeps.resolve("msys2-mingw-w64-i686-clang-llvm-lld-compiler_rt-8.0.1")
+        ),
+        KonanTarget.LINUX_ARM32_HFP to TargetInfo(
+                "armv6-unknown-linux-gnueabihf",
+                konanDeps.resolve("target-sysroot-2-raspberrypi"),
+                listOf("-mfpu=vfp", "-mfloat-abi=hard")
+        ),
+        KonanTarget.ANDROID_ARM32 to TargetInfo(
+                "arm-linux-androideabi",
+                androidSysRootParent.resolve("arch-arm")
+        ),
+        KonanTarget.ANDROID_ARM64 to TargetInfo(
+                "aarch64-linux-android",
+                androidSysRootParent.resolve("arch-arm64")
+        ),
+        KonanTarget.ANDROID_X86 to TargetInfo(
+                "i686-linux-android",
+                androidSysRootParent.resolve("arch-x86")
+        ),
+        KonanTarget.ANDROID_X64 to TargetInfo(
+                "x86_64-linux-android",
+                androidSysRootParent.resolve("arch-x64")
+        )
+)
 
 val downloadsDir = buildDir.resolve("downloads")
 val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")
@@ -81,7 +132,6 @@ kotlin {
     }
 
     targets.withType<KotlinNativeTarget> {
-        val llvmBinFolder = toolChainFolderMap.getValue(konanTarget).resolve("bin")
         val libDir = buildDir.resolve("lib").resolve(targetName)
 
         val objDir = libDir.resolve("obj")
@@ -90,31 +140,33 @@ kotlin {
         val objFiles = objFileNames.map { objDir.resolve(it) }
         val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
             dependsOn(extractImGui, extractCWrapper)
-            onlyIf { konanTarget == HostManager.host }
+            onlyIf { HostManager().isEnabled(konanTarget) }
+            doFirst { mkdir(objDir) }
 
             inputs.files(sourceFiles)
             outputs.files(objFiles)
 
-            environment(
-                    "PATH" to "$llvmBinFolder;${System.getenv("PATH")}",
-                    "CPATH" to "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-            )
+            environment("PATH", "$llvmBinFolder;${System.getenv("PATH")}")
+            if (konanTarget == KonanTarget.MACOS_X64) {
+                environment("CPATH", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include")
+            }
+
             executable = llvmBinFolder.resolve("clang++").absolutePath
+
+            val targetInfo = targetInfoMap.getValue(konanTarget)
+            if (HostManager.host != konanTarget) args("-target", targetInfo.targetName)
+            args("--sysroot=${targetInfo.sysRoot}")
+            args(targetInfo.clangArgs)
             args(
                     "-c", "-Wall",
                     "-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
-                    // "-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS",
-                    "-working-directory", objDir.absolutePath,
-                    *sourceFiles.map { it.absolutePath }.toTypedArray()
+                    "-working-directory", objDir.absolutePath
             )
-
-            doFirst {
-                mkdir(objDir)
-            }
+            args(sourceFiles.map { it.absolutePath })
         }
         val archiveImGui = tasks.register<Exec>("archiveImGuiFor$targetName") {
             dependsOn(compileImGui)
-            onlyIf { konanTarget == HostManager.host }
+            onlyIf { HostManager().isEnabled(konanTarget) }
 
             inputs.files(objFiles)
             outputs.file(staticLibFile)
@@ -134,6 +186,7 @@ kotlin {
                             dependsOn(extractImGui, extractCWrapper)
                         }
                         compileImGui {
+                            // This is to ensure native toolchain is downloaded before compiling with it.
                             dependsOn(tasks.named(interopProcessingTaskName))
                         }
                     }
