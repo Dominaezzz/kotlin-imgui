@@ -12,6 +12,7 @@ kotlin {
     if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
     if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
     if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+    if (!useSingleTarget) linuxArm32Hfp()
 
     jvm {
         compilations {
