@@ -158,7 +158,7 @@ kotlin {
             args("--sysroot=${targetInfo.sysRoot}")
             args(targetInfo.clangArgs)
             args(
-                    "-c", "-Wall",
+                    "-c", "-w",
                     "-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
                     "-working-directory", objDir.absolutePath
             )
