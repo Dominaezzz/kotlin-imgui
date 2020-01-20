@@ -22,6 +22,9 @@ val VEC4 = ClassName("com.imgui", "Vec4")
 val C_POINTER = ClassName("kotlinx.cinterop", "CPointer")
 val K_MUTABLE_PROPERTY = ClassName("kotlin.reflect", "KMutableProperty0")
 
+val ACTUAL_WITHOUT_EXPECT = AnnotationSpec.builder(Suppress::class)
+		.addMember("%S", "ACTUAL_WITHOUT_EXPECT").build()
+
 val simpleTypeMap = mapOf(
 		"float" to FLOAT,
 		"unsigned short" to U_SHORT,
@@ -32,9 +35,9 @@ val simpleTypeMap = mapOf(
 		"double" to DOUBLE,
 		"ImU32" to U_INT
 )
-val valueTypes = setOf(
-		"ImGuiID",
-		"ImTextureID"
+val valueTypes = mapOf(
+		"ImGuiID" to LONG,
+		"ImTextureID" to ClassName("cimgui.internal", "SWIGTYPE_p_void")
 )
 val privateTypes = setOf(
 		"ImDrawListSharedData",
@@ -70,8 +73,10 @@ val vec4Regex = Regex("ImVec4\\((-?\\d+),(-?\\d+),(-?\\d+),(-?\\d+)\\)")
 fun main(args: Array<String>) {
 	val inputDir = Paths.get(args[0])
 
-	val outputDir = Paths.get(".").toAbsolutePath()
-			.resolve("nativeMain").resolve("generated")
+	val srcDir = Paths.get(".").toAbsolutePath()
+	val commonDir = srcDir.resolve("commonMain").resolve("generated")
+	val nativeDir = srcDir.resolve("nativeMain").resolve("generated")
+	val jvmDir = srcDir.resolve("jvmMain").resolve("generated")
 
 	val definitionsStr = inputDir.resolve("definitions.json").toFile().readText()
 	val structsAndEnumsStr = inputDir.resolve("structs_and_enums.json").toFile().readText()
@@ -84,30 +89,38 @@ fun main(args: Array<String>) {
 				enumName.endsWith("Flags_") || entries.any { it.value.contains("<<") }
 			}.map { it.key }.toSet()
 
+	data class ReturnValue(val type: TypeName, val nativeConverter: CodeBlock, val jvmConverter: CodeBlock = nativeConverter)
+
 	// Returns an appendable converter, to convert from cimgui value to Kotlin value.
-	fun convertNativeTypeToKt(type: String): Pair<TypeName, CodeBlock> {
+	fun convertNativeTypeToKt(type: String, isField: Boolean): ReturnValue {
 		val imGuiPackageName = "com.imgui"
 
+		val jvmVecConverter = if (isField) CodeBlock.of(".fromCValue()") else CodeBlock.of("")
+
 		return when (type) {
-			"size_t" -> U_LONG to CodeBlock.of(".%M()", CONVERT)
-			"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
-			"const ImWchar*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
-			"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
-			"ImVec4" -> VEC4 to CodeBlock.of(".fromCValue()")
-			"ImWchar" -> CHAR to CodeBlock.of(".toShort().toChar()")
+			"size_t" -> ReturnValue(U_LONG, CodeBlock.of(".%M()", CONVERT), CodeBlock.of(".toULong()"))
+			"void" -> ReturnValue(UNIT, CodeBlock.of(""))
+			"ImU32" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
+			"unsigned int" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
+			"unsigned short" -> ReturnValue(U_SHORT, CodeBlock.of(".toUShort()"))
+			"const char*" -> ReturnValue(STRING, CodeBlock.of(".%M()", TO_KSTRING), CodeBlock.of(""))
+			"const ImWchar*" -> ReturnValue(STRING, CodeBlock.of(".%M()", TO_KSTRING), CodeBlock.of(".toUTF16String()"))
+			"ImVec2" -> ReturnValue(VEC2, CodeBlock.of(".fromCValue()"), jvmVecConverter)
+			"ImVec4" -> ReturnValue(VEC4, CodeBlock.of(".fromCValue()"), jvmVecConverter)
+			"ImWchar" -> ReturnValue(CHAR, CodeBlock.of(".toShort().toChar()"))
 			in valueTypes -> {
 				val typeKt = ClassName(imGuiPackageName, type)
-				typeKt to CodeBlock.of(".let(::%T)", typeKt)
+				ReturnValue(typeKt, CodeBlock.of(".let(::%T)", typeKt))
 			}
-			in simpleTypeMap.keys -> simpleTypeMap.getValue(type) to CodeBlock.of("")
+			in simpleTypeMap.keys -> ReturnValue(simpleTypeMap.getValue(type), CodeBlock.of(""))
 			else -> {
 				if ("${type}_"  in enums.keys) {
 					val enumType = ClassName(imGuiPackageName, type)
 					if ("${type}_" in enumBitMasks){
 						val typeKt = FLAG.parameterizedBy(enumType)
-						typeKt to CodeBlock.of(".let { %T.fromMultiple(it) }", enumType)
+						ReturnValue(typeKt, CodeBlock.of(".let { %T.fromMultiple(it) }", enumType))
 					} else {
-						enumType to CodeBlock.of(".let { %T.from(it) }", enumType)
+						ReturnValue(enumType, CodeBlock.of(".let { %T.from(it) }", enumType))
 					}
 				} else if (type.endsWith('*')) {
 					// ImGuiContext* -> ImGuiContext
@@ -115,7 +128,7 @@ fun main(args: Array<String>) {
 					val derefType = type.dropLast(1).removePrefix("const ")
 					if (derefType in privateTypes || derefType in structs.keys) {
 						val typeKt = ClassName(imGuiPackageName, derefType)
-						typeKt to CodeBlock.of(".let(::%T)", typeKt)
+						ReturnValue(typeKt, CodeBlock.of(".let(::%T)", typeKt))
 					} else {
 						TODO()
 					}
@@ -126,9 +139,9 @@ fun main(args: Array<String>) {
 		}
 	}
 
-	data class FuncArg(val type: TypeName, val converter: CodeBlock = CodeBlock.of(""), val propToPtr: Boolean = false)
+	data class FuncArg(val type: TypeName, val nativeConv: CodeBlock = CodeBlock.of(""), val jvmConv: CodeBlock = nativeConv, val propToPtr: Boolean = false)
 
-	// Returns a appendable converter, to convert from (returned) Kotlin type to cimgui value.
+	// Returns a appendable converter, to convert from (returned) Kotlin ReturnValue(type, cimgui value.)
 	fun convertKotlinTypeToNative(type: String, isNullable: Boolean, assertIfNull: Boolean): FuncArg {
 		val imGuiPackageName = "com.imgui"
 
@@ -138,6 +151,8 @@ fun main(args: Array<String>) {
 			""
 		}
 
+		if (type == "unsigned int") return FuncArg(U_INT, jvmConv = CodeBlock.of(".toLong()"))
+		if (type == "ImU32") return FuncArg(U_INT, jvmConv = CodeBlock.of(".toLong()"))
 		val simpleKtType = simpleTypeMap[type]
 		if (simpleKtType != null) {
 			return FuncArg(simpleKtType)
@@ -146,9 +161,9 @@ fun main(args: Array<String>) {
 			return FuncArg(ClassName("com.imgui", type), CodeBlock.of("$nullOp.value"))
 		}
 		if (type == "const char*") return FuncArg(STRING)
-		if (type == "const ImWchar*") return FuncArg(STRING, CodeBlock.of("$nullOp.%M", WCSTR))
-		if (type == "size_t") return FuncArg(U_LONG, CodeBlock.of(".%M()", CONVERT))
-		if (type == "ImWchar") return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"))
+		if (type == "const ImWchar*") return FuncArg(STRING, CodeBlock.of("$nullOp.%M", WCSTR), CodeBlock.of(""))
+		if (type == "size_t") return FuncArg(U_LONG, CodeBlock.of(".%M()", CONVERT), CodeBlock.of(".toLong()"))
+		if (type == "ImWchar") return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"), CodeBlock.of(".toInt()"))
 		if ("${type}_" in enums.keys) {
 			val isBitFlags = "${type}_" in enumBitMasks
 			val enumKt = ClassName("com.imgui", type)
@@ -160,8 +175,8 @@ fun main(args: Array<String>) {
 			}
 			return FuncArg(paramType, conv)
 		}
-		if (type == "const ImVec2" || type == "ImVec2") return FuncArg(VEC2, CodeBlock.of("$nullOp.toCValue()"))
-		if (type == "const ImVec4" || type == "ImVec4") return FuncArg(VEC4, CodeBlock.of("$nullOp.toCValue()"))
+		if (type == "const ImVec2" || type == "ImVec2") return FuncArg(VEC2, CodeBlock.of("$nullOp.toCValue()"), CodeBlock.of(""))
+		if (type == "const ImVec4" || type == "ImVec4") return FuncArg(VEC4, CodeBlock.of("$nullOp.toCValue()"), CodeBlock.of(""))
 		if (type.endsWith('*')) {
 			val derefType = type.dropLast(1).removePrefix("const ")
 			if (derefType in privateTypes || derefType in structs.keys) {
@@ -193,29 +208,37 @@ fun main(args: Array<String>) {
 		val enumNameKt = enumName.dropLast(1) // Remove trailing underscore.
 		val enumClass = ClassName("com.imgui", enumNameKt)
 		val enumValueType = ClassName("cimgui.internal", enumNameKt)
+		val enumJvmClass = ClassName("cimgui.internal", enumName)
 
-		val enum = TypeSpec.enumBuilder(enumClass)
-		enum.primaryConstructor(FunSpec.constructorBuilder()
-				.addParameter("value", enumValueType)
-				.build())
+		val commonEnum = TypeSpec.enumBuilder(enumClass).addModifiers(KModifier.EXPECT)
+		val nativeEnum = TypeSpec.enumBuilder(enumClass).addModifiers(KModifier.ACTUAL)
+		val jvmEnum = TypeSpec.enumBuilder(enumClass).addModifiers(KModifier.ACTUAL)
 
-		val valueProp = PropertySpec.builder("value", enumValueType)
-		valueProp.initializer("value")
+		nativeEnum.primaryConstructor(FunSpec.constructorBuilder()
+				.addParameter("value", enumValueType).build())
+		jvmEnum.primaryConstructor(FunSpec.constructorBuilder()
+				.addParameter("value", INT).build())
+
+		val nativeValueProp = PropertySpec.builder("value", enumValueType)
+		val jvmValueProp = PropertySpec.builder("value", INT)
+		nativeValueProp.initializer("value")
+		jvmValueProp.initializer("value")
 		if (isBitmask) {
-			enum.addSuperinterface(FLAG.parameterizedBy(enumClass))
-			valueProp.addModifiers(KModifier.OVERRIDE)
+			commonEnum.addSuperinterface(FLAG.parameterizedBy(enumClass))
+			nativeEnum.addSuperinterface(FLAG.parameterizedBy(enumClass))
+			nativeValueProp.addModifiers(KModifier.OVERRIDE)
+			jvmEnum.addSuperinterface(FLAG.parameterizedBy(enumClass))
+			jvmValueProp.addModifiers(KModifier.OVERRIDE)
 		}
-		enum.addProperty(valueProp.build())
+		nativeEnum.addProperty(nativeValueProp.build())
+		jvmEnum.addProperty(jvmValueProp.build())
 
-		val compositeFlags = mutableListOf<Pair<String, CodeBlock>>()
+		val compositeFlags = mutableListOf<Pair<String, String>>()
 		val lookUpTable = CodeBlock.builder()
-		lookUpTable.beginControlFlow("when (value.%M<%T>())", CONVERT, ClassName("cimgui.internal", enumName))
 
 		for (enumValue in entries) {
 			val enumValueNameKt = enumValue.name.removePrefix(enumName)
 			check(enumValue.name != enumValueNameKt)
-
-			val member = MemberName("cimgui.internal", enumValue.name)
 
 			if (isBitmask) {
 				if (enumValueNameKt == "None") {
@@ -224,7 +247,7 @@ fun main(args: Array<String>) {
 				if (enumValue.calcValue != 0 && !enumValue.value.contains("<<")) {
 					// Then this value is a composite of multiple flags.
 					if (!enumValueNameKt.startsWith('_')) { // Check if not internal.
-						compositeFlags.add(enumValueNameKt to CodeBlock.of("%T(%M.toInt(), cachedInfo)", FLAG, member))
+						compositeFlags.add(enumValueNameKt to enumValue.name)
 					}
 					continue
 				}
@@ -232,57 +255,88 @@ fun main(args: Array<String>) {
 				continue
 			}
 
-			val constParam = CodeBlock.of("%M.%M()", member, CONVERT)
-			enum.addEnumConstant(enumValueNameKt, TypeSpec.anonymousClassBuilder()
-					.addSuperclassConstructorParameter(constParam)
+			commonEnum.addEnumConstant(enumValueNameKt)
+			nativeEnum.addEnumConstant(enumValueNameKt, TypeSpec.anonymousClassBuilder()
+					.addSuperclassConstructorParameter(CodeBlock.of("%M.%M()", MemberName("cimgui.internal", enumValue.name), CONVERT))
+					.build())
+			jvmEnum.addEnumConstant(enumValueNameKt, TypeSpec.anonymousClassBuilder()
+					.addSuperclassConstructorParameter("%M", MemberName(enumJvmClass, enumValue.name))
 					.build())
 			lookUpTable.addStatement("%N -> %N", enumValue.name, enumValueNameKt)
 		}
 
 		lookUpTable.addStatement("else -> throw NoSuchElementException(%P)", "Unknown enum constant \$value")
-		lookUpTable.endControlFlow()
 
-		val companionObject = TypeSpec.companionObjectBuilder()
+		val commonCompanionObject = TypeSpec.companionObjectBuilder()
+		val nativeCompanionObject = TypeSpec.companionObjectBuilder().addModifiers(KModifier.ACTUAL)
+		val jvmCompanionObject = TypeSpec.companionObjectBuilder().addModifiers(KModifier.ACTUAL)
 
-		companionObject.addFunction(FunSpec.builder("from")
+		nativeCompanionObject.addFunction(FunSpec.builder("from")
 				.returns(enumClass)
 				.addParameter("value", enumValueType)
-				.addStatement("return %L", lookUpTable.build())
+				.beginControlFlow("return when (value.%M<%T>())", CONVERT, ClassName("cimgui.internal", enumName))
+				.addCode(lookUpTable.build())
+				.endControlFlow()
+				.build())
+		jvmCompanionObject.addFunction(FunSpec.builder("from").returns(enumClass)
+				.addParameter("value", INT)
+				.beginControlFlow("return when (value)")
+				.addCode(lookUpTable.build())
+				.endControlFlow()
 				.build())
 
 		if (isBitmask) {
-			val enumInfoType = FLAG
-					.nestedClass("EnumInfo")
-					.parameterizedBy(enumClass)
+			val enumInfoType = FLAG.nestedClass("EnumInfo").parameterizedBy(enumClass)
 
-			companionObject.addProperty(PropertySpec.builder("cachedInfo", enumInfoType, KModifier.PRIVATE)
-							.initializer("%T.enumInfo()", FLAG)
-							.build())
-			for ((propName, initializer) in compositeFlags) {
-				companionObject.addProperty(PropertySpec.builder(propName, FLAG.parameterizedBy(enumClass))
-						.initializer(initializer)
+			val cachedInfoProp = PropertySpec.builder("cachedInfo", enumInfoType, KModifier.PRIVATE)
+					.initializer("%T.enumInfo()", FLAG)
+					.build()
+			nativeCompanionObject.addProperty(cachedInfoProp)
+			jvmCompanionObject.addProperty(cachedInfoProp)
+			val flagKt = FLAG.parameterizedBy(enumClass)
+			for ((propName, constName) in compositeFlags) {
+				commonCompanionObject.addProperty(propName, flagKt)
+
+				nativeCompanionObject.addProperty(PropertySpec.builder(propName, flagKt)
+						.initializer(CodeBlock.of("%T(%M.toInt(), cachedInfo)", FLAG, MemberName("cimgui.internal", constName)))
+						.addModifiers(KModifier.ACTUAL)
+						.build())
+				jvmCompanionObject.addProperty(PropertySpec.builder(propName, flagKt)
+						.initializer(CodeBlock.of("%T(%M, cachedInfo)", FLAG, MemberName(enumJvmClass, constName)))
+						.addModifiers(KModifier.ACTUAL)
 						.build())
 			}
 
-			companionObject.addFunction(FunSpec.builder("fromMultiple")
-					.returns(FLAG.parameterizedBy(enumClass))
+			nativeCompanionObject.addFunction(FunSpec.builder("fromMultiple").returns(flagKt)
 					.addParameter("value", enumValueType)
 					.addStatement("return %T(value.%M(), cachedInfo)", FLAG, CONVERT)
 					.build())
-
-			enum.addProperty(PropertySpec.builder("info", enumInfoType, KModifier.OVERRIDE)
-					.getter(FunSpec.getterBuilder().addCode("return cachedInfo").build())
+			jvmCompanionObject.addFunction(FunSpec.builder("fromMultiple").returns(flagKt)
+					.addParameter("value", INT)
+					.addStatement("return %T(value, cachedInfo)", FLAG)
 					.build())
-		}
-		enum.addType(companionObject.build())
 
-		FileSpec.get("com.imgui", enum.build()).writeTo(outputDir)
+			val cachedInfoMember = PropertySpec.builder("info", enumInfoType, KModifier.OVERRIDE)
+					.getter(FunSpec.getterBuilder().addCode("return cachedInfo").build())
+					.build()
+			nativeEnum.addProperty(cachedInfoMember)
+			jvmEnum.addProperty(cachedInfoMember)
+		}
+		commonEnum.addType(commonCompanionObject.build())
+		nativeEnum.addType(nativeCompanionObject.build())
+		jvmEnum.addType(jvmCompanionObject.build())
+
+		FileSpec.get("com.imgui", commonEnum.build()).writeTo(commonDir)
+		FileSpec.get("com.imgui", nativeEnum.build()).writeTo(nativeDir)
+		FileSpec.get("com.imgui", jvmEnum.build()).writeTo(jvmDir)
 	}
 
-	for (valueType in valueTypes) {
+	for ((valueType, jvmUnderlyingType) in valueTypes) {
 		val pointerClass = ClassName("cimgui.internal", valueType)
-		val type = TypeSpec.classBuilder(valueType)
-				.addModifiers(KModifier.INLINE)
+		val commonType = TypeSpec.expectClassBuilder(valueType).build()
+		val nativeType = TypeSpec.classBuilder(valueType)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
 				.primaryConstructor(FunSpec.constructorBuilder()
 						.addParameter("value", pointerClass)
 						.build())
@@ -290,27 +344,63 @@ fun main(args: Array<String>) {
 						.initializer("value")
 						.build())
 				.build()
-
-		FileSpec.get("com.imgui", type).writeTo(outputDir)
-	}
-
-	for (privateType in privateTypes) {
-		val pointerClass = C_POINTER.parameterizedBy(ClassName("cnames.structs", privateType))
-		val type = TypeSpec.classBuilder(privateType)
-				.addModifiers(KModifier.INLINE)
+		val jvmType = TypeSpec.classBuilder(valueType)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
 				.primaryConstructor(FunSpec.constructorBuilder()
-						.addParameter("ptr", pointerClass)
+						.addParameter("value", jvmUnderlyingType)
 						.build())
-				.addProperty(PropertySpec.builder("ptr", pointerClass, KModifier.INTERNAL)
-						.initializer("ptr")
+				.addProperty(PropertySpec.builder("value", jvmUnderlyingType)
+						.initializer("value")
 						.build())
 				.build()
 
-		FileSpec.get("com.imgui", type).writeTo(outputDir)
+		FileSpec.get("com.imgui", commonType).writeTo(commonDir)
+		FileSpec.get("com.imgui", nativeType).writeTo(nativeDir)
+		FileSpec.get("com.imgui", jvmType).writeTo(jvmDir)
 	}
 
-	val structFunctions = mutableMapOf<String, MutableList<FunSpec>>()
-	val imguiObj = TypeSpec.objectBuilder("ImGui")
+	for (privateType in privateTypes) {
+		val nativePointerClass = C_POINTER.parameterizedBy(ClassName("cnames.structs", privateType))
+		val jvmPointerClass = ClassName("cimgui.internal", "SWIGTYPE_p_$privateType")
+
+		val commonType = TypeSpec.expectClassBuilder(privateType).build()
+		val nativeType = TypeSpec.classBuilder(privateType)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.primaryConstructor(FunSpec.constructorBuilder()
+						.addParameter("ptr", nativePointerClass)
+						.build())
+				.addProperty(PropertySpec.builder("ptr", nativePointerClass, KModifier.INTERNAL)
+						.initializer("ptr")
+						.build())
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
+				.build()
+		val jvmType = TypeSpec.classBuilder(privateType)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.primaryConstructor(FunSpec.constructorBuilder()
+						.addParameter("ptr", jvmPointerClass)
+						.build())
+				.addProperty(PropertySpec.builder("ptr", jvmPointerClass, KModifier.INTERNAL)
+						.initializer("ptr")
+						.build())
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
+				.build()
+
+		FileSpec.get("com.imgui", commonType).writeTo(commonDir)
+		FileSpec.get("com.imgui", nativeType).writeTo(nativeDir)
+		FileSpec.get("com.imgui", jvmType).writeTo(jvmDir)
+	}
+
+	val commonStructMemberFuncs = mutableMapOf<String, MutableList<FunSpec>>()
+	val nativeStructMemberFuncs = mutableMapOf<String, MutableList<FunSpec>>()
+	val jvmStructMemberFuncs = mutableMapOf<String, MutableList<FunSpec>>()
+
+	val commonImGuiObj = TypeSpec.objectBuilder("ImGui").addModifiers(KModifier.EXPECT)
+	val nativeImGuiObj = TypeSpec.objectBuilder("ImGui").addModifiers(KModifier.ACTUAL)
+	val jvmImGuiObj = TypeSpec.objectBuilder("ImGui").addModifiers(KModifier.ACTUAL)
+
+	jvmImGuiObj.addInitializerBlock(CodeBlock.of("loadCImGuiNativeLibs()\n"))
+
 	defLoop@for (overload in definitions.flatMap { (_, overloads) -> overloads }) {
 		// TODO: Not needed in wrapper.
 		if (overload.nonUDT != null) continue
@@ -327,24 +417,18 @@ fun main(args: Array<String>) {
 		// TODO: Some design choices to be made here.
 		if (overload.structName == "ImVector") continue
 
-		val functionKt = when {
-			overload.isCtor -> FunSpec.constructorBuilder()
-			overload.isDtor -> FunSpec.builder("destroy")
-			else -> FunSpec.builder(overload.functionName!!.decapitalize())
-		}
-
-		val cimguiFun = MemberName("cimgui.internal",
-				overload.overloadedCimguiName ?: overload.cimguiName)
-
 		val defaultMap = if (overload.defaults is JsonObject) {
 			overload.defaults.mapValues { (_, value) -> (value as JsonLiteral).content }
 		} else {
 			emptyMap()
 		}
 
-		val checks = mutableListOf<CodeBlock>()
-		val scopedHelpers = mutableListOf<CodeBlock>()
-		val arguments = mutableListOf<CodeBlock>()
+		val parameters = mutableListOf<ParameterSpec>()
+		val checks = mutableListOf<CodeBlock>() // e.g require(array.size >= 3)
+		val nativeScopedHelpers = mutableListOf<CodeBlock>() // e.g usingProperty or usePinned
+		val jvmScopedHelpers = mutableListOf<CodeBlock>() // JVM variants.
+		val nativeArguments = mutableListOf<CodeBlock>()
+		val jvmArguments = mutableListOf<CodeBlock>()
 		for (arg in overload.argsT) {
 			val argNameKt = arg.name.snakeToPascalCase().decapitalize()
 			val defaultValue = defaultMap[arg.name]?.let {
@@ -363,13 +447,15 @@ fun main(args: Array<String>) {
 			if (arg.type == "...") continue
 
 			if (isMemberFunction && arg.name == "self") {
-				arguments.add(CodeBlock.of("ptr"))
+				nativeArguments.add(CodeBlock.of("ptr"))
+				jvmArguments.add(CodeBlock.of("ptr"))
 			} else if (arg.type matches cArrayRegex) {
 				val (elemType, sizeStr) = cArrayRegex.matchEntire(arg.type)!!.destructured
 
-				checks.add(CodeBlock.of("require($argNameKt.size >= ${sizeStr.toInt()})"))
+				checks.add(CodeBlock.of("require($argNameKt.size >= ${sizeStr.toInt()})\n"))
 				val pinnedName = "pinned${argNameKt.capitalize()}"
-				scopedHelpers.add(CodeBlock.of("$argNameKt.%M { $pinnedName ->", USE_PINNED))
+				nativeScopedHelpers.add(CodeBlock.of("$argNameKt.%M { $pinnedName ->", USE_PINNED))
+				jvmScopedHelpers.add(CodeBlock.of("$argNameKt.nativeCopy { $pinnedName ->"))
 
 				val paramType = when (elemType) {
 					"int" -> INT_ARRAY
@@ -377,24 +463,33 @@ fun main(args: Array<String>) {
 					else -> TODO()
 				}
 				check(defaultValue == null)
-				functionKt.addParameter(argNameKt, paramType)
-				arguments.add(CodeBlock.of("$pinnedName.%M(0)", ADDRESS_OF))
+				parameters.add(ParameterSpec(argNameKt, paramType))
+				nativeArguments.add(CodeBlock.of("$pinnedName.%M(0)", ADDRESS_OF))
+				jvmArguments.add(CodeBlock.of("%N", pinnedName))
 			} else {
 				try {
 					val isBitMask = "${arg.type}_" in enumBitMasks
 					val isNullable = defaultValue == "((void*)0)" || (isBitMask && defaultValue == "0")
 
-					val (type, converter, propToPtr) = convertKotlinTypeToNative(arg.type, isNullable, false)
+					val (type, nativeConv, jvmConv, propToPtr) = convertKotlinTypeToNative(arg.type, isNullable, false)
+					val actualType = arg.type.removePrefix("const ")
+					val passesStructByValue = actualType == "ImVec4" || actualType == "ImVec2"
+					val isUnicodeStr = arg.type == "const ImWchar*"
 
 					val paramType = type.copy(nullable = isNullable)
+					val ptrName = "ptr${argNameKt.capitalize()}"
 					if (propToPtr) {
-						val ptrName = "ptr${argNameKt.capitalize()}"
 						val helper = if (isNullable) {
 							CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
 						} else {
 							CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
 						}
-						scopedHelpers.add(helper)
+						nativeScopedHelpers.add(helper)
+						jvmScopedHelpers.add(helper)
+					} else if (passesStructByValue) {
+						jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
+					} else if (isUnicodeStr) {
+						jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String { $ptrName -> "))
 					}
 
 					val param = ParameterSpec.builder(argNameKt, paramType)
@@ -418,13 +513,15 @@ fun main(args: Array<String>) {
 						param.defaultValue(value)
 					}
 
-					functionKt.addParameter(param.build())
-					val passedArgName = if (propToPtr) "ptr${argNameKt.capitalize()}" else argNameKt
-					arguments.add(CodeBlock.of("%N%L", passedArgName, converter))
+					parameters.add(param.build())
+					val passedArgName = if (propToPtr) ptrName else argNameKt
+					nativeArguments.add(CodeBlock.of("%N%L", passedArgName, nativeConv))
+					jvmArguments.add(CodeBlock.of("%N%L", if (passesStructByValue || isUnicodeStr) ptrName else passedArgName, jvmConv))
 				} catch (e: NotImplementedError) {
 					// If type is unknown but has a reasonable default value, we can skip the param.
 					if (defaultValue == "((void*)0)") {
-						arguments.add(CodeBlock.of("null"))
+						nativeArguments.add(CodeBlock.of("null"))
+						jvmArguments.add(CodeBlock.of("null"))
 					} else {
 						// Skip functions with unknown param types.
 						println(overload.cimguiName + " -> " + arg.type)
@@ -434,53 +531,122 @@ fun main(args: Array<String>) {
 			}
 		}
 
-		val igFuncCall = buildCodeBlock {
-			for (helper in scopedHelpers) {
+		val cImGuiFunName = overload.overloadedCimguiName ?: overload.cimguiName
+		val returnsStructByValue = overload.returnType == "ImVec4" || overload.returnType == "ImVec2"
+		if (returnsStructByValue) {
+			jvmScopedHelpers.add(CodeBlock.of("return${overload.returnType!!.removePrefix("Im")} { returnVal ->"))
+		}
+
+		val nativeIgFuncCall = buildCodeBlock {
+			for (helper in nativeScopedHelpers) {
 				add(helper)
 				add("\n")
 				indent()
 			}
-			add("%M(", cimguiFun)
-			add(arguments.joinToCode())
+			add("%M(", MemberName("cimgui.internal", cImGuiFunName))
+			add(nativeArguments.joinToCode())
 			add(")")
-			for (helper in scopedHelpers) {
+			for (helper in nativeScopedHelpers) {
+				add("\n")
+				unindent()
+				add("}")
+			}
+		}
+		val jvmIgFuncCall = buildCodeBlock {
+			val cimguiClass = ClassName("cimgui.internal", "CImGui")
+			for (helper in jvmScopedHelpers) {
+				add(helper)
+				add("\n")
+				indent()
+			}
+			add("%M(", MemberName(cimguiClass, if (returnsStructByValue) "${cImGuiFunName}_nonUDT" else cImGuiFunName))
+			if (returnsStructByValue) {
+				add("returnVal")
+				if (jvmArguments.isNotEmpty()) add(", ")
+			}
+			add(jvmArguments.joinToCode())
+			add(")")
+			for (helper in jvmScopedHelpers) {
 				add("\n")
 				unindent()
 				add("}")
 			}
 		}
 
+		val commonFunction: FunSpec.Builder
+		val nativeFunction: FunSpec.Builder
+		val jvmFunction: FunSpec.Builder
+
+		if (overload.isCtor) {
+			check(checks.isEmpty())
+
+			commonFunction = FunSpec.constructorBuilder()
+			nativeFunction = FunSpec.constructorBuilder()
+			jvmFunction = FunSpec.constructorBuilder()
+
+			nativeFunction.callThisConstructor(CodeBlock.of("%L!!", nativeIgFuncCall))
+			jvmFunction.callThisConstructor(CodeBlock.of("%L!!", jvmIgFuncCall))
+		} else {
+			val actualName = if (overload.isDtor) "destroy" else overload.functionName!!.decapitalize()
+			commonFunction = FunSpec.builder(actualName)
+			nativeFunction = FunSpec.builder(actualName)
+			jvmFunction = FunSpec.builder(actualName)
+		}
+		commonFunction.addModifiers(KModifier.EXPECT)
+		nativeFunction.addModifiers(KModifier.ACTUAL)
+		jvmFunction.addModifiers(KModifier.ACTUAL)
+
+		commonFunction.addParameters(parameters)
+		val platformParams = parameters.map { ParameterSpec(it.name, it.type, it.modifiers) }
+		nativeFunction.addParameters(platformParams)
+		jvmFunction.addParameters(platformParams)
+
 		if (overload.returnType == null) {
 			check(isMemberFunction)
-			check(checks.isEmpty())
-			if (overload.isCtor) {
-				functionKt.callThisConstructor(CodeBlock.of("%L!!", igFuncCall))
-			} else {
-				check(overload.isDtor)
-				functionKt.addCode(igFuncCall)
-				functionKt.addCode("\n")
+			if (overload.isDtor) {
+				nativeFunction.addCode(nativeIgFuncCall)
+				nativeFunction.addCode("\n")
+
+				jvmFunction.addCode(jvmIgFuncCall)
+				jvmFunction.addCode("\n")
 			}
 		} else {
 			for (it in checks) {
-				functionKt.addCode(it)
-				functionKt.addCode("\n")
+				nativeFunction.addCode(it)
+				nativeFunction.addCode("\n")
+
+				jvmFunction.addCode(it)
+				jvmFunction.addCode("\n")
 			}
 			if (overload.returnType == "void") {
-				functionKt.addCode(igFuncCall)
-				functionKt.addCode("\n")
+				nativeFunction.addCode(nativeIgFuncCall)
+				nativeFunction.addCode("\n")
+
+				jvmFunction.addCode(jvmIgFuncCall)
+				jvmFunction.addCode("\n")
 			} else {
 				// TODO: Improve this here with a white list of functions.
 				val canBeNull = overload.returnType.endsWith("*") || overload.returnType == "ImTextureID"
 				val shouldAssert = overload.returnType != "const char*" || overload.returnType == "const ImWchar*"
 				try {
-					val (typeKt, converter) = convertNativeTypeToKt(overload.returnType)
+					val (typeKt, nativeConv, jvmConv) = convertNativeTypeToKt(overload.returnType, false)
 					// If return value can be null and we're not asserting, then we return nullable.
-					functionKt.returns(typeKt.copy(canBeNull && !shouldAssert))
-					functionKt.addCode("return ")
-					functionKt.addCode(igFuncCall)
-					if (canBeNull) functionKt.addCode(if (shouldAssert) "!!" else "?")
-					functionKt.addCode(converter)
-					functionKt.addCode("\n")
+					val actualType = typeKt.copy(canBeNull && !shouldAssert)
+					commonFunction.returns(actualType)
+					nativeFunction.returns(actualType)
+					jvmFunction.returns(actualType)
+					nativeFunction.addCode("return ")
+					jvmFunction.addCode("return ")
+					nativeFunction.addCode(nativeIgFuncCall)
+					jvmFunction.addCode(jvmIgFuncCall)
+					if (canBeNull) {
+						nativeFunction.addCode(if (shouldAssert) "!!" else "?")
+						if (overload.returnType != "const char*") jvmFunction.addCode(if (shouldAssert) "!!" else "?")
+					}
+					nativeFunction.addCode(nativeConv)
+					jvmFunction.addCode(jvmConv)
+					nativeFunction.addCode("\n")
+					jvmFunction.addCode("\n")
 				} catch (e: NotImplementedError) {
 					// Skip functions with non-trivial return value.
 					println(overload.cimguiName + " returns " + overload.returnType)
@@ -490,25 +656,49 @@ fun main(args: Array<String>) {
 		}
 
 		if (isMemberFunction) {
-			structFunctions.getOrPut(overload.structName) { mutableListOf() }.add(functionKt.build())
+			commonStructMemberFuncs.getOrPut(overload.structName) { mutableListOf() }.add(commonFunction.build())
+			nativeStructMemberFuncs.getOrPut(overload.structName) { mutableListOf() }.add(nativeFunction.build())
+			jvmStructMemberFuncs.getOrPut(overload.structName) { mutableListOf() }.add(jvmFunction.build())
 		} else {
-			imguiObj.addFunction(functionKt.build())
+			commonImGuiObj.addFunction(commonFunction.build())
+			nativeImGuiObj.addFunction(nativeFunction.build())
+			jvmImGuiObj.addFunction(jvmFunction.build())
 		}
 	}
-	FileSpec.get("com.imgui", imguiObj.build())
+	FileSpec.get("com.imgui", commonImGuiObj.build())
 			.toBuilder().indent("    ").build()
-			.writeTo(outputDir)
+			.writeTo(commonDir)
+	FileSpec.get("com.imgui", nativeImGuiObj.build())
+			.toBuilder().indent("    ").build()
+			.writeTo(nativeDir)
+	FileSpec.get("com.imgui", jvmImGuiObj.build())
+			.toBuilder().indent("    ").build()
+			.writeTo(jvmDir)
 
 	for ((structName, members) in structs) {
 		val imguiStructClass = ClassName("cimgui.internal", structName)
 
-		val pointerClass = C_POINTER.parameterizedBy(imguiStructClass)
-		val struct = TypeSpec.classBuilder(structName)
-				.addModifiers(KModifier.INLINE)
+		val nativePointerClass = C_POINTER.parameterizedBy(imguiStructClass)
+		val jvmPointerClass = imguiStructClass
+
+		val commonStruct = TypeSpec.expectClassBuilder(structName)
+		val nativeStruct = TypeSpec.classBuilder(structName)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
 				.primaryConstructor(FunSpec.constructorBuilder()
-						.addParameter("ptr", pointerClass)
+						.addParameter("ptr", nativePointerClass)
 						.build())
-				.addProperty(PropertySpec.builder("ptr", pointerClass)
+				.addProperty(PropertySpec.builder("ptr", nativePointerClass)
+						// .addModifiers(KModifier.INTERNAL)
+						.initializer("ptr")
+						.build())
+		val jvmStruct = TypeSpec.classBuilder(structName)
+				.addModifiers(KModifier.INLINE, KModifier.ACTUAL)
+				.addAnnotation(ACTUAL_WITHOUT_EXPECT)
+				.primaryConstructor(FunSpec.constructorBuilder()
+						.addParameter("ptr", jvmPointerClass)
+						.build())
+				.addProperty(PropertySpec.builder("ptr", jvmPointerClass)
 						// .addModifiers(KModifier.INTERNAL)
 						.initializer("ptr")
 						.build())
@@ -517,33 +707,55 @@ fun main(args: Array<String>) {
 			// Skip imgui internal/private members.
 			if (member.name.startsWith('_')) continue
 
-			val memberNameKt = member.name.decapitalize()
+			val memberNameKt = member.name.let {
+				if (member.name == "ID") "id" else it.decapitalize()
+			}
 
-			if (member.size == null) {
+			if (member.size == null || member.type == "const char*") {
 				// TODO: Improve this here with a white list of functions.
 				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
 				val shouldAssert = !canBeNull || member.type == "const char*"
 				try {
-					val (typeKt, converter) = convertNativeTypeToKt(member.type)
+					val (typeKt, nativeConv, jvmConv) = convertNativeTypeToKt(member.type, true)
 					// If return value can be null and we're not asserting, then we return nullable.
-					val prop = PropertySpec.builder(memberNameKt, typeKt.copy(canBeNull && !shouldAssert))
+					val propType = typeKt.copy(canBeNull && !shouldAssert)
 
-					val getter = FunSpec.getterBuilder()
-					getter.addCode("return ptr.%M.%N", POINTED, member.name)
-					if (canBeNull) getter.addCode(if (shouldAssert) "!!" else "?")
-					getter.addCode(converter)
-					getter.addCode("\n")
-					prop.getter(getter.build())
-					struct.addProperty(prop.build())
+					val commonProp = PropertySpec.builder(memberNameKt, propType, KModifier.EXPECT)
+					val nativeProp = PropertySpec.builder(memberNameKt, propType, KModifier.ACTUAL)
+					val jvmProp = PropertySpec.builder(memberNameKt, propType, KModifier.ACTUAL)
+
+					val nativeGetter = FunSpec.getterBuilder()
+					nativeGetter.addCode("return ptr.%M.%N", POINTED, member.name)
+					if (canBeNull) nativeGetter.addCode(if (shouldAssert) "!!" else "?")
+					nativeGetter.addCode(nativeConv)
+					nativeGetter.addCode("\n")
+
+					val jvmGetter = FunSpec.getterBuilder()
+					jvmGetter.addCode("return ptr.%N", memberNameKt)
+					if (canBeNull) jvmGetter.addCode(if (shouldAssert) "!!" else "?")
+					jvmGetter.addCode(jvmConv)
+					jvmGetter.addCode("\n")
+
+					nativeProp.getter(nativeGetter.build())
+					jvmProp.getter(jvmGetter.build())
+
+					commonStruct.addProperty(commonProp.build())
+					nativeStruct.addProperty(nativeProp.build())
+					jvmStruct.addProperty(jvmProp.build())
 				} catch (e: NotImplementedError) {
+					println("MEMBER: $structName -> ${member.name}: ${member.type}")
 					// Skip members with non-trivial type.
 					continue
 				}
 			}
 		}
 
-		struct.addFunctions(structFunctions[structName] ?: emptyList())
+		commonStruct.addFunctions(commonStructMemberFuncs[structName] ?: emptyList())
+		nativeStruct.addFunctions(nativeStructMemberFuncs[structName] ?: emptyList())
+		jvmStruct.addFunctions(jvmStructMemberFuncs[structName] ?: emptyList())
 
-		FileSpec.get("com.imgui", struct.build()).writeTo(outputDir)
+		FileSpec.get("com.imgui", commonStruct.build()).writeTo(commonDir)
+		FileSpec.get("com.imgui", nativeStruct.build()).writeTo(nativeDir)
+		FileSpec.get("com.imgui", jvmStruct.build()).writeTo(jvmDir)
 	}
 }

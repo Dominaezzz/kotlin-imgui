@@ -13,7 +13,7 @@ import cimgui.internal.ImGuiTabBarFlags_Reorderable
 import cimgui.internal.ImGuiTabBarFlags_TabListPopupButton
 import kotlinx.cinterop.convert
 
-enum class ImGuiTabBarFlags(
+actual enum class ImGuiTabBarFlags(
   override val value: cimgui.internal.ImGuiTabBarFlags
 ) : Flag<ImGuiTabBarFlags> {
   Reorderable(ImGuiTabBarFlags_Reorderable.convert()),
@@ -34,13 +34,13 @@ enum class ImGuiTabBarFlags(
 
   override val info: Flag.EnumInfo<ImGuiTabBarFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiTabBarFlags> = Flag.enumInfo()
 
-    val FittingPolicyMask_: Flag<ImGuiTabBarFlags> =
+    actual val FittingPolicyMask_: Flag<ImGuiTabBarFlags> =
         Flag(ImGuiTabBarFlags_FittingPolicyMask_.toInt(), cachedInfo)
 
-    val FittingPolicyDefault_: Flag<ImGuiTabBarFlags> =
+    actual val FittingPolicyDefault_: Flag<ImGuiTabBarFlags> =
         Flag(ImGuiTabBarFlags_FittingPolicyDefault_.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiTabBarFlags): ImGuiTabBarFlags = when
@@ -55,7 +55,6 @@ enum class ImGuiTabBarFlags(
       ImGuiTabBarFlags_FittingPolicyScroll -> FittingPolicyScroll
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiTabBarFlags): Flag<ImGuiTabBarFlags> =
         Flag(value.convert(), cachedInfo)

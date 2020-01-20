@@ -18,7 +18,7 @@ import cimgui.internal.ImGuiTreeNodeFlags_SpanAvailWidth
 import cimgui.internal.ImGuiTreeNodeFlags_SpanFullWidth
 import kotlinx.cinterop.convert
 
-enum class ImGuiTreeNodeFlags(
+actual enum class ImGuiTreeNodeFlags(
   override val value: cimgui.internal.ImGuiTreeNodeFlags
 ) : Flag<ImGuiTreeNodeFlags> {
   Selected(ImGuiTreeNodeFlags_Selected.convert()),
@@ -51,10 +51,10 @@ enum class ImGuiTreeNodeFlags(
 
   override val info: Flag.EnumInfo<ImGuiTreeNodeFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiTreeNodeFlags> = Flag.enumInfo()
 
-    val CollapsingHeader: Flag<ImGuiTreeNodeFlags> =
+    actual val CollapsingHeader: Flag<ImGuiTreeNodeFlags> =
         Flag(ImGuiTreeNodeFlags_CollapsingHeader.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiTreeNodeFlags): ImGuiTreeNodeFlags = when
@@ -75,7 +75,6 @@ enum class ImGuiTreeNodeFlags(
       ImGuiTreeNodeFlags_NavLeftJumpsBackHere -> NavLeftJumpsBackHere
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiTreeNodeFlags): Flag<ImGuiTreeNodeFlags> =
         Flag(value.convert(), cachedInfo)

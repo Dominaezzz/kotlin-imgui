@@ -5,22 +5,24 @@ import cimgui.internal.ImGuiStoragePair_ImGuiStoragePairInt
 import cimgui.internal.ImGuiStoragePair_destroy
 import kotlin.Float
 import kotlin.Int
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiStoragePair(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiStoragePair(
   val ptr: CPointer<cimgui.internal.ImGuiStoragePair>
 ) {
-  val key: ImGuiID
+  actual val key: ImGuiID
     get() = ptr.pointed.key.let(::ImGuiID)
 
-  constructor(key: ImGuiID, valI: Int) : this(ImGuiStoragePair_ImGuiStoragePairInt(key.value,
+  actual constructor(key: ImGuiID, valI: Int) : this(ImGuiStoragePair_ImGuiStoragePairInt(key.value,
       valI)!!)
 
-  constructor(key: ImGuiID, valF: Float) : this(ImGuiStoragePair_ImGuiStoragePairFloat(key.value,
-      valF)!!)
+  actual constructor(key: ImGuiID, valF: Float) :
+      this(ImGuiStoragePair_ImGuiStoragePairFloat(key.value, valF)!!)
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiStoragePair_destroy(ptr)
   }
 }

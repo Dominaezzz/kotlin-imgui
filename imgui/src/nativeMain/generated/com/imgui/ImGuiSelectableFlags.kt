@@ -8,7 +8,7 @@ import cimgui.internal.ImGuiSelectableFlags_DontClosePopups
 import cimgui.internal.ImGuiSelectableFlags_SpanAllColumns
 import kotlinx.cinterop.convert
 
-enum class ImGuiSelectableFlags(
+actual enum class ImGuiSelectableFlags(
   override val value: cimgui.internal.ImGuiSelectableFlags
 ) : Flag<ImGuiSelectableFlags> {
   DontClosePopups(ImGuiSelectableFlags_DontClosePopups.convert()),
@@ -23,7 +23,7 @@ enum class ImGuiSelectableFlags(
 
   override val info: Flag.EnumInfo<ImGuiSelectableFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiSelectableFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiSelectableFlags): ImGuiSelectableFlags = when
@@ -35,7 +35,6 @@ enum class ImGuiSelectableFlags(
       ImGuiSelectableFlags_AllowItemOverlap -> AllowItemOverlap
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiSelectableFlags): Flag<ImGuiSelectableFlags> =
         Flag(value.convert(), cachedInfo)

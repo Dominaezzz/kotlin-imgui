@@ -4,23 +4,25 @@ import cimgui.internal.ImVec2_ImVec2
 import cimgui.internal.ImVec2_ImVec2Float
 import cimgui.internal.ImVec2_destroy
 import kotlin.Float
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImVec2(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImVec2(
   val ptr: CPointer<cimgui.internal.ImVec2>
 ) {
-  val x: Float
+  actual val x: Float
     get() = ptr.pointed.x
 
-  val y: Float
+  actual val y: Float
     get() = ptr.pointed.y
 
-  constructor() : this(ImVec2_ImVec2()!!)
+  actual constructor() : this(ImVec2_ImVec2()!!)
 
-  constructor(x: Float, y: Float) : this(ImVec2_ImVec2Float(x, y)!!)
+  actual constructor(x: Float, y: Float) : this(ImVec2_ImVec2Float(x, y)!!)
 
-  fun destroy() {
+  actual fun destroy() {
     ImVec2_destroy(ptr)
   }
 }

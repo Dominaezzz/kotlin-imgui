@@ -6,7 +6,7 @@ import cimgui.internal.ImDrawListFlags_AntiAliasedFill
 import cimgui.internal.ImDrawListFlags_AntiAliasedLines
 import kotlinx.cinterop.convert
 
-enum class ImDrawListFlags(
+actual enum class ImDrawListFlags(
   override val value: cimgui.internal.ImDrawListFlags
 ) : Flag<ImDrawListFlags> {
   AntiAliasedLines(ImDrawListFlags_AntiAliasedLines.convert()),
@@ -17,7 +17,7 @@ enum class ImDrawListFlags(
 
   override val info: Flag.EnumInfo<ImDrawListFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImDrawListFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImDrawListFlags): ImDrawListFlags = when
@@ -27,7 +27,6 @@ enum class ImDrawListFlags(
       ImDrawListFlags_AllowVtxOffset -> AllowVtxOffset
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImDrawListFlags): Flag<ImDrawListFlags> =
         Flag(value.convert(), cachedInfo)

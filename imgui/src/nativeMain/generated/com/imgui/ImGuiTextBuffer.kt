@@ -14,41 +14,43 @@ import cimgui.internal.ImGuiTextBuffer_size
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 
-inline class ImGuiTextBuffer(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiTextBuffer(
   val ptr: CPointer<cimgui.internal.ImGuiTextBuffer>
 ) {
-  constructor() : this(ImGuiTextBuffer_ImGuiTextBuffer()!!)
+  actual constructor() : this(ImGuiTextBuffer_ImGuiTextBuffer()!!)
 
-  fun append(str: String, strEnd: String? = null) {
+  actual fun append(str: String, strEnd: String?) {
     ImGuiTextBuffer_append(ptr, str, strEnd)
   }
 
-  fun appendf(fmt: String) {
+  actual fun appendf(fmt: String) {
     ImGuiTextBuffer_appendf(ptr, fmt)
   }
 
-  fun begin(): String? = ImGuiTextBuffer_begin(ptr)?.toKString()
+  actual fun begin(): String? = ImGuiTextBuffer_begin(ptr)?.toKString()
 
-  fun c_str(): String? = ImGuiTextBuffer_c_str(ptr)?.toKString()
+  actual fun c_str(): String? = ImGuiTextBuffer_c_str(ptr)?.toKString()
 
-  fun clear() {
+  actual fun clear() {
     ImGuiTextBuffer_clear(ptr)
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiTextBuffer_destroy(ptr)
   }
 
-  fun empty(): Boolean = ImGuiTextBuffer_empty(ptr)
+  actual fun empty(): Boolean = ImGuiTextBuffer_empty(ptr)
 
-  fun end(): String? = ImGuiTextBuffer_end(ptr)?.toKString()
+  actual fun end(): String? = ImGuiTextBuffer_end(ptr)?.toKString()
 
-  fun reserve(capacity: Int) {
+  actual fun reserve(capacity: Int) {
     ImGuiTextBuffer_reserve(ptr, capacity)
   }
 
-  fun size(): Int = ImGuiTextBuffer_size(ptr)
+  actual fun size(): Int = ImGuiTextBuffer_size(ptr)
 }

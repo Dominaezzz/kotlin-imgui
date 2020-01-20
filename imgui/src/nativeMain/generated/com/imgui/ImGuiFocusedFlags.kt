@@ -7,7 +7,7 @@ import cimgui.internal.ImGuiFocusedFlags_RootAndChildWindows
 import cimgui.internal.ImGuiFocusedFlags_RootWindow
 import kotlinx.cinterop.convert
 
-enum class ImGuiFocusedFlags(
+actual enum class ImGuiFocusedFlags(
   override val value: cimgui.internal.ImGuiFocusedFlags
 ) : Flag<ImGuiFocusedFlags> {
   ChildWindows(ImGuiFocusedFlags_ChildWindows.convert()),
@@ -18,10 +18,10 @@ enum class ImGuiFocusedFlags(
 
   override val info: Flag.EnumInfo<ImGuiFocusedFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiFocusedFlags> = Flag.enumInfo()
 
-    val RootAndChildWindows: Flag<ImGuiFocusedFlags> =
+    actual val RootAndChildWindows: Flag<ImGuiFocusedFlags> =
         Flag(ImGuiFocusedFlags_RootAndChildWindows.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiFocusedFlags): ImGuiFocusedFlags = when
@@ -31,7 +31,6 @@ enum class ImGuiFocusedFlags(
       ImGuiFocusedFlags_AnyWindow -> AnyWindow
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiFocusedFlags): Flag<ImGuiFocusedFlags> =
         Flag(value.convert(), cachedInfo)

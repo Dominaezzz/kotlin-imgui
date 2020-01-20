@@ -27,14 +27,14 @@ import kotlinx.io.core.Closeable
 //----------------------------------------
 
 @ExperimentalUnsignedTypes
-class ImguiOpenGL3(
-		glslVersionStr: String = "#version 130",
-		private val useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
-		private val unpackRowLength: Boolean = true,
-		private val usePolygonMode: Boolean = true,
-		private val useSamplerBinding: Boolean = false,
-		private val useClipOrigin: Boolean = true,
-		private val useDrawWithBaseVertex: Boolean = true
+actual class ImguiOpenGL3 actual constructor(
+		glslVersionStr: String,
+		private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
+		private val unpackRowLength: Boolean,
+		private val usePolygonMode: Boolean,
+		private val useSamplerBinding: Boolean,
+		private val useClipOrigin: Boolean,
+		private val useDrawWithBaseVertex: Boolean
 ) : Closeable {
 
 	private val fontTexture: UInt
@@ -75,20 +75,20 @@ class ImguiOpenGL3(
 		val fragmentShader: String
 		when {
 			glslVersion < 130 -> {
-				vertexShader = vertexShaderGLSL120
-				fragmentShader = fragmentShaderGLSL120
+				vertexShader = Shaders.vertexShaderGLSL120
+				fragmentShader = Shaders.fragmentShaderGLSL120
 			}
 			glslVersion >= 410 -> {
-				vertexShader = vertexShaderGLSL410Core
-				fragmentShader = fragmentShaderGLSL410Core
+				vertexShader = Shaders.vertexShaderGLSL410Core
+				fragmentShader = Shaders.fragmentShaderGLSL410Core
 			}
 			glslVersion == 300 -> {
-				vertexShader = vertexShaderGLSL300ES
-				fragmentShader = fragmentShaderGLSL300ES
+				vertexShader = Shaders.vertexShaderGLSL300ES
+				fragmentShader = Shaders.fragmentShaderGLSL300ES
 			}
 			else -> {
-				vertexShader = vertexShaderGLSL130
-				fragmentShader = fragmentShaderGLSL130
+				vertexShader = Shaders.vertexShaderGLSL130
+				fragmentShader = Shaders.fragmentShaderGLSL130
 			}
 		}
 
@@ -165,8 +165,7 @@ class ImguiOpenGL3(
 		if (useVertexArray) glBindVertexArray(lastVertexArray.toUInt())
 	}
 
-	fun newFrame() {
-	}
+	actual fun newFrame() {}
 
 	private fun setupRenderState(drawData: ImDrawData, fbWidth: Int, fbHeight: Int, vertexArrayObject: UInt) {
 		// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
@@ -215,7 +214,7 @@ class ImguiOpenGL3(
 	// OpenGL3 Render function.
 	// (this used to be set in io.RenderDrawListsFn and called by ImGui::Render(), but you can now call this directly from your main loop)
 	// Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so.
-	fun renderDrawData(data: com.imgui.ImDrawData) {
+	actual fun renderDrawData(data: com.imgui.ImDrawData) {
 		val drawData: ImDrawData = data.ptr.pointed
 
 		val fbWidth = (drawData.DisplaySize.x * drawData.FramebufferScale.x).toInt()
@@ -401,121 +400,5 @@ class ImguiOpenGL3(
 			glGetIntegerv(pname, data.ptr)
 			data.value
 		}
-
-		// language=glsl
-		private val vertexShaderGLSL120 = """
-			uniform mat4 ProjMtx;
-			attribute vec2 Position;
-			attribute vec2 UV;
-			attribute vec4 Color;
-			varying vec2 Frag_UV;
-			varying vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val vertexShaderGLSL130 = """
-			uniform mat4 ProjMtx;
-			in vec2 Position;
-			in vec2 UV;
-			in vec4 Color;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val vertexShaderGLSL300ES = """
-			precision mediump float;
-			layout (location = 0) in vec2 Position;
-			layout (location = 1) in vec2 UV;
-			layout (location = 2) in vec4 Color;
-			uniform mat4 ProjMtx;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val vertexShaderGLSL410Core = """
-			layout (location = 0) in vec2 Position;
-			layout (location = 1) in vec2 UV;
-			layout (location = 2) in vec4 Color;
-			uniform mat4 ProjMtx;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val fragmentShaderGLSL120 = """
-			#ifdef GL_ES
-			    precision mediump float;
-			#endif
-			uniform sampler2D Texture;
-			varying vec2 Frag_UV;
-			varying vec4 Frag_Color;
-			void main()
-			{
-			    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val fragmentShaderGLSL130 = """
-			uniform sampler2D Texture;
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val fragmentShaderGLSL300ES = """
-			precision mediump float;
-			uniform sampler2D Texture;
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			layout (location = 0) out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
-		""".trimIndent()
-
-		// language=glsl
-		private val fragmentShaderGLSL410Core = """
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			uniform sampler2D Texture;
-			layout (location = 0) out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
-		""".trimIndent()
 	}
 }

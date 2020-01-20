@@ -8,7 +8,7 @@ import kotlinx.cinterop.*
 import kotlinx.io.core.Closeable
 import platform.posix.memset
 
-class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeable {
+actual class ImGuiGLFW actual constructor(private val window: Window, installCallbacks: Boolean): Closeable {
 	private var time: Double = 0.0
 	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
@@ -80,7 +80,7 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeabl
 		}
 	}
 
-	fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) {
+	actual fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) {
 		prevUserCallbackMouseButton?.invoke(window, button, action, mods)
 
 		if (action == Action.Press) {
@@ -88,7 +88,7 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeabl
 		}
 	}
 
-	fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
+	actual fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
 		prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
 
 		val io = ImGui.getIO().ptr.pointed
@@ -96,7 +96,7 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeabl
 		io.MouseWheel += offsetY.toFloat()
 	}
 
-	fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
+	actual fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
 		prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
 
 		val io = ImGui.getIO().ptr.pointed
@@ -114,14 +114,14 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean): Closeabl
 		io.KeySuper = io.KeysDown[KeyboardKey.LEFT_SUPER.ordinal].value || io.KeysDown[KeyboardKey.RIGHT_SUPER.ordinal].value
 	}
 
-	fun charCallback(window: Window, codepoint: UInt) {
+	actual fun charCallback(window: Window, codepoint: UInt) {
 		prevUserCallbackChar?.invoke(window, codepoint)
 
 		val io = ImGui.getIO()
 		io.addInputCharacter(codepoint)
 	}
 
-	fun newFrame() {
+	actual fun newFrame() {
 		val ioObj = ImGui.getIO()
 		assert(ioObj.fonts!!.isBuilt()) {
 			"Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame()."

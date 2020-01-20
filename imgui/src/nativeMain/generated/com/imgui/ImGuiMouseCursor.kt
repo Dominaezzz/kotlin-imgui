@@ -12,7 +12,7 @@ import cimgui.internal.ImGuiMouseCursor_ResizeNWSE
 import cimgui.internal.ImGuiMouseCursor_TextInput
 import kotlinx.cinterop.convert
 
-enum class ImGuiMouseCursor(
+actual enum class ImGuiMouseCursor(
   val value: cimgui.internal.ImGuiMouseCursor
 ) {
   None(ImGuiMouseCursor_None.convert()),
@@ -33,7 +33,7 @@ enum class ImGuiMouseCursor(
 
   Hand(ImGuiMouseCursor_Hand.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiMouseCursor): ImGuiMouseCursor = when
         (value.convert<ImGuiMouseCursor_>()) {
       ImGuiMouseCursor_None -> None
@@ -47,6 +47,5 @@ enum class ImGuiMouseCursor(
       ImGuiMouseCursor_Hand -> Hand
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

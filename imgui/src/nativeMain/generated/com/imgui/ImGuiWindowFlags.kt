@@ -32,7 +32,7 @@ import cimgui.internal.ImGuiWindowFlags_Tooltip
 import cimgui.internal.ImGuiWindowFlags_UnsavedDocument
 import kotlinx.cinterop.convert
 
-enum class ImGuiWindowFlags(
+actual enum class ImGuiWindowFlags(
   override val value: cimgui.internal.ImGuiWindowFlags
 ) : Flag<ImGuiWindowFlags> {
   NoTitleBar(ImGuiWindowFlags_NoTitleBar.convert()),
@@ -89,15 +89,16 @@ enum class ImGuiWindowFlags(
 
   override val info: Flag.EnumInfo<ImGuiWindowFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiWindowFlags> = Flag.enumInfo()
 
-    val NoNav: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoNav.toInt(), cachedInfo)
+    actual val NoNav: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoNav.toInt(), cachedInfo)
 
-    val NoDecoration: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoDecoration.toInt(),
+    actual val NoDecoration: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoDecoration.toInt(),
         cachedInfo)
 
-    val NoInputs: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoInputs.toInt(), cachedInfo)
+    actual val NoInputs: Flag<ImGuiWindowFlags> = Flag(ImGuiWindowFlags_NoInputs.toInt(),
+        cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiWindowFlags): ImGuiWindowFlags = when
         (value.convert<ImGuiWindowFlags_>()) {
@@ -129,7 +130,6 @@ enum class ImGuiWindowFlags(
       ImGuiWindowFlags_ChildMenu -> ChildMenu
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiWindowFlags): Flag<ImGuiWindowFlags> =
         Flag(value.convert(), cachedInfo)

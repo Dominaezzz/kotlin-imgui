@@ -13,6 +13,23 @@ kotlin {
     if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
     if (!useSingleTarget || HostManager.hostIsMac) macosX64()
 
+    jvm {
+        compilations {
+            "main" {
+                dependencies {
+                    api(kotlin("stdlib-jdk8"))
+                    compileOnly(project(":cimgui", "jvmDefault"))
+                }
+            }
+            "test" {
+                dependencies {
+                    implementation(kotlin("test"))
+                    implementation(kotlin("test-junit"))
+                }
+            }
+        }
+    }
+
     targets.withType<KotlinNativeTarget> {
         compilations {
             "main" {
@@ -22,9 +39,23 @@ kotlin {
 
                 dependencies {
                     implementation(project(":cimgui"))
-                    implementation(project(":imgui"))
-                    implementation("com.kgl:kgl-opengl:0.1.9-dev-5")
                 }
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+                implementation(project(":imgui"))
+                implementation("com.kgl:kgl-opengl:0.1.9-dev-5")
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
             }
         }
     }

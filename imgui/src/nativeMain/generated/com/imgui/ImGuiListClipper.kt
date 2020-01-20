@@ -8,44 +8,46 @@ import cimgui.internal.ImGuiListClipper_destroy
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiListClipper(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiListClipper(
   val ptr: CPointer<cimgui.internal.ImGuiListClipper>
 ) {
-  val startPosY: Float
+  actual val startPosY: Float
     get() = ptr.pointed.StartPosY
 
-  val itemsHeight: Float
+  actual val itemsHeight: Float
     get() = ptr.pointed.ItemsHeight
 
-  val itemsCount: Int
+  actual val itemsCount: Int
     get() = ptr.pointed.ItemsCount
 
-  val stepNo: Int
+  actual val stepNo: Int
     get() = ptr.pointed.StepNo
 
-  val displayStart: Int
+  actual val displayStart: Int
     get() = ptr.pointed.DisplayStart
 
-  val displayEnd: Int
+  actual val displayEnd: Int
     get() = ptr.pointed.DisplayEnd
 
-  constructor(itemsCount: Int = -1, itemsHeight: Float = -1.0f) :
+  actual constructor(itemsCount: Int, itemsHeight: Float) :
       this(ImGuiListClipper_ImGuiListClipper(itemsCount, itemsHeight)!!)
 
-  fun begin(itemsCount: Int, itemsHeight: Float = -1.0f) {
+  actual fun begin(itemsCount: Int, itemsHeight: Float) {
     ImGuiListClipper_Begin(ptr, itemsCount, itemsHeight)
   }
 
-  fun end() {
+  actual fun end() {
     ImGuiListClipper_End(ptr)
   }
 
-  fun step(): Boolean = ImGuiListClipper_Step(ptr)
+  actual fun step(): Boolean = ImGuiListClipper_Step(ptr)
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiListClipper_destroy(ptr)
   }
 }

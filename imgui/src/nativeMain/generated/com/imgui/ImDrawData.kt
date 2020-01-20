@@ -7,48 +7,50 @@ import cimgui.internal.ImDrawData_ScaleClipRects
 import cimgui.internal.ImDrawData_destroy
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImDrawData(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImDrawData(
   val ptr: CPointer<cimgui.internal.ImDrawData>
 ) {
-  val valid: Boolean
+  actual val valid: Boolean
     get() = ptr.pointed.Valid
 
-  val cmdListsCount: Int
+  actual val cmdListsCount: Int
     get() = ptr.pointed.CmdListsCount
 
-  val totalIdxCount: Int
+  actual val totalIdxCount: Int
     get() = ptr.pointed.TotalIdxCount
 
-  val totalVtxCount: Int
+  actual val totalVtxCount: Int
     get() = ptr.pointed.TotalVtxCount
 
-  val displayPos: Vec2
+  actual val displayPos: Vec2
     get() = ptr.pointed.DisplayPos.fromCValue()
 
-  val displaySize: Vec2
+  actual val displaySize: Vec2
     get() = ptr.pointed.DisplaySize.fromCValue()
 
-  val framebufferScale: Vec2
+  actual val framebufferScale: Vec2
     get() = ptr.pointed.FramebufferScale.fromCValue()
 
-  constructor() : this(ImDrawData_ImDrawData()!!)
+  actual constructor() : this(ImDrawData_ImDrawData()!!)
 
-  fun clear() {
+  actual fun clear() {
     ImDrawData_Clear(ptr)
   }
 
-  fun deIndexAllBuffers() {
+  actual fun deIndexAllBuffers() {
     ImDrawData_DeIndexAllBuffers(ptr)
   }
 
-  fun scaleClipRects(fbScale: Vec2) {
+  actual fun scaleClipRects(fbScale: Vec2) {
     ImDrawData_ScaleClipRects(ptr, fbScale.toCValue())
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImDrawData_destroy(ptr)
   }
 }

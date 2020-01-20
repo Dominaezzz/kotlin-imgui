@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.jvm.JvmName
+
 interface Flag<T> where T : Enum<T>, T : Flag<T> {
 	val value: Int
 
@@ -43,6 +45,7 @@ infix fun <T> Flag<T>.or(other: Flag<T>): Flag<T> where T : Enum<T>, T : Flag<T>
 	return Flag(value or other.value, info)
 }
 
+@JvmName("orNull")
 infix fun <T> Flag<T>?.or(other: Flag<T>?): Flag<T>? where T : Enum<T>, T : Flag<T> {
 	if (this == null) return other
 	if (other == null) return this

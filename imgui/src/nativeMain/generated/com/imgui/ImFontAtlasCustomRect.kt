@@ -5,43 +5,45 @@ import cimgui.internal.ImFontAtlasCustomRect_IsPacked
 import cimgui.internal.ImFontAtlasCustomRect_destroy
 import kotlin.Boolean
 import kotlin.Float
+import kotlin.Suppress
 import kotlin.UInt
 import kotlin.UShort
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImFontAtlasCustomRect(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImFontAtlasCustomRect(
   val ptr: CPointer<cimgui.internal.ImFontAtlasCustomRect>
 ) {
-  val iD: UInt
-    get() = ptr.pointed.ID
+  actual val id: UInt
+    get() = ptr.pointed.ID.toUInt()
 
-  val width: UShort
-    get() = ptr.pointed.Width
+  actual val width: UShort
+    get() = ptr.pointed.Width.toUShort()
 
-  val height: UShort
-    get() = ptr.pointed.Height
+  actual val height: UShort
+    get() = ptr.pointed.Height.toUShort()
 
-  val x: UShort
-    get() = ptr.pointed.X
+  actual val x: UShort
+    get() = ptr.pointed.X.toUShort()
 
-  val y: UShort
-    get() = ptr.pointed.Y
+  actual val y: UShort
+    get() = ptr.pointed.Y.toUShort()
 
-  val glyphAdvanceX: Float
+  actual val glyphAdvanceX: Float
     get() = ptr.pointed.GlyphAdvanceX
 
-  val glyphOffset: Vec2
+  actual val glyphOffset: Vec2
     get() = ptr.pointed.GlyphOffset.fromCValue()
 
-  val font: ImFont?
+  actual val font: ImFont?
     get() = ptr.pointed.Font?.let(::ImFont)
 
-  constructor() : this(ImFontAtlasCustomRect_ImFontAtlasCustomRect()!!)
+  actual constructor() : this(ImFontAtlasCustomRect_ImFontAtlasCustomRect()!!)
 
-  fun isPacked(): Boolean = ImFontAtlasCustomRect_IsPacked(ptr)
+  actual fun isPacked(): Boolean = ImFontAtlasCustomRect_IsPacked(ptr)
 
-  fun destroy() {
+  actual fun destroy() {
     ImFontAtlasCustomRect_destroy(ptr)
   }
 }

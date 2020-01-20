@@ -13,7 +13,7 @@ import cimgui.internal.ImGuiDataType_U64
 import cimgui.internal.ImGuiDataType_U8
 import kotlinx.cinterop.convert
 
-enum class ImGuiDataType(
+actual enum class ImGuiDataType(
   val value: cimgui.internal.ImGuiDataType
 ) {
   S8(ImGuiDataType_S8.convert()),
@@ -36,7 +36,7 @@ enum class ImGuiDataType(
 
   Double(ImGuiDataType_Double.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiDataType): ImGuiDataType = when
         (value.convert<ImGuiDataType_>()) {
       ImGuiDataType_S8 -> S8
@@ -51,6 +51,5 @@ enum class ImGuiDataType(
       ImGuiDataType_Double -> Double
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

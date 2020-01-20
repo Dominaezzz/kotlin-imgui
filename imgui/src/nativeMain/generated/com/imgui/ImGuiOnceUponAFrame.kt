@@ -3,18 +3,20 @@ package com.imgui
 import cimgui.internal.ImGuiOnceUponAFrame_ImGuiOnceUponAFrame
 import cimgui.internal.ImGuiOnceUponAFrame_destroy
 import kotlin.Int
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiOnceUponAFrame(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiOnceUponAFrame(
   val ptr: CPointer<cimgui.internal.ImGuiOnceUponAFrame>
 ) {
-  val refFrame: Int
+  actual val refFrame: Int
     get() = ptr.pointed.RefFrame
 
-  constructor() : this(ImGuiOnceUponAFrame_ImGuiOnceUponAFrame()!!)
+  actual constructor() : this(ImGuiOnceUponAFrame_ImGuiOnceUponAFrame()!!)
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiOnceUponAFrame_destroy(ptr)
   }
 }

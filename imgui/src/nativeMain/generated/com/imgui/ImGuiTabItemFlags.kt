@@ -7,7 +7,7 @@ import cimgui.internal.ImGuiTabItemFlags_SetSelected
 import cimgui.internal.ImGuiTabItemFlags_UnsavedDocument
 import kotlinx.cinterop.convert
 
-enum class ImGuiTabItemFlags(
+actual enum class ImGuiTabItemFlags(
   override val value: cimgui.internal.ImGuiTabItemFlags
 ) : Flag<ImGuiTabItemFlags> {
   UnsavedDocument(ImGuiTabItemFlags_UnsavedDocument.convert()),
@@ -20,7 +20,7 @@ enum class ImGuiTabItemFlags(
 
   override val info: Flag.EnumInfo<ImGuiTabItemFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiTabItemFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiTabItemFlags): ImGuiTabItemFlags = when
@@ -31,7 +31,6 @@ enum class ImGuiTabItemFlags(
       ImGuiTabItemFlags_NoPushId -> NoPushId
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiTabItemFlags): Flag<ImGuiTabItemFlags> =
         Flag(value.convert(), cachedInfo)

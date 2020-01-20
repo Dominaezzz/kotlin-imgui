@@ -325,116 +325,116 @@ import kotlinx.cinterop.convert
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.usePinned
 
-object ImGui {
-    fun acceptDragDropPayload(type: String, flags: Flag<ImGuiDragDropFlags>? = null): ImGuiPayload =
+actual object ImGui {
+    actual fun acceptDragDropPayload(type: String, flags: Flag<ImGuiDragDropFlags>?): ImGuiPayload =
             igAcceptDragDropPayload(type, flags?.value ?: 0)!!.let(::ImGuiPayload)
 
-    fun alignTextToFramePadding() {
+    actual fun alignTextToFramePadding() {
         igAlignTextToFramePadding()
     }
 
-    fun arrowButton(strId: String, dir: ImGuiDir): Boolean = igArrowButton(strId, dir.value)
+    actual fun arrowButton(strId: String, dir: ImGuiDir): Boolean = igArrowButton(strId, dir.value)
 
-    fun begin(
+    actual fun begin(
         name: String,
-        pOpen: KMutableProperty0<Boolean>? = null,
-        flags: Flag<ImGuiWindowFlags>? = null
+        pOpen: KMutableProperty0<Boolean>?,
+        flags: Flag<ImGuiWindowFlags>?
     ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
         igBegin(name, ptrPOpen, flags?.value ?: 0)
     }
 
-    fun beginChild(
+    actual fun beginChild(
         strId: String,
-        size: Vec2 = Vec2.Zero,
-        border: Boolean = false,
-        flags: Flag<ImGuiWindowFlags>? = null
+        size: Vec2,
+        border: Boolean,
+        flags: Flag<ImGuiWindowFlags>?
     ): Boolean = igBeginChild(strId, size.toCValue(), border, flags?.value ?: 0)
 
-    fun beginChild(
-        id: ImGuiID,
-        size: Vec2 = Vec2.Zero,
-        border: Boolean = false,
-        flags: Flag<ImGuiWindowFlags>? = null
-    ): Boolean = igBeginChildID(id.value, size.toCValue(), border, flags?.value ?: 0)
-
-    fun beginChildFrame(
+    actual fun beginChild(
         id: ImGuiID,
         size: Vec2,
-        flags: Flag<ImGuiWindowFlags>? = null
+        border: Boolean,
+        flags: Flag<ImGuiWindowFlags>?
+    ): Boolean = igBeginChildID(id.value, size.toCValue(), border, flags?.value ?: 0)
+
+    actual fun beginChildFrame(
+        id: ImGuiID,
+        size: Vec2,
+        flags: Flag<ImGuiWindowFlags>?
     ): Boolean = igBeginChildFrame(id.value, size.toCValue(), flags?.value ?: 0)
 
-    fun beginCombo(
+    actual fun beginCombo(
         label: String,
         previewValue: String,
-        flags: Flag<ImGuiComboFlags>? = null
+        flags: Flag<ImGuiComboFlags>?
     ): Boolean = igBeginCombo(label, previewValue, flags?.value ?: 0)
 
-    fun beginDragDropSource(flags: Flag<ImGuiDragDropFlags>? = null): Boolean =
+    actual fun beginDragDropSource(flags: Flag<ImGuiDragDropFlags>?): Boolean =
             igBeginDragDropSource(flags?.value ?: 0)
 
-    fun beginDragDropTarget(): Boolean = igBeginDragDropTarget()
+    actual fun beginDragDropTarget(): Boolean = igBeginDragDropTarget()
 
-    fun beginGroup() {
+    actual fun beginGroup() {
         igBeginGroup()
     }
 
-    fun beginMainMenuBar(): Boolean = igBeginMainMenuBar()
+    actual fun beginMainMenuBar(): Boolean = igBeginMainMenuBar()
 
-    fun beginMenu(label: String, enabled: Boolean = true): Boolean = igBeginMenu(label, enabled)
+    actual fun beginMenu(label: String, enabled: Boolean): Boolean = igBeginMenu(label, enabled)
 
-    fun beginMenuBar(): Boolean = igBeginMenuBar()
+    actual fun beginMenuBar(): Boolean = igBeginMenuBar()
 
-    fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>? = null): Boolean =
+    actual fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>?): Boolean =
             igBeginPopup(strId, flags?.value ?: 0)
 
-    fun beginPopupContextItem(strId: String? = null, mouseButton: Int = 1): Boolean =
+    actual fun beginPopupContextItem(strId: String?, mouseButton: Int): Boolean =
             igBeginPopupContextItem(strId, mouseButton)
 
-    fun beginPopupContextVoid(strId: String? = null, mouseButton: Int = 1): Boolean =
+    actual fun beginPopupContextVoid(strId: String?, mouseButton: Int): Boolean =
             igBeginPopupContextVoid(strId, mouseButton)
 
-    fun beginPopupContextWindow(
-        strId: String? = null,
-        mouseButton: Int = 1,
-        alsoOverItems: Boolean = true
+    actual fun beginPopupContextWindow(
+        strId: String?,
+        mouseButton: Int,
+        alsoOverItems: Boolean
     ): Boolean = igBeginPopupContextWindow(strId, mouseButton, alsoOverItems)
 
-    fun beginPopupModal(
+    actual fun beginPopupModal(
         name: String,
-        pOpen: KMutableProperty0<Boolean>? = null,
-        flags: Flag<ImGuiWindowFlags>? = null
+        pOpen: KMutableProperty0<Boolean>?,
+        flags: Flag<ImGuiWindowFlags>?
     ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
         igBeginPopupModal(name, ptrPOpen, flags?.value ?: 0)
     }
 
-    fun beginTabBar(strId: String, flags: Flag<ImGuiTabBarFlags>? = null): Boolean =
+    actual fun beginTabBar(strId: String, flags: Flag<ImGuiTabBarFlags>?): Boolean =
             igBeginTabBar(strId, flags?.value ?: 0)
 
-    fun beginTabItem(
+    actual fun beginTabItem(
         label: String,
-        pOpen: KMutableProperty0<Boolean>? = null,
-        flags: Flag<ImGuiTabItemFlags>? = null
+        pOpen: KMutableProperty0<Boolean>?,
+        flags: Flag<ImGuiTabItemFlags>?
     ): Boolean = usingPropertyN(pOpen) { ptrPOpen ->
         igBeginTabItem(label, ptrPOpen, flags?.value ?: 0)
     }
 
-    fun beginTooltip() {
+    actual fun beginTooltip() {
         igBeginTooltip()
     }
 
-    fun bullet() {
+    actual fun bullet() {
         igBullet()
     }
 
-    fun bulletText(fmt: String) {
+    actual fun bulletText(fmt: String) {
         igBulletText(fmt)
     }
 
-    fun button(label: String, size: Vec2 = Vec2.Zero): Boolean = igButton(label, size.toCValue())
+    actual fun button(label: String, size: Vec2): Boolean = igButton(label, size.toCValue())
 
-    fun calcItemWidth(): Float = igCalcItemWidth()
+    actual fun calcItemWidth(): Float = igCalcItemWidth()
 
-    fun calcListClipping(
+    actual fun calcListClipping(
         itemsCount: Int,
         itemsHeight: Float,
         outItemsDisplayStart: KMutableProperty0<Int>,
@@ -448,26 +448,27 @@ object ImGui {
         }
     }
 
-    fun calcTextSize(
+    actual fun calcTextSize(
         text: String,
-        textEnd: String? = null,
-        hideTextAfterDoubleHash: Boolean = false,
-        wrapWidth: Float = -1.0f
+        textEnd: String?,
+        hideTextAfterDoubleHash: Boolean,
+        wrapWidth: Float
     ): Vec2 = igCalcTextSize(text, textEnd, hideTextAfterDoubleHash, wrapWidth).fromCValue()
 
-    fun captureKeyboardFromApp(wantCaptureKeyboardValue: Boolean = true) {
+    actual fun captureKeyboardFromApp(wantCaptureKeyboardValue: Boolean) {
         igCaptureKeyboardFromApp(wantCaptureKeyboardValue)
     }
 
-    fun captureMouseFromApp(wantCaptureMouseValue: Boolean = true) {
+    actual fun captureMouseFromApp(wantCaptureMouseValue: Boolean) {
         igCaptureMouseFromApp(wantCaptureMouseValue)
     }
 
-    fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean = usingProperty(v) { ptrV ->
+    actual fun checkbox(label: String, v: KMutableProperty0<Boolean>): Boolean = usingProperty(v) {
+            ptrV ->
         igCheckbox(label, ptrV)
     }
 
-    fun checkboxFlags(
+    actual fun checkboxFlags(
         label: String,
         flags: KMutableProperty0<UInt>,
         flagsValue: UInt
@@ -475,31 +476,32 @@ object ImGui {
         igCheckboxFlags(label, ptrFlags, flagsValue)
     }
 
-    fun closeCurrentPopup() {
+    actual fun closeCurrentPopup() {
         igCloseCurrentPopup()
     }
 
-    fun collapsingHeader(label: String, flags: Flag<ImGuiTreeNodeFlags>? = null): Boolean =
+    actual fun collapsingHeader(label: String, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
             igCollapsingHeader(label, flags?.value ?: 0)
 
-    fun collapsingHeader(
+    actual fun collapsingHeader(
         label: String,
         pOpen: KMutableProperty0<Boolean>,
-        flags: Flag<ImGuiTreeNodeFlags>? = null
+        flags: Flag<ImGuiTreeNodeFlags>?
     ): Boolean = usingProperty(pOpen) { ptrPOpen ->
         igCollapsingHeaderBoolPtr(label, ptrPOpen, flags?.value ?: 0)
     }
 
-    fun colorButton(
+    actual fun colorButton(
         descId: String,
         col: Vec4,
-        flags: Flag<ImGuiColorEditFlags>? = null,
-        size: Vec2 = Vec2.Zero
+        flags: Flag<ImGuiColorEditFlags>?,
+        size: Vec2
     ): Boolean = igColorButton(descId, col.toCValue(), flags?.value ?: 0, size.toCValue())
 
-    fun colorConvertFloat4ToU32(`in`: Vec4): UInt = igColorConvertFloat4ToU32(`in`.toCValue())
+    actual fun colorConvertFloat4ToU32(`in`: Vec4): UInt =
+            igColorConvertFloat4ToU32(`in`.toCValue()).toUInt()
 
-    fun colorConvertHSVtoRGB(
+    actual fun colorConvertHSVtoRGB(
         h: Float,
         s: Float,
         v: Float,
@@ -516,7 +518,7 @@ object ImGui {
         }
     }
 
-    fun colorConvertRGBtoHSV(
+    actual fun colorConvertRGBtoHSV(
         r: Float,
         g: Float,
         b: Float,
@@ -533,73 +535,78 @@ object ImGui {
         }
     }
 
-    fun colorConvertU32ToFloat4(`in`: UInt): Vec4 = igColorConvertU32ToFloat4(`in`).fromCValue()
+    actual fun colorConvertU32ToFloat4(`in`: UInt): Vec4 =
+            igColorConvertU32ToFloat4(`in`).fromCValue()
 
-    fun colorEdit3(
+    actual fun colorEdit3(
         label: String,
         col: FloatArray,
-        flags: Flag<ImGuiColorEditFlags>? = null
+        flags: Flag<ImGuiColorEditFlags>?
     ): Boolean {
         require(col.size >= 3)
+
         return col.usePinned { pinnedCol ->
             igColorEdit3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun colorEdit4(
+    actual fun colorEdit4(
         label: String,
         col: FloatArray,
-        flags: Flag<ImGuiColorEditFlags>? = null
+        flags: Flag<ImGuiColorEditFlags>?
     ): Boolean {
         require(col.size >= 4)
+
         return col.usePinned { pinnedCol ->
             igColorEdit4(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun colorPicker3(
+    actual fun colorPicker3(
         label: String,
         col: FloatArray,
-        flags: Flag<ImGuiColorEditFlags>? = null
+        flags: Flag<ImGuiColorEditFlags>?
     ): Boolean {
         require(col.size >= 3)
+
         return col.usePinned { pinnedCol ->
             igColorPicker3(label, pinnedCol.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun colorPicker4(
+    actual fun colorPicker4(
         label: String,
         col: FloatArray,
-        flags: Flag<ImGuiColorEditFlags>? = null
+        flags: Flag<ImGuiColorEditFlags>?
     ): Boolean {
         require(col.size >= 4)
+
         return col.usePinned { pinnedCol ->
             igColorPicker4(label, pinnedCol.addressOf(0), flags?.value ?: 0, null)
         }
     }
 
-    fun columns(
-        count: Int = 1,
-        id: String? = null,
-        border: Boolean = true
+    actual fun columns(
+        count: Int,
+        id: String?,
+        border: Boolean
     ) {
         igColumns(count, id, border)
     }
 
-    fun combo(
+    actual fun combo(
         label: String,
         currentItem: KMutableProperty0<Int>,
         itemsSeparatedByZeros: String,
-        popupMaxHeightInItems: Int = -1
+        popupMaxHeightInItems: Int
     ): Boolean = usingProperty(currentItem) { ptrCurrentItem ->
         igComboStr(label, ptrCurrentItem, itemsSeparatedByZeros, popupMaxHeightInItems)
     }
 
-    fun createContext(sharedFontAtlas: ImFontAtlas? = null): ImGuiContext =
+    actual fun createContext(sharedFontAtlas: ImFontAtlas?): ImGuiContext =
             igCreateContext(sharedFontAtlas?.ptr)!!.let(::ImGuiContext)
 
-    fun debugCheckVersionAndDataLayout(
+    actual fun debugCheckVersionAndDataLayout(
         versionStr: String,
         szIo: ULong,
         szStyle: ULong,
@@ -610,77 +617,80 @@ object ImGui {
     ): Boolean = igDebugCheckVersionAndDataLayout(versionStr, szIo.convert(), szStyle.convert(),
             szVec2.convert(), szVec4.convert(), szDrawvert.convert(), szDrawidx.convert())
 
-    fun destroyContext(ctx: ImGuiContext? = null) {
+    actual fun destroyContext(ctx: ImGuiContext?) {
         igDestroyContext(ctx?.ptr)
     }
 
-    fun dragFloat(
+    actual fun dragFloat(
         label: String,
         v: KMutableProperty0<Float>,
-        vSpeed: Float = 1.0f,
-        vMin: Float = 0.0f,
-        vMax: Float = 0.0f,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        vSpeed: Float,
+        vMin: Float,
+        vMax: Float,
+        format: String,
+        power: Float
     ): Boolean = usingProperty(v) { ptrV ->
         igDragFloat(label, ptrV, vSpeed, vMin, vMax, format, power)
     }
 
-    fun dragFloat2(
+    actual fun dragFloat2(
         label: String,
         v: FloatArray,
-        vSpeed: Float = 1.0f,
-        vMin: Float = 0.0f,
-        vMax: Float = 0.0f,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        vSpeed: Float,
+        vMin: Float,
+        vMax: Float,
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igDragFloat2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
-    fun dragFloat3(
+    actual fun dragFloat3(
         label: String,
         v: FloatArray,
-        vSpeed: Float = 1.0f,
-        vMin: Float = 0.0f,
-        vMax: Float = 0.0f,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        vSpeed: Float,
+        vMin: Float,
+        vMax: Float,
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igDragFloat3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
-    fun dragFloat4(
+    actual fun dragFloat4(
         label: String,
         v: FloatArray,
-        vSpeed: Float = 1.0f,
-        vMin: Float = 0.0f,
-        vMax: Float = 0.0f,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        vSpeed: Float,
+        vMin: Float,
+        vMax: Float,
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igDragFloat4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format, power)
         }
     }
 
-    fun dragFloatRange2(
+    actual fun dragFloatRange2(
         label: String,
         vCurrentMin: KMutableProperty0<Float>,
         vCurrentMax: KMutableProperty0<Float>,
-        vSpeed: Float = 1.0f,
-        vMin: Float = 0.0f,
-        vMax: Float = 0.0f,
-        format: String = "%.3f",
-        formatMax: String? = null,
-        power: Float = 1.0f
+        vSpeed: Float,
+        vMin: Float,
+        vMax: Float,
+        format: String,
+        formatMax: String?,
+        power: Float
     ): Boolean = usingProperty(vCurrentMin) { ptrVCurrentMin ->
         usingProperty(vCurrentMax) { ptrVCurrentMax ->
             igDragFloatRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax, format,
@@ -688,68 +698,71 @@ object ImGui {
         }
     }
 
-    fun dragInt(
+    actual fun dragInt(
         label: String,
         v: KMutableProperty0<Int>,
-        vSpeed: Float = 1.0f,
-        vMin: Int = 0,
-        vMax: Int = 0,
-        format: String = "%d"
+        vSpeed: Float,
+        vMin: Int,
+        vMax: Int,
+        format: String
     ): Boolean = usingProperty(v) { ptrV ->
         igDragInt(label, ptrV, vSpeed, vMin, vMax, format)
     }
 
-    fun dragInt2(
+    actual fun dragInt2(
         label: String,
         v: IntArray,
-        vSpeed: Float = 1.0f,
-        vMin: Int = 0,
-        vMax: Int = 0,
-        format: String = "%d"
+        vSpeed: Float,
+        vMin: Int,
+        vMax: Int,
+        format: String
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igDragInt2(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
-    fun dragInt3(
+    actual fun dragInt3(
         label: String,
         v: IntArray,
-        vSpeed: Float = 1.0f,
-        vMin: Int = 0,
-        vMax: Int = 0,
-        format: String = "%d"
+        vSpeed: Float,
+        vMin: Int,
+        vMax: Int,
+        format: String
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igDragInt3(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
-    fun dragInt4(
+    actual fun dragInt4(
         label: String,
         v: IntArray,
-        vSpeed: Float = 1.0f,
-        vMin: Int = 0,
-        vMax: Int = 0,
-        format: String = "%d"
+        vSpeed: Float,
+        vMin: Int,
+        vMax: Int,
+        format: String
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igDragInt4(label, pinnedV.addressOf(0), vSpeed, vMin, vMax, format)
         }
     }
 
-    fun dragIntRange2(
+    actual fun dragIntRange2(
         label: String,
         vCurrentMin: KMutableProperty0<Int>,
         vCurrentMax: KMutableProperty0<Int>,
-        vSpeed: Float = 1.0f,
-        vMin: Int = 0,
-        vMax: Int = 0,
-        format: String = "%d",
-        formatMax: String? = null
+        vSpeed: Float,
+        vMin: Int,
+        vMax: Int,
+        format: String,
+        formatMax: String?
     ): Boolean = usingProperty(vCurrentMin) { ptrVCurrentMin ->
         usingProperty(vCurrentMax) { ptrVCurrentMax ->
             igDragIntRange2(label, ptrVCurrentMin, ptrVCurrentMax, vSpeed, vMin, vMax, format,
@@ -757,539 +770,549 @@ object ImGui {
         }
     }
 
-    fun dummy(size: Vec2) {
+    actual fun dummy(size: Vec2) {
         igDummy(size.toCValue())
     }
 
-    fun end() {
+    actual fun end() {
         igEnd()
     }
 
-    fun endChild() {
+    actual fun endChild() {
         igEndChild()
     }
 
-    fun endChildFrame() {
+    actual fun endChildFrame() {
         igEndChildFrame()
     }
 
-    fun endCombo() {
+    actual fun endCombo() {
         igEndCombo()
     }
 
-    fun endDragDropSource() {
+    actual fun endDragDropSource() {
         igEndDragDropSource()
     }
 
-    fun endDragDropTarget() {
+    actual fun endDragDropTarget() {
         igEndDragDropTarget()
     }
 
-    fun endFrame() {
+    actual fun endFrame() {
         igEndFrame()
     }
 
-    fun endGroup() {
+    actual fun endGroup() {
         igEndGroup()
     }
 
-    fun endMainMenuBar() {
+    actual fun endMainMenuBar() {
         igEndMainMenuBar()
     }
 
-    fun endMenu() {
+    actual fun endMenu() {
         igEndMenu()
     }
 
-    fun endMenuBar() {
+    actual fun endMenuBar() {
         igEndMenuBar()
     }
 
-    fun endPopup() {
+    actual fun endPopup() {
         igEndPopup()
     }
 
-    fun endTabBar() {
+    actual fun endTabBar() {
         igEndTabBar()
     }
 
-    fun endTabItem() {
+    actual fun endTabItem() {
         igEndTabItem()
     }
 
-    fun endTooltip() {
+    actual fun endTooltip() {
         igEndTooltip()
     }
 
-    fun getBackgroundDrawList(): ImDrawList = igGetBackgroundDrawList()!!.let(::ImDrawList)
+    actual fun getBackgroundDrawList(): ImDrawList = igGetBackgroundDrawList()!!.let(::ImDrawList)
 
-    fun getClipboardText(): String? = igGetClipboardText()?.toKString()
+    actual fun getClipboardText(): String? = igGetClipboardText()?.toKString()
 
-    fun getColorU32(idx: ImGuiCol, alphaMul: Float = 1.0f): UInt = igGetColorU32(idx.value,
-            alphaMul)
+    actual fun getColorU32(idx: ImGuiCol, alphaMul: Float): UInt = igGetColorU32(idx.value,
+            alphaMul).toUInt()
 
-    fun getColorU32(col: Vec4): UInt = igGetColorU32Vec4(col.toCValue())
+    actual fun getColorU32(col: Vec4): UInt = igGetColorU32Vec4(col.toCValue()).toUInt()
 
-    fun getColorU32(col: UInt): UInt = igGetColorU32U32(col)
+    actual fun getColorU32(col: UInt): UInt = igGetColorU32U32(col).toUInt()
 
-    fun getColumnIndex(): Int = igGetColumnIndex()
+    actual fun getColumnIndex(): Int = igGetColumnIndex()
 
-    fun getColumnOffset(columnIndex: Int = -1): Float = igGetColumnOffset(columnIndex)
+    actual fun getColumnOffset(columnIndex: Int): Float = igGetColumnOffset(columnIndex)
 
-    fun getColumnWidth(columnIndex: Int = -1): Float = igGetColumnWidth(columnIndex)
+    actual fun getColumnWidth(columnIndex: Int): Float = igGetColumnWidth(columnIndex)
 
-    fun getColumnsCount(): Int = igGetColumnsCount()
+    actual fun getColumnsCount(): Int = igGetColumnsCount()
 
-    fun getContentRegionAvail(): Vec2 = igGetContentRegionAvail().fromCValue()
+    actual fun getContentRegionAvail(): Vec2 = igGetContentRegionAvail().fromCValue()
 
-    fun getContentRegionMax(): Vec2 = igGetContentRegionMax().fromCValue()
+    actual fun getContentRegionMax(): Vec2 = igGetContentRegionMax().fromCValue()
 
-    fun getCurrentContext(): ImGuiContext = igGetCurrentContext()!!.let(::ImGuiContext)
+    actual fun getCurrentContext(): ImGuiContext = igGetCurrentContext()!!.let(::ImGuiContext)
 
-    fun getCursorPos(): Vec2 = igGetCursorPos().fromCValue()
+    actual fun getCursorPos(): Vec2 = igGetCursorPos().fromCValue()
 
-    fun getCursorPosX(): Float = igGetCursorPosX()
+    actual fun getCursorPosX(): Float = igGetCursorPosX()
 
-    fun getCursorPosY(): Float = igGetCursorPosY()
+    actual fun getCursorPosY(): Float = igGetCursorPosY()
 
-    fun getCursorScreenPos(): Vec2 = igGetCursorScreenPos().fromCValue()
+    actual fun getCursorScreenPos(): Vec2 = igGetCursorScreenPos().fromCValue()
 
-    fun getCursorStartPos(): Vec2 = igGetCursorStartPos().fromCValue()
+    actual fun getCursorStartPos(): Vec2 = igGetCursorStartPos().fromCValue()
 
-    fun getDragDropPayload(): ImGuiPayload = igGetDragDropPayload()!!.let(::ImGuiPayload)
+    actual fun getDragDropPayload(): ImGuiPayload = igGetDragDropPayload()!!.let(::ImGuiPayload)
 
-    fun getDrawData(): ImDrawData = igGetDrawData()!!.let(::ImDrawData)
+    actual fun getDrawData(): ImDrawData = igGetDrawData()!!.let(::ImDrawData)
 
-    fun getDrawListSharedData(): ImDrawListSharedData =
+    actual fun getDrawListSharedData(): ImDrawListSharedData =
             igGetDrawListSharedData()!!.let(::ImDrawListSharedData)
 
-    fun getFont(): ImFont = igGetFont()!!.let(::ImFont)
+    actual fun getFont(): ImFont = igGetFont()!!.let(::ImFont)
 
-    fun getFontSize(): Float = igGetFontSize()
+    actual fun getFontSize(): Float = igGetFontSize()
 
-    fun getFontTexUvWhitePixel(): Vec2 = igGetFontTexUvWhitePixel().fromCValue()
+    actual fun getFontTexUvWhitePixel(): Vec2 = igGetFontTexUvWhitePixel().fromCValue()
 
-    fun getForegroundDrawList(): ImDrawList = igGetForegroundDrawList()!!.let(::ImDrawList)
+    actual fun getForegroundDrawList(): ImDrawList = igGetForegroundDrawList()!!.let(::ImDrawList)
 
-    fun getFrameCount(): Int = igGetFrameCount()
+    actual fun getFrameCount(): Int = igGetFrameCount()
 
-    fun getFrameHeight(): Float = igGetFrameHeight()
+    actual fun getFrameHeight(): Float = igGetFrameHeight()
 
-    fun getFrameHeightWithSpacing(): Float = igGetFrameHeightWithSpacing()
+    actual fun getFrameHeightWithSpacing(): Float = igGetFrameHeightWithSpacing()
 
-    fun getID(strId: String): ImGuiID = igGetIDStr(strId).let(::ImGuiID)
+    actual fun getID(strId: String): ImGuiID = igGetIDStr(strId).let(::ImGuiID)
 
-    fun getID(strIdBegin: String, strIdEnd: String): ImGuiID = igGetIDRange(strIdBegin,
+    actual fun getID(strIdBegin: String, strIdEnd: String): ImGuiID = igGetIDRange(strIdBegin,
             strIdEnd).let(::ImGuiID)
 
-    fun getIO(): ImGuiIO = igGetIO()!!.let(::ImGuiIO)
+    actual fun getIO(): ImGuiIO = igGetIO()!!.let(::ImGuiIO)
 
-    fun getItemRectMax(): Vec2 = igGetItemRectMax().fromCValue()
+    actual fun getItemRectMax(): Vec2 = igGetItemRectMax().fromCValue()
 
-    fun getItemRectMin(): Vec2 = igGetItemRectMin().fromCValue()
+    actual fun getItemRectMin(): Vec2 = igGetItemRectMin().fromCValue()
 
-    fun getItemRectSize(): Vec2 = igGetItemRectSize().fromCValue()
+    actual fun getItemRectSize(): Vec2 = igGetItemRectSize().fromCValue()
 
-    fun getKeyIndex(imguiKey: ImGuiKey): Int = igGetKeyIndex(imguiKey.value)
+    actual fun getKeyIndex(imguiKey: ImGuiKey): Int = igGetKeyIndex(imguiKey.value)
 
-    fun getKeyPressedAmount(
+    actual fun getKeyPressedAmount(
         keyIndex: Int,
         repeatDelay: Float,
         rate: Float
     ): Int = igGetKeyPressedAmount(keyIndex, repeatDelay, rate)
 
-    fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let { ImGuiMouseCursor.from(it) }
+    actual fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let {
+            ImGuiMouseCursor.from(it) }
 
-    fun getMouseDragDelta(button: Int = 0, lockThreshold: Float = -1.0f): Vec2 =
+    actual fun getMouseDragDelta(button: Int, lockThreshold: Float): Vec2 =
             igGetMouseDragDelta(button, lockThreshold).fromCValue()
 
-    fun getMousePos(): Vec2 = igGetMousePos().fromCValue()
+    actual fun getMousePos(): Vec2 = igGetMousePos().fromCValue()
 
-    fun getMousePosOnOpeningCurrentPopup(): Vec2 = igGetMousePosOnOpeningCurrentPopup().fromCValue()
+    actual fun getMousePosOnOpeningCurrentPopup(): Vec2 =
+            igGetMousePosOnOpeningCurrentPopup().fromCValue()
 
-    fun getScrollMaxX(): Float = igGetScrollMaxX()
+    actual fun getScrollMaxX(): Float = igGetScrollMaxX()
 
-    fun getScrollMaxY(): Float = igGetScrollMaxY()
+    actual fun getScrollMaxY(): Float = igGetScrollMaxY()
 
-    fun getScrollX(): Float = igGetScrollX()
+    actual fun getScrollX(): Float = igGetScrollX()
 
-    fun getScrollY(): Float = igGetScrollY()
+    actual fun getScrollY(): Float = igGetScrollY()
 
-    fun getStateStorage(): ImGuiStorage = igGetStateStorage()!!.let(::ImGuiStorage)
+    actual fun getStateStorage(): ImGuiStorage = igGetStateStorage()!!.let(::ImGuiStorage)
 
-    fun getStyle(): ImGuiStyle = igGetStyle()!!.let(::ImGuiStyle)
+    actual fun getStyle(): ImGuiStyle = igGetStyle()!!.let(::ImGuiStyle)
 
-    fun getStyleColorName(idx: ImGuiCol): String? = igGetStyleColorName(idx.value)?.toKString()
+    actual fun getStyleColorName(idx: ImGuiCol): String? =
+            igGetStyleColorName(idx.value)?.toKString()
 
-    fun getStyleColorVec4(idx: ImGuiCol): ImVec4 = igGetStyleColorVec4(idx.value)!!.let(::ImVec4)
+    actual fun getStyleColorVec4(idx: ImGuiCol): ImVec4 =
+            igGetStyleColorVec4(idx.value)!!.let(::ImVec4)
 
-    fun getTextLineHeight(): Float = igGetTextLineHeight()
+    actual fun getTextLineHeight(): Float = igGetTextLineHeight()
 
-    fun getTextLineHeightWithSpacing(): Float = igGetTextLineHeightWithSpacing()
+    actual fun getTextLineHeightWithSpacing(): Float = igGetTextLineHeightWithSpacing()
 
-    fun getTime(): Double = igGetTime()
+    actual fun getTime(): Double = igGetTime()
 
-    fun getTreeNodeToLabelSpacing(): Float = igGetTreeNodeToLabelSpacing()
+    actual fun getTreeNodeToLabelSpacing(): Float = igGetTreeNodeToLabelSpacing()
 
-    fun getVersion(): String? = igGetVersion()?.toKString()
+    actual fun getVersion(): String? = igGetVersion()?.toKString()
 
-    fun getWindowContentRegionMax(): Vec2 = igGetWindowContentRegionMax().fromCValue()
+    actual fun getWindowContentRegionMax(): Vec2 = igGetWindowContentRegionMax().fromCValue()
 
-    fun getWindowContentRegionMin(): Vec2 = igGetWindowContentRegionMin().fromCValue()
+    actual fun getWindowContentRegionMin(): Vec2 = igGetWindowContentRegionMin().fromCValue()
 
-    fun getWindowContentRegionWidth(): Float = igGetWindowContentRegionWidth()
+    actual fun getWindowContentRegionWidth(): Float = igGetWindowContentRegionWidth()
 
-    fun getWindowDrawList(): ImDrawList = igGetWindowDrawList()!!.let(::ImDrawList)
+    actual fun getWindowDrawList(): ImDrawList = igGetWindowDrawList()!!.let(::ImDrawList)
 
-    fun getWindowHeight(): Float = igGetWindowHeight()
+    actual fun getWindowHeight(): Float = igGetWindowHeight()
 
-    fun getWindowPos(): Vec2 = igGetWindowPos().fromCValue()
+    actual fun getWindowPos(): Vec2 = igGetWindowPos().fromCValue()
 
-    fun getWindowSize(): Vec2 = igGetWindowSize().fromCValue()
+    actual fun getWindowSize(): Vec2 = igGetWindowSize().fromCValue()
 
-    fun getWindowWidth(): Float = igGetWindowWidth()
+    actual fun getWindowWidth(): Float = igGetWindowWidth()
 
-    fun image(
+    actual fun image(
         userTextureId: ImTextureID,
         size: Vec2,
-        uv0: Vec2 = Vec2.Zero,
-        uv1: Vec2 = Vec2(1f, 1f),
-        tintCol: Vec4 = Vec4(1f, 1f, 1f, 1f),
-        borderCol: Vec4 = Vec4.Zero
+        uv0: Vec2,
+        uv1: Vec2,
+        tintCol: Vec4,
+        borderCol: Vec4
     ) {
         igImage(userTextureId.value, size.toCValue(), uv0.toCValue(), uv1.toCValue(),
                 tintCol.toCValue(), borderCol.toCValue())
     }
 
-    fun imageButton(
+    actual fun imageButton(
         userTextureId: ImTextureID,
         size: Vec2,
-        uv0: Vec2 = Vec2.Zero,
-        uv1: Vec2 = Vec2(1f, 1f),
-        framePadding: Int = -1,
-        bgCol: Vec4 = Vec4.Zero,
-        tintCol: Vec4 = Vec4(1f, 1f, 1f, 1f)
+        uv0: Vec2,
+        uv1: Vec2,
+        framePadding: Int,
+        bgCol: Vec4,
+        tintCol: Vec4
     ): Boolean = igImageButton(userTextureId.value, size.toCValue(), uv0.toCValue(), uv1.toCValue(),
             framePadding, bgCol.toCValue(), tintCol.toCValue())
 
-    fun indent(indentW: Float = 0.0f) {
+    actual fun indent(indentW: Float) {
         igIndent(indentW)
     }
 
-    fun inputDouble(
+    actual fun inputDouble(
         label: String,
         v: KMutableProperty0<Double>,
-        step: Double = 0.0,
-        stepFast: Double = 0.0,
-        format: String = "%.6f",
-        flags: Flag<ImGuiInputTextFlags>? = null
+        step: Double,
+        stepFast: Double,
+        format: String,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean = usingProperty(v) { ptrV ->
         igInputDouble(label, ptrV, step, stepFast, format, flags?.value ?: 0)
     }
 
-    fun inputFloat(
+    actual fun inputFloat(
         label: String,
         v: KMutableProperty0<Float>,
-        step: Float = 0.0f,
-        stepFast: Float = 0.0f,
-        format: String = "%.3f",
-        flags: Flag<ImGuiInputTextFlags>? = null
+        step: Float,
+        stepFast: Float,
+        format: String,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean = usingProperty(v) { ptrV ->
         igInputFloat(label, ptrV, step, stepFast, format, flags?.value ?: 0)
     }
 
-    fun inputFloat2(
+    actual fun inputFloat2(
         label: String,
         v: FloatArray,
-        format: String = "%.3f",
-        flags: Flag<ImGuiInputTextFlags>? = null
+        format: String,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igInputFloat2(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
-    fun inputFloat3(
+    actual fun inputFloat3(
         label: String,
         v: FloatArray,
-        format: String = "%.3f",
-        flags: Flag<ImGuiInputTextFlags>? = null
+        format: String,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igInputFloat3(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
-    fun inputFloat4(
+    actual fun inputFloat4(
         label: String,
         v: FloatArray,
-        format: String = "%.3f",
-        flags: Flag<ImGuiInputTextFlags>? = null
+        format: String,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igInputFloat4(label, pinnedV.addressOf(0), format, flags?.value ?: 0)
         }
     }
 
-    fun inputInt(
+    actual fun inputInt(
         label: String,
         v: KMutableProperty0<Int>,
-        step: Int = 1,
-        stepFast: Int = 100,
-        flags: Flag<ImGuiInputTextFlags>? = null
+        step: Int,
+        stepFast: Int,
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean = usingProperty(v) { ptrV ->
         igInputInt(label, ptrV, step, stepFast, flags?.value ?: 0)
     }
 
-    fun inputInt2(
+    actual fun inputInt2(
         label: String,
         v: IntArray,
-        flags: Flag<ImGuiInputTextFlags>? = null
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igInputInt2(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun inputInt3(
+    actual fun inputInt3(
         label: String,
         v: IntArray,
-        flags: Flag<ImGuiInputTextFlags>? = null
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igInputInt3(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun inputInt4(
+    actual fun inputInt4(
         label: String,
         v: IntArray,
-        flags: Flag<ImGuiInputTextFlags>? = null
+        flags: Flag<ImGuiInputTextFlags>?
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igInputInt4(label, pinnedV.addressOf(0), flags?.value ?: 0)
         }
     }
 
-    fun invisibleButton(strId: String, size: Vec2): Boolean = igInvisibleButton(strId,
+    actual fun invisibleButton(strId: String, size: Vec2): Boolean = igInvisibleButton(strId,
             size.toCValue())
 
-    fun isAnyItemActive(): Boolean = igIsAnyItemActive()
+    actual fun isAnyItemActive(): Boolean = igIsAnyItemActive()
 
-    fun isAnyItemFocused(): Boolean = igIsAnyItemFocused()
+    actual fun isAnyItemFocused(): Boolean = igIsAnyItemFocused()
 
-    fun isAnyItemHovered(): Boolean = igIsAnyItemHovered()
+    actual fun isAnyItemHovered(): Boolean = igIsAnyItemHovered()
 
-    fun isAnyMouseDown(): Boolean = igIsAnyMouseDown()
+    actual fun isAnyMouseDown(): Boolean = igIsAnyMouseDown()
 
-    fun isItemActivated(): Boolean = igIsItemActivated()
+    actual fun isItemActivated(): Boolean = igIsItemActivated()
 
-    fun isItemActive(): Boolean = igIsItemActive()
+    actual fun isItemActive(): Boolean = igIsItemActive()
 
-    fun isItemClicked(mouseButton: Int = 0): Boolean = igIsItemClicked(mouseButton)
+    actual fun isItemClicked(mouseButton: Int): Boolean = igIsItemClicked(mouseButton)
 
-    fun isItemDeactivated(): Boolean = igIsItemDeactivated()
+    actual fun isItemDeactivated(): Boolean = igIsItemDeactivated()
 
-    fun isItemDeactivatedAfterEdit(): Boolean = igIsItemDeactivatedAfterEdit()
+    actual fun isItemDeactivatedAfterEdit(): Boolean = igIsItemDeactivatedAfterEdit()
 
-    fun isItemEdited(): Boolean = igIsItemEdited()
+    actual fun isItemEdited(): Boolean = igIsItemEdited()
 
-    fun isItemFocused(): Boolean = igIsItemFocused()
+    actual fun isItemFocused(): Boolean = igIsItemFocused()
 
-    fun isItemHovered(flags: Flag<ImGuiHoveredFlags>? = null): Boolean =
+    actual fun isItemHovered(flags: Flag<ImGuiHoveredFlags>?): Boolean =
             igIsItemHovered(flags?.value ?: 0)
 
-    fun isItemToggledOpen(): Boolean = igIsItemToggledOpen()
+    actual fun isItemToggledOpen(): Boolean = igIsItemToggledOpen()
 
-    fun isItemVisible(): Boolean = igIsItemVisible()
+    actual fun isItemVisible(): Boolean = igIsItemVisible()
 
-    fun isKeyDown(userKeyIndex: Int): Boolean = igIsKeyDown(userKeyIndex)
+    actual fun isKeyDown(userKeyIndex: Int): Boolean = igIsKeyDown(userKeyIndex)
 
-    fun isKeyPressed(userKeyIndex: Int, repeat: Boolean = true): Boolean =
+    actual fun isKeyPressed(userKeyIndex: Int, repeat: Boolean): Boolean =
             igIsKeyPressed(userKeyIndex, repeat)
 
-    fun isKeyReleased(userKeyIndex: Int): Boolean = igIsKeyReleased(userKeyIndex)
+    actual fun isKeyReleased(userKeyIndex: Int): Boolean = igIsKeyReleased(userKeyIndex)
 
-    fun isMouseClicked(button: Int, repeat: Boolean = false): Boolean = igIsMouseClicked(button,
+    actual fun isMouseClicked(button: Int, repeat: Boolean): Boolean = igIsMouseClicked(button,
             repeat)
 
-    fun isMouseDoubleClicked(button: Int): Boolean = igIsMouseDoubleClicked(button)
+    actual fun isMouseDoubleClicked(button: Int): Boolean = igIsMouseDoubleClicked(button)
 
-    fun isMouseDown(button: Int): Boolean = igIsMouseDown(button)
+    actual fun isMouseDown(button: Int): Boolean = igIsMouseDown(button)
 
-    fun isMouseDragging(button: Int = 0, lockThreshold: Float = -1.0f): Boolean =
+    actual fun isMouseDragging(button: Int, lockThreshold: Float): Boolean =
             igIsMouseDragging(button, lockThreshold)
 
-    fun isMouseHoveringRect(
+    actual fun isMouseHoveringRect(
         rMin: Vec2,
         rMax: Vec2,
-        clip: Boolean = true
+        clip: Boolean
     ): Boolean = igIsMouseHoveringRect(rMin.toCValue(), rMax.toCValue(), clip)
 
-    fun isMousePosValid(mousePos: ImVec2? = null): Boolean = igIsMousePosValid(mousePos?.ptr)
+    actual fun isMousePosValid(mousePos: ImVec2?): Boolean = igIsMousePosValid(mousePos?.ptr)
 
-    fun isMouseReleased(button: Int): Boolean = igIsMouseReleased(button)
+    actual fun isMouseReleased(button: Int): Boolean = igIsMouseReleased(button)
 
-    fun isPopupOpen(strId: String): Boolean = igIsPopupOpen(strId)
+    actual fun isPopupOpen(strId: String): Boolean = igIsPopupOpen(strId)
 
-    fun isRectVisible(size: Vec2): Boolean = igIsRectVisible(size.toCValue())
+    actual fun isRectVisible(size: Vec2): Boolean = igIsRectVisible(size.toCValue())
 
-    fun isRectVisible(rectMin: Vec2, rectMax: Vec2): Boolean =
+    actual fun isRectVisible(rectMin: Vec2, rectMax: Vec2): Boolean =
             igIsRectVisibleVec2(rectMin.toCValue(), rectMax.toCValue())
 
-    fun isWindowAppearing(): Boolean = igIsWindowAppearing()
+    actual fun isWindowAppearing(): Boolean = igIsWindowAppearing()
 
-    fun isWindowCollapsed(): Boolean = igIsWindowCollapsed()
+    actual fun isWindowCollapsed(): Boolean = igIsWindowCollapsed()
 
-    fun isWindowFocused(flags: Flag<ImGuiFocusedFlags>? = null): Boolean =
+    actual fun isWindowFocused(flags: Flag<ImGuiFocusedFlags>?): Boolean =
             igIsWindowFocused(flags?.value ?: 0)
 
-    fun isWindowHovered(flags: Flag<ImGuiHoveredFlags>? = null): Boolean =
+    actual fun isWindowHovered(flags: Flag<ImGuiHoveredFlags>?): Boolean =
             igIsWindowHovered(flags?.value ?: 0)
 
-    fun labelText(label: String, fmt: String) {
+    actual fun labelText(label: String, fmt: String) {
         igLabelText(label, fmt)
     }
 
-    fun listBoxFooter() {
+    actual fun listBoxFooter() {
         igListBoxFooter()
     }
 
-    fun listBoxHeader(label: String, size: Vec2 = Vec2.Zero): Boolean = igListBoxHeaderVec2(label,
+    actual fun listBoxHeader(label: String, size: Vec2): Boolean = igListBoxHeaderVec2(label,
             size.toCValue())
 
-    fun listBoxHeader(
+    actual fun listBoxHeader(
         label: String,
         itemsCount: Int,
-        heightInItems: Int = -1
+        heightInItems: Int
     ): Boolean = igListBoxHeaderInt(label, itemsCount, heightInItems)
 
-    fun loadIniSettingsFromDisk(iniFilename: String) {
+    actual fun loadIniSettingsFromDisk(iniFilename: String) {
         igLoadIniSettingsFromDisk(iniFilename)
     }
 
-    fun loadIniSettingsFromMemory(iniData: String, iniSize: ULong = 0uL) {
+    actual fun loadIniSettingsFromMemory(iniData: String, iniSize: ULong) {
         igLoadIniSettingsFromMemory(iniData, iniSize.convert())
     }
 
-    fun logButtons() {
+    actual fun logButtons() {
         igLogButtons()
     }
 
-    fun logFinish() {
+    actual fun logFinish() {
         igLogFinish()
     }
 
-    fun logText(fmt: String) {
+    actual fun logText(fmt: String) {
         igLogText(fmt)
     }
 
-    fun logToClipboard(autoOpenDepth: Int = -1) {
+    actual fun logToClipboard(autoOpenDepth: Int) {
         igLogToClipboard(autoOpenDepth)
     }
 
-    fun logToFile(autoOpenDepth: Int = -1, filename: String? = null) {
+    actual fun logToFile(autoOpenDepth: Int, filename: String?) {
         igLogToFile(autoOpenDepth, filename)
     }
 
-    fun logToTTY(autoOpenDepth: Int = -1) {
+    actual fun logToTTY(autoOpenDepth: Int) {
         igLogToTTY(autoOpenDepth)
     }
 
-    fun menuItem(
+    actual fun menuItem(
         label: String,
-        shortcut: String? = null,
-        selected: Boolean = false,
-        enabled: Boolean = true
+        shortcut: String?,
+        selected: Boolean,
+        enabled: Boolean
     ): Boolean = igMenuItemBool(label, shortcut, selected, enabled)
 
-    fun menuItem(
+    actual fun menuItem(
         label: String,
         shortcut: String,
         pSelected: KMutableProperty0<Boolean>,
-        enabled: Boolean = true
+        enabled: Boolean
     ): Boolean = usingProperty(pSelected) { ptrPSelected ->
         igMenuItemBoolPtr(label, shortcut, ptrPSelected, enabled)
     }
 
-    fun newFrame() {
+    actual fun newFrame() {
         igNewFrame()
     }
 
-    fun newLine() {
+    actual fun newLine() {
         igNewLine()
     }
 
-    fun nextColumn() {
+    actual fun nextColumn() {
         igNextColumn()
     }
 
-    fun openPopup(strId: String) {
+    actual fun openPopup(strId: String) {
         igOpenPopup(strId)
     }
 
-    fun openPopupOnItemClick(strId: String? = null, mouseButton: Int = 1): Boolean =
+    actual fun openPopupOnItemClick(strId: String?, mouseButton: Int): Boolean =
             igOpenPopupOnItemClick(strId, mouseButton)
 
-    fun popAllowKeyboardFocus() {
+    actual fun popAllowKeyboardFocus() {
         igPopAllowKeyboardFocus()
     }
 
-    fun popButtonRepeat() {
+    actual fun popButtonRepeat() {
         igPopButtonRepeat()
     }
 
-    fun popClipRect() {
+    actual fun popClipRect() {
         igPopClipRect()
     }
 
-    fun popFont() {
+    actual fun popFont() {
         igPopFont()
     }
 
-    fun popID() {
+    actual fun popID() {
         igPopID()
     }
 
-    fun popItemWidth() {
+    actual fun popItemWidth() {
         igPopItemWidth()
     }
 
-    fun popStyleColor(count: Int = 1) {
+    actual fun popStyleColor(count: Int) {
         igPopStyleColor(count)
     }
 
-    fun popStyleVar(count: Int = 1) {
+    actual fun popStyleVar(count: Int) {
         igPopStyleVar(count)
     }
 
-    fun popTextWrapPos() {
+    actual fun popTextWrapPos() {
         igPopTextWrapPos()
     }
 
-    fun progressBar(
+    actual fun progressBar(
         fraction: Float,
-        sizeArg: Vec2 = Vec2(-1f, 0f),
-        overlay: String? = null
+        sizeArg: Vec2,
+        overlay: String?
     ) {
         igProgressBar(fraction, sizeArg.toCValue(), overlay)
     }
 
-    fun pushAllowKeyboardFocus(allowKeyboardFocus: Boolean) {
+    actual fun pushAllowKeyboardFocus(allowKeyboardFocus: Boolean) {
         igPushAllowKeyboardFocus(allowKeyboardFocus)
     }
 
-    fun pushButtonRepeat(repeat: Boolean) {
+    actual fun pushButtonRepeat(repeat: Boolean) {
         igPushButtonRepeat(repeat)
     }
 
-    fun pushClipRect(
+    actual fun pushClipRect(
         clipRectMin: Vec2,
         clipRectMax: Vec2,
         intersectWithCurrentClipRect: Boolean
@@ -1297,49 +1320,50 @@ object ImGui {
         igPushClipRect(clipRectMin.toCValue(), clipRectMax.toCValue(), intersectWithCurrentClipRect)
     }
 
-    fun pushFont(font: ImFont) {
+    actual fun pushFont(font: ImFont) {
         igPushFont(font.ptr)
     }
 
-    fun pushID(strId: String) {
+    actual fun pushID(strId: String) {
         igPushIDStr(strId)
     }
 
-    fun pushID(strIdBegin: String, strIdEnd: String) {
+    actual fun pushID(strIdBegin: String, strIdEnd: String) {
         igPushIDRange(strIdBegin, strIdEnd)
     }
 
-    fun pushID(intId: Int) {
+    actual fun pushID(intId: Int) {
         igPushIDInt(intId)
     }
 
-    fun pushItemWidth(itemWidth: Float) {
+    actual fun pushItemWidth(itemWidth: Float) {
         igPushItemWidth(itemWidth)
     }
 
-    fun pushStyleColor(idx: ImGuiCol, col: UInt) {
+    actual fun pushStyleColor(idx: ImGuiCol, col: UInt) {
         igPushStyleColorU32(idx.value, col)
     }
 
-    fun pushStyleColor(idx: ImGuiCol, col: Vec4) {
+    actual fun pushStyleColor(idx: ImGuiCol, col: Vec4) {
         igPushStyleColor(idx.value, col.toCValue())
     }
 
-    fun pushStyleVar(idx: ImGuiStyleVar, `val`: Float) {
+    actual fun pushStyleVar(idx: ImGuiStyleVar, `val`: Float) {
         igPushStyleVarFloat(idx.value, `val`)
     }
 
-    fun pushStyleVar(idx: ImGuiStyleVar, `val`: Vec2) {
+    actual fun pushStyleVar(idx: ImGuiStyleVar, `val`: Vec2) {
         igPushStyleVarVec2(idx.value, `val`.toCValue())
     }
 
-    fun pushTextWrapPos(wrapLocalPosX: Float = 0.0f) {
+    actual fun pushTextWrapPos(wrapLocalPosX: Float) {
         igPushTextWrapPos(wrapLocalPosX)
     }
 
-    fun radioButton(label: String, active: Boolean): Boolean = igRadioButtonBool(label, active)
+    actual fun radioButton(label: String, active: Boolean): Boolean = igRadioButtonBool(label,
+            active)
 
-    fun radioButton(
+    actual fun radioButton(
         label: String,
         v: KMutableProperty0<Int>,
         vButton: Int
@@ -1347,469 +1371,475 @@ object ImGui {
         igRadioButtonIntPtr(label, ptrV, vButton)
     }
 
-    fun render() {
+    actual fun render() {
         igRender()
     }
 
-    fun resetMouseDragDelta(button: Int = 0) {
+    actual fun resetMouseDragDelta(button: Int) {
         igResetMouseDragDelta(button)
     }
 
-    fun sameLine(offsetFromStartX: Float = 0.0f, spacing: Float = -1.0f) {
+    actual fun sameLine(offsetFromStartX: Float, spacing: Float) {
         igSameLine(offsetFromStartX, spacing)
     }
 
-    fun saveIniSettingsToDisk(iniFilename: String) {
+    actual fun saveIniSettingsToDisk(iniFilename: String) {
         igSaveIniSettingsToDisk(iniFilename)
     }
 
-    fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>? = null): String? =
+    actual fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>?): String? =
             usingPropertyN(outIniSize) { ptrOutIniSize ->
         igSaveIniSettingsToMemory(ptrOutIniSize)
     }?.toKString()
 
-    fun selectable(
+    actual fun selectable(
         label: String,
-        selected: Boolean = false,
-        flags: Flag<ImGuiSelectableFlags>? = null,
-        size: Vec2 = Vec2.Zero
+        selected: Boolean,
+        flags: Flag<ImGuiSelectableFlags>?,
+        size: Vec2
     ): Boolean = igSelectable(label, selected, flags?.value ?: 0, size.toCValue())
 
-    fun selectable(
+    actual fun selectable(
         label: String,
         pSelected: KMutableProperty0<Boolean>,
-        flags: Flag<ImGuiSelectableFlags>? = null,
-        size: Vec2 = Vec2.Zero
+        flags: Flag<ImGuiSelectableFlags>?,
+        size: Vec2
     ): Boolean = usingProperty(pSelected) { ptrPSelected ->
         igSelectableBoolPtr(label, ptrPSelected, flags?.value ?: 0, size.toCValue())
     }
 
-    fun separator() {
+    actual fun separator() {
         igSeparator()
     }
 
-    fun setClipboardText(text: String) {
+    actual fun setClipboardText(text: String) {
         igSetClipboardText(text)
     }
 
-    fun setColorEditOptions(flags: Flag<ImGuiColorEditFlags>) {
+    actual fun setColorEditOptions(flags: Flag<ImGuiColorEditFlags>) {
         igSetColorEditOptions(flags.value)
     }
 
-    fun setColumnOffset(columnIndex: Int, offsetX: Float) {
+    actual fun setColumnOffset(columnIndex: Int, offsetX: Float) {
         igSetColumnOffset(columnIndex, offsetX)
     }
 
-    fun setColumnWidth(columnIndex: Int, width: Float) {
+    actual fun setColumnWidth(columnIndex: Int, width: Float) {
         igSetColumnWidth(columnIndex, width)
     }
 
-    fun setCurrentContext(ctx: ImGuiContext) {
+    actual fun setCurrentContext(ctx: ImGuiContext) {
         igSetCurrentContext(ctx.ptr)
     }
 
-    fun setCursorPos(localPos: Vec2) {
+    actual fun setCursorPos(localPos: Vec2) {
         igSetCursorPos(localPos.toCValue())
     }
 
-    fun setCursorPosX(localX: Float) {
+    actual fun setCursorPosX(localX: Float) {
         igSetCursorPosX(localX)
     }
 
-    fun setCursorPosY(localY: Float) {
+    actual fun setCursorPosY(localY: Float) {
         igSetCursorPosY(localY)
     }
 
-    fun setCursorScreenPos(pos: Vec2) {
+    actual fun setCursorScreenPos(pos: Vec2) {
         igSetCursorScreenPos(pos.toCValue())
     }
 
-    fun setItemAllowOverlap() {
+    actual fun setItemAllowOverlap() {
         igSetItemAllowOverlap()
     }
 
-    fun setItemDefaultFocus() {
+    actual fun setItemDefaultFocus() {
         igSetItemDefaultFocus()
     }
 
-    fun setKeyboardFocusHere(offset: Int = 0) {
+    actual fun setKeyboardFocusHere(offset: Int) {
         igSetKeyboardFocusHere(offset)
     }
 
-    fun setMouseCursor(type: ImGuiMouseCursor) {
+    actual fun setMouseCursor(type: ImGuiMouseCursor) {
         igSetMouseCursor(type.value)
     }
 
-    fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>? = null) {
+    actual fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>?) {
         igSetNextItemOpen(isOpen, cond?.value ?: 0)
     }
 
-    fun setNextItemWidth(itemWidth: Float) {
+    actual fun setNextItemWidth(itemWidth: Float) {
         igSetNextItemWidth(itemWidth)
     }
 
-    fun setNextWindowBgAlpha(alpha: Float) {
+    actual fun setNextWindowBgAlpha(alpha: Float) {
         igSetNextWindowBgAlpha(alpha)
     }
 
-    fun setNextWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>? = null) {
+    actual fun setNextWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>?) {
         igSetNextWindowCollapsed(collapsed, cond?.value ?: 0)
     }
 
-    fun setNextWindowContentSize(size: Vec2) {
+    actual fun setNextWindowContentSize(size: Vec2) {
         igSetNextWindowContentSize(size.toCValue())
     }
 
-    fun setNextWindowFocus() {
+    actual fun setNextWindowFocus() {
         igSetNextWindowFocus()
     }
 
-    fun setNextWindowPos(
+    actual fun setNextWindowPos(
         pos: Vec2,
-        cond: Flag<ImGuiCond>? = null,
-        pivot: Vec2 = Vec2.Zero
+        cond: Flag<ImGuiCond>?,
+        pivot: Vec2
     ) {
         igSetNextWindowPos(pos.toCValue(), cond?.value ?: 0, pivot.toCValue())
     }
 
-    fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>? = null) {
+    actual fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {
         igSetNextWindowSize(size.toCValue(), cond?.value ?: 0)
     }
 
-    fun setScrollFromPosX(localX: Float, centerXRatio: Float = 0.5f) {
+    actual fun setScrollFromPosX(localX: Float, centerXRatio: Float) {
         igSetScrollFromPosX(localX, centerXRatio)
     }
 
-    fun setScrollFromPosY(localY: Float, centerYRatio: Float = 0.5f) {
+    actual fun setScrollFromPosY(localY: Float, centerYRatio: Float) {
         igSetScrollFromPosY(localY, centerYRatio)
     }
 
-    fun setScrollHereX(centerXRatio: Float = 0.5f) {
+    actual fun setScrollHereX(centerXRatio: Float) {
         igSetScrollHereX(centerXRatio)
     }
 
-    fun setScrollHereY(centerYRatio: Float = 0.5f) {
+    actual fun setScrollHereY(centerYRatio: Float) {
         igSetScrollHereY(centerYRatio)
     }
 
-    fun setScrollX(scrollX: Float) {
+    actual fun setScrollX(scrollX: Float) {
         igSetScrollX(scrollX)
     }
 
-    fun setScrollY(scrollY: Float) {
+    actual fun setScrollY(scrollY: Float) {
         igSetScrollY(scrollY)
     }
 
-    fun setStateStorage(storage: ImGuiStorage) {
+    actual fun setStateStorage(storage: ImGuiStorage) {
         igSetStateStorage(storage.ptr)
     }
 
-    fun setTabItemClosed(tabOrDockedWindowLabel: String) {
+    actual fun setTabItemClosed(tabOrDockedWindowLabel: String) {
         igSetTabItemClosed(tabOrDockedWindowLabel)
     }
 
-    fun setTooltip(fmt: String) {
+    actual fun setTooltip(fmt: String) {
         igSetTooltip(fmt)
     }
 
-    fun setWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>? = null) {
+    actual fun setWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>?) {
         igSetWindowCollapsedBool(collapsed, cond?.value ?: 0)
     }
 
-    fun setWindowCollapsed(
+    actual fun setWindowCollapsed(
         name: String,
         collapsed: Boolean,
-        cond: Flag<ImGuiCond>? = null
+        cond: Flag<ImGuiCond>?
     ) {
         igSetWindowCollapsedStr(name, collapsed, cond?.value ?: 0)
     }
 
-    fun setWindowFocus() {
+    actual fun setWindowFocus() {
         igSetWindowFocus()
     }
 
-    fun setWindowFocus(name: String) {
+    actual fun setWindowFocus(name: String) {
         igSetWindowFocusStr(name)
     }
 
-    fun setWindowFontScale(scale: Float) {
+    actual fun setWindowFontScale(scale: Float) {
         igSetWindowFontScale(scale)
     }
 
-    fun setWindowPos(pos: Vec2, cond: Flag<ImGuiCond>? = null) {
+    actual fun setWindowPos(pos: Vec2, cond: Flag<ImGuiCond>?) {
         igSetWindowPosVec2(pos.toCValue(), cond?.value ?: 0)
     }
 
-    fun setWindowPos(
+    actual fun setWindowPos(
         name: String,
         pos: Vec2,
-        cond: Flag<ImGuiCond>? = null
+        cond: Flag<ImGuiCond>?
     ) {
         igSetWindowPosStr(name, pos.toCValue(), cond?.value ?: 0)
     }
 
-    fun setWindowSize(size: Vec2, cond: Flag<ImGuiCond>? = null) {
+    actual fun setWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {
         igSetWindowSizeVec2(size.toCValue(), cond?.value ?: 0)
     }
 
-    fun setWindowSize(
+    actual fun setWindowSize(
         name: String,
         size: Vec2,
-        cond: Flag<ImGuiCond>? = null
+        cond: Flag<ImGuiCond>?
     ) {
         igSetWindowSizeStr(name, size.toCValue(), cond?.value ?: 0)
     }
 
-    fun showAboutWindow(pOpen: KMutableProperty0<Boolean>? = null) {
+    actual fun showAboutWindow(pOpen: KMutableProperty0<Boolean>?) {
         usingPropertyN(pOpen) { ptrPOpen ->
             igShowAboutWindow(ptrPOpen)
         }
     }
 
-    fun showDemoWindow(pOpen: KMutableProperty0<Boolean>? = null) {
+    actual fun showDemoWindow(pOpen: KMutableProperty0<Boolean>?) {
         usingPropertyN(pOpen) { ptrPOpen ->
             igShowDemoWindow(ptrPOpen)
         }
     }
 
-    fun showFontSelector(label: String) {
+    actual fun showFontSelector(label: String) {
         igShowFontSelector(label)
     }
 
-    fun showMetricsWindow(pOpen: KMutableProperty0<Boolean>? = null) {
+    actual fun showMetricsWindow(pOpen: KMutableProperty0<Boolean>?) {
         usingPropertyN(pOpen) { ptrPOpen ->
             igShowMetricsWindow(ptrPOpen)
         }
     }
 
-    fun showStyleEditor(ref: ImGuiStyle? = null) {
+    actual fun showStyleEditor(ref: ImGuiStyle?) {
         igShowStyleEditor(ref?.ptr)
     }
 
-    fun showStyleSelector(label: String): Boolean = igShowStyleSelector(label)
+    actual fun showStyleSelector(label: String): Boolean = igShowStyleSelector(label)
 
-    fun showUserGuide() {
+    actual fun showUserGuide() {
         igShowUserGuide()
     }
 
-    fun sliderAngle(
+    actual fun sliderAngle(
         label: String,
         vRad: KMutableProperty0<Float>,
-        vDegreesMin: Float = -360.0f,
-        vDegreesMax: Float = +360.0f,
-        format: String = "%.0f deg"
+        vDegreesMin: Float,
+        vDegreesMax: Float,
+        format: String
     ): Boolean = usingProperty(vRad) { ptrVRad ->
         igSliderAngle(label, ptrVRad, vDegreesMin, vDegreesMax, format)
     }
 
-    fun sliderFloat(
+    actual fun sliderFloat(
         label: String,
         v: KMutableProperty0<Float>,
         vMin: Float,
         vMax: Float,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        format: String,
+        power: Float
     ): Boolean = usingProperty(v) { ptrV ->
         igSliderFloat(label, ptrV, vMin, vMax, format, power)
     }
 
-    fun sliderFloat2(
+    actual fun sliderFloat2(
         label: String,
         v: FloatArray,
         vMin: Float,
         vMax: Float,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igSliderFloat2(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
-    fun sliderFloat3(
+    actual fun sliderFloat3(
         label: String,
         v: FloatArray,
         vMin: Float,
         vMax: Float,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igSliderFloat3(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
-    fun sliderFloat4(
+    actual fun sliderFloat4(
         label: String,
         v: FloatArray,
         vMin: Float,
         vMax: Float,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        format: String,
+        power: Float
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igSliderFloat4(label, pinnedV.addressOf(0), vMin, vMax, format, power)
         }
     }
 
-    fun sliderInt(
+    actual fun sliderInt(
         label: String,
         v: KMutableProperty0<Int>,
         vMin: Int,
         vMax: Int,
-        format: String = "%d"
+        format: String
     ): Boolean = usingProperty(v) { ptrV ->
         igSliderInt(label, ptrV, vMin, vMax, format)
     }
 
-    fun sliderInt2(
+    actual fun sliderInt2(
         label: String,
         v: IntArray,
         vMin: Int,
         vMax: Int,
-        format: String = "%d"
+        format: String
     ): Boolean {
         require(v.size >= 2)
+
         return v.usePinned { pinnedV ->
             igSliderInt2(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
-    fun sliderInt3(
+    actual fun sliderInt3(
         label: String,
         v: IntArray,
         vMin: Int,
         vMax: Int,
-        format: String = "%d"
+        format: String
     ): Boolean {
         require(v.size >= 3)
+
         return v.usePinned { pinnedV ->
             igSliderInt3(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
-    fun sliderInt4(
+    actual fun sliderInt4(
         label: String,
         v: IntArray,
         vMin: Int,
         vMax: Int,
-        format: String = "%d"
+        format: String
     ): Boolean {
         require(v.size >= 4)
+
         return v.usePinned { pinnedV ->
             igSliderInt4(label, pinnedV.addressOf(0), vMin, vMax, format)
         }
     }
 
-    fun smallButton(label: String): Boolean = igSmallButton(label)
+    actual fun smallButton(label: String): Boolean = igSmallButton(label)
 
-    fun spacing() {
+    actual fun spacing() {
         igSpacing()
     }
 
-    fun styleColorsClassic(dst: ImGuiStyle? = null) {
+    actual fun styleColorsClassic(dst: ImGuiStyle?) {
         igStyleColorsClassic(dst?.ptr)
     }
 
-    fun styleColorsDark(dst: ImGuiStyle? = null) {
+    actual fun styleColorsDark(dst: ImGuiStyle?) {
         igStyleColorsDark(dst?.ptr)
     }
 
-    fun styleColorsLight(dst: ImGuiStyle? = null) {
+    actual fun styleColorsLight(dst: ImGuiStyle?) {
         igStyleColorsLight(dst?.ptr)
     }
 
-    fun text(fmt: String) {
+    actual fun text(fmt: String) {
         igText(fmt)
     }
 
-    fun textColored(col: Vec4, fmt: String) {
+    actual fun textColored(col: Vec4, fmt: String) {
         igTextColored(col.toCValue(), fmt)
     }
 
-    fun textDisabled(fmt: String) {
+    actual fun textDisabled(fmt: String) {
         igTextDisabled(fmt)
     }
 
-    fun textUnformatted(text: String, textEnd: String? = null) {
+    actual fun textUnformatted(text: String, textEnd: String?) {
         igTextUnformatted(text, textEnd)
     }
 
-    fun textWrapped(fmt: String) {
+    actual fun textWrapped(fmt: String) {
         igTextWrapped(fmt)
     }
 
-    fun treeNode(label: String): Boolean = igTreeNodeStr(label)
+    actual fun treeNode(label: String): Boolean = igTreeNodeStr(label)
 
-    fun treeNode(strId: String, fmt: String): Boolean = igTreeNodeStrStr(strId, fmt)
+    actual fun treeNode(strId: String, fmt: String): Boolean = igTreeNodeStrStr(strId, fmt)
 
-    fun treeNodeEx(label: String, flags: Flag<ImGuiTreeNodeFlags>? = null): Boolean =
+    actual fun treeNodeEx(label: String, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
             igTreeNodeExStr(label, flags?.value ?: 0)
 
-    fun treeNodeEx(
+    actual fun treeNodeEx(
         strId: String,
         flags: Flag<ImGuiTreeNodeFlags>,
         fmt: String
     ): Boolean = igTreeNodeExStrStr(strId, flags.value, fmt)
 
-    fun treePop() {
+    actual fun treePop() {
         igTreePop()
     }
 
-    fun treePush(strId: String) {
+    actual fun treePush(strId: String) {
         igTreePushStr(strId)
     }
 
-    fun treePush() {
+    actual fun treePush() {
         igTreePushPtr(null)
     }
 
-    fun unindent(indentW: Float = 0.0f) {
+    actual fun unindent(indentW: Float) {
         igUnindent(indentW)
     }
 
-    fun vSliderFloat(
+    actual fun vSliderFloat(
         label: String,
         size: Vec2,
         v: KMutableProperty0<Float>,
         vMin: Float,
         vMax: Float,
-        format: String = "%.3f",
-        power: Float = 1.0f
+        format: String,
+        power: Float
     ): Boolean = usingProperty(v) { ptrV ->
         igVSliderFloat(label, size.toCValue(), ptrV, vMin, vMax, format, power)
     }
 
-    fun vSliderInt(
+    actual fun vSliderInt(
         label: String,
         size: Vec2,
         v: KMutableProperty0<Int>,
         vMin: Int,
         vMax: Int,
-        format: String = "%d"
+        format: String
     ): Boolean = usingProperty(v) { ptrV ->
         igVSliderInt(label, size.toCValue(), ptrV, vMin, vMax, format)
     }
 
-    fun value(prefix: String, b: Boolean) {
+    actual fun value(prefix: String, b: Boolean) {
         igValueBool(prefix, b)
     }
 
-    fun value(prefix: String, v: Int) {
+    actual fun value(prefix: String, v: Int) {
         igValueInt(prefix, v)
     }
 
-    fun value(prefix: String, v: UInt) {
+    actual fun value(prefix: String, v: UInt) {
         igValueUint(prefix, v)
     }
 
-    fun value(
+    actual fun value(
         prefix: String,
         v: Float,
-        floatFormat: String? = null
+        floatFormat: String?
     ) {
         igValueFloat(prefix, v, floatFormat)
     }

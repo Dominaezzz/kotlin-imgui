@@ -26,7 +26,7 @@ import cimgui.internal.ImGuiStyleVar_WindowRounding
 import cimgui.internal.ImGuiStyleVar_WindowTitleAlign
 import kotlinx.cinterop.convert
 
-enum class ImGuiStyleVar(
+actual enum class ImGuiStyleVar(
   val value: cimgui.internal.ImGuiStyleVar
 ) {
   Alpha(ImGuiStyleVar_Alpha.convert()),
@@ -75,7 +75,7 @@ enum class ImGuiStyleVar(
 
   SelectableTextAlign(ImGuiStyleVar_SelectableTextAlign.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiStyleVar): ImGuiStyleVar = when
         (value.convert<ImGuiStyleVar_>()) {
       ImGuiStyleVar_Alpha -> Alpha
@@ -103,6 +103,5 @@ enum class ImGuiStyleVar(
       ImGuiStyleVar_SelectableTextAlign -> SelectableTextAlign
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

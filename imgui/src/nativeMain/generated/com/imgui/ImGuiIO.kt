@@ -9,170 +9,172 @@ import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 
-inline class ImGuiIO(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiIO(
   val ptr: CPointer<cimgui.internal.ImGuiIO>
 ) {
-  val configFlags: Flag<ImGuiConfigFlags>
+  actual val configFlags: Flag<ImGuiConfigFlags>
     get() = ptr.pointed.ConfigFlags.let { ImGuiConfigFlags.fromMultiple(it) }
 
-  val backendFlags: Flag<ImGuiBackendFlags>
+  actual val backendFlags: Flag<ImGuiBackendFlags>
     get() = ptr.pointed.BackendFlags.let { ImGuiBackendFlags.fromMultiple(it) }
 
-  val displaySize: Vec2
+  actual val displaySize: Vec2
     get() = ptr.pointed.DisplaySize.fromCValue()
 
-  val deltaTime: Float
+  actual val deltaTime: Float
     get() = ptr.pointed.DeltaTime
 
-  val iniSavingRate: Float
+  actual val iniSavingRate: Float
     get() = ptr.pointed.IniSavingRate
 
-  val iniFilename: String
+  actual val iniFilename: String
     get() = ptr.pointed.IniFilename!!.toKString()
 
-  val logFilename: String
+  actual val logFilename: String
     get() = ptr.pointed.LogFilename!!.toKString()
 
-  val mouseDoubleClickTime: Float
+  actual val mouseDoubleClickTime: Float
     get() = ptr.pointed.MouseDoubleClickTime
 
-  val mouseDoubleClickMaxDist: Float
+  actual val mouseDoubleClickMaxDist: Float
     get() = ptr.pointed.MouseDoubleClickMaxDist
 
-  val mouseDragThreshold: Float
+  actual val mouseDragThreshold: Float
     get() = ptr.pointed.MouseDragThreshold
 
-  val keyRepeatDelay: Float
+  actual val keyRepeatDelay: Float
     get() = ptr.pointed.KeyRepeatDelay
 
-  val keyRepeatRate: Float
+  actual val keyRepeatRate: Float
     get() = ptr.pointed.KeyRepeatRate
 
-  val fonts: ImFontAtlas?
+  actual val fonts: ImFontAtlas?
     get() = ptr.pointed.Fonts?.let(::ImFontAtlas)
 
-  val fontGlobalScale: Float
+  actual val fontGlobalScale: Float
     get() = ptr.pointed.FontGlobalScale
 
-  val fontAllowUserScaling: Boolean
+  actual val fontAllowUserScaling: Boolean
     get() = ptr.pointed.FontAllowUserScaling
 
-  val fontDefault: ImFont?
+  actual val fontDefault: ImFont?
     get() = ptr.pointed.FontDefault?.let(::ImFont)
 
-  val displayFramebufferScale: Vec2
+  actual val displayFramebufferScale: Vec2
     get() = ptr.pointed.DisplayFramebufferScale.fromCValue()
 
-  val mouseDrawCursor: Boolean
+  actual val mouseDrawCursor: Boolean
     get() = ptr.pointed.MouseDrawCursor
 
-  val configMacOSXBehaviors: Boolean
+  actual val configMacOSXBehaviors: Boolean
     get() = ptr.pointed.ConfigMacOSXBehaviors
 
-  val configInputTextCursorBlink: Boolean
+  actual val configInputTextCursorBlink: Boolean
     get() = ptr.pointed.ConfigInputTextCursorBlink
 
-  val configWindowsResizeFromEdges: Boolean
+  actual val configWindowsResizeFromEdges: Boolean
     get() = ptr.pointed.ConfigWindowsResizeFromEdges
 
-  val configWindowsMoveFromTitleBarOnly: Boolean
+  actual val configWindowsMoveFromTitleBarOnly: Boolean
     get() = ptr.pointed.ConfigWindowsMoveFromTitleBarOnly
 
-  val configWindowsMemoryCompactTimer: Float
+  actual val configWindowsMemoryCompactTimer: Float
     get() = ptr.pointed.ConfigWindowsMemoryCompactTimer
 
-  val backendPlatformName: String
+  actual val backendPlatformName: String
     get() = ptr.pointed.BackendPlatformName!!.toKString()
 
-  val backendRendererName: String
+  actual val backendRendererName: String
     get() = ptr.pointed.BackendRendererName!!.toKString()
 
-  val mousePos: Vec2
+  actual val mousePos: Vec2
     get() = ptr.pointed.MousePos.fromCValue()
 
-  val mouseWheel: Float
+  actual val mouseWheel: Float
     get() = ptr.pointed.MouseWheel
 
-  val mouseWheelH: Float
+  actual val mouseWheelH: Float
     get() = ptr.pointed.MouseWheelH
 
-  val keyCtrl: Boolean
+  actual val keyCtrl: Boolean
     get() = ptr.pointed.KeyCtrl
 
-  val keyShift: Boolean
+  actual val keyShift: Boolean
     get() = ptr.pointed.KeyShift
 
-  val keyAlt: Boolean
+  actual val keyAlt: Boolean
     get() = ptr.pointed.KeyAlt
 
-  val keySuper: Boolean
+  actual val keySuper: Boolean
     get() = ptr.pointed.KeySuper
 
-  val wantCaptureMouse: Boolean
+  actual val wantCaptureMouse: Boolean
     get() = ptr.pointed.WantCaptureMouse
 
-  val wantCaptureKeyboard: Boolean
+  actual val wantCaptureKeyboard: Boolean
     get() = ptr.pointed.WantCaptureKeyboard
 
-  val wantTextInput: Boolean
+  actual val wantTextInput: Boolean
     get() = ptr.pointed.WantTextInput
 
-  val wantSetMousePos: Boolean
+  actual val wantSetMousePos: Boolean
     get() = ptr.pointed.WantSetMousePos
 
-  val wantSaveIniSettings: Boolean
+  actual val wantSaveIniSettings: Boolean
     get() = ptr.pointed.WantSaveIniSettings
 
-  val navActive: Boolean
+  actual val navActive: Boolean
     get() = ptr.pointed.NavActive
 
-  val navVisible: Boolean
+  actual val navVisible: Boolean
     get() = ptr.pointed.NavVisible
 
-  val framerate: Float
+  actual val framerate: Float
     get() = ptr.pointed.Framerate
 
-  val metricsRenderVertices: Int
+  actual val metricsRenderVertices: Int
     get() = ptr.pointed.MetricsRenderVertices
 
-  val metricsRenderIndices: Int
+  actual val metricsRenderIndices: Int
     get() = ptr.pointed.MetricsRenderIndices
 
-  val metricsRenderWindows: Int
+  actual val metricsRenderWindows: Int
     get() = ptr.pointed.MetricsRenderWindows
 
-  val metricsActiveWindows: Int
+  actual val metricsActiveWindows: Int
     get() = ptr.pointed.MetricsActiveWindows
 
-  val metricsActiveAllocations: Int
+  actual val metricsActiveAllocations: Int
     get() = ptr.pointed.MetricsActiveAllocations
 
-  val mouseDelta: Vec2
+  actual val mouseDelta: Vec2
     get() = ptr.pointed.MouseDelta.fromCValue()
 
-  val mousePosPrev: Vec2
+  actual val mousePosPrev: Vec2
     get() = ptr.pointed.MousePosPrev.fromCValue()
 
-  constructor() : this(ImGuiIO_ImGuiIO()!!)
+  actual constructor() : this(ImGuiIO_ImGuiIO()!!)
 
-  fun addInputCharacter(c: UInt) {
+  actual fun addInputCharacter(c: UInt) {
     ImGuiIO_AddInputCharacter(ptr, c)
   }
 
-  fun addInputCharactersUTF8(str: String) {
+  actual fun addInputCharactersUTF8(str: String) {
     ImGuiIO_AddInputCharactersUTF8(ptr, str)
   }
 
-  fun clearInputCharacters() {
+  actual fun clearInputCharacters() {
     ImGuiIO_ClearInputCharacters(ptr)
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiIO_destroy(ptr)
   }
 }

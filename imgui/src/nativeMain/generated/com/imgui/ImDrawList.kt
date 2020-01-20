@@ -55,51 +55,54 @@ import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImDrawList(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImDrawList(
   val ptr: CPointer<cimgui.internal.ImDrawList>
 ) {
-  val flags: Flag<ImDrawListFlags>
+  actual val flags: Flag<ImDrawListFlags>
     get() = ptr.pointed.Flags.let { ImDrawListFlags.fromMultiple(it) }
 
-  constructor(sharedData: ImDrawListSharedData) : this(ImDrawList_ImDrawList(sharedData.ptr)!!)
+  actual constructor(sharedData: ImDrawListSharedData) :
+      this(ImDrawList_ImDrawList(sharedData.ptr)!!)
 
-  fun addBezierCurve(
+  actual fun addBezierCurve(
     pos0: Vec2,
     cp0: Vec2,
     cp1: Vec2,
     pos1: Vec2,
     col: UInt,
     thickness: Float,
-    numSegments: Int = 0
+    numSegments: Int
   ) {
     ImDrawList_AddBezierCurve(ptr, pos0.toCValue(), cp0.toCValue(), cp1.toCValue(), pos1.toCValue(),
         col, thickness, numSegments)
   }
 
-  fun addCircle(
+  actual fun addCircle(
     center: Vec2,
     radius: Float,
     col: UInt,
-    numSegments: Int = 12,
-    thickness: Float = 1.0f
+    numSegments: Int,
+    thickness: Float
   ) {
     ImDrawList_AddCircle(ptr, center.toCValue(), radius, col, numSegments, thickness)
   }
 
-  fun addCircleFilled(
+  actual fun addCircleFilled(
     center: Vec2,
     radius: Float,
     col: UInt,
-    numSegments: Int = 12
+    numSegments: Int
   ) {
     ImDrawList_AddCircleFilled(ptr, center.toCValue(), radius, col, numSegments)
   }
 
-  fun addConvexPolyFilled(
+  actual fun addConvexPolyFilled(
     points: ImVec2,
     numPoints: Int,
     col: UInt
@@ -107,39 +110,39 @@ inline class ImDrawList(
     ImDrawList_AddConvexPolyFilled(ptr, points.ptr, numPoints, col)
   }
 
-  fun addDrawCmd() {
+  actual fun addDrawCmd() {
     ImDrawList_AddDrawCmd(ptr)
   }
 
-  fun addImage(
+  actual fun addImage(
     userTextureId: ImTextureID,
     pMin: Vec2,
     pMax: Vec2,
-    uvMin: Vec2 = Vec2.Zero,
-    uvMax: Vec2 = Vec2(1f, 1f),
-    col: UInt = (255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)
+    uvMin: Vec2,
+    uvMax: Vec2,
+    col: UInt
   ) {
     ImDrawList_AddImage(ptr, userTextureId.value, pMin.toCValue(), pMax.toCValue(),
         uvMin.toCValue(), uvMax.toCValue(), col)
   }
 
-  fun addImageQuad(
+  actual fun addImageQuad(
     userTextureId: ImTextureID,
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
     p4: Vec2,
-    uv1: Vec2 = Vec2.Zero,
-    uv2: Vec2 = Vec2(1f, 0f),
-    uv3: Vec2 = Vec2(1f, 1f),
-    uv4: Vec2 = Vec2(0f, 1f),
-    col: UInt = (255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)
+    uv1: Vec2,
+    uv2: Vec2,
+    uv3: Vec2,
+    uv4: Vec2,
+    col: UInt
   ) {
     ImDrawList_AddImageQuad(ptr, userTextureId.value, p1.toCValue(), p2.toCValue(), p3.toCValue(),
         p4.toCValue(), uv1.toCValue(), uv2.toCValue(), uv3.toCValue(), uv4.toCValue(), col)
   }
 
-  fun addImageRounded(
+  actual fun addImageRounded(
     userTextureId: ImTextureID,
     pMin: Vec2,
     pMax: Vec2,
@@ -147,22 +150,22 @@ inline class ImDrawList(
     uvMax: Vec2,
     col: UInt,
     rounding: Float,
-    roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
+    roundingCorners: Flag<ImDrawCornerFlags>
   ) {
     ImDrawList_AddImageRounded(ptr, userTextureId.value, pMin.toCValue(), pMax.toCValue(),
         uvMin.toCValue(), uvMax.toCValue(), col, rounding, roundingCorners.value)
   }
 
-  fun addLine(
+  actual fun addLine(
     p1: Vec2,
     p2: Vec2,
     col: UInt,
-    thickness: Float = 1.0f
+    thickness: Float
   ) {
     ImDrawList_AddLine(ptr, p1.toCValue(), p2.toCValue(), col, thickness)
   }
 
-  fun addPolyline(
+  actual fun addPolyline(
     points: ImVec2,
     numPoints: Int,
     col: UInt,
@@ -172,19 +175,19 @@ inline class ImDrawList(
     ImDrawList_AddPolyline(ptr, points.ptr, numPoints, col, closed, thickness)
   }
 
-  fun addQuad(
+  actual fun addQuad(
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
     p4: Vec2,
     col: UInt,
-    thickness: Float = 1.0f
+    thickness: Float
   ) {
     ImDrawList_AddQuad(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), p4.toCValue(), col,
         thickness)
   }
 
-  fun addQuadFilled(
+  actual fun addQuadFilled(
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
@@ -194,30 +197,30 @@ inline class ImDrawList(
     ImDrawList_AddQuadFilled(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), p4.toCValue(), col)
   }
 
-  fun addRect(
+  actual fun addRect(
     pMin: Vec2,
     pMax: Vec2,
     col: UInt,
-    rounding: Float = 0.0f,
-    roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All,
-    thickness: Float = 1.0f
+    rounding: Float,
+    roundingCorners: Flag<ImDrawCornerFlags>,
+    thickness: Float
   ) {
     ImDrawList_AddRect(ptr, pMin.toCValue(), pMax.toCValue(), col, rounding, roundingCorners.value,
         thickness)
   }
 
-  fun addRectFilled(
+  actual fun addRectFilled(
     pMin: Vec2,
     pMax: Vec2,
     col: UInt,
-    rounding: Float = 0.0f,
-    roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
+    rounding: Float,
+    roundingCorners: Flag<ImDrawCornerFlags>
   ) {
     ImDrawList_AddRectFilled(ptr, pMin.toCValue(), pMax.toCValue(), col, rounding,
         roundingCorners.value)
   }
 
-  fun addRectFilledMultiColor(
+  actual fun addRectFilledMultiColor(
     pMin: Vec2,
     pMax: Vec2,
     colUprLeft: UInt,
@@ -229,40 +232,40 @@ inline class ImDrawList(
         colUprRight, colBotRight, colBotLeft)
   }
 
-  fun addText(
+  actual fun addText(
     pos: Vec2,
     col: UInt,
     textBegin: String,
-    textEnd: String? = null
+    textEnd: String?
   ) {
     ImDrawList_AddText(ptr, pos.toCValue(), col, textBegin, textEnd)
   }
 
-  fun addText(
+  actual fun addText(
     font: ImFont,
     fontSize: Float,
     pos: Vec2,
     col: UInt,
     textBegin: String,
-    textEnd: String? = null,
-    wrapWidth: Float = 0.0f,
-    cpuFineClipRect: ImVec4? = null
+    textEnd: String?,
+    wrapWidth: Float,
+    cpuFineClipRect: ImVec4?
   ) {
     ImDrawList_AddTextFontPtr(ptr, font.ptr, fontSize, pos.toCValue(), col, textBegin, textEnd,
         wrapWidth, cpuFineClipRect?.ptr)
   }
 
-  fun addTriangle(
+  actual fun addTriangle(
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
     col: UInt,
-    thickness: Float = 1.0f
+    thickness: Float
   ) {
     ImDrawList_AddTriangle(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), col, thickness)
   }
 
-  fun addTriangleFilled(
+  actual fun addTriangleFilled(
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
@@ -271,43 +274,43 @@ inline class ImDrawList(
     ImDrawList_AddTriangleFilled(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), col)
   }
 
-  fun channelsMerge() {
+  actual fun channelsMerge() {
     ImDrawList_ChannelsMerge(ptr)
   }
 
-  fun channelsSetCurrent(n: Int) {
+  actual fun channelsSetCurrent(n: Int) {
     ImDrawList_ChannelsSetCurrent(ptr, n)
   }
 
-  fun channelsSplit(count: Int) {
+  actual fun channelsSplit(count: Int) {
     ImDrawList_ChannelsSplit(ptr, count)
   }
 
-  fun clear() {
+  actual fun clear() {
     ImDrawList_Clear(ptr)
   }
 
-  fun clearFreeMemory() {
+  actual fun clearFreeMemory() {
     ImDrawList_ClearFreeMemory(ptr)
   }
 
-  fun cloneOutput(): ImDrawList = ImDrawList_CloneOutput(ptr)!!.let(::ImDrawList)
+  actual fun cloneOutput(): ImDrawList = ImDrawList_CloneOutput(ptr)!!.let(::ImDrawList)
 
-  fun getClipRectMax(): Vec2 = ImDrawList_GetClipRectMax(ptr).fromCValue()
+  actual fun getClipRectMax(): Vec2 = ImDrawList_GetClipRectMax(ptr).fromCValue()
 
-  fun getClipRectMin(): Vec2 = ImDrawList_GetClipRectMin(ptr).fromCValue()
+  actual fun getClipRectMin(): Vec2 = ImDrawList_GetClipRectMin(ptr).fromCValue()
 
-  fun pathArcTo(
+  actual fun pathArcTo(
     center: Vec2,
     radius: Float,
     aMin: Float,
     aMax: Float,
-    numSegments: Int = 10
+    numSegments: Int
   ) {
     ImDrawList_PathArcTo(ptr, center.toCValue(), radius, aMin, aMax, numSegments)
   }
 
-  fun pathArcToFast(
+  actual fun pathArcToFast(
     center: Vec2,
     radius: Float,
     aMinOf12: Int,
@@ -316,58 +319,58 @@ inline class ImDrawList(
     ImDrawList_PathArcToFast(ptr, center.toCValue(), radius, aMinOf12, aMaxOf12)
   }
 
-  fun pathBezierCurveTo(
+  actual fun pathBezierCurveTo(
     p1: Vec2,
     p2: Vec2,
     p3: Vec2,
-    numSegments: Int = 0
+    numSegments: Int
   ) {
     ImDrawList_PathBezierCurveTo(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), numSegments)
   }
 
-  fun pathClear() {
+  actual fun pathClear() {
     ImDrawList_PathClear(ptr)
   }
 
-  fun pathFillConvex(col: UInt) {
+  actual fun pathFillConvex(col: UInt) {
     ImDrawList_PathFillConvex(ptr, col)
   }
 
-  fun pathLineTo(pos: Vec2) {
+  actual fun pathLineTo(pos: Vec2) {
     ImDrawList_PathLineTo(ptr, pos.toCValue())
   }
 
-  fun pathLineToMergeDuplicate(pos: Vec2) {
+  actual fun pathLineToMergeDuplicate(pos: Vec2) {
     ImDrawList_PathLineToMergeDuplicate(ptr, pos.toCValue())
   }
 
-  fun pathRect(
+  actual fun pathRect(
     rectMin: Vec2,
     rectMax: Vec2,
-    rounding: Float = 0.0f,
-    roundingCorners: Flag<ImDrawCornerFlags> = ImDrawCornerFlags.All
+    rounding: Float,
+    roundingCorners: Flag<ImDrawCornerFlags>
   ) {
     ImDrawList_PathRect(ptr, rectMin.toCValue(), rectMax.toCValue(), rounding,
         roundingCorners.value)
   }
 
-  fun pathStroke(
+  actual fun pathStroke(
     col: UInt,
     closed: Boolean,
-    thickness: Float = 1.0f
+    thickness: Float
   ) {
     ImDrawList_PathStroke(ptr, col, closed, thickness)
   }
 
-  fun popClipRect() {
+  actual fun popClipRect() {
     ImDrawList_PopClipRect(ptr)
   }
 
-  fun popTextureID() {
+  actual fun popTextureID() {
     ImDrawList_PopTextureID(ptr)
   }
 
-  fun primQuadUV(
+  actual fun primQuadUV(
     a: Vec2,
     b: Vec2,
     c: Vec2,
@@ -382,7 +385,7 @@ inline class ImDrawList(
         uvA.toCValue(), uvB.toCValue(), uvC.toCValue(), uvD.toCValue(), col)
   }
 
-  fun primRect(
+  actual fun primRect(
     a: Vec2,
     b: Vec2,
     col: UInt
@@ -390,7 +393,7 @@ inline class ImDrawList(
     ImDrawList_PrimRect(ptr, a.toCValue(), b.toCValue(), col)
   }
 
-  fun primRectUV(
+  actual fun primRectUV(
     a: Vec2,
     b: Vec2,
     uvA: Vec2,
@@ -400,11 +403,11 @@ inline class ImDrawList(
     ImDrawList_PrimRectUV(ptr, a.toCValue(), b.toCValue(), uvA.toCValue(), uvB.toCValue(), col)
   }
 
-  fun primReserve(idxCount: Int, vtxCount: Int) {
+  actual fun primReserve(idxCount: Int, vtxCount: Int) {
     ImDrawList_PrimReserve(ptr, idxCount, vtxCount)
   }
 
-  fun primVtx(
+  actual fun primVtx(
     pos: Vec2,
     uv: Vec2,
     col: UInt
@@ -412,7 +415,7 @@ inline class ImDrawList(
     ImDrawList_PrimVtx(ptr, pos.toCValue(), uv.toCValue(), col)
   }
 
-  fun primWriteVtx(
+  actual fun primWriteVtx(
     pos: Vec2,
     uv: Vec2,
     col: UInt
@@ -420,32 +423,32 @@ inline class ImDrawList(
     ImDrawList_PrimWriteVtx(ptr, pos.toCValue(), uv.toCValue(), col)
   }
 
-  fun pushClipRect(
+  actual fun pushClipRect(
     clipRectMin: Vec2,
     clipRectMax: Vec2,
-    intersectWithCurrentClipRect: Boolean = false
+    intersectWithCurrentClipRect: Boolean
   ) {
     ImDrawList_PushClipRect(ptr, clipRectMin.toCValue(), clipRectMax.toCValue(),
         intersectWithCurrentClipRect)
   }
 
-  fun pushClipRectFullScreen() {
+  actual fun pushClipRectFullScreen() {
     ImDrawList_PushClipRectFullScreen(ptr)
   }
 
-  fun pushTextureID(textureId: ImTextureID) {
+  actual fun pushTextureID(textureId: ImTextureID) {
     ImDrawList_PushTextureID(ptr, textureId.value)
   }
 
-  fun updateClipRect() {
+  actual fun updateClipRect() {
     ImDrawList_UpdateClipRect(ptr)
   }
 
-  fun updateTextureID() {
+  actual fun updateTextureID() {
     ImDrawList_UpdateTextureID(ptr)
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImDrawList_destroy(ptr)
   }
 }

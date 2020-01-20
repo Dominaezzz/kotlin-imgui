@@ -24,7 +24,7 @@ import cimgui.internal.ImGuiInputTextFlags_Password
 import cimgui.internal.ImGuiInputTextFlags_ReadOnly
 import kotlinx.cinterop.convert
 
-enum class ImGuiInputTextFlags(
+actual enum class ImGuiInputTextFlags(
   override val value: cimgui.internal.ImGuiInputTextFlags
 ) : Flag<ImGuiInputTextFlags> {
   CharsDecimal(ImGuiInputTextFlags_CharsDecimal.convert()),
@@ -71,7 +71,7 @@ enum class ImGuiInputTextFlags(
 
   override val info: Flag.EnumInfo<ImGuiInputTextFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiInputTextFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiInputTextFlags): ImGuiInputTextFlags = when
@@ -99,7 +99,6 @@ enum class ImGuiInputTextFlags(
       ImGuiInputTextFlags_NoMarkEdited -> NoMarkEdited
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiInputTextFlags): Flag<ImGuiInputTextFlags> =
         Flag(value.convert(), cachedInfo)

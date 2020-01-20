@@ -11,34 +11,35 @@ import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiTextFilter(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiTextFilter(
   val ptr: CPointer<cimgui.internal.ImGuiTextFilter>
 ) {
-  val countGrep: Int
+  actual val countGrep: Int
     get() = ptr.pointed.CountGrep
 
-  constructor(defaultFilter: String = "") : this(ImGuiTextFilter_ImGuiTextFilter(defaultFilter)!!)
+  actual constructor(defaultFilter: String) : this(ImGuiTextFilter_ImGuiTextFilter(defaultFilter)!!)
 
-  fun build() {
+  actual fun build() {
     ImGuiTextFilter_Build(ptr)
   }
 
-  fun clear() {
+  actual fun clear() {
     ImGuiTextFilter_Clear(ptr)
   }
 
-  fun draw(label: String = "Filter(inc,-exc)", width: Float = 0.0f): Boolean =
-      ImGuiTextFilter_Draw(ptr, label, width)
+  actual fun draw(label: String, width: Float): Boolean = ImGuiTextFilter_Draw(ptr, label, width)
 
-  fun isActive(): Boolean = ImGuiTextFilter_IsActive(ptr)
+  actual fun isActive(): Boolean = ImGuiTextFilter_IsActive(ptr)
 
-  fun passFilter(text: String, textEnd: String? = null): Boolean = ImGuiTextFilter_PassFilter(ptr,
+  actual fun passFilter(text: String, textEnd: String?): Boolean = ImGuiTextFilter_PassFilter(ptr,
       text, textEnd)
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiTextFilter_destroy(ptr)
   }
 }

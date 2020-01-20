@@ -1,1 +1,1 @@
-// This is here to trick the Kotlin compiler.
+// This is here to trick the Kotlin/Native compiler.

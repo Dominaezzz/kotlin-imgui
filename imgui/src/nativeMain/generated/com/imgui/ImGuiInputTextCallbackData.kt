@@ -9,59 +9,61 @@ import kotlin.Boolean
 import kotlin.Char
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiInputTextCallbackData(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiInputTextCallbackData(
   val ptr: CPointer<cimgui.internal.ImGuiInputTextCallbackData>
 ) {
-  val eventFlag: Flag<ImGuiInputTextFlags>
+  actual val eventFlag: Flag<ImGuiInputTextFlags>
     get() = ptr.pointed.EventFlag.let { ImGuiInputTextFlags.fromMultiple(it) }
 
-  val flags: Flag<ImGuiInputTextFlags>
+  actual val flags: Flag<ImGuiInputTextFlags>
     get() = ptr.pointed.Flags.let { ImGuiInputTextFlags.fromMultiple(it) }
 
-  val eventChar: Char
+  actual val eventChar: Char
     get() = ptr.pointed.EventChar.toShort().toChar()
 
-  val eventKey: ImGuiKey
+  actual val eventKey: ImGuiKey
     get() = ptr.pointed.EventKey.let { ImGuiKey.from(it) }
 
-  val bufTextLen: Int
+  actual val bufTextLen: Int
     get() = ptr.pointed.BufTextLen
 
-  val bufSize: Int
+  actual val bufSize: Int
     get() = ptr.pointed.BufSize
 
-  val bufDirty: Boolean
+  actual val bufDirty: Boolean
     get() = ptr.pointed.BufDirty
 
-  val cursorPos: Int
+  actual val cursorPos: Int
     get() = ptr.pointed.CursorPos
 
-  val selectionStart: Int
+  actual val selectionStart: Int
     get() = ptr.pointed.SelectionStart
 
-  val selectionEnd: Int
+  actual val selectionEnd: Int
     get() = ptr.pointed.SelectionEnd
 
-  constructor() : this(ImGuiInputTextCallbackData_ImGuiInputTextCallbackData()!!)
+  actual constructor() : this(ImGuiInputTextCallbackData_ImGuiInputTextCallbackData()!!)
 
-  fun deleteChars(pos: Int, bytesCount: Int) {
+  actual fun deleteChars(pos: Int, bytesCount: Int) {
     ImGuiInputTextCallbackData_DeleteChars(ptr, pos, bytesCount)
   }
 
-  fun hasSelection(): Boolean = ImGuiInputTextCallbackData_HasSelection(ptr)
+  actual fun hasSelection(): Boolean = ImGuiInputTextCallbackData_HasSelection(ptr)
 
-  fun insertChars(
+  actual fun insertChars(
     pos: Int,
     text: String,
-    textEnd: String? = null
+    textEnd: String?
   ) {
     ImGuiInputTextCallbackData_InsertChars(ptr, pos, text, textEnd)
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiInputTextCallbackData_destroy(ptr)
   }
 }

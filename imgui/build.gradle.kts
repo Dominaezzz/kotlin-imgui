@@ -13,6 +13,26 @@ kotlin {
     if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
     if (!useSingleTarget || HostManager.hostIsMac) macosX64()
 
+    jvm {
+        compilations {
+            "main" {
+                defaultSourceSet {
+                    kotlin.srcDir("src/jvmMain/generated")
+                }
+                dependencies {
+                    api(kotlin("stdlib-jdk8"))
+                    compileOnly(project(":cimgui", "jvmDefault"))
+                }
+            }
+            "test" {
+                dependencies {
+                    implementation(kotlin("test"))
+                    implementation(kotlin("test-junit"))
+                }
+            }
+        }
+    }
+
     targets.withType<KotlinNativeTarget> {
         compilations {
             "main" {
@@ -29,6 +49,21 @@ kotlin {
                 defaultSourceSet {
                     kotlin.srcDir("src/nativeTest/kotlin")
                 }
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            kotlin.srcDir("src/commonMain/generated")
+            dependencies {
+                implementation(kotlin("stdlib-common"))
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
             }
         }
     }

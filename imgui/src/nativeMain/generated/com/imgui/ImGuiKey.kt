@@ -25,7 +25,7 @@ import cimgui.internal.ImGuiKey_Y
 import cimgui.internal.ImGuiKey_Z
 import kotlinx.cinterop.convert
 
-enum class ImGuiKey(
+actual enum class ImGuiKey(
   val value: cimgui.internal.ImGuiKey
 ) {
   Tab(ImGuiKey_Tab.convert()),
@@ -72,7 +72,7 @@ enum class ImGuiKey(
 
   Z(ImGuiKey_Z.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiKey): ImGuiKey = when (value.convert<ImGuiKey_>()) {
       ImGuiKey_Tab -> Tab
       ImGuiKey_LeftArrow -> LeftArrow
@@ -98,6 +98,5 @@ enum class ImGuiKey(
       ImGuiKey_Z -> Z
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

@@ -11,7 +11,7 @@ import cimgui.internal.ImGuiConfigFlags_NoMouse
 import cimgui.internal.ImGuiConfigFlags_NoMouseCursorChange
 import kotlinx.cinterop.convert
 
-enum class ImGuiConfigFlags(
+actual enum class ImGuiConfigFlags(
   override val value: cimgui.internal.ImGuiConfigFlags
 ) : Flag<ImGuiConfigFlags> {
   NavEnableKeyboard(ImGuiConfigFlags_NavEnableKeyboard.convert()),
@@ -32,7 +32,7 @@ enum class ImGuiConfigFlags(
 
   override val info: Flag.EnumInfo<ImGuiConfigFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiConfigFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiConfigFlags): ImGuiConfigFlags = when
@@ -47,7 +47,6 @@ enum class ImGuiConfigFlags(
       ImGuiConfigFlags_IsTouchScreen -> IsTouchScreen
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiConfigFlags): Flag<ImGuiConfigFlags> =
         Flag(value.convert(), cachedInfo)

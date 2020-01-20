@@ -25,7 +25,7 @@ import cimgui.internal.ImGuiNavInput_TweakFast
 import cimgui.internal.ImGuiNavInput_TweakSlow
 import kotlinx.cinterop.convert
 
-enum class ImGuiNavInput(
+actual enum class ImGuiNavInput(
   val value: cimgui.internal.ImGuiNavInput
 ) {
   Activate(ImGuiNavInput_Activate.convert()),
@@ -72,7 +72,7 @@ enum class ImGuiNavInput(
 
   InternalStart_(ImGuiNavInput_InternalStart_.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiNavInput): ImGuiNavInput = when
         (value.convert<ImGuiNavInput_>()) {
       ImGuiNavInput_Activate -> Activate
@@ -99,6 +99,5 @@ enum class ImGuiNavInput(
       ImGuiNavInput_InternalStart_ -> InternalStart_
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

@@ -7,68 +7,70 @@ import kotlin.Char
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 
-inline class ImFontConfig(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImFontConfig(
   val ptr: CPointer<cimgui.internal.ImFontConfig>
 ) {
-  val fontDataSize: Int
+  actual val fontDataSize: Int
     get() = ptr.pointed.FontDataSize
 
-  val fontDataOwnedByAtlas: Boolean
+  actual val fontDataOwnedByAtlas: Boolean
     get() = ptr.pointed.FontDataOwnedByAtlas
 
-  val fontNo: Int
+  actual val fontNo: Int
     get() = ptr.pointed.FontNo
 
-  val sizePixels: Float
+  actual val sizePixels: Float
     get() = ptr.pointed.SizePixels
 
-  val oversampleH: Int
+  actual val oversampleH: Int
     get() = ptr.pointed.OversampleH
 
-  val oversampleV: Int
+  actual val oversampleV: Int
     get() = ptr.pointed.OversampleV
 
-  val pixelSnapH: Boolean
+  actual val pixelSnapH: Boolean
     get() = ptr.pointed.PixelSnapH
 
-  val glyphExtraSpacing: Vec2
+  actual val glyphExtraSpacing: Vec2
     get() = ptr.pointed.GlyphExtraSpacing.fromCValue()
 
-  val glyphOffset: Vec2
+  actual val glyphOffset: Vec2
     get() = ptr.pointed.GlyphOffset.fromCValue()
 
-  val glyphRanges: String?
+  actual val glyphRanges: String?
     get() = ptr.pointed.GlyphRanges?.toKString()
 
-  val glyphMinAdvanceX: Float
+  actual val glyphMinAdvanceX: Float
     get() = ptr.pointed.GlyphMinAdvanceX
 
-  val glyphMaxAdvanceX: Float
+  actual val glyphMaxAdvanceX: Float
     get() = ptr.pointed.GlyphMaxAdvanceX
 
-  val mergeMode: Boolean
+  actual val mergeMode: Boolean
     get() = ptr.pointed.MergeMode
 
-  val rasterizerFlags: UInt
-    get() = ptr.pointed.RasterizerFlags
+  actual val rasterizerFlags: UInt
+    get() = ptr.pointed.RasterizerFlags.toUInt()
 
-  val rasterizerMultiply: Float
+  actual val rasterizerMultiply: Float
     get() = ptr.pointed.RasterizerMultiply
 
-  val ellipsisChar: Char
+  actual val ellipsisChar: Char
     get() = ptr.pointed.EllipsisChar.toShort().toChar()
 
-  val dstFont: ImFont?
+  actual val dstFont: ImFont?
     get() = ptr.pointed.DstFont?.let(::ImFont)
 
-  constructor() : this(ImFontConfig_ImFontConfig()!!)
+  actual constructor() : this(ImFontConfig_ImFontConfig()!!)
 
-  fun destroy() {
+  actual fun destroy() {
     ImFontConfig_destroy(ptr)
   }
 }

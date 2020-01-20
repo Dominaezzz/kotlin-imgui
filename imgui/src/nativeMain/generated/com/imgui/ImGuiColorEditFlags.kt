@@ -25,7 +25,7 @@ import cimgui.internal.ImGuiColorEditFlags_PickerHueWheel
 import cimgui.internal.ImGuiColorEditFlags_Uint8
 import kotlinx.cinterop.convert
 
-enum class ImGuiColorEditFlags(
+actual enum class ImGuiColorEditFlags(
   override val value: cimgui.internal.ImGuiColorEditFlags
 ) : Flag<ImGuiColorEditFlags> {
   NoAlpha(ImGuiColorEditFlags_NoAlpha.convert()),
@@ -74,7 +74,7 @@ enum class ImGuiColorEditFlags(
 
   override val info: Flag.EnumInfo<ImGuiColorEditFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiColorEditFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiColorEditFlags): ImGuiColorEditFlags = when
@@ -103,7 +103,6 @@ enum class ImGuiColorEditFlags(
       ImGuiColorEditFlags_InputHSV -> InputHSV
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiColorEditFlags): Flag<ImGuiColorEditFlags> =
         Flag(value.convert(), cachedInfo)

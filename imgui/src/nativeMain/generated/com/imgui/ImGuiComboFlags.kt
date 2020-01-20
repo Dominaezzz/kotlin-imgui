@@ -11,7 +11,7 @@ import cimgui.internal.ImGuiComboFlags_NoPreview
 import cimgui.internal.ImGuiComboFlags_PopupAlignLeft
 import kotlinx.cinterop.convert
 
-enum class ImGuiComboFlags(
+actual enum class ImGuiComboFlags(
   override val value: cimgui.internal.ImGuiComboFlags
 ) : Flag<ImGuiComboFlags> {
   PopupAlignLeft(ImGuiComboFlags_PopupAlignLeft.convert()),
@@ -30,10 +30,11 @@ enum class ImGuiComboFlags(
 
   override val info: Flag.EnumInfo<ImGuiComboFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiComboFlags> = Flag.enumInfo()
 
-    val HeightMask_: Flag<ImGuiComboFlags> = Flag(ImGuiComboFlags_HeightMask_.toInt(), cachedInfo)
+    actual val HeightMask_: Flag<ImGuiComboFlags> = Flag(ImGuiComboFlags_HeightMask_.toInt(),
+        cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiComboFlags): ImGuiComboFlags = when
         (value.convert<ImGuiComboFlags_>()) {
@@ -46,7 +47,6 @@ enum class ImGuiComboFlags(
       ImGuiComboFlags_NoPreview -> NoPreview
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiComboFlags): Flag<ImGuiComboFlags> =
         Flag(value.convert(), cachedInfo)

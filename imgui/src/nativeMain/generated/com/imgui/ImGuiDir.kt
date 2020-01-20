@@ -8,7 +8,7 @@ import cimgui.internal.ImGuiDir_Right
 import cimgui.internal.ImGuiDir_Up
 import kotlinx.cinterop.convert
 
-enum class ImGuiDir(
+actual enum class ImGuiDir(
   val value: cimgui.internal.ImGuiDir
 ) {
   None(ImGuiDir_None.convert()),
@@ -21,7 +21,7 @@ enum class ImGuiDir(
 
   Down(ImGuiDir_Down.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiDir): ImGuiDir = when (value.convert<ImGuiDir_>()) {
       ImGuiDir_None -> None
       ImGuiDir_Left -> Left
@@ -30,6 +30,5 @@ enum class ImGuiDir(
       ImGuiDir_Down -> Down
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }

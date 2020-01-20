@@ -2,31 +2,33 @@ package com.imgui
 
 import cimgui.internal.ImDrawCmd_ImDrawCmd
 import cimgui.internal.ImDrawCmd_destroy
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImDrawCmd(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImDrawCmd(
   val ptr: CPointer<cimgui.internal.ImDrawCmd>
 ) {
-  val elemCount: UInt
-    get() = ptr.pointed.ElemCount
+  actual val elemCount: UInt
+    get() = ptr.pointed.ElemCount.toUInt()
 
-  val clipRect: Vec4
+  actual val clipRect: Vec4
     get() = ptr.pointed.ClipRect.fromCValue()
 
-  val textureId: ImTextureID?
+  actual val textureId: ImTextureID?
     get() = ptr.pointed.TextureId?.let(::ImTextureID)
 
-  val vtxOffset: UInt
-    get() = ptr.pointed.VtxOffset
+  actual val vtxOffset: UInt
+    get() = ptr.pointed.VtxOffset.toUInt()
 
-  val idxOffset: UInt
-    get() = ptr.pointed.IdxOffset
+  actual val idxOffset: UInt
+    get() = ptr.pointed.IdxOffset.toUInt()
 
-  constructor() : this(ImDrawCmd_ImDrawCmd()!!)
+  actual constructor() : this(ImDrawCmd_ImDrawCmd()!!)
 
-  fun destroy() {
+  actual fun destroy() {
     ImDrawCmd_destroy(ptr)
   }
 }

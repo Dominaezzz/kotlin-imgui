@@ -23,59 +23,61 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Short
 import kotlin.String
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 
-inline class ImFont(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImFont(
   val ptr: CPointer<cimgui.internal.ImFont>
 ) {
-  val fallbackAdvanceX: Float
+  actual val fallbackAdvanceX: Float
     get() = ptr.pointed.FallbackAdvanceX
 
-  val fontSize: Float
+  actual val fontSize: Float
     get() = ptr.pointed.FontSize
 
-  val fallbackGlyph: ImFontGlyph?
+  actual val fallbackGlyph: ImFontGlyph?
     get() = ptr.pointed.FallbackGlyph?.let(::ImFontGlyph)
 
-  val displayOffset: Vec2
+  actual val displayOffset: Vec2
     get() = ptr.pointed.DisplayOffset.fromCValue()
 
-  val containerAtlas: ImFontAtlas?
+  actual val containerAtlas: ImFontAtlas?
     get() = ptr.pointed.ContainerAtlas?.let(::ImFontAtlas)
 
-  val configData: ImFontConfig?
+  actual val configData: ImFontConfig?
     get() = ptr.pointed.ConfigData?.let(::ImFontConfig)
 
-  val configDataCount: Short
+  actual val configDataCount: Short
     get() = ptr.pointed.ConfigDataCount
 
-  val fallbackChar: Char
+  actual val fallbackChar: Char
     get() = ptr.pointed.FallbackChar.toShort().toChar()
 
-  val ellipsisChar: Char
+  actual val ellipsisChar: Char
     get() = ptr.pointed.EllipsisChar.toShort().toChar()
 
-  val scale: Float
+  actual val scale: Float
     get() = ptr.pointed.Scale
 
-  val ascent: Float
+  actual val ascent: Float
     get() = ptr.pointed.Ascent
 
-  val descent: Float
+  actual val descent: Float
     get() = ptr.pointed.Descent
 
-  val metricsTotalSurface: Int
+  actual val metricsTotalSurface: Int
     get() = ptr.pointed.MetricsTotalSurface
 
-  val dirtyLookupTables: Boolean
+  actual val dirtyLookupTables: Boolean
     get() = ptr.pointed.DirtyLookupTables
 
-  constructor() : this(ImFont_ImFont()!!)
+  actual constructor() : this(ImFont_ImFont()!!)
 
-  fun addGlyph(
+  actual fun addGlyph(
     c: Char,
     x0: Float,
     y0: Float,
@@ -90,55 +92,55 @@ inline class ImFont(
     ImFont_AddGlyph(ptr, c.toShort().toUShort(), x0, y0, x1, y1, u0, v0, u1, v1, advanceX)
   }
 
-  fun addRemapChar(
+  actual fun addRemapChar(
     dst: Char,
     src: Char,
-    overwriteDst: Boolean = true
+    overwriteDst: Boolean
   ) {
     ImFont_AddRemapChar(ptr, dst.toShort().toUShort(), src.toShort().toUShort(), overwriteDst)
   }
 
-  fun buildLookupTable() {
+  actual fun buildLookupTable() {
     ImFont_BuildLookupTable(ptr)
   }
 
-  fun calcTextSizeA(
+  actual fun calcTextSizeA(
     size: Float,
     maxWidth: Float,
     wrapWidth: Float,
     textBegin: String,
-    textEnd: String? = null
+    textEnd: String?
   ): Vec2 = ImFont_CalcTextSizeA(ptr, size, maxWidth, wrapWidth, textBegin, textEnd,
       null).fromCValue()
 
-  fun calcWordWrapPositionA(
+  actual fun calcWordWrapPositionA(
     scale: Float,
     text: String,
     textEnd: String,
     wrapWidth: Float
   ): String? = ImFont_CalcWordWrapPositionA(ptr, scale, text, textEnd, wrapWidth)?.toKString()
 
-  fun clearOutputData() {
+  actual fun clearOutputData() {
     ImFont_ClearOutputData(ptr)
   }
 
-  fun findGlyph(c: Char): ImFontGlyph = ImFont_FindGlyph(ptr,
+  actual fun findGlyph(c: Char): ImFontGlyph = ImFont_FindGlyph(ptr,
       c.toShort().toUShort())!!.let(::ImFontGlyph)
 
-  fun findGlyphNoFallback(c: Char): ImFontGlyph = ImFont_FindGlyphNoFallback(ptr,
+  actual fun findGlyphNoFallback(c: Char): ImFontGlyph = ImFont_FindGlyphNoFallback(ptr,
       c.toShort().toUShort())!!.let(::ImFontGlyph)
 
-  fun getCharAdvance(c: Char): Float = ImFont_GetCharAdvance(ptr, c.toShort().toUShort())
+  actual fun getCharAdvance(c: Char): Float = ImFont_GetCharAdvance(ptr, c.toShort().toUShort())
 
-  fun getDebugName(): String? = ImFont_GetDebugName(ptr)?.toKString()
+  actual fun getDebugName(): String? = ImFont_GetDebugName(ptr)?.toKString()
 
-  fun growIndex(newSize: Int) {
+  actual fun growIndex(newSize: Int) {
     ImFont_GrowIndex(ptr, newSize)
   }
 
-  fun isLoaded(): Boolean = ImFont_IsLoaded(ptr)
+  actual fun isLoaded(): Boolean = ImFont_IsLoaded(ptr)
 
-  fun renderChar(
+  actual fun renderChar(
     drawList: ImDrawList,
     size: Float,
     pos: Vec2,
@@ -148,7 +150,7 @@ inline class ImFont(
     ImFont_RenderChar(ptr, drawList.ptr, size, pos.toCValue(), col, c.toShort().toUShort())
   }
 
-  fun renderText(
+  actual fun renderText(
     drawList: ImDrawList,
     size: Float,
     pos: Vec2,
@@ -156,18 +158,18 @@ inline class ImFont(
     clipRect: Vec4,
     textBegin: String,
     textEnd: String,
-    wrapWidth: Float = 0.0f,
-    cpuFineClip: Boolean = false
+    wrapWidth: Float,
+    cpuFineClip: Boolean
   ) {
     ImFont_RenderText(ptr, drawList.ptr, size, pos.toCValue(), col, clipRect.toCValue(), textBegin,
         textEnd, wrapWidth, cpuFineClip)
   }
 
-  fun setFallbackChar(c: Char) {
+  actual fun setFallbackChar(c: Char) {
     ImFont_SetFallbackChar(ptr, c.toShort().toUShort())
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImFont_destroy(ptr)
   }
 }

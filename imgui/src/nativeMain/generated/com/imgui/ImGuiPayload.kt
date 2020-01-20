@@ -9,43 +9,45 @@ import cimgui.internal.ImGuiPayload_destroy
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImGuiPayload(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiPayload(
   val ptr: CPointer<cimgui.internal.ImGuiPayload>
 ) {
-  val dataSize: Int
+  actual val dataSize: Int
     get() = ptr.pointed.DataSize
 
-  val sourceId: ImGuiID
+  actual val sourceId: ImGuiID
     get() = ptr.pointed.SourceId.let(::ImGuiID)
 
-  val sourceParentId: ImGuiID
+  actual val sourceParentId: ImGuiID
     get() = ptr.pointed.SourceParentId.let(::ImGuiID)
 
-  val dataFrameCount: Int
+  actual val dataFrameCount: Int
     get() = ptr.pointed.DataFrameCount
 
-  val preview: Boolean
+  actual val preview: Boolean
     get() = ptr.pointed.Preview
 
-  val delivery: Boolean
+  actual val delivery: Boolean
     get() = ptr.pointed.Delivery
 
-  constructor() : this(ImGuiPayload_ImGuiPayload()!!)
+  actual constructor() : this(ImGuiPayload_ImGuiPayload()!!)
 
-  fun clear() {
+  actual fun clear() {
     ImGuiPayload_Clear(ptr)
   }
 
-  fun isDataType(type: String): Boolean = ImGuiPayload_IsDataType(ptr, type)
+  actual fun isDataType(type: String): Boolean = ImGuiPayload_IsDataType(ptr, type)
 
-  fun isDelivery(): Boolean = ImGuiPayload_IsDelivery(ptr)
+  actual fun isDelivery(): Boolean = ImGuiPayload_IsDelivery(ptr)
 
-  fun isPreview(): Boolean = ImGuiPayload_IsPreview(ptr)
+  actual fun isPreview(): Boolean = ImGuiPayload_IsPreview(ptr)
 
-  fun destroy() {
+  actual fun destroy() {
     ImGuiPayload_destroy(ptr)
   }
 }

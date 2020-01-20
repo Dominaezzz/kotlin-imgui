@@ -13,7 +13,7 @@ import cimgui.internal.ImGuiDragDropFlags_SourceNoHoldToOpenOthers
 import cimgui.internal.ImGuiDragDropFlags_SourceNoPreviewTooltip
 import kotlinx.cinterop.convert
 
-enum class ImGuiDragDropFlags(
+actual enum class ImGuiDragDropFlags(
   override val value: cimgui.internal.ImGuiDragDropFlags
 ) : Flag<ImGuiDragDropFlags> {
   SourceNoPreviewTooltip(ImGuiDragDropFlags_SourceNoPreviewTooltip.convert()),
@@ -36,11 +36,11 @@ enum class ImGuiDragDropFlags(
 
   override val info: Flag.EnumInfo<ImGuiDragDropFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiDragDropFlags> = Flag.enumInfo()
 
-    val AcceptPeekOnly: Flag<ImGuiDragDropFlags> = Flag(ImGuiDragDropFlags_AcceptPeekOnly.toInt(),
-        cachedInfo)
+    actual val AcceptPeekOnly: Flag<ImGuiDragDropFlags> =
+        Flag(ImGuiDragDropFlags_AcceptPeekOnly.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiDragDropFlags): ImGuiDragDropFlags = when
         (value.convert<ImGuiDragDropFlags_>()) {
@@ -55,7 +55,6 @@ enum class ImGuiDragDropFlags(
       ImGuiDragDropFlags_AcceptNoPreviewTooltip -> AcceptNoPreviewTooltip
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiDragDropFlags): Flag<ImGuiDragDropFlags> =
         Flag(value.convert(), cachedInfo)

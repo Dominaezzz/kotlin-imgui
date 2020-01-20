@@ -12,7 +12,7 @@ import cimgui.internal.ImGuiHoveredFlags_RootAndChildWindows
 import cimgui.internal.ImGuiHoveredFlags_RootWindow
 import kotlinx.cinterop.convert
 
-enum class ImGuiHoveredFlags(
+actual enum class ImGuiHoveredFlags(
   override val value: cimgui.internal.ImGuiHoveredFlags
 ) : Flag<ImGuiHoveredFlags> {
   ChildWindows(ImGuiHoveredFlags_ChildWindows.convert()),
@@ -31,12 +31,13 @@ enum class ImGuiHoveredFlags(
 
   override val info: Flag.EnumInfo<ImGuiHoveredFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiHoveredFlags> = Flag.enumInfo()
 
-    val RectOnly: Flag<ImGuiHoveredFlags> = Flag(ImGuiHoveredFlags_RectOnly.toInt(), cachedInfo)
+    actual val RectOnly: Flag<ImGuiHoveredFlags> = Flag(ImGuiHoveredFlags_RectOnly.toInt(),
+        cachedInfo)
 
-    val RootAndChildWindows: Flag<ImGuiHoveredFlags> =
+    actual val RootAndChildWindows: Flag<ImGuiHoveredFlags> =
         Flag(ImGuiHoveredFlags_RootAndChildWindows.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImGuiHoveredFlags): ImGuiHoveredFlags = when
@@ -50,7 +51,6 @@ enum class ImGuiHoveredFlags(
       ImGuiHoveredFlags_AllowWhenDisabled -> AllowWhenDisabled
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiHoveredFlags): Flag<ImGuiHoveredFlags> =
         Flag(value.convert(), cachedInfo)

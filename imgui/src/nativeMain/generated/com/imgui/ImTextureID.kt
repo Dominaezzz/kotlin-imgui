@@ -1,5 +1,8 @@
 package com.imgui
 
-inline class ImTextureID(
+import kotlin.Suppress
+
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImTextureID(
   val value: cimgui.internal.ImTextureID
 )

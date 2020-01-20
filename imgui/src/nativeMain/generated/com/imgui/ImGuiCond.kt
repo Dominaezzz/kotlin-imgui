@@ -7,7 +7,7 @@ import cimgui.internal.ImGuiCond_FirstUseEver
 import cimgui.internal.ImGuiCond_Once
 import kotlinx.cinterop.convert
 
-enum class ImGuiCond(
+actual enum class ImGuiCond(
   override val value: cimgui.internal.ImGuiCond
 ) : Flag<ImGuiCond> {
   Always(ImGuiCond_Always.convert()),
@@ -20,7 +20,7 @@ enum class ImGuiCond(
 
   override val info: Flag.EnumInfo<ImGuiCond>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiCond> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiCond): ImGuiCond = when (value.convert<ImGuiCond_>()) {
@@ -30,7 +30,6 @@ enum class ImGuiCond(
       ImGuiCond_Appearing -> Appearing
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiCond): Flag<ImGuiCond> = Flag(value.convert(),
         cachedInfo)

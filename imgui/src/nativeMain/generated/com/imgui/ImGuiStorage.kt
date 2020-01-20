@@ -12,41 +12,43 @@ import cimgui.internal.ImGuiStorage_SetInt
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.Suppress
 import kotlinx.cinterop.CPointer
 
-inline class ImGuiStorage(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImGuiStorage(
   val ptr: CPointer<cimgui.internal.ImGuiStorage>
 ) {
-  fun buildSortByKey() {
+  actual fun buildSortByKey() {
     ImGuiStorage_BuildSortByKey(ptr)
   }
 
-  fun clear() {
+  actual fun clear() {
     ImGuiStorage_Clear(ptr)
   }
 
-  fun getBool(key: ImGuiID, defaultVal: Boolean = false): Boolean = ImGuiStorage_GetBool(ptr,
+  actual fun getBool(key: ImGuiID, defaultVal: Boolean): Boolean = ImGuiStorage_GetBool(ptr,
       key.value, defaultVal)
 
-  fun getFloat(key: ImGuiID, defaultVal: Float = 0.0f): Float = ImGuiStorage_GetFloat(ptr,
+  actual fun getFloat(key: ImGuiID, defaultVal: Float): Float = ImGuiStorage_GetFloat(ptr,
       key.value, defaultVal)
 
-  fun getInt(key: ImGuiID, defaultVal: Int = 0): Int = ImGuiStorage_GetInt(ptr, key.value,
+  actual fun getInt(key: ImGuiID, defaultVal: Int): Int = ImGuiStorage_GetInt(ptr, key.value,
       defaultVal)
 
-  fun setAllInt(`val`: Int) {
+  actual fun setAllInt(`val`: Int) {
     ImGuiStorage_SetAllInt(ptr, `val`)
   }
 
-  fun setBool(key: ImGuiID, `val`: Boolean) {
+  actual fun setBool(key: ImGuiID, `val`: Boolean) {
     ImGuiStorage_SetBool(ptr, key.value, `val`)
   }
 
-  fun setFloat(key: ImGuiID, `val`: Float) {
+  actual fun setFloat(key: ImGuiID, `val`: Float) {
     ImGuiStorage_SetFloat(ptr, key.value, `val`)
   }
 
-  fun setInt(key: ImGuiID, `val`: Int) {
+  actual fun setInt(key: ImGuiID, `val`: Int) {
     ImGuiStorage_SetInt(ptr, key.value, `val`)
   }
 }

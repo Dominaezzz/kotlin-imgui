@@ -12,7 +12,7 @@ import cimgui.internal.ImDrawCornerFlags_TopLeft
 import cimgui.internal.ImDrawCornerFlags_TopRight
 import kotlinx.cinterop.convert
 
-enum class ImDrawCornerFlags(
+actual enum class ImDrawCornerFlags(
   override val value: cimgui.internal.ImDrawCornerFlags
 ) : Flag<ImDrawCornerFlags> {
   TopLeft(ImDrawCornerFlags_TopLeft.convert()),
@@ -25,18 +25,18 @@ enum class ImDrawCornerFlags(
 
   override val info: Flag.EnumInfo<ImDrawCornerFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImDrawCornerFlags> = Flag.enumInfo()
 
-    val Top: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Top.toInt(), cachedInfo)
+    actual val Top: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Top.toInt(), cachedInfo)
 
-    val Bot: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Bot.toInt(), cachedInfo)
+    actual val Bot: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Bot.toInt(), cachedInfo)
 
-    val Left: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Left.toInt(), cachedInfo)
+    actual val Left: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Left.toInt(), cachedInfo)
 
-    val Right: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Right.toInt(), cachedInfo)
+    actual val Right: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_Right.toInt(), cachedInfo)
 
-    val All: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_All.toInt(), cachedInfo)
+    actual val All: Flag<ImDrawCornerFlags> = Flag(ImDrawCornerFlags_All.toInt(), cachedInfo)
 
     fun from(value: cimgui.internal.ImDrawCornerFlags): ImDrawCornerFlags = when
         (value.convert<ImDrawCornerFlags_>()) {
@@ -46,7 +46,6 @@ enum class ImDrawCornerFlags(
       ImDrawCornerFlags_BotRight -> BotRight
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImDrawCornerFlags): Flag<ImDrawCornerFlags> =
         Flag(value.convert(), cachedInfo)

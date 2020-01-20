@@ -7,7 +7,7 @@ import cimgui.internal.ImGuiBackendFlags_HasSetMousePos
 import cimgui.internal.ImGuiBackendFlags_RendererHasVtxOffset
 import kotlinx.cinterop.convert
 
-enum class ImGuiBackendFlags(
+actual enum class ImGuiBackendFlags(
   override val value: cimgui.internal.ImGuiBackendFlags
 ) : Flag<ImGuiBackendFlags> {
   HasGamepad(ImGuiBackendFlags_HasGamepad.convert()),
@@ -20,7 +20,7 @@ enum class ImGuiBackendFlags(
 
   override val info: Flag.EnumInfo<ImGuiBackendFlags>
     get() = cachedInfo
-  companion object {
+  actual companion object {
     private val cachedInfo: Flag.EnumInfo<ImGuiBackendFlags> = Flag.enumInfo()
 
     fun from(value: cimgui.internal.ImGuiBackendFlags): ImGuiBackendFlags = when
@@ -31,7 +31,6 @@ enum class ImGuiBackendFlags(
       ImGuiBackendFlags_RendererHasVtxOffset -> RendererHasVtxOffset
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
 
     fun fromMultiple(value: cimgui.internal.ImGuiBackendFlags): Flag<ImGuiBackendFlags> =
         Flag(value.convert(), cachedInfo)

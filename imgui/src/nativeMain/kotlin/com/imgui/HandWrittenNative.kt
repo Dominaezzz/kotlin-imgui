@@ -5,8 +5,6 @@ import kotlinx.cinterop.*
 import kotlin.reflect.KMutableProperty0
 
 
-typealias ImGuiInputTextCallback = (data: ImGuiInputTextCallbackData) -> Int
-
 private inline fun <T> withCallback(noinline callback: ImGuiInputTextCallback? = null, block: (actualCallback: cimgui.internal.ImGuiInputTextCallback?, userData: CValuesRef<*>?) -> T): T {
 	return if (callback != null) {
 		val userData = StableRef.create(callback)
@@ -23,28 +21,26 @@ private inline fun <T> withCallback(noinline callback: ImGuiInputTextCallback? =
 	}
 }
 
-fun ImGui.inputText(label: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
+actual fun ImGui.inputText(label: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>?, callback: ImGuiInputTextCallback?): Boolean {
 	return withCallback(callback) { actualCallback, userData ->
 		igInputText(label, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
-fun ImGui.inputTextMultiline(label: String, buf: ByteArray, size: Vec2 = Vec2.Zero, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
+actual fun ImGui.inputTextMultiline(label: String, buf: ByteArray, size: Vec2, flags: Flag<ImGuiInputTextFlags>?, callback: ImGuiInputTextCallback?): Boolean {
 	return withCallback(callback) { actualCallback, userData ->
 		igInputTextMultiline(label, buf.refTo(0), buf.size.convert(), size.toCValue(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
-fun ImGui.inputTextWithHint(label: String, hint: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
+actual fun ImGui.inputTextWithHint(label: String, hint: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>?, callback: ImGuiInputTextCallback?): Boolean {
 	return withCallback(callback) { actualCallback, userData ->
 		igInputTextWithHint(label, hint, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
 
-typealias ImGuiSizeCallback = (ImGuiSizeCallbackData) -> Unit
-
-fun ImGui.setNextWindowSizeConstraints(sizeMin: Vec2, sizeMax: Vec2, customCallback: ImGuiSizeCallback? = null) {
+actual fun ImGui.setNextWindowSizeConstraints(sizeMin: Vec2, sizeMax: Vec2, customCallback: ImGuiSizeCallback?) {
 	if (customCallback != null) {
 		igSetNextWindowSizeConstraints(sizeMin.toCValue(), sizeMax.toCValue(),
 				staticCFunction { data ->
@@ -85,7 +81,7 @@ private inline fun <T> withItemsGetter(noinline itemsGetter: (idx: Int) -> Strin
 	}
 }
 
-fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, popupMaxHeightInItems: Int = -1): Boolean {
+actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: Array<String>, popupMaxHeightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			igCombo(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
@@ -93,7 +89,7 @@ fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: List<
 	}
 }
 
-fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, popupMaxHeightInItems: Int = -1): Boolean {
+actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, popupMaxHeightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		withItemsGetter(itemsGetter) { getter, data ->
 			igComboFnPtr(label, currentItemPtr, getter, data, itemsCount, popupMaxHeightInItems)
@@ -102,7 +98,7 @@ fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter:
 }
 
 
-fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, heightInItems: Int = -1): Boolean {
+actual fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: Array<String>, heightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
 			igListBoxStr_arr(label, currentItemPtr, items.toCStringArray(memScope), items.size, heightInItems)
@@ -110,7 +106,7 @@ fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: Lis
 	}
 }
 
-fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, heightInItems: Int = -1): Boolean {
+actual fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, heightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		withItemsGetter(itemsGetter) { getter, data ->
 			igListBoxFnPtr(label, currentItemPtr, getter, data, itemsCount, heightInItems)
@@ -119,13 +115,13 @@ fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGette
 }
 
 
-fun ImGui.plotHistogram(label: String, values: FloatArray, valuesOffset: Int = 0, overlayText: String? = null, scaleMin: Float = Float.MAX_VALUE, scaleMax: Float = Float.MAX_VALUE, graphSize: Vec2 = Vec2.Zero, stride: Int = sizeOf<FloatVar>().toInt()) {
+actual fun ImGui.plotHistogram(label: String, values: FloatArray, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2, stride: Int) {
 	values.usePinned { valuesPinned ->
 		igPlotHistogramFloatPtr(label, valuesPinned.addressOf(0), values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSize.toCValue(), stride)
 	}
 }
 
-fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int = 0, overlayText: String? = null, scaleMin: Float = Float.MAX_VALUE, scaleMax: Float = Float.MAX_VALUE, graphSize: Vec2 = Vec2.Zero) {
+actual fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2) {
 	val stableRef = StableRef.create(valuesGetter)
 	try {
 		return igPlotHistogramFnPtr(label,
@@ -141,13 +137,13 @@ fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valuesCount
 }
 
 
-fun ImGui.plotLines(label: String, values: FloatArray, valuesOffset: Int = 0, overlayText: String? = null, scaleMin: Float = Float.MAX_VALUE, scaleMax: Float = Float.MAX_VALUE, graphSize: Vec2 = Vec2.Zero, stride: Int = sizeOf<FloatVar>().toInt()) {
+actual fun ImGui.plotLines(label: String, values: FloatArray, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2, stride: Int) {
 	values.usePinned { valuesPinned ->
 		igPlotLines(label, valuesPinned.addressOf(0), values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSize.toCValue(), stride)
 	}
 }
 
-fun ImGui.plotLines(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int = 0, overlayText: String? = null, scaleMin: Float = Float.MAX_VALUE, scaleMax: Float = Float.MAX_VALUE, graphSize: Vec2 = Vec2.Zero) {
+actual fun ImGui.plotLines(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2) {
 	val stableRef = StableRef.create(valuesGetter)
 	try {
 		return igPlotLinesFnPtr(label,

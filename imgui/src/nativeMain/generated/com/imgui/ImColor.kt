@@ -9,46 +9,48 @@ import cimgui.internal.ImColor_SetHSV
 import cimgui.internal.ImColor_destroy
 import kotlin.Float
 import kotlin.Int
+import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
-inline class ImColor(
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual inline class ImColor(
   val ptr: CPointer<cimgui.internal.ImColor>
 ) {
-  val value: Vec4
+  actual val value: Vec4
     get() = ptr.pointed.Value.fromCValue()
 
-  constructor() : this(ImColor_ImColor()!!)
+  actual constructor() : this(ImColor_ImColor()!!)
 
-  constructor(
+  actual constructor(
     r: Int,
     g: Int,
     b: Int,
-    a: Int = 255
+    a: Int
   ) : this(ImColor_ImColorInt(r, g, b, a)!!)
 
-  constructor(rgba: UInt) : this(ImColor_ImColorU32(rgba)!!)
+  actual constructor(rgba: UInt) : this(ImColor_ImColorU32(rgba)!!)
 
-  constructor(
+  actual constructor(
     r: Float,
     g: Float,
     b: Float,
-    a: Float = 1.0f
+    a: Float
   ) : this(ImColor_ImColorFloat(r, g, b, a)!!)
 
-  constructor(col: Vec4) : this(ImColor_ImColorVec4(col.toCValue())!!)
+  actual constructor(col: Vec4) : this(ImColor_ImColorVec4(col.toCValue())!!)
 
-  fun setHSV(
+  actual fun setHSV(
     h: Float,
     s: Float,
     v: Float,
-    a: Float = 1.0f
+    a: Float
   ) {
     ImColor_SetHSV(ptr, h, s, v, a)
   }
 
-  fun destroy() {
+  actual fun destroy() {
     ImColor_destroy(ptr)
   }
 }

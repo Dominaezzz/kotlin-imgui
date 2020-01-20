@@ -51,7 +51,7 @@ import cimgui.internal.ImGuiCol_TitleBgCollapsed
 import cimgui.internal.ImGuiCol_WindowBg
 import kotlinx.cinterop.convert
 
-enum class ImGuiCol(
+actual enum class ImGuiCol(
   val value: cimgui.internal.ImGuiCol
 ) {
   Text(ImGuiCol_Text.convert()),
@@ -150,7 +150,7 @@ enum class ImGuiCol(
 
   ModalWindowDimBg(ImGuiCol_ModalWindowDimBg.convert());
 
-  companion object {
+  actual companion object {
     fun from(value: cimgui.internal.ImGuiCol): ImGuiCol = when (value.convert<ImGuiCol_>()) {
       ImGuiCol_Text -> Text
       ImGuiCol_TextDisabled -> TextDisabled
@@ -202,6 +202,5 @@ enum class ImGuiCol(
       ImGuiCol_ModalWindowDimBg -> ModalWindowDimBg
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
-
   }
 }
