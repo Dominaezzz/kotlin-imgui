@@ -7,7 +7,7 @@ import kotlin.reflect.KMutableProperty0
 
 typealias ImGuiInputTextCallback = (data: ImGuiInputTextCallbackData) -> Int
 
-internal inline fun <T> withCallback(noinline callback: ImGuiInputTextCallback? = null, block: (actualCallback: cimgui.internal.ImGuiInputTextCallback?, userData: CValuesRef<*>?) -> T): T {
+private inline fun <T> withCallback(noinline callback: ImGuiInputTextCallback? = null, block: (actualCallback: cimgui.internal.ImGuiInputTextCallback?, userData: CValuesRef<*>?) -> T): T {
 	return if (callback != null) {
 		val userData = StableRef.create(callback)
 		try {
@@ -24,20 +24,20 @@ internal inline fun <T> withCallback(noinline callback: ImGuiInputTextCallback? 
 }
 
 fun ImGui.inputText(label: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
-	withCallback(callback) { actualCallback, userData ->
-		return igInputText(label, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
+	return withCallback(callback) { actualCallback, userData ->
+		igInputText(label, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
 fun ImGui.inputTextMultiline(label: String, buf: ByteArray, size: Vec2 = Vec2.Zero, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
-	withCallback(callback) { actualCallback, userData ->
-		return igInputTextMultiline(label, buf.refTo(0), buf.size.convert(), size.toCValue(), flags?.value ?: 0, actualCallback, userData)
+	return withCallback(callback) { actualCallback, userData ->
+		igInputTextMultiline(label, buf.refTo(0), buf.size.convert(), size.toCValue(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
 fun ImGui.inputTextWithHint(label: String, hint: String, buf: ByteArray, flags: Flag<ImGuiInputTextFlags>? = null, callback: ImGuiInputTextCallback ? = null): Boolean {
-	withCallback(callback) { actualCallback, userData ->
-		return igInputTextWithHint(label, hint, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
+	return withCallback(callback) { actualCallback, userData ->
+		igInputTextWithHint(label, hint, buf.refTo(0), buf.size.convert(), flags?.value ?: 0, actualCallback, userData)
 	}
 }
 
@@ -62,73 +62,58 @@ fun ImGui.setNextWindowSizeConstraints(sizeMin: Vec2, sizeMax: Vec2, customCallb
 }
 
 
+private typealias ItemsGetter = CPointer<CFunction<(COpaquePointer?, Int, CPointer<CPointerVar<ByteVar>>?) -> Boolean>>?
+private class Helper(val memScope: MemScope, val getter: (idx: Int) -> String?)
+private inline fun <T> withItemsGetter(noinline itemsGetter: (idx: Int) -> String?, block: (getter: ItemsGetter, userData: CValuesRef<*>) -> T): T {
+	return memScoped {
+		val stableRef = StableRef.create(Helper(memScope, itemsGetter))
+		try {
+			val getter: ItemsGetter = staticCFunction { data, idx, outText ->
+				val helper = data!!.asStableRef<Helper>().get()
+				val str = helper.getter(idx)
+				if (str != null) {
+					outText!!.pointed.value = str.cstr.getPointer(helper.memScope)
+					true
+				} else {
+					false
+				}
+			}
+			block(getter, stableRef.asCPointer())
+		} finally {
+			stableRef.dispose()
+		}
+	}
+}
+
 fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, popupMaxHeightInItems: Int = -1): Boolean {
-	usingProperty(currentItem) { currentItemPtr ->
+	return usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
-			return igCombo(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
+			igCombo(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
 		}
 	}
 }
 
 fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, popupMaxHeightInItems: Int = -1): Boolean {
-	class Helper(val memScope: MemScope, val getter: (idx: Int) -> String?)
-
-	usingProperty(currentItem) { currentItemPtr ->
-		memScoped {
-			val stableRef = StableRef.create(Helper(memScope, itemsGetter))
-			try {
-				return igComboFnPtr(label, currentItemPtr,
-						staticCFunction { data, idx, outText ->
-							val helper = data!!.asStableRef<Helper>().get()
-							val str = helper.getter(idx)
-							if (str != null) {
-								outText!!.pointed.value = str.cstr.getPointer(helper.memScope)
-								true
-							} else {
-								false
-							}
-						},
-						stableRef.asCPointer(),
-						itemsCount, popupMaxHeightInItems)
-			} finally {
-				stableRef.dispose()
-			}
+	return usingProperty(currentItem) { currentItemPtr ->
+		withItemsGetter(itemsGetter) { getter, data ->
+			igComboFnPtr(label, currentItemPtr, getter, data, itemsCount, popupMaxHeightInItems)
 		}
 	}
 }
 
 
 fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, items: List<String>, heightInItems: Int = -1): Boolean {
-	usingProperty(currentItem) { currentItemPtr ->
+	return usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
-			return igListBoxStr_arr(label, currentItemPtr, items.toCStringArray(memScope), items.size, heightInItems)
+			igListBoxStr_arr(label, currentItemPtr, items.toCStringArray(memScope), items.size, heightInItems)
 		}
 	}
 }
 
 fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, heightInItems: Int = -1): Boolean {
-	class Helper(val memScope: MemScope, val getter: (idx: Int) -> String?)
-
-	usingProperty(currentItem) { currentItemPtr ->
-		memScoped {
-			val stableRef = StableRef.create(Helper(memScope, itemsGetter))
-			try {
-				return igListBoxFnPtr(label, currentItemPtr,
-						staticCFunction { data, idx, outText ->
-							val helper = data!!.asStableRef<Helper>().get()
-							val str = helper.getter(idx)
-							if (str != null) {
-								outText!!.pointed.value = str.cstr.getPointer(helper.memScope)
-								true
-							} else {
-								false
-							}
-						},
-						stableRef.asCPointer(),
-						itemsCount, heightInItems)
-			} finally {
-				stableRef.dispose()
-			}
+	return usingProperty(currentItem) { currentItemPtr ->
+		withItemsGetter(itemsGetter) { getter, data ->
+			igListBoxFnPtr(label, currentItemPtr, getter, data, itemsCount, heightInItems)
 		}
 	}
 }
