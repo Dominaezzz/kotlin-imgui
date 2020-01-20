@@ -321,6 +321,7 @@ import kotlin.UInt
 import kotlin.ULong
 import kotlin.reflect.KMutableProperty0
 import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.convert
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.usePinned
 
@@ -606,8 +607,8 @@ object ImGui {
         szVec4: ULong,
         szDrawvert: ULong,
         szDrawidx: ULong
-    ): Boolean = igDebugCheckVersionAndDataLayout(versionStr, szIo, szStyle, szVec2, szVec4,
-            szDrawvert, szDrawidx)
+    ): Boolean = igDebugCheckVersionAndDataLayout(versionStr, szIo.convert(), szStyle.convert(),
+            szVec2.convert(), szVec4.convert(), szDrawvert.convert(), szDrawidx.convert())
 
     fun destroyContext(ctx: ImGuiContext? = null) {
         igDestroyContext(ctx?.ptr)
@@ -1174,7 +1175,7 @@ object ImGui {
     }
 
     fun loadIniSettingsFromMemory(iniData: String, iniSize: ULong = 0uL) {
-        igLoadIniSettingsFromMemory(iniData, iniSize)
+        igLoadIniSettingsFromMemory(iniData, iniSize.convert())
     }
 
     fun logButtons() {

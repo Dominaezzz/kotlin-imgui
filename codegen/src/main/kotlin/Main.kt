@@ -26,7 +26,6 @@ val simpleTypeMap = mapOf(
 		"float" to FLOAT,
 		"unsigned short" to U_SHORT,
 		"unsigned int" to U_INT,
-		"size_t" to U_LONG,
 		"int" to INT,
 		"short" to SHORT,
 		"bool" to BOOLEAN,
@@ -90,6 +89,7 @@ fun main(args: Array<String>) {
 		val imGuiPackageName = "com.imgui"
 
 		return when (type) {
+			"size_t" -> U_LONG to CodeBlock.of(".%M()", CONVERT)
 			"const char*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
 			"const ImWchar*" -> STRING to CodeBlock.of(".%M()", TO_KSTRING)
 			"ImVec2" -> VEC2 to CodeBlock.of(".fromCValue()")
@@ -147,6 +147,7 @@ fun main(args: Array<String>) {
 		}
 		if (type == "const char*") return FuncArg(STRING)
 		if (type == "const ImWchar*") return FuncArg(STRING, CodeBlock.of("$nullOp.%M", WCSTR))
+		if (type == "size_t") return FuncArg(U_LONG, CodeBlock.of(".%M()", CONVERT))
 		if (type == "ImWchar") return FuncArg(CHAR, CodeBlock.of(".toShort().toUShort()"))
 		if ("${type}_" in enums.keys) {
 			val isBitFlags = "${type}_" in enumBitMasks

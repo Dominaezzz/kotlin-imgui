@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImVec2
 import cimgui.internal.ImVec4
 import kotlinx.cinterop.*
+import platform.posix.size_tVar
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.reflect.KMutableProperty0
 
@@ -108,11 +109,11 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Int>?, block: (CP
 	}
 }
 
-internal inline fun <T> usingProperty(prop: KMutableProperty0<ULong>, block: (CPointer<ULongVar>) -> T): T {
-	return usingGeneralProperty(prop, { it.value }, { ptr, value -> ptr.value = value }, block)
+internal inline fun <T> usingProperty(prop: KMutableProperty0<ULong>, block: (CPointer<size_tVar>) -> T): T {
+	return usingGeneralProperty(prop, { it.value.convert() }, { ptr, value -> ptr.value = value.convert() }, block)
 }
 
-internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (CPointer<ULongVar>?) -> T): T {
+internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (CPointer<size_tVar>?) -> T): T {
 	return if (prop != null) {
 		usingProperty(prop, block)
 	} else {
