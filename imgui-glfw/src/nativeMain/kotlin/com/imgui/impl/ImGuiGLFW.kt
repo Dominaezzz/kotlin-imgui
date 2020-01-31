@@ -1,6 +1,7 @@
 package com.imgui.impl
 
-import cglfw.*
+import cglfw.glfwGetClipboardString
+import cglfw.glfwSetClipboardString
 import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
@@ -156,7 +157,7 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 			val mousePosBackup = io.MousePos.readValue()
 			io.MousePos.x = -Float.MAX_VALUE
 			io.MousePos.y = -Float.MAX_VALUE
-			if (glfwGetWindowAttrib(window.ptr, GLFW_FOCUSED) != 0) {
+			if (window.isFocused) {
 				if (io.WantSetMousePos) {
 					window.cursorPosition = mousePosBackup.useContents { x.toDouble() to y.toDouble() }
 				} else {

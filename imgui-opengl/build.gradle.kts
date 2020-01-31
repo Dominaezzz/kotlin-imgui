@@ -49,7 +49,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(project(":imgui"))
-                implementation("com.kgl:kgl-opengl:0.1.9-dev-5")
+                implementation("com.kgl:kgl-opengl:0.1.9-dev-6")
             }
         }
         commonTest {

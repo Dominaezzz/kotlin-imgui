@@ -239,10 +239,10 @@ actual class ImguiOpenGL3 actual constructor(
 		val lastBlendDstAlpha = glGetInteger(GL_BLEND_DST_ALPHA)
 		val lastBlendEquationRGB = glGetInteger(GL_BLEND_EQUATION_RGB)
 		val lastBlendEquationAlpha = glGetInteger(GL_BLEND_EQUATION_ALPHA)
-		val lastEnableBlend = glIsEnabled(GL_BLEND) == GL_TRUE.toUByte()
-		val lastEnableCullFace = glIsEnabled(GL_CULL_FACE) == GL_TRUE.toUByte()
-		val lastEnableDepthTest = glIsEnabled(GL_DEPTH_TEST) == GL_TRUE.toUByte()
-		val lastEnableScissorTest = glIsEnabled(GL_SCISSOR_TEST) == GL_TRUE.toUByte()
+		val lastEnableBlend = glIsEnabled(GL_BLEND)
+		val lastEnableCullFace = glIsEnabled(GL_CULL_FACE)
+		val lastEnableDepthTest = glIsEnabled(GL_DEPTH_TEST)
+		val lastEnableScissorTest = glIsEnabled(GL_SCISSOR_TEST)
 		val clipOriginLowerLeft = if (useClipOrigin) {
 			val lastClipOrigin = glGetInteger(GL_CLIP_ORIGIN)
 			lastClipOrigin != GL_UPPER_LEFT.toInt()
@@ -254,11 +254,7 @@ actual class ImguiOpenGL3 actual constructor(
 		// Recreate the VAO every time (this is to easily allow multiple GL contexts to be rendered to. VAO are not shared among GL contexts)
 		// The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
 		val vertexArrayObject = if (useVertexArray) {
-			memScoped {
-				val data = alloc<UIntVar>()
-				glGenVertexArrays(1, data.ptr)
-				data.value
-			}
+			glGenVertexArray()
 		} else {
 			0U
 		}
@@ -386,19 +382,5 @@ actual class ImguiOpenGL3 actual constructor(
 
 	companion object {
 		private val ImDrawCallback_ResetRenderState: ImDrawCallback? = (-1L).toCPointer()
-
-		private fun glGetUniformLocation(program: GLuint, name: String): Int {
-			return glGetUniformLocation(program, name.cstr)
-		}
-
-		private fun glGetAttribLocation(program: GLuint, name: String): Int {
-			return glGetAttribLocation(program, name.cstr)
-		}
-
-		private fun glGetInteger(pname: UInt): Int = memScoped {
-			val data = alloc<IntVar>()
-			glGetIntegerv(pname, data.ptr)
-			data.value
-		}
 	}
 }

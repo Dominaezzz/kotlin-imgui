@@ -5,7 +5,9 @@ import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
 import kotlinx.io.core.Closeable
-import org.lwjgl.glfw.GLFW
+import org.lwjgl.glfw.GLFW.*
+import org.lwjgl.system.Callback
+import org.lwjgl.system.dyncall.DynCallback.dcbArgPointer
 
 actual class ImGuiGLFW actual constructor(private val window: Window, installCallbacks: Boolean): Closeable {
 	private var time: Double = 0.0
@@ -50,13 +52,29 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 		mapKey(ImGuiKey.Y, KeyboardKey.Y)
 		mapKey(ImGuiKey.Z, KeyboardKey.Z)
 
-		// io.clipboardUserData = window.ptr
-		// io.setClipboardTextFn = staticCFunction { userData, text ->
-		// 	glfwSetClipboardString(userData?.reinterpret(), text?.toKString())
-		// }
-		// io.getClipboardTextFn = staticCFunction { userData ->
-		// 	glfwGetClipboardString(userData?.reinterpret())
-		// }
+		val setClipboard = object : org.lwjgl.system.CallbackI.V {
+			override fun getSignature(): String = "(pp)v"
+
+			override fun callback(args: Long) {
+				val userData = dcbArgPointer(args)
+				val text = dcbArgPointer(args)
+
+				nglfwSetClipboardString(userData, text)
+			}
+		}
+		val getClipboard = object : org.lwjgl.system.CallbackI.P {
+			override fun getSignature(): String = "(p)p"
+
+			override fun callback(args: Long): Long {
+				val userData = dcbArgPointer(args)
+
+				return nglfwGetClipboardString(userData)
+			}
+		}
+
+		io.clipboardUserData = SWIGTYPE_p_void(window.ptr, false)
+		io.setClipboardTextFn = SWIGTYPE_p_f_p_void_p_q_const__char__void(setClipboard.address(), false)
+		io.getClipboardTextFn = SWIGTYPE_p_f_p_void__p_char(getClipboard.address(), false)
 
 		mouseCursors[ImGuiMouseCursor.Arrow.value] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.TextInput.value] = Cursor(Cursor.Standard.IBeam)
@@ -155,7 +173,7 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 			val mousePosBackupY = io.mousePos.y
 			io.mousePos.x = -Float.MAX_VALUE
 			io.mousePos.y = -Float.MAX_VALUE
-			if (GLFW.glfwGetWindowAttrib(window.ptr, GLFW.GLFW_FOCUSED) != 0) {
+			if (window.isFocused) {
 				if (io.wantSetMousePos) {
 					window.cursorPosition = mousePosBackupX.toDouble() to mousePosBackupY.toDouble()
 				} else {
@@ -233,6 +251,13 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 	}
 
 	override fun close() {
+		val io = ImGui.getIO().ptr
+		io.clipboardUserData = null
+		Callback.free(SWIGTYPE_p_f_p_void_p_q_const__char__void.getCPtr(io.setClipboardTextFn))
+		io.setClipboardTextFn = null
+		Callback.free(SWIGTYPE_p_f_p_void__p_char.getCPtr(io.getClipboardTextFn))
+		io.getClipboardTextFn = null
+
 		mouseCursors.forEach { it?.close() }
 	}
 
