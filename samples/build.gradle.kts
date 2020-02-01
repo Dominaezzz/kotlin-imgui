@@ -19,6 +19,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation(project(":imgui"))
+                implementation(project(":imgui-glfw"))
+                implementation(project(":imgui-opengl"))
             }
         }
         commonTest {
@@ -36,11 +39,9 @@ kotlin {
                 dependencies {
                     implementation(kotlin("stdlib-jdk8"))
 
-                    implementation(project(":imgui"))
-                    implementation(project(":imgui-glfw"))
-                    implementation(project(":imgui-opengl"))
                     implementation(project(":cimgui", "jvmDefault"))
-                    runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
+                    runtimeOnly(project(":cimgui", "jvmLinuxArm32HfpDefault"))
+                    // runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
                     // runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
                     // runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
 
@@ -65,7 +66,7 @@ kotlin {
 
         attributes {
             attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(LINUX))  // or MACOS or WINDOWS
-            attribute(ARCHITECTURE_ATTRIBUTE,     objects.named(X86_64)) // or x86 or arm32 or arm64
+            attribute(ARCHITECTURE_ATTRIBUTE,     objects.named("arm32-hfp")) // or x86 or arm32 or arm64
         }
     }
 
@@ -77,9 +78,6 @@ kotlin {
                 }
 
                 dependencies {
-                    implementation(project(":imgui"))
-                    implementation(project(":imgui-glfw"))
-                    implementation(project(":imgui-opengl"))
                     implementation("com.kgl:kgl-glfw-static:0.1.9-dev-5")
                 }
             }

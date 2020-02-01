@@ -230,6 +230,7 @@ kotlin {
     data class JvmTargetInfo(val target: KonanTarget, val osFamily: OperatingSystemFamily, val machineArchitecture: MachineArchitecture)
     val jvmTargets = listOf(
             JvmTargetInfo(KonanTarget.LINUX_X64, objects.named(LINUX), objects.named(X86_64)),
+            JvmTargetInfo(KonanTarget.LINUX_ARM32_HFP, objects.named(LINUX), objects.named("arm32-hfp")),
             JvmTargetInfo(KonanTarget.MACOS_X64, objects.named(MACOS), objects.named(X86_64)),
             JvmTargetInfo(KonanTarget.MINGW_X64, objects.named(WINDOWS), objects.named(X86_64))
             // JvmTargetInfo(KonanTarget.MINGW_X86, objects.named(WINDOWS), objects.named(X86))
