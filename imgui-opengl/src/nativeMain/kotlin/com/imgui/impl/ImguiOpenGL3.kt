@@ -4,7 +4,6 @@ import cimgui.internal.*
 import com.imgui.ImGui
 import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
-import copengl.GLuint
 import kotlinx.cinterop.*
 import kotlinx.io.core.Closeable
 
@@ -26,7 +25,6 @@ import kotlinx.io.core.Closeable
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-@ExperimentalUnsignedTypes
 actual class ImguiOpenGL3 actual constructor(
 		glslVersionStr: String,
 		private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
