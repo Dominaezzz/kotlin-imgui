@@ -3,6 +3,8 @@ import org.gradle.internal.jvm.Jvm
 import org.gradle.nativeplatform.OperatingSystemFamily.*
 import org.gradle.nativeplatform.MachineArchitecture.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.Architecture
+import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 import org.jetbrains.kotlin.konan.target.presetName
@@ -250,15 +252,24 @@ kotlin {
         }
     }
 
-    data class JvmTargetInfo(val target: KonanTarget, val osFamily: OperatingSystemFamily, val machineArchitecture: MachineArchitecture)
     val jvmTargets = listOf(
-            JvmTargetInfo(KonanTarget.LINUX_X64, objects.named(LINUX), objects.named(X86_64)),
-            JvmTargetInfo(KonanTarget.MACOS_X64, objects.named(MACOS), objects.named(X86_64)),
-            JvmTargetInfo(KonanTarget.MINGW_X64, objects.named(WINDOWS), objects.named(X86_64))
-            // JvmTargetInfo(KonanTarget.MINGW_X86, objects.named(WINDOWS), objects.named(X86))
+            KonanTarget.LINUX_X64,
+            KonanTarget.MACOS_X64,
+            KonanTarget.MINGW_X64
+    )
+    val osFamilyMap = mapOf<Family, OperatingSystemFamily>(
+            Family.LINUX to objects.named(LINUX),
+            Family.OSX to objects.named(MACOS),
+            Family.MINGW to objects.named(WINDOWS)
+    )
+    val osArchMap = mapOf<Architecture, MachineArchitecture>(
+            Architecture.X86 to objects.named(X86),
+            Architecture.X64 to objects.named(X86_64),
+            Architecture.ARM32 to objects.named("arm32"),
+            Architecture.ARM64 to objects.named("arm64")
     )
 
-    for ((jvmTarget, osFamily, osArch) in jvmTargets) {
+    for (jvmTarget in jvmTargets) {
         val jvmGenResourceDir = buildDir.resolve("resources")
         val resourceDir = jvmGenResourceDir.resolve(jvmTarget.presetName)
 
@@ -322,8 +333,8 @@ kotlin {
             }
 
             attributes {
-                attribute(OPERATING_SYSTEM_ATTRIBUTE, osFamily)
-                attribute(ARCHITECTURE_ATTRIBUTE,     osArch)
+                attribute(OPERATING_SYSTEM_ATTRIBUTE, osFamilyMap.getValue(jvmTarget.family))
+                attribute(ARCHITECTURE_ATTRIBUTE, osArchMap.getValue(jvmTarget.architecture))
             }
         }
     }
