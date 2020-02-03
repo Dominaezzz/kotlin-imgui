@@ -5,7 +5,7 @@
 # Kotlin/Multiplatform bindings and wrapper for [Dear ImGui](https://github.com/ocornut/imgui)
 
 This is meant to be a Kotlin-friendly wrapper (and binding) for Dear ImGui.
-It is experimental, as I am iteratively the API design and considering optimisations.
+It is experimental, as I am iterating on the API design and considering optimisations.
 
 The current implementations are based on [kgl](https://github.com/Dominaezzz/kgl) for OpenGL and GLFW.
 
@@ -23,6 +23,11 @@ dependencies {
     implementation("com.kotlin-imgui:imgui-glfw:$imguiVersion")
     implementation("com.kotlin-imgui:imgui-opengl:$imguiVersion")
 
+    // For jvm binaries
+    implementation("com.kotlin-imgui:cimgui-jvmlinuxx64:$imguiVersion")
+    implementation("com.kotlin-imgui:cimgui-jvmmacosx64:$imguiVersion")
+    implementation("com.kotlin-imgui:cimgui-jvmmingwx64:$imguiVersion")
+
     // Optional
     implementation("com.kgl:kgl-glfw:$kglVersion")
     implementation("com.kgl:kgl-glfw-static:$kglVersion")
@@ -30,7 +35,7 @@ dependencies {
 }
 ```
 
-After `kotlin-imgui is setup in your application, you can use it from _anywhere_ in your program loop:
+After `kotlin-imgui` is setup in your application, you can use it from _anywhere_ in your program loop:
 ```kotlin
 with(ImGui) {
     text("Hello, world ${123}")
@@ -88,5 +93,5 @@ More information about how the api work is [here](https://github.com/ocornut/img
 ### Notes
 - Functions with variadic/va_list arguments have been skipped See [#1](https://github.com/Dominaezzz/kotlin-imgui/issues/1). So formatting will have to be done in Koltin.
 - If `ImGui.setNextWindowSizeConstraints` is called with a callback, it **must** be followed by a call to `ImGui.begin` to release the callback.
-- Only supports `LinuxX64`, `MingwX64` and `MacosX64` for now. (`JVM` coming very soon). I will add more targets on demand.
+- Supports `LinuxX64`, `MingwX64` and `MacosX64` via JVM or Native. I will add more targets on demand.
 - The safe api (wrapper) supports almost all of the original Dear ImGui api but if you need something it does not provide you can depend on `cimgui` and use it directly. Remember to play nice with the wrapper when doing so.
