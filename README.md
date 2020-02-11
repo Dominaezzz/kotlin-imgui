@@ -57,14 +57,12 @@ Code:
 ```kotlin
 // Create a window called "My First Tool", with a menu bar.
 begin("My First Tool", ::myToolActive, ImGuiWindowFlags.MenuBar)
-if (beginMenuBar()) {
-    if (beginMenu("File")) {
+menuBar {
+    menu("File") {
         if (menuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
         if (menuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
         if (menuItem("Close", "Ctrl+W"))  { myToolActive = false }
-        endMenu()
     }
-    endMenuBar()
 }
 
 // Edit a color (stored as FloatArray[4])

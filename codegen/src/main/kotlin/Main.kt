@@ -668,7 +668,8 @@ fun main(args: Array<String>) {
 			jvmImGuiObj.addFunction(jvmFunction.build())
 		}
 	}
-	FileSpec.get("com.imgui", commonImGuiObj.build())
+	val imguiObj = commonImGuiObj.build()
+	FileSpec.get("com.imgui", imguiObj)
 			.toBuilder().indent("    ").build()
 			.writeTo(commonDir)
 	FileSpec.get("com.imgui", nativeImGuiObj.build())
@@ -677,6 +678,95 @@ fun main(args: Array<String>) {
 	FileSpec.get("com.imgui", jvmImGuiObj.build())
 			.toBuilder().indent("    ").build()
 			.writeTo(jvmDir)
+
+	val imguiObjName = ClassName("com.imgui", "ImGui")
+	val dslLambdaTypeName = LambdaTypeName.get(returnType = UNIT)
+	val contractExactlyOnce = buildCodeBlock {
+		beginControlFlow("%M", MemberName("kotlin.contracts", "contract"))
+		addStatement("callsInPlace(block, %T.EXACTLY_ONCE)", ClassName("kotlin.contracts", "InvocationKind"))
+		endControlFlow()
+	}
+	val contractAtMostOnce = buildCodeBlock {
+		beginControlFlow("%M", MemberName("kotlin.contracts", "contract"))
+		addStatement("callsInPlace(block, %T.AT_MOST_ONCE)", ClassName("kotlin.contracts", "InvocationKind"))
+		endControlFlow()
+	}
+	val useExperimental = ClassName("kotlin", "UseExperimental")
+	val experimentalContracts = ClassName("kotlin.contracts", "ExperimentalContracts")
+	val experimentalAnnotation = AnnotationSpec.builder(useExperimental)
+			.addMember("%T::class", experimentalContracts)
+			.build()
+
+	val imguiDSL = FileSpec.builder("com.imgui", "ImguiDSL")
+	val functionMap = imguiObj.funSpecs.groupBy { it.name }
+	for (funSpec in imguiObj.funSpecs) {
+		val exitFunction: FunSpec
+		val dslName: String
+		val isConditional: Boolean
+		if (funSpec.name.startsWith("push")) {
+			val noun = funSpec.name.removePrefix("push")
+			exitFunction = functionMap.getValue("pop$noun").single()
+			dslName = "with$noun"
+			isConditional = false
+		} else if (funSpec.name.startsWith("begin")) {
+			val noun = funSpec.name.removePrefix("begin")
+			if (noun.isEmpty() || noun == "Child" || noun == "ChildFrame") {
+				// TODO: Will handle these in future release.
+				continue
+			}
+			val endFunctionName = if (noun.startsWith("Popup")) {
+				"endPopup"
+			} else {
+				"end$noun"
+			}
+			exitFunction = functionMap.getValue(endFunctionName).single()
+			dslName = noun.decapitalize()
+			isConditional = funSpec.returnType == BOOLEAN
+		} else if (funSpec.name.startsWith("treeNode")) {
+			exitFunction = functionMap.getValue("treePop").single()
+			dslName = funSpec.name
+			isConditional = true
+		} else if (funSpec.name.startsWith("listBoxHeader")) {
+			exitFunction = functionMap.getValue("listBoxFooter").single()
+			dslName = "listBox"
+			isConditional = true
+		} else {
+			continue
+		}
+
+		val dsl = FunSpec.builder(dslName)
+				.addModifiers(KModifier.INLINE)
+				.receiver(imguiObjName)
+				.addParameters(funSpec.parameters)
+				.addParameter("block", dslLambdaTypeName)
+				.addAnnotation(experimentalAnnotation)
+				.addCode(buildCodeBlock {
+					if (isConditional) {
+						add(contractAtMostOnce)
+					} else {
+						add(contractExactlyOnce)
+					}
+					add("\n")
+					val params = funSpec.parameters.map { it.name }.toTypedArray()
+					val call = CodeBlock.of("${funSpec.name}(${params.joinToString { "%N" }})", *params)
+					if (isConditional) {
+						beginControlFlow("if (%L)", call)
+					} else {
+						addStatement("%L", call)
+					}
+					beginControlFlow("try")
+					addStatement("block()")
+					nextControlFlow("finally")
+					addStatement("${exitFunction.name}()")
+					endControlFlow()
+					if (isConditional) {
+						endControlFlow()
+					}
+				})
+				.build()
+		imguiDSL.addFunction(dsl)
+	}
+	imguiDSL.indent("    ").build().writeTo(commonDir)
 
 	for ((structName, members) in structs) {
 		val imguiStructClass = ClassName("cimgui.internal", structName)
