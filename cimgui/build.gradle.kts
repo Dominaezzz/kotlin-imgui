@@ -101,6 +101,30 @@ val extractImGui by tasks.registering(Copy::class) {
     into(cimguiDir.resolve("imgui"))
 }
 
+val runSwig by tasks.registering(Exec::class) {
+    dependsOn(extractCWrapper)
+
+    val javaOutputDir = file("src/jvmMain/java/cimgui/internal")
+    val cppOutputDir = file("src/jvmMain/cpp")
+
+    doFirst {
+        mkdir(javaOutputDir)
+        mkdir(cppOutputDir)
+        delete(*javaOutputDir.listFiles { file -> file.extension == "java" }!!)
+    }
+
+    executable = "swig"
+    workingDir = file("src/nativeInterop/swig").absoluteFile
+
+    args("-java", "-c++")
+    args("-package", "cimgui.internal")
+    args("-outdir", javaOutputDir.absolutePath)
+    args("-o", cppOutputDir.resolve("wrap.cpp").absolutePath)
+    args("-I${cimguiOutput}")
+    args("-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS")
+    args("cimgui.i")
+}
+
 val sourceFiles = listOf(
         imguiDir.resolve("imgui.cpp"),
         imguiDir.resolve("imgui_draw.cpp"),
