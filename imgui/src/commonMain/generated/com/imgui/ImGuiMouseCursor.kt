@@ -17,7 +17,9 @@ expect enum class ImGuiMouseCursor {
 
   ResizeNWSE,
 
-  Hand;
+  Hand,
+
+  NotAllowed;
 
   companion object
 }

@@ -4019,6 +4019,34 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1CurveTessel
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1CircleSegmentMaxError_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiStyle **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->CircleSegmentMaxError = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1CircleSegmentMaxError_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiStyle **)&jarg1; 
+  result = (float) ((arg1)->CircleSegmentMaxError);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1Colors_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
   ImVec4 *arg2 ;
@@ -7445,58 +7473,58 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiStorage(JNIE
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1StartPosY_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayStart_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  float arg2 ;
+  int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->StartPosY = arg2;
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->DisplayStart = arg2;
 }
 
 
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1StartPosY_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayStart_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  float result;
+  int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  result = (float) ((arg1)->StartPosY);
-  jresult = (jfloat)result; 
+  result = (int) ((arg1)->DisplayStart);
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1ItemsHeight_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayEnd_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  float arg2 ;
+  int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->ItemsHeight = arg2;
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->DisplayEnd = arg2;
 }
 
 
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1ItemsHeight_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayEnd_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  float result;
+  int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  result = (float) ((arg1)->ItemsHeight);
-  jresult = (jfloat)result; 
+  result = (int) ((arg1)->DisplayEnd);
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -7557,58 +7585,58 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1StepNo_
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayStart_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1ItemsHeight_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  int arg2 ;
+  float arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->DisplayStart = arg2;
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->ItemsHeight = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayStart_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1ItemsHeight_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  int result;
+  float result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  result = (int) ((arg1)->DisplayStart);
-  jresult = (jint)result; 
+  result = (float) ((arg1)->ItemsHeight);
+  jresult = (jfloat)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayEnd_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1StartPosY_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  int arg2 ;
+  float arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->DisplayEnd = arg2;
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->StartPosY = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1DisplayEnd_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiListClipper_1StartPosY_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
   ImGuiListClipper *arg1 = (ImGuiListClipper *) 0 ;
-  int result;
+  float result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiListClipper **)&jarg1; 
-  result = (int) ((arg1)->DisplayEnd);
-  jresult = (jint)result; 
+  result = (float) ((arg1)->StartPosY);
+  jresult = (jfloat)result; 
   return jresult;
 }
 
@@ -10849,6 +10877,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1EllipsisChar_1get
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1DirtyLookupTables_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImFont *arg1 = (ImFont *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImFont **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DirtyLookupTables = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1DirtyLookupTables_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImFont *arg1 = (ImFont *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImFont **)&jarg1; 
+  result = (bool) ((arg1)->DirtyLookupTables);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1Scale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
   ImFont *arg1 = (ImFont *) 0 ;
   float arg2 ;
@@ -10957,34 +11013,6 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1MetricsTotalSurfa
   arg1 = *(ImFont **)&jarg1; 
   result = (int) ((arg1)->MetricsTotalSurface);
   jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1DirtyLookupTables_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  ImFont *arg1 = (ImFont *) 0 ;
-  bool arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImFont **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  if (arg1) (arg1)->DirtyLookupTables = arg2;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1DirtyLookupTables_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  ImFont *arg1 = (ImFont *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImFont **)&jarg1; 
-  result = (bool) ((arg1)->DirtyLookupTables);
-  jresult = (jboolean)result; 
   return jresult;
 }
 
@@ -16047,7 +16075,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopup(JNIEnv *
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextItem(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  int arg2 ;
+  ImGuiMouseButton arg2 ;
   bool result;
   
   (void)jenv;
@@ -16057,7 +16085,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextIt
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  arg2 = (int)jarg2; 
+  arg2 = (ImGuiMouseButton)jarg2; 
   result = (bool)igBeginPopupContextItem((char const *)arg1,arg2);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
@@ -16068,7 +16096,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextIt
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextWindow(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2, jboolean jarg3) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  int arg2 ;
+  ImGuiMouseButton arg2 ;
   bool arg3 ;
   bool result;
   
@@ -16079,7 +16107,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextWi
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  arg2 = (int)jarg2; 
+  arg2 = (ImGuiMouseButton)jarg2; 
   arg3 = jarg3 ? true : false; 
   result = (bool)igBeginPopupContextWindow((char const *)arg1,arg2,arg3);
   jresult = (jboolean)result; 
@@ -16091,7 +16119,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextWi
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextVoid(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  int arg2 ;
+  ImGuiMouseButton arg2 ;
   bool result;
   
   (void)jenv;
@@ -16101,7 +16129,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginPopupContextVo
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  arg2 = (int)jarg2; 
+  arg2 = (ImGuiMouseButton)jarg2; 
   result = (bool)igBeginPopupContextVoid((char const *)arg1,arg2);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
@@ -16142,7 +16170,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igEndPopup(JNIEnv *jenv, 
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igOpenPopupOnItemClick(JNIEnv *jenv, jclass jcls, jstring jarg1, jint jarg2) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  int arg2 ;
+  ImGuiMouseButton arg2 ;
   bool result;
   
   (void)jenv;
@@ -16152,7 +16180,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igOpenPopupOnItemClic
     arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
     if (!arg1) return 0;
   }
-  arg2 = (int)jarg2; 
+  arg2 = (ImGuiMouseButton)jarg2; 
   result = (bool)igOpenPopupOnItemClick((char const *)arg1,arg2);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
@@ -16602,12 +16630,12 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsItemFocused(JNIEn
 
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsItemClicked(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jboolean jresult = 0 ;
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   result = (bool)igIsItemClicked(arg1);
   jresult = (jboolean)result; 
   return jresult;
@@ -17102,27 +17130,25 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igGetKeyPressedAmount(JNI
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDown(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jboolean jresult = 0 ;
-  int arg1 ;
-  bool result;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igCaptureKeyboardFromApp(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
+  bool arg1 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
-  result = (bool)igIsMouseDown(arg1);
-  jresult = (jboolean)result; 
-  return jresult;
+  arg1 = jarg1 ? true : false; 
+  igCaptureKeyboardFromApp(arg1);
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsAnyMouseDown(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDown(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jboolean jresult = 0 ;
+  ImGuiMouseButton arg1 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  result = (bool)igIsAnyMouseDown();
+  arg1 = (ImGuiMouseButton)jarg1; 
+  result = (bool)igIsMouseDown(arg1);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -17130,13 +17156,13 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsAnyMouseDown(JNIE
 
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseClicked(JNIEnv *jenv, jclass jcls, jint jarg1, jboolean jarg2) {
   jboolean jresult = 0 ;
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   bool arg2 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   arg2 = jarg2 ? true : false; 
   result = (bool)igIsMouseClicked(arg1,arg2);
   jresult = (jboolean)result; 
@@ -17144,45 +17170,29 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseClicked(JNIE
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDoubleClicked(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  jboolean jresult = 0 ;
-  int arg1 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = (int)jarg1; 
-  result = (bool)igIsMouseDoubleClicked(arg1);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseReleased(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jboolean jresult = 0 ;
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   result = (bool)igIsMouseReleased(arg1);
   jresult = (jboolean)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDragging(JNIEnv *jenv, jclass jcls, jint jarg1, jfloat jarg2) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDoubleClicked(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jboolean jresult = 0 ;
-  int arg1 ;
-  float arg2 ;
+  ImGuiMouseButton arg1 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
-  arg2 = (float)jarg2; 
-  result = (bool)igIsMouseDragging(arg1,arg2);
+  arg1 = (ImGuiMouseButton)jarg1; 
+  result = (bool)igIsMouseDoubleClicked(arg1);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -17235,6 +17245,18 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMousePosValid(JNI
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsAnyMouseDown(JNIEnv *jenv, jclass jcls) {
+  jboolean jresult = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (bool)igIsAnyMouseDown();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMousePos(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImVec2 result;
@@ -17259,15 +17281,31 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMousePosOnOpeningCu
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsMouseDragging(JNIEnv *jenv, jclass jcls, jint jarg1, jfloat jarg2) {
+  jboolean jresult = 0 ;
+  ImGuiMouseButton arg1 ;
+  float arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiMouseButton)jarg1; 
+  arg2 = (float)jarg2; 
+  result = (bool)igIsMouseDragging(arg1,arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMouseDragDelta(JNIEnv *jenv, jclass jcls, jint jarg1, jfloat jarg2) {
   jlong jresult = 0 ;
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   float arg2 ;
   ImVec2 result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   arg2 = (float)jarg2; 
   result = igGetMouseDragDelta(arg1,arg2);
   *(ImVec2 **)&jresult = new ImVec2((const ImVec2 &)result); 
@@ -17276,11 +17314,11 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMouseDragDelta(JNIE
 
 
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igResetMouseDragDelta(JNIEnv *jenv, jclass jcls, jint jarg1) {
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   igResetMouseDragDelta(arg1);
 }
 
@@ -17304,16 +17342,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetMouseCursor(JNIEnv *
   (void)jcls;
   arg1 = (ImGuiMouseCursor)jarg1; 
   igSetMouseCursor(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igCaptureKeyboardFromApp(JNIEnv *jenv, jclass jcls, jboolean jarg1) {
-  bool arg1 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = jarg1 ? true : false; 
-  igCaptureKeyboardFromApp(arg1);
 }
 
 
@@ -19226,6 +19254,60 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1AddCircleFill
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1AddNgon(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jlong jarg4, jint jarg5, jfloat jarg6) {
+  ImDrawList *arg1 = (ImDrawList *) 0 ;
+  ImVec2 arg2 ;
+  float arg3 ;
+  ImU32 arg4 ;
+  int arg5 ;
+  float arg6 ;
+  ImVec2 const *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawList **)&jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg2 = *argp2; 
+  arg3 = (float)jarg3; 
+  arg4 = (ImU32)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (float)jarg6; 
+  ImDrawList_AddNgon(arg1,arg2,arg3,arg4,arg5,arg6);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1AddNgonFilled(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jlong jarg4, jint jarg5) {
+  ImDrawList *arg1 = (ImDrawList *) 0 ;
+  ImVec2 arg2 ;
+  float arg3 ;
+  ImU32 arg4 ;
+  int arg5 ;
+  ImVec2 const *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawList **)&jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg2 = *argp2; 
+  arg3 = (float)jarg3; 
+  arg4 = (ImU32)jarg4; 
+  arg5 = (int)jarg5; 
+  ImDrawList_AddNgonFilled(arg1,arg2,arg3,arg4,arg5);
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1AddText(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jstring jarg4, jstring jarg5) {
   ImDrawList *arg1 = (ImDrawList *) 0 ;
   ImVec2 arg2 ;
@@ -19914,6 +19996,21 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1PrimReserve(J
   arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
   ImDrawList_PrimReserve(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawList_1PrimUnreserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
+  ImDrawList *arg1 = (ImDrawList *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawList **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  ImDrawList_PrimUnreserve(arg1,arg2,arg3);
 }
 
 
@@ -21758,14 +21855,14 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMousePosOnOpeningCu
 
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igGetMouseDragDelta_1nonUDT(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jfloat jarg3) {
   ImVec2 *arg1 = (ImVec2 *) 0 ;
-  int arg2 ;
+  ImGuiMouseButton arg2 ;
   float arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImVec2 **)&jarg1; 
-  arg2 = (int)jarg2; 
+  arg2 = (ImGuiMouseButton)jarg2; 
   arg3 = (float)jarg3; 
   igGetMouseDragDelta_nonUDT(arg1,arg2,arg3);
 }
@@ -21773,13 +21870,13 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igGetMouseDragDelta_1nonU
 
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMouseDragDelta_1nonUDT2(JNIEnv *jenv, jclass jcls, jint jarg1, jfloat jarg2) {
   jlong jresult = 0 ;
-  int arg1 ;
+  ImGuiMouseButton arg1 ;
   float arg2 ;
   ImVec2_Simple result;
   
   (void)jenv;
   (void)jcls;
-  arg1 = (int)jarg1; 
+  arg1 = (ImGuiMouseButton)jarg1; 
   arg2 = (float)jarg2; 
   result = igGetMouseDragDelta_nonUDT2(arg1,arg2);
   *(ImVec2_Simple **)&jresult = new ImVec2_Simple((const ImVec2_Simple &)result); 

@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_Arrow
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_Hand
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_None
+import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_NotAllowed
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_ResizeAll
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_ResizeEW
 import cimgui.internal.ImGuiMouseCursor_.ImGuiMouseCursor_ResizeNESW
@@ -30,7 +31,9 @@ actual enum class ImGuiMouseCursor(
 
   ResizeNWSE(ImGuiMouseCursor_ResizeNWSE),
 
-  Hand(ImGuiMouseCursor_Hand);
+  Hand(ImGuiMouseCursor_Hand),
+
+  NotAllowed(ImGuiMouseCursor_NotAllowed);
 
   actual companion object {
     fun from(value: Int): ImGuiMouseCursor = when (value) {
@@ -43,6 +46,7 @@ actual enum class ImGuiMouseCursor(
       ImGuiMouseCursor_ResizeNESW -> ResizeNESW
       ImGuiMouseCursor_ResizeNWSE -> ResizeNWSE
       ImGuiMouseCursor_Hand -> Hand
+      ImGuiMouseCursor_NotAllowed -> NotAllowed
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

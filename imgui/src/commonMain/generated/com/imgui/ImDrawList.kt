@@ -12,10 +12,10 @@ expect class ImDrawList {
   constructor(sharedData: ImDrawListSharedData)
 
   fun addBezierCurve(
-    pos0: Vec2,
-    cp0: Vec2,
-    cp1: Vec2,
-    pos1: Vec2,
+    p1: Vec2,
+    p2: Vec2,
+    p3: Vec2,
+    p4: Vec2,
     col: UInt,
     thickness: Float,
     numSegments: Int = 0
@@ -82,6 +82,21 @@ expect class ImDrawList {
     p2: Vec2,
     col: UInt,
     thickness: Float = 1.0f
+  )
+
+  fun addNgon(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int,
+    thickness: Float = 1.0f
+  )
+
+  fun addNgonFilled(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int
   )
 
   fun addPolyline(
@@ -200,9 +215,9 @@ expect class ImDrawList {
   )
 
   fun pathBezierCurveTo(
-    p1: Vec2,
     p2: Vec2,
     p3: Vec2,
+    p4: Vec2,
     numSegments: Int = 0
   )
 
@@ -258,6 +273,8 @@ expect class ImDrawList {
   )
 
   fun primReserve(idxCount: Int, vtxCount: Int)
+
+  fun primUnreserve(idxCount: Int, vtxCount: Int)
 
   fun primVtx(
     pos: Vec2,

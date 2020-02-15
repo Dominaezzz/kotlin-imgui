@@ -36,20 +36,20 @@ public class ImGuiListClipper {
     }
   }
 
-  public void setStartPosY(float value) {
-    CImGuiJNI.ImGuiListClipper_StartPosY_set(swigCPtr, this, value);
+  public void setDisplayStart(int value) {
+    CImGuiJNI.ImGuiListClipper_DisplayStart_set(swigCPtr, this, value);
   }
 
-  public float getStartPosY() {
-    return CImGuiJNI.ImGuiListClipper_StartPosY_get(swigCPtr, this);
+  public int getDisplayStart() {
+    return CImGuiJNI.ImGuiListClipper_DisplayStart_get(swigCPtr, this);
   }
 
-  public void setItemsHeight(float value) {
-    CImGuiJNI.ImGuiListClipper_ItemsHeight_set(swigCPtr, this, value);
+  public void setDisplayEnd(int value) {
+    CImGuiJNI.ImGuiListClipper_DisplayEnd_set(swigCPtr, this, value);
   }
 
-  public float getItemsHeight() {
-    return CImGuiJNI.ImGuiListClipper_ItemsHeight_get(swigCPtr, this);
+  public int getDisplayEnd() {
+    return CImGuiJNI.ImGuiListClipper_DisplayEnd_get(swigCPtr, this);
   }
 
   public void setItemsCount(int value) {
@@ -68,20 +68,20 @@ public class ImGuiListClipper {
     return CImGuiJNI.ImGuiListClipper_StepNo_get(swigCPtr, this);
   }
 
-  public void setDisplayStart(int value) {
-    CImGuiJNI.ImGuiListClipper_DisplayStart_set(swigCPtr, this, value);
+  public void setItemsHeight(float value) {
+    CImGuiJNI.ImGuiListClipper_ItemsHeight_set(swigCPtr, this, value);
   }
 
-  public int getDisplayStart() {
-    return CImGuiJNI.ImGuiListClipper_DisplayStart_get(swigCPtr, this);
+  public float getItemsHeight() {
+    return CImGuiJNI.ImGuiListClipper_ItemsHeight_get(swigCPtr, this);
   }
 
-  public void setDisplayEnd(int value) {
-    CImGuiJNI.ImGuiListClipper_DisplayEnd_set(swigCPtr, this, value);
+  public void setStartPosY(float value) {
+    CImGuiJNI.ImGuiListClipper_StartPosY_set(swigCPtr, this, value);
   }
 
-  public int getDisplayEnd() {
-    return CImGuiJNI.ImGuiListClipper_DisplayEnd_get(swigCPtr, this);
+  public float getStartPosY() {
+    return CImGuiJNI.ImGuiListClipper_StartPosY_get(swigCPtr, this);
   }
 
   public ImGuiListClipper() {

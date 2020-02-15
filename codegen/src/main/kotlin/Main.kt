@@ -468,6 +468,7 @@ fun main(args: Array<String>) {
 				jvmArguments.add(CodeBlock.of("%N", pinnedName))
 			} else {
 				try {
+					val isEnum = "${arg.type}_" in enums
 					val isBitMask = "${arg.type}_" in enumBitMasks
 					val isNullable = defaultValue == "((void*)0)" || (isBitMask && defaultValue == "0")
 
@@ -507,6 +508,8 @@ fun main(args: Array<String>) {
 								// For enum flags.
 								isBitMask && defaultValue == "0" -> "null"
 								isBitMask -> defaultValue.replaceFirst('_', '.')
+								isEnum && defaultValue.toIntOrNull() != null -> enums.getValue("${arg.type}_")
+										.single { it.value == defaultValue }.name.replace('_', '.')
 								else -> defaultValue
 							})
 						}
@@ -534,7 +537,7 @@ fun main(args: Array<String>) {
 		val cImGuiFunName = overload.overloadedCimguiName ?: overload.cimguiName
 		val returnsStructByValue = overload.returnType == "ImVec4" || overload.returnType == "ImVec2"
 		if (returnsStructByValue) {
-			jvmScopedHelpers.add(CodeBlock.of("return${overload.returnType!!.removePrefix("Im")} { returnVal ->"))
+			jvmScopedHelpers.add(CodeBlock.of("return${overload.returnType!!.removePrefix("Im")}·{ returnVal ->"))
 		}
 
 		val nativeIgFuncCall = buildCodeBlock {

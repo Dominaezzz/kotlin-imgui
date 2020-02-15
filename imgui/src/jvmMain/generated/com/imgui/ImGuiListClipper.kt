@@ -14,11 +14,11 @@ import kotlin.Suppress
 actual inline class ImGuiListClipper(
   val ptr: cimgui.internal.ImGuiListClipper
 ) {
-  actual val startPosY: Float
-    get() = ptr.startPosY
+  actual val displayStart: Int
+    get() = ptr.displayStart
 
-  actual val itemsHeight: Float
-    get() = ptr.itemsHeight
+  actual val displayEnd: Int
+    get() = ptr.displayEnd
 
   actual val itemsCount: Int
     get() = ptr.itemsCount
@@ -26,11 +26,11 @@ actual inline class ImGuiListClipper(
   actual val stepNo: Int
     get() = ptr.stepNo
 
-  actual val displayStart: Int
-    get() = ptr.displayStart
+  actual val itemsHeight: Float
+    get() = ptr.itemsHeight
 
-  actual val displayEnd: Int
-    get() = ptr.displayEnd
+  actual val startPosY: Float
+    get() = ptr.startPosY
 
   actual constructor(itemsCount: Int, itemsHeight: Float) :
       this(ImGuiListClipper_ImGuiListClipper(itemsCount, itemsHeight)!!)

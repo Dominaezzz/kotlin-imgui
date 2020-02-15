@@ -72,6 +72,8 @@ expect class ImGuiStyle {
 
   val curveTessellationTol: Float
 
+  val circleSegmentMaxError: Float
+
   constructor()
 
   fun scaleAllSizes(scaleFactor: Float)

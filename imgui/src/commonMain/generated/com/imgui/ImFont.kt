@@ -27,6 +27,8 @@ expect class ImFont {
 
   val ellipsisChar: Char
 
+  val dirtyLookupTables: Boolean
+
   val scale: Float
 
   val ascent: Float
@@ -34,8 +36,6 @@ expect class ImFont {
   val descent: Float
 
   val metricsTotalSurface: Int
-
-  val dirtyLookupTables: Boolean
 
   constructor()
 

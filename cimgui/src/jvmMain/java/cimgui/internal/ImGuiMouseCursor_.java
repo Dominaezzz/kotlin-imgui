@@ -18,6 +18,7 @@ public final class ImGuiMouseCursor_ {
   public final static int ImGuiMouseCursor_ResizeNESW = ImGuiMouseCursor_ResizeEW + 1;
   public final static int ImGuiMouseCursor_ResizeNWSE = ImGuiMouseCursor_ResizeNESW + 1;
   public final static int ImGuiMouseCursor_Hand = ImGuiMouseCursor_ResizeNWSE + 1;
-  public final static int ImGuiMouseCursor_COUNT = ImGuiMouseCursor_Hand + 1;
+  public final static int ImGuiMouseCursor_NotAllowed = ImGuiMouseCursor_Hand + 1;
+  public final static int ImGuiMouseCursor_COUNT = ImGuiMouseCursor_NotAllowed + 1;
 }
 

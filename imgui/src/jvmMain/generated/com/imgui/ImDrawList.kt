@@ -9,6 +9,8 @@ import cimgui.internal.CImGui.ImDrawList_AddImage
 import cimgui.internal.CImGui.ImDrawList_AddImageQuad
 import cimgui.internal.CImGui.ImDrawList_AddImageRounded
 import cimgui.internal.CImGui.ImDrawList_AddLine
+import cimgui.internal.CImGui.ImDrawList_AddNgon
+import cimgui.internal.CImGui.ImDrawList_AddNgonFilled
 import cimgui.internal.CImGui.ImDrawList_AddPolyline
 import cimgui.internal.CImGui.ImDrawList_AddQuad
 import cimgui.internal.CImGui.ImDrawList_AddQuadFilled
@@ -43,6 +45,7 @@ import cimgui.internal.CImGui.ImDrawList_PrimQuadUV
 import cimgui.internal.CImGui.ImDrawList_PrimRect
 import cimgui.internal.CImGui.ImDrawList_PrimRectUV
 import cimgui.internal.CImGui.ImDrawList_PrimReserve
+import cimgui.internal.CImGui.ImDrawList_PrimUnreserve
 import cimgui.internal.CImGui.ImDrawList_PrimVtx
 import cimgui.internal.CImGui.ImDrawList_PrimWriteVtx
 import cimgui.internal.CImGui.ImDrawList_PushClipRect
@@ -69,20 +72,20 @@ actual inline class ImDrawList(
       this(ImDrawList_ImDrawList(sharedData.ptr)!!)
 
   actual fun addBezierCurve(
-    pos0: Vec2,
-    cp0: Vec2,
-    cp1: Vec2,
-    pos1: Vec2,
+    p1: Vec2,
+    p2: Vec2,
+    p3: Vec2,
+    p4: Vec2,
     col: UInt,
     thickness: Float,
     numSegments: Int
   ) {
-    usingVec2 { ptrPos0 -> 
-      usingVec2 { ptrCp0 -> 
-        usingVec2 { ptrCp1 -> 
-          usingVec2 { ptrPos1 -> 
-            ImDrawList_AddBezierCurve(ptr, ptrPos0, ptrCp0, ptrCp1, ptrPos1, col.toLong(),
-                thickness, numSegments)
+    usingVec2 { ptrP1 -> 
+      usingVec2 { ptrP2 -> 
+        usingVec2 { ptrP3 -> 
+          usingVec2 { ptrP4 -> 
+            ImDrawList_AddBezierCurve(ptr, ptrP1, ptrP2, ptrP3, ptrP4, col.toLong(), thickness,
+                numSegments)
           }
         }
       }
@@ -208,6 +211,29 @@ actual inline class ImDrawList(
       usingVec2 { ptrP2 -> 
         ImDrawList_AddLine(ptr, ptrP1, ptrP2, col.toLong(), thickness)
       }
+    }
+  }
+
+  actual fun addNgon(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int,
+    thickness: Float
+  ) {
+    usingVec2 { ptrCenter -> 
+      ImDrawList_AddNgon(ptr, ptrCenter, radius, col.toLong(), numSegments, thickness)
+    }
+  }
+
+  actual fun addNgonFilled(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int
+  ) {
+    usingVec2 { ptrCenter -> 
+      ImDrawList_AddNgonFilled(ptr, ptrCenter, radius, col.toLong(), numSegments)
     }
   }
 
@@ -417,15 +443,15 @@ actual inline class ImDrawList(
   }
 
   actual fun pathBezierCurveTo(
-    p1: Vec2,
     p2: Vec2,
     p3: Vec2,
+    p4: Vec2,
     numSegments: Int
   ) {
-    usingVec2 { ptrP1 -> 
-      usingVec2 { ptrP2 -> 
-        usingVec2 { ptrP3 -> 
-          ImDrawList_PathBezierCurveTo(ptr, ptrP1, ptrP2, ptrP3, numSegments)
+    usingVec2 { ptrP2 -> 
+      usingVec2 { ptrP3 -> 
+        usingVec2 { ptrP4 -> 
+          ImDrawList_PathBezierCurveTo(ptr, ptrP2, ptrP3, ptrP4, numSegments)
         }
       }
     }
@@ -543,6 +569,10 @@ actual inline class ImDrawList(
 
   actual fun primReserve(idxCount: Int, vtxCount: Int) {
     ImDrawList_PrimReserve(ptr, idxCount, vtxCount)
+  }
+
+  actual fun primUnreserve(idxCount: Int, vtxCount: Int) {
+    ImDrawList_PrimUnreserve(ptr, idxCount, vtxCount)
   }
 
   actual fun primVtx(

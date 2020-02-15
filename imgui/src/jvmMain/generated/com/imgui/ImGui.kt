@@ -393,17 +393,17 @@ actual object ImGui {
     actual fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>?): Boolean =
             igBeginPopup(strId, flags?.value ?: 0)
 
-    actual fun beginPopupContextItem(strId: String?, mouseButton: Int): Boolean =
-            igBeginPopupContextItem(strId, mouseButton)
+    actual fun beginPopupContextItem(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
+            igBeginPopupContextItem(strId, mouseButton.value)
 
-    actual fun beginPopupContextVoid(strId: String?, mouseButton: Int): Boolean =
-            igBeginPopupContextVoid(strId, mouseButton)
+    actual fun beginPopupContextVoid(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
+            igBeginPopupContextVoid(strId, mouseButton.value)
 
     actual fun beginPopupContextWindow(
         strId: String?,
-        mouseButton: Int,
+        mouseButton: ImGuiMouseButton,
         alsoOverItems: Boolean
-    ): Boolean = igBeginPopupContextWindow(strId, mouseButton, alsoOverItems)
+    ): Boolean = igBeginPopupContextWindow(strId, mouseButton.value, alsoOverItems)
 
     actual fun beginPopupModal(
         name: String,
@@ -952,9 +952,9 @@ actual object ImGui {
     actual fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let {
             ImGuiMouseCursor.from(it) }
 
-    actual fun getMouseDragDelta(button: Int, lockThreshold: Float): Vec2 = returnVec2 {
-            returnVal ->
-        igGetMouseDragDelta_nonUDT(returnVal, button, lockThreshold)
+    actual fun getMouseDragDelta(button: ImGuiMouseButton, lockThreshold: Float): Vec2 =
+            returnVec2 { returnVal ->
+        igGetMouseDragDelta_nonUDT(returnVal, button.value, lockThreshold)
     }
 
     actual fun getMousePos(): Vec2 = returnVec2 { returnVal ->
@@ -1186,7 +1186,8 @@ actual object ImGui {
 
     actual fun isItemActive(): Boolean = igIsItemActive()
 
-    actual fun isItemClicked(mouseButton: Int): Boolean = igIsItemClicked(mouseButton)
+    actual fun isItemClicked(mouseButton: ImGuiMouseButton): Boolean =
+            igIsItemClicked(mouseButton.value)
 
     actual fun isItemDeactivated(): Boolean = igIsItemDeactivated()
 
@@ -1210,15 +1211,16 @@ actual object ImGui {
 
     actual fun isKeyReleased(userKeyIndex: Int): Boolean = igIsKeyReleased(userKeyIndex)
 
-    actual fun isMouseClicked(button: Int, repeat: Boolean): Boolean = igIsMouseClicked(button,
-            repeat)
+    actual fun isMouseClicked(button: ImGuiMouseButton, repeat: Boolean): Boolean =
+            igIsMouseClicked(button.value, repeat)
 
-    actual fun isMouseDoubleClicked(button: Int): Boolean = igIsMouseDoubleClicked(button)
+    actual fun isMouseDoubleClicked(button: ImGuiMouseButton): Boolean =
+            igIsMouseDoubleClicked(button.value)
 
-    actual fun isMouseDown(button: Int): Boolean = igIsMouseDown(button)
+    actual fun isMouseDown(button: ImGuiMouseButton): Boolean = igIsMouseDown(button.value)
 
-    actual fun isMouseDragging(button: Int, lockThreshold: Float): Boolean =
-            igIsMouseDragging(button, lockThreshold)
+    actual fun isMouseDragging(button: ImGuiMouseButton, lockThreshold: Float): Boolean =
+            igIsMouseDragging(button.value, lockThreshold)
 
     actual fun isMouseHoveringRect(
         rMin: Vec2,
@@ -1232,7 +1234,7 @@ actual object ImGui {
 
     actual fun isMousePosValid(mousePos: ImVec2?): Boolean = igIsMousePosValid(mousePos?.ptr)
 
-    actual fun isMouseReleased(button: Int): Boolean = igIsMouseReleased(button)
+    actual fun isMouseReleased(button: ImGuiMouseButton): Boolean = igIsMouseReleased(button.value)
 
     actual fun isPopupOpen(strId: String): Boolean = igIsPopupOpen(strId)
 
@@ -1338,8 +1340,8 @@ actual object ImGui {
         igOpenPopup(strId)
     }
 
-    actual fun openPopupOnItemClick(strId: String?, mouseButton: Int): Boolean =
-            igOpenPopupOnItemClick(strId, mouseButton)
+    actual fun openPopupOnItemClick(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
+            igOpenPopupOnItemClick(strId, mouseButton.value)
 
     actual fun popAllowKeyboardFocus() {
         igPopAllowKeyboardFocus()
@@ -1466,8 +1468,8 @@ actual object ImGui {
         igRender()
     }
 
-    actual fun resetMouseDragDelta(button: Int) {
-        igResetMouseDragDelta(button)
+    actual fun resetMouseDragDelta(button: ImGuiMouseButton) {
+        igResetMouseDragDelta(button.value)
     }
 
     actual fun sameLine(offsetFromStartX: Float, spacing: Float) {
@@ -1559,8 +1561,8 @@ actual object ImGui {
         igSetKeyboardFocusHere(offset)
     }
 
-    actual fun setMouseCursor(type: ImGuiMouseCursor) {
-        igSetMouseCursor(type.value)
+    actual fun setMouseCursor(cursorType: ImGuiMouseCursor) {
+        igSetMouseCursor(cursorType.value)
     }
 
     actual fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>?) {

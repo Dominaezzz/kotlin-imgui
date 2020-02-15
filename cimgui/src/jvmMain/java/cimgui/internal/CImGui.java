@@ -1287,28 +1287,24 @@ public class CImGui {
     return CImGuiJNI.igGetKeyPressedAmount(key_index, repeat_delay, rate);
   }
 
-  public static boolean igIsMouseDown(int button) {
-    return CImGuiJNI.igIsMouseDown(button);
+  public static void igCaptureKeyboardFromApp(boolean want_capture_keyboard_value) {
+    CImGuiJNI.igCaptureKeyboardFromApp(want_capture_keyboard_value);
   }
 
-  public static boolean igIsAnyMouseDown() {
-    return CImGuiJNI.igIsAnyMouseDown();
+  public static boolean igIsMouseDown(int button) {
+    return CImGuiJNI.igIsMouseDown(button);
   }
 
   public static boolean igIsMouseClicked(int button, boolean repeat) {
     return CImGuiJNI.igIsMouseClicked(button, repeat);
   }
 
-  public static boolean igIsMouseDoubleClicked(int button) {
-    return CImGuiJNI.igIsMouseDoubleClicked(button);
-  }
-
   public static boolean igIsMouseReleased(int button) {
     return CImGuiJNI.igIsMouseReleased(button);
   }
 
-  public static boolean igIsMouseDragging(int button, float lock_threshold) {
-    return CImGuiJNI.igIsMouseDragging(button, lock_threshold);
+  public static boolean igIsMouseDoubleClicked(int button) {
+    return CImGuiJNI.igIsMouseDoubleClicked(button);
   }
 
   public static boolean igIsMouseHoveringRect(ImVec2 r_min, ImVec2 r_max, boolean clip) {
@@ -1319,12 +1315,20 @@ public class CImGui {
     return CImGuiJNI.igIsMousePosValid(ImVec2.getCPtr(mouse_pos), mouse_pos);
   }
 
+  public static boolean igIsAnyMouseDown() {
+    return CImGuiJNI.igIsAnyMouseDown();
+  }
+
   public static ImVec2 igGetMousePos() {
     return new ImVec2(CImGuiJNI.igGetMousePos(), true);
   }
 
   public static ImVec2 igGetMousePosOnOpeningCurrentPopup() {
     return new ImVec2(CImGuiJNI.igGetMousePosOnOpeningCurrentPopup(), true);
+  }
+
+  public static boolean igIsMouseDragging(int button, float lock_threshold) {
+    return CImGuiJNI.igIsMouseDragging(button, lock_threshold);
   }
 
   public static ImVec2 igGetMouseDragDelta(int button, float lock_threshold) {
@@ -1339,12 +1343,8 @@ public class CImGui {
     return CImGuiJNI.igGetMouseCursor();
   }
 
-  public static void igSetMouseCursor(int type) {
-    CImGuiJNI.igSetMouseCursor(type);
-  }
-
-  public static void igCaptureKeyboardFromApp(boolean want_capture_keyboard_value) {
-    CImGuiJNI.igCaptureKeyboardFromApp(want_capture_keyboard_value);
+  public static void igSetMouseCursor(int cursor_type) {
+    CImGuiJNI.igSetMouseCursor(cursor_type);
   }
 
   public static void igCaptureMouseFromApp(boolean want_capture_mouse_value) {
@@ -1826,6 +1826,14 @@ public class CImGui {
     CImGuiJNI.ImDrawList_AddCircleFilled(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(center), center, radius, col, num_segments);
   }
 
+  public static void ImDrawList_AddNgon(ImDrawList self, ImVec2 center, float radius, long col, int num_segments, float thickness) {
+    CImGuiJNI.ImDrawList_AddNgon(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(center), center, radius, col, num_segments, thickness);
+  }
+
+  public static void ImDrawList_AddNgonFilled(ImDrawList self, ImVec2 center, float radius, long col, int num_segments) {
+    CImGuiJNI.ImDrawList_AddNgonFilled(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(center), center, radius, col, num_segments);
+  }
+
   public static void ImDrawList_AddText(ImDrawList self, ImVec2 pos, long col, String text_begin, String text_end) {
     CImGuiJNI.ImDrawList_AddText(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(pos), pos, col, text_begin, text_end);
   }
@@ -1842,8 +1850,8 @@ public class CImGui {
     CImGuiJNI.ImDrawList_AddConvexPolyFilled(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(points), points, num_points, col);
   }
 
-  public static void ImDrawList_AddBezierCurve(ImDrawList self, ImVec2 pos0, ImVec2 cp0, ImVec2 cp1, ImVec2 pos1, long col, float thickness, int num_segments) {
-    CImGuiJNI.ImDrawList_AddBezierCurve(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(pos0), pos0, ImVec2.getCPtr(cp0), cp0, ImVec2.getCPtr(cp1), cp1, ImVec2.getCPtr(pos1), pos1, col, thickness, num_segments);
+  public static void ImDrawList_AddBezierCurve(ImDrawList self, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, long col, float thickness, int num_segments) {
+    CImGuiJNI.ImDrawList_AddBezierCurve(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(p1), p1, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, ImVec2.getCPtr(p4), p4, col, thickness, num_segments);
   }
 
   public static void ImDrawList_AddImage(ImDrawList self, SWIGTYPE_p_void user_texture_id, ImVec2 p_min, ImVec2 p_max, ImVec2 uv_min, ImVec2 uv_max, long col) {
@@ -1886,8 +1894,8 @@ public class CImGui {
     CImGuiJNI.ImDrawList_PathArcToFast(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(center), center, radius, a_min_of_12, a_max_of_12);
   }
 
-  public static void ImDrawList_PathBezierCurveTo(ImDrawList self, ImVec2 p1, ImVec2 p2, ImVec2 p3, int num_segments) {
-    CImGuiJNI.ImDrawList_PathBezierCurveTo(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(p1), p1, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, num_segments);
+  public static void ImDrawList_PathBezierCurveTo(ImDrawList self, ImVec2 p2, ImVec2 p3, ImVec2 p4, int num_segments) {
+    CImGuiJNI.ImDrawList_PathBezierCurveTo(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, ImVec2.getCPtr(p4), p4, num_segments);
   }
 
   public static void ImDrawList_PathRect(ImDrawList self, ImVec2 rect_min, ImVec2 rect_max, float rounding, int rounding_corners) {
@@ -1929,6 +1937,10 @@ public class CImGui {
 
   public static void ImDrawList_PrimReserve(ImDrawList self, int idx_count, int vtx_count) {
     CImGuiJNI.ImDrawList_PrimReserve(ImDrawList.getCPtr(self), self, idx_count, vtx_count);
+  }
+
+  public static void ImDrawList_PrimUnreserve(ImDrawList self, int idx_count, int vtx_count) {
+    CImGuiJNI.ImDrawList_PrimUnreserve(ImDrawList.getCPtr(self), self, idx_count, vtx_count);
   }
 
   public static void ImDrawList_PrimRect(ImDrawList self, ImVec2 a, ImVec2 b, long col) {

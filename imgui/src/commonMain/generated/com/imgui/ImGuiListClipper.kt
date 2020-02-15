@@ -5,17 +5,17 @@ import kotlin.Float
 import kotlin.Int
 
 expect class ImGuiListClipper {
-  val startPosY: Float
+  val displayStart: Int
 
-  val itemsHeight: Float
+  val displayEnd: Int
 
   val itemsCount: Int
 
   val stepNo: Int
 
-  val displayStart: Int
+  val itemsHeight: Float
 
-  val displayEnd: Int
+  val startPosY: Float
 
   constructor(itemsCount: Int = -1, itemsHeight: Float = -1.0f)
 

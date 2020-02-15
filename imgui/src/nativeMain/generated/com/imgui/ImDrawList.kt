@@ -9,6 +9,8 @@ import cimgui.internal.ImDrawList_AddImage
 import cimgui.internal.ImDrawList_AddImageQuad
 import cimgui.internal.ImDrawList_AddImageRounded
 import cimgui.internal.ImDrawList_AddLine
+import cimgui.internal.ImDrawList_AddNgon
+import cimgui.internal.ImDrawList_AddNgonFilled
 import cimgui.internal.ImDrawList_AddPolyline
 import cimgui.internal.ImDrawList_AddQuad
 import cimgui.internal.ImDrawList_AddQuadFilled
@@ -43,6 +45,7 @@ import cimgui.internal.ImDrawList_PrimQuadUV
 import cimgui.internal.ImDrawList_PrimRect
 import cimgui.internal.ImDrawList_PrimRectUV
 import cimgui.internal.ImDrawList_PrimReserve
+import cimgui.internal.ImDrawList_PrimUnreserve
 import cimgui.internal.ImDrawList_PrimVtx
 import cimgui.internal.ImDrawList_PrimWriteVtx
 import cimgui.internal.ImDrawList_PushClipRect
@@ -71,16 +74,16 @@ actual inline class ImDrawList(
       this(ImDrawList_ImDrawList(sharedData.ptr)!!)
 
   actual fun addBezierCurve(
-    pos0: Vec2,
-    cp0: Vec2,
-    cp1: Vec2,
-    pos1: Vec2,
+    p1: Vec2,
+    p2: Vec2,
+    p3: Vec2,
+    p4: Vec2,
     col: UInt,
     thickness: Float,
     numSegments: Int
   ) {
-    ImDrawList_AddBezierCurve(ptr, pos0.toCValue(), cp0.toCValue(), cp1.toCValue(), pos1.toCValue(),
-        col, thickness, numSegments)
+    ImDrawList_AddBezierCurve(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), p4.toCValue(), col,
+        thickness, numSegments)
   }
 
   actual fun addCircle(
@@ -163,6 +166,25 @@ actual inline class ImDrawList(
     thickness: Float
   ) {
     ImDrawList_AddLine(ptr, p1.toCValue(), p2.toCValue(), col, thickness)
+  }
+
+  actual fun addNgon(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int,
+    thickness: Float
+  ) {
+    ImDrawList_AddNgon(ptr, center.toCValue(), radius, col, numSegments, thickness)
+  }
+
+  actual fun addNgonFilled(
+    center: Vec2,
+    radius: Float,
+    col: UInt,
+    numSegments: Int
+  ) {
+    ImDrawList_AddNgonFilled(ptr, center.toCValue(), radius, col, numSegments)
   }
 
   actual fun addPolyline(
@@ -320,12 +342,12 @@ actual inline class ImDrawList(
   }
 
   actual fun pathBezierCurveTo(
-    p1: Vec2,
     p2: Vec2,
     p3: Vec2,
+    p4: Vec2,
     numSegments: Int
   ) {
-    ImDrawList_PathBezierCurveTo(ptr, p1.toCValue(), p2.toCValue(), p3.toCValue(), numSegments)
+    ImDrawList_PathBezierCurveTo(ptr, p2.toCValue(), p3.toCValue(), p4.toCValue(), numSegments)
   }
 
   actual fun pathClear() {
@@ -405,6 +427,10 @@ actual inline class ImDrawList(
 
   actual fun primReserve(idxCount: Int, vtxCount: Int) {
     ImDrawList_PrimReserve(ptr, idxCount, vtxCount)
+  }
+
+  actual fun primUnreserve(idxCount: Int, vtxCount: Int) {
+    ImDrawList_PrimUnreserve(ptr, idxCount, vtxCount)
   }
 
   actual fun primVtx(

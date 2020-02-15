@@ -64,13 +64,15 @@ expect object ImGui {
 
     fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>? = null): Boolean
 
-    fun beginPopupContextItem(strId: String? = null, mouseButton: Int = 1): Boolean
+    fun beginPopupContextItem(strId: String? = null, mouseButton: ImGuiMouseButton =
+            ImGuiMouseButton.Right): Boolean
 
-    fun beginPopupContextVoid(strId: String? = null, mouseButton: Int = 1): Boolean
+    fun beginPopupContextVoid(strId: String? = null, mouseButton: ImGuiMouseButton =
+            ImGuiMouseButton.Right): Boolean
 
     fun beginPopupContextWindow(
         strId: String? = null,
-        mouseButton: Int = 1,
+        mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
         alsoOverItems: Boolean = true
     ): Boolean
 
@@ -421,7 +423,8 @@ expect object ImGui {
 
     fun getMouseCursor(): ImGuiMouseCursor
 
-    fun getMouseDragDelta(button: Int = 0, lockThreshold: Float = -1.0f): Vec2
+    fun getMouseDragDelta(button: ImGuiMouseButton = ImGuiMouseButton.Left, lockThreshold: Float
+            = -1.0f): Vec2
 
     fun getMousePos(): Vec2
 
@@ -569,7 +572,7 @@ expect object ImGui {
 
     fun isItemActive(): Boolean
 
-    fun isItemClicked(mouseButton: Int = 0): Boolean
+    fun isItemClicked(mouseButton: ImGuiMouseButton = ImGuiMouseButton.Left): Boolean
 
     fun isItemDeactivated(): Boolean
 
@@ -591,13 +594,13 @@ expect object ImGui {
 
     fun isKeyReleased(userKeyIndex: Int): Boolean
 
-    fun isMouseClicked(button: Int, repeat: Boolean = false): Boolean
+    fun isMouseClicked(button: ImGuiMouseButton, repeat: Boolean = false): Boolean
 
-    fun isMouseDoubleClicked(button: Int): Boolean
+    fun isMouseDoubleClicked(button: ImGuiMouseButton): Boolean
 
-    fun isMouseDown(button: Int): Boolean
+    fun isMouseDown(button: ImGuiMouseButton): Boolean
 
-    fun isMouseDragging(button: Int = 0, lockThreshold: Float = -1.0f): Boolean
+    fun isMouseDragging(button: ImGuiMouseButton, lockThreshold: Float = -1.0f): Boolean
 
     fun isMouseHoveringRect(
         rMin: Vec2,
@@ -607,7 +610,7 @@ expect object ImGui {
 
     fun isMousePosValid(mousePos: ImVec2? = null): Boolean
 
-    fun isMouseReleased(button: Int): Boolean
+    fun isMouseReleased(button: ImGuiMouseButton): Boolean
 
     fun isPopupOpen(strId: String): Boolean
 
@@ -673,7 +676,8 @@ expect object ImGui {
 
     fun openPopup(strId: String)
 
-    fun openPopupOnItemClick(strId: String? = null, mouseButton: Int = 1): Boolean
+    fun openPopupOnItemClick(strId: String? = null, mouseButton: ImGuiMouseButton =
+            ImGuiMouseButton.Right): Boolean
 
     fun popAllowKeyboardFocus()
 
@@ -739,7 +743,7 @@ expect object ImGui {
 
     fun render()
 
-    fun resetMouseDragDelta(button: Int = 0)
+    fun resetMouseDragDelta(button: ImGuiMouseButton = ImGuiMouseButton.Left)
 
     fun sameLine(offsetFromStartX: Float = 0.0f, spacing: Float = -1.0f)
 
@@ -787,7 +791,7 @@ expect object ImGui {
 
     fun setKeyboardFocusHere(offset: Int = 0)
 
-    fun setMouseCursor(type: ImGuiMouseCursor)
+    fun setMouseCursor(cursorType: ImGuiMouseCursor)
 
     fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>? = null)
 

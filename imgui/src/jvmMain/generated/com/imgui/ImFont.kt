@@ -57,6 +57,9 @@ actual inline class ImFont(
   actual val ellipsisChar: Char
     get() = ptr.ellipsisChar.toShort().toChar()
 
+  actual val dirtyLookupTables: Boolean
+    get() = ptr.dirtyLookupTables
+
   actual val scale: Float
     get() = ptr.scale
 
@@ -68,9 +71,6 @@ actual inline class ImFont(
 
   actual val metricsTotalSurface: Int
     get() = ptr.metricsTotalSurface
-
-  actual val dirtyLookupTables: Boolean
-    get() = ptr.dirtyLookupTables
 
   actual constructor() : this(ImFont_ImFont()!!)
 

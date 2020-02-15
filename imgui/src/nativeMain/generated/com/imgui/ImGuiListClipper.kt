@@ -16,11 +16,11 @@ import kotlinx.cinterop.pointed
 actual inline class ImGuiListClipper(
   val ptr: CPointer<cimgui.internal.ImGuiListClipper>
 ) {
-  actual val startPosY: Float
-    get() = ptr.pointed.StartPosY
+  actual val displayStart: Int
+    get() = ptr.pointed.DisplayStart
 
-  actual val itemsHeight: Float
-    get() = ptr.pointed.ItemsHeight
+  actual val displayEnd: Int
+    get() = ptr.pointed.DisplayEnd
 
   actual val itemsCount: Int
     get() = ptr.pointed.ItemsCount
@@ -28,11 +28,11 @@ actual inline class ImGuiListClipper(
   actual val stepNo: Int
     get() = ptr.pointed.StepNo
 
-  actual val displayStart: Int
-    get() = ptr.pointed.DisplayStart
+  actual val itemsHeight: Float
+    get() = ptr.pointed.ItemsHeight
 
-  actual val displayEnd: Int
-    get() = ptr.pointed.DisplayEnd
+  actual val startPosY: Float
+    get() = ptr.pointed.StartPosY
 
   actual constructor(itemsCount: Int, itemsHeight: Float) :
       this(ImGuiListClipper_ImGuiListClipper(itemsCount, itemsHeight)!!)

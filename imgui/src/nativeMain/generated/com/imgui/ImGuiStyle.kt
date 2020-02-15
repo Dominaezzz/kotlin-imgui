@@ -115,6 +115,9 @@ actual inline class ImGuiStyle(
   actual val curveTessellationTol: Float
     get() = ptr.pointed.CurveTessellationTol
 
+  actual val circleSegmentMaxError: Float
+    get() = ptr.pointed.CircleSegmentMaxError
+
   actual constructor() : this(ImGuiStyle_ImGuiStyle()!!)
 
   actual fun scaleAllSizes(scaleFactor: Float) {

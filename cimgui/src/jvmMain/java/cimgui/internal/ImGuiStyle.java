@@ -319,6 +319,14 @@ public class ImGuiStyle {
     return CImGuiJNI.ImGuiStyle_CurveTessellationTol_get(swigCPtr, this);
   }
 
+  public void setCircleSegmentMaxError(float value) {
+    CImGuiJNI.ImGuiStyle_CircleSegmentMaxError_set(swigCPtr, this, value);
+  }
+
+  public float getCircleSegmentMaxError() {
+    return CImGuiJNI.ImGuiStyle_CircleSegmentMaxError_get(swigCPtr, this);
+  }
+
   public void setColors(ImVec4 value) {
     CImGuiJNI.ImGuiStyle_Colors_set(swigCPtr, this, ImVec4.getCPtr(value), value);
   }

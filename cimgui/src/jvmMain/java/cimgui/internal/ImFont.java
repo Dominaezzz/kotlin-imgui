@@ -139,6 +139,14 @@ public class ImFont {
     return CImGuiJNI.ImFont_EllipsisChar_get(swigCPtr, this);
   }
 
+  public void setDirtyLookupTables(boolean value) {
+    CImGuiJNI.ImFont_DirtyLookupTables_set(swigCPtr, this, value);
+  }
+
+  public boolean getDirtyLookupTables() {
+    return CImGuiJNI.ImFont_DirtyLookupTables_get(swigCPtr, this);
+  }
+
   public void setScale(float value) {
     CImGuiJNI.ImFont_Scale_set(swigCPtr, this, value);
   }
@@ -169,14 +177,6 @@ public class ImFont {
 
   public int getMetricsTotalSurface() {
     return CImGuiJNI.ImFont_MetricsTotalSurface_get(swigCPtr, this);
-  }
-
-  public void setDirtyLookupTables(boolean value) {
-    CImGuiJNI.ImFont_DirtyLookupTables_set(swigCPtr, this, value);
-  }
-
-  public boolean getDirtyLookupTables() {
-    return CImGuiJNI.ImFont_DirtyLookupTables_get(swigCPtr, this);
   }
 
   public ImFont() {
