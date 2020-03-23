@@ -4,7 +4,7 @@ import cimgui.internal.*
 import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
-import kotlinx.io.core.Closeable
+import io.ktor.utils.io.core.Closeable
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.system.Callback
 import org.lwjgl.system.dyncall.DynCallback.dcbArgPointer

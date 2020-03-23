@@ -4,8 +4,8 @@ import cimgui.internal.*
 import com.imgui.ImGui
 import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
+import io.ktor.utils.io.core.Closeable
 import kotlinx.cinterop.*
-import kotlinx.io.core.Closeable
 
 //----------------------------------------
 // OpenGL    GLSL      GLSL

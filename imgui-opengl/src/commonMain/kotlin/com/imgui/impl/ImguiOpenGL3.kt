@@ -1,6 +1,6 @@
 package com.imgui.impl
 
-import kotlinx.io.core.Closeable
+import io.ktor.utils.io.core.Closeable
 
 //----------------------------------------
 // OpenGL    GLSL      GLSL

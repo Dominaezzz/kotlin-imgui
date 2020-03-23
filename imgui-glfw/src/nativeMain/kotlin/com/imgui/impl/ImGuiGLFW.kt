@@ -5,8 +5,8 @@ import cglfw.glfwSetClipboardString
 import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
+import io.ktor.utils.io.core.Closeable
 import kotlinx.cinterop.*
-import kotlinx.io.core.Closeable
 import platform.posix.memset
 
 actual class ImGuiGLFW actual constructor(private val window: Window, installCallbacks: Boolean): Closeable {

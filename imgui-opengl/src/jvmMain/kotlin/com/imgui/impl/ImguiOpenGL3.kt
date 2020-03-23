@@ -3,7 +3,7 @@ package com.imgui.impl
 import cimgui.internal.*
 import com.imgui.ImGui
 import com.imgui.ImGuiBackendFlags
-import kotlinx.io.core.Closeable
+import io.ktor.utils.io.core.Closeable
 import org.lwjgl.opengl.*
 
 //----------------------------------------

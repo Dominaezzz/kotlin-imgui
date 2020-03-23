@@ -2,7 +2,7 @@ package com.imgui.impl
 
 import com.kgl.core.Flag
 import com.kgl.glfw.*
-import kotlinx.io.core.Closeable
+import io.ktor.utils.io.core.Closeable
 
 expect class ImGuiGLFW(window: Window, installCallbacks: Boolean): Closeable {
 	fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>)
