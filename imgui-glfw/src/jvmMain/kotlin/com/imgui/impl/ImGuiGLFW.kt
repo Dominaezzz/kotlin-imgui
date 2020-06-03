@@ -9,15 +9,15 @@ import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.system.Callback
 import org.lwjgl.system.dyncall.DynCallback.dcbArgPointer
 
-actual class ImGuiGLFW actual constructor(private val window: Window, installCallbacks: Boolean): Closeable {
+actual class ImGuiGLFW actual constructor(private val window: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
 	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
 
-	private val prevUserCallbackMouseButton: MouseButtonCallback? = null
-	private val prevUserCallbackScroll: ScrollCallback? = null
-	private val prevUserCallbackKey: KeyCallback? = null
-	private val prevUserCallbackChar: CharCallback? = null
+	private val prevUserCallbackMouseButton: MouseButtonCallback?
+	private val prevUserCallbackScroll: ScrollCallback?
+	private val prevUserCallbackKey: KeyCallback?
+	private val prevUserCallbackChar: CharCallback?
 
 	init {
 		val io = ImGui.getIO().ptr
@@ -85,15 +85,16 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 		mouseCursors[ImGuiMouseCursor.ResizeNWSE.value] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
 		mouseCursors[ImGuiMouseCursor.Hand.value] = Cursor(Cursor.Standard.Hand)
 
-		// prevUserCallbackMouseButton = null
-		// prevUserCallbackScroll = null
-		// prevUserCallbackKey = null
-		// prevUserCallbackChar = null
 		if (installCallbacks) {
-			window.setMouseButtonCallback(this::mouseButtonCallback)
-			window.setScrollCallback(this::scrollCallback)
-			window.setKeyCallback(this::keyCallback)
-			window.setCharCallback(this::charCallback)
+			prevUserCallbackMouseButton = window.setMouseButtonCallback(this::mouseButtonCallback)
+			prevUserCallbackScroll = window.setScrollCallback(this::scrollCallback)
+			prevUserCallbackKey = window.setKeyCallback(this::keyCallback)
+			prevUserCallbackChar = window.setCharCallback(this::charCallback)
+		} else {
+			prevUserCallbackMouseButton = null
+			prevUserCallbackScroll = null
+			prevUserCallbackKey = null
+			prevUserCallbackChar = null
 		}
 	}
 
@@ -215,6 +216,7 @@ actual class ImGuiGLFW actual constructor(private val window: Window, installCal
 						io.navInputs[navNo.value] = 1.0f
 					}
 				}
+
 				fun mapAnalog(navNo: ImGuiNavInput, axisNo: Int, v0: Float, v1: Float) {
 					var v = if (axesCount > axisNo) axes[axesCount] else v0
 					v = (v - v0) / (v1 - v0)
