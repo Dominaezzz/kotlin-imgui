@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.3.61"
+    kotlin("plugin.serialization") version "1.3.71"
     application
 }
 
@@ -9,7 +9,7 @@ val imGuiVersion: String by rootProject.extra
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.squareup:kotlinpoet:1.4.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 }
 
 application {
