@@ -60,14 +60,6 @@ expect class ImFont {
 
   fun buildLookupTable()
 
-  fun calcTextSizeA(
-    size: Float,
-    maxWidth: Float,
-    wrapWidth: Float,
-    textBegin: String,
-    textEnd: String? = null
-  ): Vec2
-
   fun calcWordWrapPositionA(
     scale: Float,
     text: String,
@@ -86,6 +78,8 @@ expect class ImFont {
   fun getDebugName(): String?
 
   fun growIndex(newSize: Int)
+
+  fun isGlyphRangeUnused(cBegin: UInt, cLast: UInt): Boolean
 
   fun isLoaded(): Boolean
 
@@ -110,6 +104,8 @@ expect class ImFont {
   )
 
   fun setFallbackChar(c: Char)
+
+  fun setGlyphVisible(c: Char, visible: Boolean)
 
   fun destroy()
 }

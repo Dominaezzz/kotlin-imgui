@@ -1,7 +1,7 @@
 package com.imgui
 
-import cimgui.internal.ImVec4_ImVec4
 import cimgui.internal.ImVec4_ImVec4Float
+import cimgui.internal.ImVec4_ImVec4Nil
 import cimgui.internal.ImVec4_destroy
 import kotlin.Float
 import kotlin.Suppress
@@ -24,7 +24,7 @@ actual inline class ImVec4(
   actual val w: Float
     get() = ptr.pointed.w
 
-  actual constructor() : this(ImVec4_ImVec4()!!)
+  actual constructor() : this(ImVec4_ImVec4Nil()!!)
 
   actual constructor(
     x: Float,

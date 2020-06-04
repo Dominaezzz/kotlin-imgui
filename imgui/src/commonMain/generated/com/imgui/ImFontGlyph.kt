@@ -1,10 +1,12 @@
 package com.imgui
 
-import kotlin.Char
 import kotlin.Float
+import kotlin.UInt
 
 expect class ImFontGlyph {
-  val codepoint: Char
+  val codepoint: UInt
+
+  val visible: UInt
 
   val advanceX: Float
 

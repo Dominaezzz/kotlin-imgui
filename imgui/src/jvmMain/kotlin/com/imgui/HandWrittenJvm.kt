@@ -62,7 +62,7 @@ actual fun ImGui.setNextWindowSizeConstraints(sizeMin: Vec2, sizeMax: Vec2, cust
 
 actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: Array<String>, popupMaxHeightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
-		CImGui.igCombo(label, currentItemPtr, items, popupMaxHeightInItems)
+		CImGui.igComboStr_arr(label, currentItemPtr, items, popupMaxHeightInItems)
 	}
 }
 
@@ -119,7 +119,7 @@ actual fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valu
 actual fun ImGui.plotLines(label: String, values: FloatArray, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2, stride: Int) {
 	values.nativeCopy { valuesPinned ->
 		usingVec2(graphSize) { graphSizePtr ->
-			CImGui.igPlotLines(label, valuesPinned, values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr, stride)
+			CImGui.igPlotLinesFloatPtr(label, valuesPinned, values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr, stride)
 		}
 	}
 }

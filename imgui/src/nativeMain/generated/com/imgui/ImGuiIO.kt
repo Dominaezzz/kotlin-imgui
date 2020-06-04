@@ -157,6 +157,9 @@ actual inline class ImGuiIO(
   actual val mouseDelta: Vec2
     get() = ptr.pointed.MouseDelta.fromCValue()
 
+  actual val keyMods: Flag<ImGuiKeyModFlags>
+    get() = ptr.pointed.KeyMods.let { ImGuiKeyModFlags.fromMultiple(it) }
+
   actual val mousePosPrev: Vec2
     get() = ptr.pointed.MousePosPrev.fromCValue()
 

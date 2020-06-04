@@ -41,6 +41,7 @@
 %ignore igTreeNodeExVPtr;
 %ignore igSetTooltipV;
 %ignore ImGuiTextBuffer_appendfv;
+%ignore igImFormatStringV;
 
 
 %include cimgui_stringarray.i

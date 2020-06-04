@@ -19,6 +19,8 @@ expect enum class ImGuiColorEditFlags : Flag<ImGuiColorEditFlags> {
 
   NoDragDrop,
 
+  NoBorder,
+
   AlphaBar,
 
   AlphaPreview,

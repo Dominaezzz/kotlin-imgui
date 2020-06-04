@@ -71,13 +71,13 @@ public class ImDrawList {
     return CImGuiJNI.ImDrawList_Flags_get(swigCPtr, this);
   }
 
-  public void set_Data(SWIGTYPE_p_ImDrawListSharedData value) {
-    CImGuiJNI.ImDrawList__Data_set(swigCPtr, this, SWIGTYPE_p_ImDrawListSharedData.getCPtr(value));
+  public void set_Data(ImDrawListSharedData value) {
+    CImGuiJNI.ImDrawList__Data_set(swigCPtr, this, ImDrawListSharedData.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_ImDrawListSharedData get_Data() {
+  public ImDrawListSharedData get_Data() {
     long cPtr = CImGuiJNI.ImDrawList__Data_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ImDrawListSharedData(cPtr, false);
+    return (cPtr == 0) ? null : new ImDrawListSharedData(cPtr, false);
   }
 
   public void set_OwnerName(String value) {

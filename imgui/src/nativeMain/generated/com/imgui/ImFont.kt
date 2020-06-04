@@ -3,7 +3,6 @@ package com.imgui
 import cimgui.internal.ImFont_AddGlyph
 import cimgui.internal.ImFont_AddRemapChar
 import cimgui.internal.ImFont_BuildLookupTable
-import cimgui.internal.ImFont_CalcTextSizeA
 import cimgui.internal.ImFont_CalcWordWrapPositionA
 import cimgui.internal.ImFont_ClearOutputData
 import cimgui.internal.ImFont_FindGlyph
@@ -12,10 +11,12 @@ import cimgui.internal.ImFont_GetCharAdvance
 import cimgui.internal.ImFont_GetDebugName
 import cimgui.internal.ImFont_GrowIndex
 import cimgui.internal.ImFont_ImFont
+import cimgui.internal.ImFont_IsGlyphRangeUnused
 import cimgui.internal.ImFont_IsLoaded
 import cimgui.internal.ImFont_RenderChar
 import cimgui.internal.ImFont_RenderText
 import cimgui.internal.ImFont_SetFallbackChar
+import cimgui.internal.ImFont_SetGlyphVisible
 import cimgui.internal.ImFont_destroy
 import kotlin.Boolean
 import kotlin.Char
@@ -104,15 +105,6 @@ actual inline class ImFont(
     ImFont_BuildLookupTable(ptr)
   }
 
-  actual fun calcTextSizeA(
-    size: Float,
-    maxWidth: Float,
-    wrapWidth: Float,
-    textBegin: String,
-    textEnd: String?
-  ): Vec2 = ImFont_CalcTextSizeA(ptr, size, maxWidth, wrapWidth, textBegin, textEnd,
-      null).fromCValue()
-
   actual fun calcWordWrapPositionA(
     scale: Float,
     text: String,
@@ -137,6 +129,9 @@ actual inline class ImFont(
   actual fun growIndex(newSize: Int) {
     ImFont_GrowIndex(ptr, newSize)
   }
+
+  actual fun isGlyphRangeUnused(cBegin: UInt, cLast: UInt): Boolean = ImFont_IsGlyphRangeUnused(ptr,
+      cBegin, cLast)
 
   actual fun isLoaded(): Boolean = ImFont_IsLoaded(ptr)
 
@@ -167,6 +162,10 @@ actual inline class ImFont(
 
   actual fun setFallbackChar(c: Char) {
     ImFont_SetFallbackChar(ptr, c.toShort().toUShort())
+  }
+
+  actual fun setGlyphVisible(c: Char, visible: Boolean) {
+    ImFont_SetGlyphVisible(ptr, c.toShort().toUShort(), visible)
   }
 
   actual fun destroy() {
