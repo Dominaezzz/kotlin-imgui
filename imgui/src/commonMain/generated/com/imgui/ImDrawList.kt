@@ -195,10 +195,6 @@ expect class ImDrawList {
 
   fun cloneOutput(): ImDrawList
 
-  fun getClipRectMax(): Vec2
-
-  fun getClipRectMin(): Vec2
-
   fun pathArcTo(
     center: Vec2,
     radius: Float,

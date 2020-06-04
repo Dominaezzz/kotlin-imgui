@@ -1,8 +1,8 @@
 package com.imgui
 
-import kotlin.Char
 import kotlin.Float
 import kotlin.Suppress
+import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 
@@ -10,8 +10,11 @@ import kotlinx.cinterop.pointed
 actual inline class ImFontGlyph(
   val ptr: CPointer<cimgui.internal.ImFontGlyph>
 ) {
-  actual val codepoint: Char
-    get() = ptr.pointed.Codepoint.toShort().toChar()
+  actual val codepoint: UInt
+    get() = ptr.pointed.Codepoint.toUInt()
+
+  actual val visible: UInt
+    get() = ptr.pointed.Visible.toUInt()
 
   actual val advanceX: Float
     get() = ptr.pointed.AdvanceX

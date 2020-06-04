@@ -19,6 +19,7 @@ public final class ImGuiColorEditFlags_ {
   public final static int ImGuiColorEditFlags_NoLabel = 1 << 7;
   public final static int ImGuiColorEditFlags_NoSidePreview = 1 << 8;
   public final static int ImGuiColorEditFlags_NoDragDrop = 1 << 9;
+  public final static int ImGuiColorEditFlags_NoBorder = 1 << 10;
   public final static int ImGuiColorEditFlags_AlphaBar = 1 << 16;
   public final static int ImGuiColorEditFlags_AlphaPreview = 1 << 17;
   public final static int ImGuiColorEditFlags_AlphaPreviewHalf = 1 << 18;

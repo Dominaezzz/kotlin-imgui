@@ -12,6 +12,7 @@ import cimgui.internal.ImGuiColorEditFlags_HDR
 import cimgui.internal.ImGuiColorEditFlags_InputHSV
 import cimgui.internal.ImGuiColorEditFlags_InputRGB
 import cimgui.internal.ImGuiColorEditFlags_NoAlpha
+import cimgui.internal.ImGuiColorEditFlags_NoBorder
 import cimgui.internal.ImGuiColorEditFlags_NoDragDrop
 import cimgui.internal.ImGuiColorEditFlags_NoInputs
 import cimgui.internal.ImGuiColorEditFlags_NoLabel
@@ -45,6 +46,8 @@ actual enum class ImGuiColorEditFlags(
   NoSidePreview(ImGuiColorEditFlags_NoSidePreview.convert()),
 
   NoDragDrop(ImGuiColorEditFlags_NoDragDrop.convert()),
+
+  NoBorder(ImGuiColorEditFlags_NoBorder.convert()),
 
   AlphaBar(ImGuiColorEditFlags_AlphaBar.convert()),
 
@@ -88,6 +91,7 @@ actual enum class ImGuiColorEditFlags(
       ImGuiColorEditFlags_NoLabel -> NoLabel
       ImGuiColorEditFlags_NoSidePreview -> NoSidePreview
       ImGuiColorEditFlags_NoDragDrop -> NoDragDrop
+      ImGuiColorEditFlags_NoBorder -> NoBorder
       ImGuiColorEditFlags_AlphaBar -> AlphaBar
       ImGuiColorEditFlags_AlphaPreview -> AlphaPreview
       ImGuiColorEditFlags_AlphaPreviewHalf -> AlphaPreviewHalf
