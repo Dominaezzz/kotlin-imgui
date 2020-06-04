@@ -2,12 +2,13 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.UnstableDefault
-import kotlinx.serialization.internal.StringSerializer
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.list
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.list
-import kotlinx.serialization.map
 import java.nio.file.Paths
 
 val POINTED = MemberName("kotlinx.cinterop", "pointed")
@@ -68,6 +69,8 @@ val cArrayRegex = Regex("([a-z]+)\\[([2-9])]")
 val vec2Regex = Regex("ImVec2\\((-?\\d+),(-?\\d+)\\)")
 val vec4Regex = Regex("ImVec4\\((-?\\d+),(-?\\d+),(-?\\d+),(-?\\d+)\\)")
 
+val CImGuiJson = Json(JsonConfiguration.Stable.copy(isLenient = true, ignoreUnknownKeys = true))
+
 @UnstableDefault
 @ImplicitReflectionSerializer
 fun main(args: Array<String>) {
@@ -81,8 +84,8 @@ fun main(args: Array<String>) {
 	val definitionsStr = inputDir.resolve("definitions.json").toFile().readText()
 	val structsAndEnumsStr = inputDir.resolve("structs_and_enums.json").toFile().readText()
 
-	val definitions = Json.nonstrict.parse((StringSerializer to Definition.serializer().list).map, definitionsStr)
-	val (enums, structs) = Json.nonstrict.parse(StructsAndEnums.serializer(), structsAndEnumsStr)
+	val definitions = CImGuiJson.parse(MapSerializer(String.serializer(), Definition.serializer().list), definitionsStr)
+	val (enums, structs) = CImGuiJson.parse(StructsAndEnums.serializer(), structsAndEnumsStr)
 
 	val enumBitMasks = enums.entries
 			.filter { (enumName, entries) ->
