@@ -9,8 +9,17 @@
 package cimgui.internal;
 
 public class CImGui {
-  public static ImVec2 ImVec2_ImVec2() {
-    long cPtr = CImGuiJNI.ImVec2_ImVec2();
+  public static void setGImGui(ImGuiContext value) {
+    CImGuiJNI.GImGui_set(ImGuiContext.getCPtr(value), value);
+  }
+
+  public static ImGuiContext getGImGui() {
+    long cPtr = CImGuiJNI.GImGui_get();
+    return (cPtr == 0) ? null : new ImGuiContext(cPtr, false);
+  }
+
+  public static ImVec2 ImVec2_ImVec2Nil() {
+    long cPtr = CImGuiJNI.ImVec2_ImVec2Nil();
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
   }
 
@@ -23,8 +32,8 @@ public class CImGui {
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
   }
 
-  public static ImVec4 ImVec4_ImVec4() {
-    long cPtr = CImGuiJNI.ImVec4_ImVec4();
+  public static ImVec4 ImVec4_ImVec4Nil() {
+    long cPtr = CImGuiJNI.ImVec4_ImVec4Nil();
     return (cPtr == 0) ? null : new ImVec4(cPtr, false);
   }
 
@@ -37,26 +46,22 @@ public class CImGui {
     return (cPtr == 0) ? null : new ImVec4(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ImGuiContext igCreateContext(ImFontAtlas shared_font_atlas) {
+  public static ImGuiContext igCreateContext(ImFontAtlas shared_font_atlas) {
     long cPtr = CImGuiJNI.igCreateContext(ImFontAtlas.getCPtr(shared_font_atlas), shared_font_atlas);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ImGuiContext(cPtr, false);
+    return (cPtr == 0) ? null : new ImGuiContext(cPtr, false);
   }
 
-  public static void igDestroyContext(SWIGTYPE_p_ImGuiContext ctx) {
-    CImGuiJNI.igDestroyContext(SWIGTYPE_p_ImGuiContext.getCPtr(ctx));
+  public static void igDestroyContext(ImGuiContext ctx) {
+    CImGuiJNI.igDestroyContext(ImGuiContext.getCPtr(ctx), ctx);
   }
 
-  public static SWIGTYPE_p_ImGuiContext igGetCurrentContext() {
+  public static ImGuiContext igGetCurrentContext() {
     long cPtr = CImGuiJNI.igGetCurrentContext();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ImGuiContext(cPtr, false);
+    return (cPtr == 0) ? null : new ImGuiContext(cPtr, false);
   }
 
-  public static void igSetCurrentContext(SWIGTYPE_p_ImGuiContext ctx) {
-    CImGuiJNI.igSetCurrentContext(SWIGTYPE_p_ImGuiContext.getCPtr(ctx));
-  }
-
-  public static boolean igDebugCheckVersionAndDataLayout(String version_str, long sz_io, long sz_style, long sz_vec2, long sz_vec4, long sz_drawvert, long sz_drawidx) {
-    return CImGuiJNI.igDebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx);
+  public static void igSetCurrentContext(ImGuiContext ctx) {
+    CImGuiJNI.igSetCurrentContext(ImGuiContext.getCPtr(ctx), ctx);
   }
 
   public static ImGuiIO igGetIO() {
@@ -138,8 +143,8 @@ public class CImGui {
     CImGuiJNI.igEnd();
   }
 
-  public static boolean igBeginChild(String str_id, ImVec2 size, boolean border, int flags) {
-    return CImGuiJNI.igBeginChild(str_id, ImVec2.getCPtr(size), size, border, flags);
+  public static boolean igBeginChildStr(String str_id, ImVec2 size, boolean border, int flags) {
+    return CImGuiJNI.igBeginChildStr(str_id, ImVec2.getCPtr(size), size, border, flags);
   }
 
   public static boolean igBeginChildID(long id, ImVec2 size, boolean border, int flags) {
@@ -171,12 +176,12 @@ public class CImGui {
     return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
   }
 
-  public static ImVec2 igGetWindowPos() {
-    return new ImVec2(CImGuiJNI.igGetWindowPos(), true);
+  public static void igGetWindowPos(ImVec2 pOut) {
+    CImGuiJNI.igGetWindowPos(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetWindowSize() {
-    return new ImVec2(CImGuiJNI.igGetWindowSize(), true);
+  public static void igGetWindowSize(ImVec2 pOut) {
+    CImGuiJNI.igGetWindowSize(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static float igGetWindowWidth() {
@@ -227,8 +232,8 @@ public class CImGui {
     CImGuiJNI.igSetWindowCollapsedBool(collapsed, cond);
   }
 
-  public static void igSetWindowFocus() {
-    CImGuiJNI.igSetWindowFocus();
+  public static void igSetWindowFocusNil() {
+    CImGuiJNI.igSetWindowFocusNil();
   }
 
   public static void igSetWindowFontScale(float scale) {
@@ -251,20 +256,20 @@ public class CImGui {
     CImGuiJNI.igSetWindowFocusStr(name);
   }
 
-  public static ImVec2 igGetContentRegionMax() {
-    return new ImVec2(CImGuiJNI.igGetContentRegionMax(), true);
+  public static void igGetContentRegionMax(ImVec2 pOut) {
+    CImGuiJNI.igGetContentRegionMax(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetContentRegionAvail() {
-    return new ImVec2(CImGuiJNI.igGetContentRegionAvail(), true);
+  public static void igGetContentRegionAvail(ImVec2 pOut) {
+    CImGuiJNI.igGetContentRegionAvail(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetWindowContentRegionMin() {
-    return new ImVec2(CImGuiJNI.igGetWindowContentRegionMin(), true);
+  public static void igGetWindowContentRegionMin(ImVec2 pOut) {
+    CImGuiJNI.igGetWindowContentRegionMin(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetWindowContentRegionMax() {
-    return new ImVec2(CImGuiJNI.igGetWindowContentRegionMax(), true);
+  public static void igGetWindowContentRegionMax(ImVec2 pOut) {
+    CImGuiJNI.igGetWindowContentRegionMax(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static float igGetWindowContentRegionWidth() {
@@ -287,12 +292,12 @@ public class CImGui {
     return CImGuiJNI.igGetScrollMaxY();
   }
 
-  public static void igSetScrollX(float scroll_x) {
-    CImGuiJNI.igSetScrollX(scroll_x);
+  public static void igSetScrollXFloat(float scroll_x) {
+    CImGuiJNI.igSetScrollXFloat(scroll_x);
   }
 
-  public static void igSetScrollY(float scroll_y) {
-    CImGuiJNI.igSetScrollY(scroll_y);
+  public static void igSetScrollYFloat(float scroll_y) {
+    CImGuiJNI.igSetScrollYFloat(scroll_y);
   }
 
   public static void igSetScrollHereX(float center_x_ratio) {
@@ -303,12 +308,12 @@ public class CImGui {
     CImGuiJNI.igSetScrollHereY(center_y_ratio);
   }
 
-  public static void igSetScrollFromPosX(float local_x, float center_x_ratio) {
-    CImGuiJNI.igSetScrollFromPosX(local_x, center_x_ratio);
+  public static void igSetScrollFromPosXFloat(float local_x, float center_x_ratio) {
+    CImGuiJNI.igSetScrollFromPosXFloat(local_x, center_x_ratio);
   }
 
-  public static void igSetScrollFromPosY(float local_y, float center_y_ratio) {
-    CImGuiJNI.igSetScrollFromPosY(local_y, center_y_ratio);
+  public static void igSetScrollFromPosYFloat(float local_y, float center_y_ratio) {
+    CImGuiJNI.igSetScrollFromPosYFloat(local_y, center_y_ratio);
   }
 
   public static void igPushFont(ImFont font) {
@@ -323,8 +328,8 @@ public class CImGui {
     CImGuiJNI.igPushStyleColorU32(idx, col);
   }
 
-  public static void igPushStyleColor(int idx, ImVec4 col) {
-    CImGuiJNI.igPushStyleColor(idx, ImVec4.getCPtr(col), col);
+  public static void igPushStyleColorVec4(int idx, ImVec4 col) {
+    CImGuiJNI.igPushStyleColorVec4(idx, ImVec4.getCPtr(col), col);
   }
 
   public static void igPopStyleColor(int count) {
@@ -357,12 +362,12 @@ public class CImGui {
     return CImGuiJNI.igGetFontSize();
   }
 
-  public static ImVec2 igGetFontTexUvWhitePixel() {
-    return new ImVec2(CImGuiJNI.igGetFontTexUvWhitePixel(), true);
+  public static void igGetFontTexUvWhitePixel(ImVec2 pOut) {
+    CImGuiJNI.igGetFontTexUvWhitePixel(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static long igGetColorU32(int idx, float alpha_mul) {
-    return CImGuiJNI.igGetColorU32(idx, alpha_mul);
+  public static long igGetColorU32Col(int idx, float alpha_mul) {
+    return CImGuiJNI.igGetColorU32Col(idx, alpha_mul);
   }
 
   public static long igGetColorU32Vec4(ImVec4 col) {
@@ -449,8 +454,8 @@ public class CImGui {
     CImGuiJNI.igEndGroup();
   }
 
-  public static ImVec2 igGetCursorPos() {
-    return new ImVec2(CImGuiJNI.igGetCursorPos(), true);
+  public static void igGetCursorPos(ImVec2 pOut) {
+    CImGuiJNI.igGetCursorPos(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static float igGetCursorPosX() {
@@ -473,12 +478,12 @@ public class CImGui {
     CImGuiJNI.igSetCursorPosY(local_y);
   }
 
-  public static ImVec2 igGetCursorStartPos() {
-    return new ImVec2(CImGuiJNI.igGetCursorStartPos(), true);
+  public static void igGetCursorStartPos(ImVec2 pOut) {
+    CImGuiJNI.igGetCursorStartPos(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetCursorScreenPos() {
-    return new ImVec2(CImGuiJNI.igGetCursorScreenPos(), true);
+  public static void igGetCursorScreenPos(ImVec2 pOut) {
+    CImGuiJNI.igGetCursorScreenPos(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static void igSetCursorScreenPos(ImVec2 pos) {
@@ -509,8 +514,8 @@ public class CImGui {
     CImGuiJNI.igPushIDStr(str_id);
   }
 
-  public static void igPushIDRange(String str_id_begin, String str_id_end) {
-    CImGuiJNI.igPushIDRange(str_id_begin, str_id_end);
+  public static void igPushIDStrStr(String str_id_begin, String str_id_end) {
+    CImGuiJNI.igPushIDStrStr(str_id_begin, str_id_end);
   }
 
   public static void igPushIDPtr(SWIGTYPE_p_void ptr_id) {
@@ -529,8 +534,8 @@ public class CImGui {
     return CImGuiJNI.igGetIDStr(str_id);
   }
 
-  public static long igGetIDRange(String str_id_begin, String str_id_end) {
-    return CImGuiJNI.igGetIDRange(str_id_begin, str_id_end);
+  public static long igGetIDStrStr(String str_id_begin, String str_id_end) {
+    return CImGuiJNI.igGetIDStrStr(str_id_begin, str_id_end);
   }
 
   public static long igGetIDPtr(SWIGTYPE_p_void ptr_id) {
@@ -621,8 +626,8 @@ public class CImGui {
     CImGuiJNI.igEndCombo();
   }
 
-  public static boolean igCombo(String label, SWIGTYPE_p_int current_item, String[] items, int popup_max_height_in_items) {
-    return CImGuiJNI.igCombo(label, SWIGTYPE_p_int.getCPtr(current_item), items, popup_max_height_in_items);
+  public static boolean igComboStr_arr(String label, SWIGTYPE_p_int current_item, String[] items, int popup_max_height_in_items) {
+    return CImGuiJNI.igComboStr_arr(label, SWIGTYPE_p_int.getCPtr(current_item), items, popup_max_height_in_items);
   }
 
   public static boolean igComboStr(String label, SWIGTYPE_p_int current_item, String items_separated_by_zeros, int popup_max_height_in_items) {
@@ -857,8 +862,8 @@ public class CImGui {
     return CImGuiJNI.igGetTreeNodeToLabelSpacing();
   }
 
-  public static boolean igCollapsingHeader(String label, int flags) {
-    return CImGuiJNI.igCollapsingHeader(label, flags);
+  public static boolean igCollapsingHeaderTreeNodeFlags(String label, int flags) {
+    return CImGuiJNI.igCollapsingHeaderTreeNodeFlags(label, flags);
   }
 
   public static boolean igCollapsingHeaderBoolPtr(String label, SWIGTYPE_p_bool p_open, int flags) {
@@ -869,8 +874,8 @@ public class CImGui {
     CImGuiJNI.igSetNextItemOpen(is_open, cond);
   }
 
-  public static boolean igSelectable(String label, boolean selected, int flags, ImVec2 size) {
-    return CImGuiJNI.igSelectable(label, selected, flags, ImVec2.getCPtr(size), size);
+  public static boolean igSelectableBool(String label, boolean selected, int flags, ImVec2 size) {
+    return CImGuiJNI.igSelectableBool(label, selected, flags, ImVec2.getCPtr(size), size);
   }
 
   public static boolean igSelectableBoolPtr(String label, SWIGTYPE_p_bool p_selected, int flags, ImVec2 size) {
@@ -897,8 +902,8 @@ public class CImGui {
     CImGuiJNI.igListBoxFooter();
   }
 
-  public static void igPlotLines(String label, SWIGTYPE_p_float values, int values_count, int values_offset, String overlay_text, float scale_min, float scale_max, ImVec2 graph_size, int stride) {
-    CImGuiJNI.igPlotLines(label, SWIGTYPE_p_float.getCPtr(values), values_count, values_offset, overlay_text, scale_min, scale_max, ImVec2.getCPtr(graph_size), graph_size, stride);
+  public static void igPlotLinesFloatPtr(String label, SWIGTYPE_p_float values, int values_count, int values_offset, String overlay_text, float scale_min, float scale_max, ImVec2 graph_size, int stride) {
+    CImGuiJNI.igPlotLinesFloatPtr(label, SWIGTYPE_p_float.getCPtr(values), values_count, values_offset, overlay_text, scale_min, scale_max, ImVec2.getCPtr(graph_size), graph_size, stride);
   }
 
   public static void igPlotLinesFnPtr(String label, ValuesGetter values_getter, int values_count, int values_offset, String overlay_text, float scale_min, float scale_max, ImVec2 graph_size) {
@@ -1005,8 +1010,8 @@ public class CImGui {
     return CImGuiJNI.igOpenPopupOnItemClick(str_id, mouse_button);
   }
 
-  public static boolean igIsPopupOpen(String str_id) {
-    return CImGuiJNI.igIsPopupOpen(str_id);
+  public static boolean igIsPopupOpenStr(String str_id) {
+    return CImGuiJNI.igIsPopupOpenStr(str_id);
   }
 
   public static void igCloseCurrentPopup() {
@@ -1183,24 +1188,24 @@ public class CImGui {
     return CImGuiJNI.igIsAnyItemFocused();
   }
 
-  public static ImVec2 igGetItemRectMin() {
-    return new ImVec2(CImGuiJNI.igGetItemRectMin(), true);
+  public static void igGetItemRectMin(ImVec2 pOut) {
+    CImGuiJNI.igGetItemRectMin(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetItemRectMax() {
-    return new ImVec2(CImGuiJNI.igGetItemRectMax(), true);
+  public static void igGetItemRectMax(ImVec2 pOut) {
+    CImGuiJNI.igGetItemRectMax(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetItemRectSize() {
-    return new ImVec2(CImGuiJNI.igGetItemRectSize(), true);
+  public static void igGetItemRectSize(ImVec2 pOut) {
+    CImGuiJNI.igGetItemRectSize(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static void igSetItemAllowOverlap() {
     CImGuiJNI.igSetItemAllowOverlap();
   }
 
-  public static boolean igIsRectVisible(ImVec2 size) {
-    return CImGuiJNI.igIsRectVisible(ImVec2.getCPtr(size), size);
+  public static boolean igIsRectVisibleNil(ImVec2 size) {
+    return CImGuiJNI.igIsRectVisibleNil(ImVec2.getCPtr(size), size);
   }
 
   public static boolean igIsRectVisibleVec2(ImVec2 rect_min, ImVec2 rect_max) {
@@ -1220,14 +1225,14 @@ public class CImGui {
     return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
   }
 
-  public static ImDrawList igGetForegroundDrawList() {
-    long cPtr = CImGuiJNI.igGetForegroundDrawList();
+  public static ImDrawList igGetForegroundDrawListNil() {
+    long cPtr = CImGuiJNI.igGetForegroundDrawListNil();
     return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
   }
 
-  public static SWIGTYPE_p_ImDrawListSharedData igGetDrawListSharedData() {
+  public static ImDrawListSharedData igGetDrawListSharedData() {
     long cPtr = CImGuiJNI.igGetDrawListSharedData();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_ImDrawListSharedData(cPtr, false);
+    return (cPtr == 0) ? null : new ImDrawListSharedData(cPtr, false);
   }
 
   public static String igGetStyleColorName(int idx) {
@@ -1243,10 +1248,6 @@ public class CImGui {
     return (cPtr == 0) ? null : new ImGuiStorage(cPtr, false);
   }
 
-  public static ImVec2 igCalcTextSize(String text, String text_end, boolean hide_text_after_double_hash, float wrap_width) {
-    return new ImVec2(CImGuiJNI.igCalcTextSize(text, text_end, hide_text_after_double_hash, wrap_width), true);
-  }
-
   public static void igCalcListClipping(int items_count, float items_height, SWIGTYPE_p_int out_items_display_start, SWIGTYPE_p_int out_items_display_end) {
     CImGuiJNI.igCalcListClipping(items_count, items_height, SWIGTYPE_p_int.getCPtr(out_items_display_start), SWIGTYPE_p_int.getCPtr(out_items_display_end));
   }
@@ -1259,8 +1260,12 @@ public class CImGui {
     CImGuiJNI.igEndChildFrame();
   }
 
-  public static ImVec4 igColorConvertU32ToFloat4(long in) {
-    return new ImVec4(CImGuiJNI.igColorConvertU32ToFloat4(in), true);
+  public static void igCalcTextSize(ImVec2 pOut, String text, String text_end, boolean hide_text_after_double_hash, float wrap_width) {
+    CImGuiJNI.igCalcTextSize(ImVec2.getCPtr(pOut), pOut, text, text_end, hide_text_after_double_hash, wrap_width);
+  }
+
+  public static void igColorConvertU32ToFloat4(ImVec4 pOut, long in) {
+    CImGuiJNI.igColorConvertU32ToFloat4(ImVec4.getCPtr(pOut), pOut, in);
   }
 
   public static long igColorConvertFloat4ToU32(ImVec4 in) {
@@ -1319,20 +1324,20 @@ public class CImGui {
     return CImGuiJNI.igIsAnyMouseDown();
   }
 
-  public static ImVec2 igGetMousePos() {
-    return new ImVec2(CImGuiJNI.igGetMousePos(), true);
+  public static void igGetMousePos(ImVec2 pOut) {
+    CImGuiJNI.igGetMousePos(ImVec2.getCPtr(pOut), pOut);
   }
 
-  public static ImVec2 igGetMousePosOnOpeningCurrentPopup() {
-    return new ImVec2(CImGuiJNI.igGetMousePosOnOpeningCurrentPopup(), true);
+  public static void igGetMousePosOnOpeningCurrentPopup(ImVec2 pOut) {
+    CImGuiJNI.igGetMousePosOnOpeningCurrentPopup(ImVec2.getCPtr(pOut), pOut);
   }
 
   public static boolean igIsMouseDragging(int button, float lock_threshold) {
     return CImGuiJNI.igIsMouseDragging(button, lock_threshold);
   }
 
-  public static ImVec2 igGetMouseDragDelta(int button, float lock_threshold) {
-    return new ImVec2(CImGuiJNI.igGetMouseDragDelta(button, lock_threshold), true);
+  public static void igGetMouseDragDelta(ImVec2 pOut, int button, float lock_threshold) {
+    CImGuiJNI.igGetMouseDragDelta(ImVec2.getCPtr(pOut), pOut, button, lock_threshold);
   }
 
   public static void igResetMouseDragDelta(int button) {
@@ -1375,6 +1380,10 @@ public class CImGui {
     return CImGuiJNI.igSaveIniSettingsToMemory(SWIGTYPE_p_size_t.getCPtr(out_ini_size));
   }
 
+  public static boolean igDebugCheckVersionAndDataLayout(String version_str, long sz_io, long sz_style, long sz_vec2, long sz_vec4, long sz_drawvert, long sz_drawidx) {
+    return CImGuiJNI.igDebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx);
+  }
+
   public static void igSetAllocatorFunctions(SWIGTYPE_p_f_size_t_p_void__p_void alloc_func, SWIGTYPE_p_f_p_void_p_void__void free_func, SWIGTYPE_p_void user_data) {
     CImGuiJNI.igSetAllocatorFunctions(SWIGTYPE_p_f_size_t_p_void__p_void.getCPtr(alloc_func), SWIGTYPE_p_f_p_void_p_void__void.getCPtr(free_func), SWIGTYPE_p_void.getCPtr(user_data));
   }
@@ -1403,6 +1412,10 @@ public class CImGui {
 
   public static void ImGuiIO_AddInputCharacter(ImGuiIO self, long c) {
     CImGuiJNI.ImGuiIO_AddInputCharacter(ImGuiIO.getCPtr(self), self, c);
+  }
+
+  public static void ImGuiIO_AddInputCharacterUTF16(ImGuiIO self, int c) {
+    CImGuiJNI.ImGuiIO_AddInputCharacterUTF16(ImGuiIO.getCPtr(self), self, c);
   }
 
   public static void ImGuiIO_AddInputCharactersUTF8(ImGuiIO self, String str) {
@@ -1506,8 +1519,8 @@ public class CImGui {
     return CImGuiJNI.ImGuiTextFilter_IsActive(ImGuiTextFilter.getCPtr(self), self);
   }
 
-  public static ImGuiTextRange ImGuiTextRange_ImGuiTextRange() {
-    long cPtr = CImGuiJNI.ImGuiTextRange_ImGuiTextRange();
+  public static ImGuiTextRange ImGuiTextRange_ImGuiTextRangeNil() {
+    long cPtr = CImGuiJNI.ImGuiTextRange_ImGuiTextRangeNil();
     return (cPtr == 0) ? null : new ImGuiTextRange(cPtr, false);
   }
 
@@ -1674,8 +1687,8 @@ public class CImGui {
     CImGuiJNI.ImGuiListClipper_End(ImGuiListClipper.getCPtr(self), self);
   }
 
-  public static ImColor ImColor_ImColor() {
-    long cPtr = CImGuiJNI.ImColor_ImColor();
+  public static ImColor ImColor_ImColorNil() {
+    long cPtr = CImGuiJNI.ImColor_ImColorNil();
     return (cPtr == 0) ? null : new ImColor(cPtr, false);
   }
 
@@ -1707,8 +1720,8 @@ public class CImGui {
     CImGuiJNI.ImColor_SetHSV(ImColor.getCPtr(self), self, h, s, v, a);
   }
 
-  public static ImColor ImColor_HSV(ImColor self, float h, float s, float v, float a) {
-    return new ImColor(CImGuiJNI.ImColor_HSV(ImColor.getCPtr(self), self, h, s, v, a), true);
+  public static void ImColor_HSV(ImColor pOut, ImColor self, float h, float s, float v, float a) {
+    CImGuiJNI.ImColor_HSV(ImColor.getCPtr(pOut), pOut, ImColor.getCPtr(self), self, h, s, v, a);
   }
 
   public static ImDrawCmd ImDrawCmd_ImDrawCmd() {
@@ -1749,8 +1762,8 @@ public class CImGui {
     CImGuiJNI.ImDrawListSplitter_SetCurrentChannel(ImDrawListSplitter.getCPtr(self), self, ImDrawList.getCPtr(draw_list), draw_list, channel_idx);
   }
 
-  public static ImDrawList ImDrawList_ImDrawList(SWIGTYPE_p_ImDrawListSharedData shared_data) {
-    long cPtr = CImGuiJNI.ImDrawList_ImDrawList(SWIGTYPE_p_ImDrawListSharedData.getCPtr(shared_data));
+  public static ImDrawList ImDrawList_ImDrawList(ImDrawListSharedData shared_data) {
+    long cPtr = CImGuiJNI.ImDrawList_ImDrawList(ImDrawListSharedData.getCPtr(shared_data), shared_data);
     return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
   }
 
@@ -1778,12 +1791,12 @@ public class CImGui {
     CImGuiJNI.ImDrawList_PopTextureID(ImDrawList.getCPtr(self), self);
   }
 
-  public static ImVec2 ImDrawList_GetClipRectMin(ImDrawList self) {
-    return new ImVec2(CImGuiJNI.ImDrawList_GetClipRectMin(ImDrawList.getCPtr(self), self), true);
+  public static void ImDrawList_GetClipRectMin(ImVec2 pOut, ImDrawList self) {
+    CImGuiJNI.ImDrawList_GetClipRectMin(ImVec2.getCPtr(pOut), pOut, ImDrawList.getCPtr(self), self);
   }
 
-  public static ImVec2 ImDrawList_GetClipRectMax(ImDrawList self) {
-    return new ImVec2(CImGuiJNI.ImDrawList_GetClipRectMax(ImDrawList.getCPtr(self), self), true);
+  public static void ImDrawList_GetClipRectMax(ImVec2 pOut, ImDrawList self) {
+    CImGuiJNI.ImDrawList_GetClipRectMax(ImVec2.getCPtr(pOut), pOut, ImDrawList.getCPtr(self), self);
   }
 
   public static void ImDrawList_AddLine(ImDrawList self, ImVec2 p1, ImVec2 p2, long col, float thickness) {
@@ -1834,8 +1847,8 @@ public class CImGui {
     CImGuiJNI.ImDrawList_AddNgonFilled(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(center), center, radius, col, num_segments);
   }
 
-  public static void ImDrawList_AddText(ImDrawList self, ImVec2 pos, long col, String text_begin, String text_end) {
-    CImGuiJNI.ImDrawList_AddText(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(pos), pos, col, text_begin, text_end);
+  public static void ImDrawList_AddTextVec2(ImDrawList self, ImVec2 pos, long col, String text_begin, String text_end) {
+    CImGuiJNI.ImDrawList_AddTextVec2(ImDrawList.getCPtr(self), self, ImVec2.getCPtr(pos), pos, col, text_begin, text_end);
   }
 
   public static void ImDrawList_AddTextFontPtr(ImDrawList self, ImFont font, float font_size, ImVec2 pos, long col, String text_begin, String text_end, float wrap_width, ImVec4 cpu_fine_clip_rect) {
@@ -2018,11 +2031,11 @@ public class CImGui {
     CImGuiJNI.ImFontGlyphRangesBuilder_Clear(ImFontGlyphRangesBuilder.getCPtr(self), self);
   }
 
-  public static boolean ImFontGlyphRangesBuilder_GetBit(ImFontGlyphRangesBuilder self, int n) {
+  public static boolean ImFontGlyphRangesBuilder_GetBit(ImFontGlyphRangesBuilder self, long n) {
     return CImGuiJNI.ImFontGlyphRangesBuilder_GetBit(ImFontGlyphRangesBuilder.getCPtr(self), self, n);
   }
 
-  public static void ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder self, int n) {
+  public static void ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder self, long n) {
     CImGuiJNI.ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder.getCPtr(self), self, n);
   }
 
@@ -2222,8 +2235,8 @@ public class CImGui {
     return CImGuiJNI.ImFont_GetDebugName(ImFont.getCPtr(self), self);
   }
 
-  public static ImVec2 ImFont_CalcTextSizeA(ImFont self, float size, float max_width, float wrap_width, String text_begin, String text_end, SWIGTYPE_p_p_char remaining) {
-    return new ImVec2(CImGuiJNI.ImFont_CalcTextSizeA(ImFont.getCPtr(self), self, size, max_width, wrap_width, text_begin, text_end, SWIGTYPE_p_p_char.getCPtr(remaining)), true);
+  public static void ImFont_CalcTextSizeA(ImVec2 pOut, ImFont self, float size, float max_width, float wrap_width, String text_begin, String text_end, SWIGTYPE_p_p_char remaining) {
+    CImGuiJNI.ImFont_CalcTextSizeA(ImVec2.getCPtr(pOut), pOut, ImFont.getCPtr(self), self, size, max_width, wrap_width, text_begin, text_end, SWIGTYPE_p_p_char.getCPtr(remaining));
   }
 
   public static String ImFont_CalcWordWrapPositionA(ImFont self, float scale, String text, String text_end, float wrap_width) {
@@ -2258,184 +2271,1537 @@ public class CImGui {
     CImGuiJNI.ImFont_AddRemapChar(ImFont.getCPtr(self), self, dst, src, overwrite_dst);
   }
 
+  public static void ImFont_SetGlyphVisible(ImFont self, int c, boolean visible) {
+    CImGuiJNI.ImFont_SetGlyphVisible(ImFont.getCPtr(self), self, c, visible);
+  }
+
   public static void ImFont_SetFallbackChar(ImFont self, int c) {
     CImGuiJNI.ImFont_SetFallbackChar(ImFont.getCPtr(self), self, c);
   }
 
-  public static void igGetWindowPos_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetWindowPos_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static boolean ImFont_IsGlyphRangeUnused(ImFont self, long c_begin, long c_last) {
+    return CImGuiJNI.ImFont_IsGlyphRangeUnused(ImFont.getCPtr(self), self, c_begin, c_last);
   }
 
-  public static ImVec2_Simple igGetWindowPos_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetWindowPos_nonUDT2(), true);
+  public static long igImHashData(SWIGTYPE_p_void data, long data_size, long seed) {
+    return CImGuiJNI.igImHashData(SWIGTYPE_p_void.getCPtr(data), data_size, seed);
   }
 
-  public static void igGetWindowSize_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetWindowSize_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static long igImHashStr(String data, long data_size, long seed) {
+    return CImGuiJNI.igImHashStr(data, data_size, seed);
   }
 
-  public static ImVec2_Simple igGetWindowSize_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetWindowSize_nonUDT2(), true);
+  public static long igImAlphaBlendColors(long col_a, long col_b) {
+    return CImGuiJNI.igImAlphaBlendColors(col_a, col_b);
   }
 
-  public static void igGetContentRegionMax_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetContentRegionMax_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static boolean igImIsPowerOfTwo(int v) {
+    return CImGuiJNI.igImIsPowerOfTwo(v);
   }
 
-  public static ImVec2_Simple igGetContentRegionMax_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetContentRegionMax_nonUDT2(), true);
+  public static int igImUpperPowerOfTwo(int v) {
+    return CImGuiJNI.igImUpperPowerOfTwo(v);
   }
 
-  public static void igGetContentRegionAvail_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetContentRegionAvail_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static int igImStricmp(String str1, String str2) {
+    return CImGuiJNI.igImStricmp(str1, str2);
   }
 
-  public static ImVec2_Simple igGetContentRegionAvail_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetContentRegionAvail_nonUDT2(), true);
+  public static int igImStrnicmp(String str1, String str2, long count) {
+    return CImGuiJNI.igImStrnicmp(str1, str2, count);
   }
 
-  public static void igGetWindowContentRegionMin_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetWindowContentRegionMin_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static void igImStrncpy(String dst, String src, long count) {
+    CImGuiJNI.igImStrncpy(dst, src, count);
   }
 
-  public static ImVec2_Simple igGetWindowContentRegionMin_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetWindowContentRegionMin_nonUDT2(), true);
+  public static String igImStrdup(String str) {
+    return CImGuiJNI.igImStrdup(str);
   }
 
-  public static void igGetWindowContentRegionMax_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetWindowContentRegionMax_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static String igImStrdupcpy(String dst, SWIGTYPE_p_size_t p_dst_size, String str) {
+    return CImGuiJNI.igImStrdupcpy(dst, SWIGTYPE_p_size_t.getCPtr(p_dst_size), str);
   }
 
-  public static ImVec2_Simple igGetWindowContentRegionMax_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetWindowContentRegionMax_nonUDT2(), true);
+  public static String igImStrchrRange(String str_begin, String str_end, char c) {
+    return CImGuiJNI.igImStrchrRange(str_begin, str_end, c);
   }
 
-  public static void igGetFontTexUvWhitePixel_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetFontTexUvWhitePixel_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static int igImStrlenW(SWIGTYPE_p_unsigned_short str) {
+    return CImGuiJNI.igImStrlenW(SWIGTYPE_p_unsigned_short.getCPtr(str));
   }
 
-  public static ImVec2_Simple igGetFontTexUvWhitePixel_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetFontTexUvWhitePixel_nonUDT2(), true);
+  public static String igImStreolRange(String str, String str_end) {
+    return CImGuiJNI.igImStreolRange(str, str_end);
   }
 
-  public static void igGetCursorPos_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetCursorPos_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static SWIGTYPE_p_unsigned_short igImStrbolW(SWIGTYPE_p_unsigned_short buf_mid_line, SWIGTYPE_p_unsigned_short buf_begin) {
+    long cPtr = CImGuiJNI.igImStrbolW(SWIGTYPE_p_unsigned_short.getCPtr(buf_mid_line), SWIGTYPE_p_unsigned_short.getCPtr(buf_begin));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_short(cPtr, false);
   }
 
-  public static ImVec2_Simple igGetCursorPos_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetCursorPos_nonUDT2(), true);
+  public static String igImStristr(String haystack, String haystack_end, String needle, String needle_end) {
+    return CImGuiJNI.igImStristr(haystack, haystack_end, needle, needle_end);
   }
 
-  public static void igGetCursorStartPos_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetCursorStartPos_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static void igImStrTrimBlanks(String str) {
+    CImGuiJNI.igImStrTrimBlanks(str);
   }
 
-  public static ImVec2_Simple igGetCursorStartPos_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetCursorStartPos_nonUDT2(), true);
+  public static String igImStrSkipBlank(String str) {
+    return CImGuiJNI.igImStrSkipBlank(str);
   }
 
-  public static void igGetCursorScreenPos_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetCursorScreenPos_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static int igImFormatString(byte[] buf, long buf_size, String fmt) {
+    return CImGuiJNI.igImFormatString(buf, buf_size, fmt);
   }
 
-  public static ImVec2_Simple igGetCursorScreenPos_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetCursorScreenPos_nonUDT2(), true);
+  public static int igImFormatStringV(byte[] buf, long buf_size, String fmt, SWIGTYPE_p_va_list args) {
+    return CImGuiJNI.igImFormatStringV(buf, buf_size, fmt, SWIGTYPE_p_va_list.getCPtr(args));
   }
 
-  public static void igGetItemRectMin_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetItemRectMin_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static String igImParseFormatFindStart(String format) {
+    return CImGuiJNI.igImParseFormatFindStart(format);
   }
 
-  public static ImVec2_Simple igGetItemRectMin_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetItemRectMin_nonUDT2(), true);
+  public static String igImParseFormatFindEnd(String format) {
+    return CImGuiJNI.igImParseFormatFindEnd(format);
   }
 
-  public static void igGetItemRectMax_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetItemRectMax_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static String igImParseFormatTrimDecorations(String format, byte[] buf, long buf_size) {
+    return CImGuiJNI.igImParseFormatTrimDecorations(format, buf, buf_size);
   }
 
-  public static ImVec2_Simple igGetItemRectMax_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetItemRectMax_nonUDT2(), true);
+  public static int igImParseFormatPrecision(String format, int default_value) {
+    return CImGuiJNI.igImParseFormatPrecision(format, default_value);
   }
 
-  public static void igGetItemRectSize_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetItemRectSize_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static boolean igImCharIsBlankA(char c) {
+    return CImGuiJNI.igImCharIsBlankA(c);
   }
 
-  public static ImVec2_Simple igGetItemRectSize_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetItemRectSize_nonUDT2(), true);
+  public static boolean igImCharIsBlankW(long c) {
+    return CImGuiJNI.igImCharIsBlankW(c);
   }
 
-  public static void igCalcTextSize_nonUDT(ImVec2 pOut, String text, String text_end, boolean hide_text_after_double_hash, float wrap_width) {
-    CImGuiJNI.igCalcTextSize_nonUDT(ImVec2.getCPtr(pOut), pOut, text, text_end, hide_text_after_double_hash, wrap_width);
+  public static int igImTextStrToUtf8(byte[] buf, int buf_size, SWIGTYPE_p_unsigned_short in_text, SWIGTYPE_p_unsigned_short in_text_end) {
+    return CImGuiJNI.igImTextStrToUtf8(buf, buf_size, SWIGTYPE_p_unsigned_short.getCPtr(in_text), SWIGTYPE_p_unsigned_short.getCPtr(in_text_end));
   }
 
-  public static ImVec2_Simple igCalcTextSize_nonUDT2(String text, String text_end, boolean hide_text_after_double_hash, float wrap_width) {
-    return new ImVec2_Simple(CImGuiJNI.igCalcTextSize_nonUDT2(text, text_end, hide_text_after_double_hash, wrap_width), true);
+  public static int igImTextCharFromUtf8(SWIGTYPE_p_unsigned_int out_char, String in_text, String in_text_end) {
+    return CImGuiJNI.igImTextCharFromUtf8(SWIGTYPE_p_unsigned_int.getCPtr(out_char), in_text, in_text_end);
   }
 
-  public static void igColorConvertU32ToFloat4_nonUDT(ImVec4 pOut, long in) {
-    CImGuiJNI.igColorConvertU32ToFloat4_nonUDT(ImVec4.getCPtr(pOut), pOut, in);
+  public static int igImTextStrFromUtf8(SWIGTYPE_p_unsigned_short buf, int buf_size, String in_text, String in_text_end, SWIGTYPE_p_p_char in_remaining) {
+    return CImGuiJNI.igImTextStrFromUtf8(SWIGTYPE_p_unsigned_short.getCPtr(buf), buf_size, in_text, in_text_end, SWIGTYPE_p_p_char.getCPtr(in_remaining));
   }
 
-  public static ImVec4_Simple igColorConvertU32ToFloat4_nonUDT2(long in) {
-    return new ImVec4_Simple(CImGuiJNI.igColorConvertU32ToFloat4_nonUDT2(in), true);
+  public static int igImTextCountCharsFromUtf8(String in_text, String in_text_end) {
+    return CImGuiJNI.igImTextCountCharsFromUtf8(in_text, in_text_end);
   }
 
-  public static void igGetMousePos_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetMousePos_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static int igImTextCountUtf8BytesFromChar(String in_text, String in_text_end) {
+    return CImGuiJNI.igImTextCountUtf8BytesFromChar(in_text, in_text_end);
   }
 
-  public static ImVec2_Simple igGetMousePos_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetMousePos_nonUDT2(), true);
+  public static int igImTextCountUtf8BytesFromStr(SWIGTYPE_p_unsigned_short in_text, SWIGTYPE_p_unsigned_short in_text_end) {
+    return CImGuiJNI.igImTextCountUtf8BytesFromStr(SWIGTYPE_p_unsigned_short.getCPtr(in_text), SWIGTYPE_p_unsigned_short.getCPtr(in_text_end));
   }
 
-  public static void igGetMousePosOnOpeningCurrentPopup_nonUDT(ImVec2 pOut) {
-    CImGuiJNI.igGetMousePosOnOpeningCurrentPopup_nonUDT(ImVec2.getCPtr(pOut), pOut);
+  public static SWIGTYPE_p_FILE igImFileOpen(String filename, String mode) {
+    long cPtr = CImGuiJNI.igImFileOpen(filename, mode);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_FILE(cPtr, false);
   }
 
-  public static ImVec2_Simple igGetMousePosOnOpeningCurrentPopup_nonUDT2() {
-    return new ImVec2_Simple(CImGuiJNI.igGetMousePosOnOpeningCurrentPopup_nonUDT2(), true);
+  public static boolean igImFileClose(SWIGTYPE_p_FILE file) {
+    return CImGuiJNI.igImFileClose(SWIGTYPE_p_FILE.getCPtr(file));
   }
 
-  public static void igGetMouseDragDelta_nonUDT(ImVec2 pOut, int button, float lock_threshold) {
-    CImGuiJNI.igGetMouseDragDelta_nonUDT(ImVec2.getCPtr(pOut), pOut, button, lock_threshold);
+  public static SWIGTYPE_p_uint64_t igImFileGetSize(SWIGTYPE_p_FILE file) {
+    return new SWIGTYPE_p_uint64_t(CImGuiJNI.igImFileGetSize(SWIGTYPE_p_FILE.getCPtr(file)), true);
   }
 
-  public static ImVec2_Simple igGetMouseDragDelta_nonUDT2(int button, float lock_threshold) {
-    return new ImVec2_Simple(CImGuiJNI.igGetMouseDragDelta_nonUDT2(button, lock_threshold), true);
+  public static SWIGTYPE_p_uint64_t igImFileRead(SWIGTYPE_p_void data, SWIGTYPE_p_uint64_t size, SWIGTYPE_p_uint64_t count, SWIGTYPE_p_FILE file) {
+    return new SWIGTYPE_p_uint64_t(CImGuiJNI.igImFileRead(SWIGTYPE_p_void.getCPtr(data), SWIGTYPE_p_uint64_t.getCPtr(size), SWIGTYPE_p_uint64_t.getCPtr(count), SWIGTYPE_p_FILE.getCPtr(file)), true);
   }
 
-  public static void ImColor_HSV_nonUDT(ImColor pOut, ImColor self, float h, float s, float v, float a) {
-    CImGuiJNI.ImColor_HSV_nonUDT(ImColor.getCPtr(pOut), pOut, ImColor.getCPtr(self), self, h, s, v, a);
+  public static SWIGTYPE_p_uint64_t igImFileWrite(SWIGTYPE_p_void data, SWIGTYPE_p_uint64_t size, SWIGTYPE_p_uint64_t count, SWIGTYPE_p_FILE file) {
+    return new SWIGTYPE_p_uint64_t(CImGuiJNI.igImFileWrite(SWIGTYPE_p_void.getCPtr(data), SWIGTYPE_p_uint64_t.getCPtr(size), SWIGTYPE_p_uint64_t.getCPtr(count), SWIGTYPE_p_FILE.getCPtr(file)), true);
   }
 
-  public static ImColor_Simple ImColor_HSV_nonUDT2(ImColor self, float h, float s, float v, float a) {
-    return new ImColor_Simple(CImGuiJNI.ImColor_HSV_nonUDT2(ImColor.getCPtr(self), self, h, s, v, a), true);
+  public static SWIGTYPE_p_void igImFileLoadToMemory(String filename, String mode, SWIGTYPE_p_size_t out_file_size, int padding_bytes) {
+    long cPtr = CImGuiJNI.igImFileLoadToMemory(filename, mode, SWIGTYPE_p_size_t.getCPtr(out_file_size), padding_bytes);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
   }
 
-  public static void ImDrawList_GetClipRectMin_nonUDT(ImVec2 pOut, ImDrawList self) {
-    CImGuiJNI.ImDrawList_GetClipRectMin_nonUDT(ImVec2.getCPtr(pOut), pOut, ImDrawList.getCPtr(self), self);
+  public static float igImPowFloat(float x, float y) {
+    return CImGuiJNI.igImPowFloat(x, y);
   }
 
-  public static ImVec2_Simple ImDrawList_GetClipRectMin_nonUDT2(ImDrawList self) {
-    return new ImVec2_Simple(CImGuiJNI.ImDrawList_GetClipRectMin_nonUDT2(ImDrawList.getCPtr(self), self), true);
+  public static double igImPowdouble(double x, double y) {
+    return CImGuiJNI.igImPowdouble(x, y);
   }
 
-  public static void ImDrawList_GetClipRectMax_nonUDT(ImVec2 pOut, ImDrawList self) {
-    CImGuiJNI.ImDrawList_GetClipRectMax_nonUDT(ImVec2.getCPtr(pOut), pOut, ImDrawList.getCPtr(self), self);
+  public static void igImMin(ImVec2 pOut, ImVec2 lhs, ImVec2 rhs) {
+    CImGuiJNI.igImMin(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(lhs), lhs, ImVec2.getCPtr(rhs), rhs);
   }
 
-  public static ImVec2_Simple ImDrawList_GetClipRectMax_nonUDT2(ImDrawList self) {
-    return new ImVec2_Simple(CImGuiJNI.ImDrawList_GetClipRectMax_nonUDT2(ImDrawList.getCPtr(self), self), true);
+  public static void igImMax(ImVec2 pOut, ImVec2 lhs, ImVec2 rhs) {
+    CImGuiJNI.igImMax(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(lhs), lhs, ImVec2.getCPtr(rhs), rhs);
   }
 
-  public static void ImFont_CalcTextSizeA_nonUDT(ImVec2 pOut, ImFont self, float size, float max_width, float wrap_width, String text_begin, String text_end, SWIGTYPE_p_p_char remaining) {
-    CImGuiJNI.ImFont_CalcTextSizeA_nonUDT(ImVec2.getCPtr(pOut), pOut, ImFont.getCPtr(self), self, size, max_width, wrap_width, text_begin, text_end, SWIGTYPE_p_p_char.getCPtr(remaining));
+  public static void igImClamp(ImVec2 pOut, ImVec2 v, ImVec2 mn, ImVec2 mx) {
+    CImGuiJNI.igImClamp(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(v), v, ImVec2.getCPtr(mn), mn, ImVec2.getCPtr(mx), mx);
   }
 
-  public static ImVec2_Simple ImFont_CalcTextSizeA_nonUDT2(ImFont self, float size, float max_width, float wrap_width, String text_begin, String text_end, SWIGTYPE_p_p_char remaining) {
-    return new ImVec2_Simple(CImGuiJNI.ImFont_CalcTextSizeA_nonUDT2(ImFont.getCPtr(self), self, size, max_width, wrap_width, text_begin, text_end, SWIGTYPE_p_p_char.getCPtr(remaining)), true);
+  public static void igImLerpVec2Float(ImVec2 pOut, ImVec2 a, ImVec2 b, float t) {
+    CImGuiJNI.igImLerpVec2Float(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, t);
+  }
+
+  public static void igImLerpVec2Vec2(ImVec2 pOut, ImVec2 a, ImVec2 b, ImVec2 t) {
+    CImGuiJNI.igImLerpVec2Vec2(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(t), t);
+  }
+
+  public static void igImLerpVec4(ImVec4 pOut, ImVec4 a, ImVec4 b, float t) {
+    CImGuiJNI.igImLerpVec4(ImVec4.getCPtr(pOut), pOut, ImVec4.getCPtr(a), a, ImVec4.getCPtr(b), b, t);
+  }
+
+  public static float igImSaturate(float f) {
+    return CImGuiJNI.igImSaturate(f);
+  }
+
+  public static float igImLengthSqrVec2(ImVec2 lhs) {
+    return CImGuiJNI.igImLengthSqrVec2(ImVec2.getCPtr(lhs), lhs);
+  }
+
+  public static float igImLengthSqrVec4(ImVec4 lhs) {
+    return CImGuiJNI.igImLengthSqrVec4(ImVec4.getCPtr(lhs), lhs);
+  }
+
+  public static float igImInvLength(ImVec2 lhs, float fail_value) {
+    return CImGuiJNI.igImInvLength(ImVec2.getCPtr(lhs), lhs, fail_value);
+  }
+
+  public static float igImFloorFloat(float f) {
+    return CImGuiJNI.igImFloorFloat(f);
+  }
+
+  public static void igImFloorVec2(ImVec2 pOut, ImVec2 v) {
+    CImGuiJNI.igImFloorVec2(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(v), v);
+  }
+
+  public static int igImModPositive(int a, int b) {
+    return CImGuiJNI.igImModPositive(a, b);
+  }
+
+  public static float igImDot(ImVec2 a, ImVec2 b) {
+    return CImGuiJNI.igImDot(ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b);
+  }
+
+  public static void igImRotate(ImVec2 pOut, ImVec2 v, float cos_a, float sin_a) {
+    CImGuiJNI.igImRotate(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(v), v, cos_a, sin_a);
+  }
+
+  public static float igImLinearSweep(float current, float target, float speed) {
+    return CImGuiJNI.igImLinearSweep(current, target, speed);
+  }
+
+  public static void igImMul(ImVec2 pOut, ImVec2 lhs, ImVec2 rhs) {
+    CImGuiJNI.igImMul(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(lhs), lhs, ImVec2.getCPtr(rhs), rhs);
+  }
+
+  public static void igImBezierCalc(ImVec2 pOut, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, float t) {
+    CImGuiJNI.igImBezierCalc(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(p1), p1, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, ImVec2.getCPtr(p4), p4, t);
+  }
+
+  public static void igImBezierClosestPoint(ImVec2 pOut, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, ImVec2 p, int num_segments) {
+    CImGuiJNI.igImBezierClosestPoint(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(p1), p1, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, ImVec2.getCPtr(p4), p4, ImVec2.getCPtr(p), p, num_segments);
+  }
+
+  public static void igImBezierClosestPointCasteljau(ImVec2 pOut, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, ImVec2 p, float tess_tol) {
+    CImGuiJNI.igImBezierClosestPointCasteljau(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(p1), p1, ImVec2.getCPtr(p2), p2, ImVec2.getCPtr(p3), p3, ImVec2.getCPtr(p4), p4, ImVec2.getCPtr(p), p, tess_tol);
+  }
+
+  public static void igImLineClosestPoint(ImVec2 pOut, ImVec2 a, ImVec2 b, ImVec2 p) {
+    CImGuiJNI.igImLineClosestPoint(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(p), p);
+  }
+
+  public static boolean igImTriangleContainsPoint(ImVec2 a, ImVec2 b, ImVec2 c, ImVec2 p) {
+    return CImGuiJNI.igImTriangleContainsPoint(ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(c), c, ImVec2.getCPtr(p), p);
+  }
+
+  public static void igImTriangleClosestPoint(ImVec2 pOut, ImVec2 a, ImVec2 b, ImVec2 c, ImVec2 p) {
+    CImGuiJNI.igImTriangleClosestPoint(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(c), c, ImVec2.getCPtr(p), p);
+  }
+
+  public static void igImTriangleBarycentricCoords(ImVec2 a, ImVec2 b, ImVec2 c, ImVec2 p, float out_u, float out_v, float out_w) {
+    CImGuiJNI.igImTriangleBarycentricCoords(ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(c), c, ImVec2.getCPtr(p), p, out_u, out_v, out_w);
+  }
+
+  public static float igImTriangleArea(ImVec2 a, ImVec2 b, ImVec2 c) {
+    return CImGuiJNI.igImTriangleArea(ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(c), c);
+  }
+
+  public static int igImGetDirQuadrantFromDelta(float dx, float dy) {
+    return CImGuiJNI.igImGetDirQuadrantFromDelta(dx, dy);
+  }
+
+  public static boolean igImBitArrayTestBit(SWIGTYPE_p_unsigned_int arr, int n) {
+    return CImGuiJNI.igImBitArrayTestBit(SWIGTYPE_p_unsigned_int.getCPtr(arr), n);
+  }
+
+  public static void igImBitArrayClearBit(SWIGTYPE_p_unsigned_int arr, int n) {
+    CImGuiJNI.igImBitArrayClearBit(SWIGTYPE_p_unsigned_int.getCPtr(arr), n);
+  }
+
+  public static void igImBitArraySetBit(SWIGTYPE_p_unsigned_int arr, int n) {
+    CImGuiJNI.igImBitArraySetBit(SWIGTYPE_p_unsigned_int.getCPtr(arr), n);
+  }
+
+  public static void igImBitArraySetBitRange(SWIGTYPE_p_unsigned_int arr, int n, int n2) {
+    CImGuiJNI.igImBitArraySetBitRange(SWIGTYPE_p_unsigned_int.getCPtr(arr), n, n2);
+  }
+
+  public static void ImBitVector_Create(ImBitVector self, int sz) {
+    CImGuiJNI.ImBitVector_Create(ImBitVector.getCPtr(self), self, sz);
+  }
+
+  public static void ImBitVector_Clear(ImBitVector self) {
+    CImGuiJNI.ImBitVector_Clear(ImBitVector.getCPtr(self), self);
+  }
+
+  public static boolean ImBitVector_TestBit(ImBitVector self, int n) {
+    return CImGuiJNI.ImBitVector_TestBit(ImBitVector.getCPtr(self), self, n);
+  }
+
+  public static void ImBitVector_SetBit(ImBitVector self, int n) {
+    CImGuiJNI.ImBitVector_SetBit(ImBitVector.getCPtr(self), self, n);
+  }
+
+  public static void ImBitVector_ClearBit(ImBitVector self, int n) {
+    CImGuiJNI.ImBitVector_ClearBit(ImBitVector.getCPtr(self), self, n);
+  }
+
+  public static ImVec1 ImVec1_ImVec1Nil() {
+    long cPtr = CImGuiJNI.ImVec1_ImVec1Nil();
+    return (cPtr == 0) ? null : new ImVec1(cPtr, false);
+  }
+
+  public static void ImVec1_destroy(ImVec1 self) {
+    CImGuiJNI.ImVec1_destroy(ImVec1.getCPtr(self), self);
+  }
+
+  public static ImVec1 ImVec1_ImVec1Float(float _x) {
+    long cPtr = CImGuiJNI.ImVec1_ImVec1Float(_x);
+    return (cPtr == 0) ? null : new ImVec1(cPtr, false);
+  }
+
+  public static ImVec2ih ImVec2ih_ImVec2ihNil() {
+    long cPtr = CImGuiJNI.ImVec2ih_ImVec2ihNil();
+    return (cPtr == 0) ? null : new ImVec2ih(cPtr, false);
+  }
+
+  public static void ImVec2ih_destroy(ImVec2ih self) {
+    CImGuiJNI.ImVec2ih_destroy(ImVec2ih.getCPtr(self), self);
+  }
+
+  public static ImVec2ih ImVec2ih_ImVec2ihshort(short _x, short _y) {
+    long cPtr = CImGuiJNI.ImVec2ih_ImVec2ihshort(_x, _y);
+    return (cPtr == 0) ? null : new ImVec2ih(cPtr, false);
+  }
+
+  public static ImVec2ih ImVec2ih_ImVec2ihVec2(ImVec2 rhs) {
+    long cPtr = CImGuiJNI.ImVec2ih_ImVec2ihVec2(ImVec2.getCPtr(rhs), rhs);
+    return (cPtr == 0) ? null : new ImVec2ih(cPtr, false);
+  }
+
+  public static ImRect ImRect_ImRectNil() {
+    long cPtr = CImGuiJNI.ImRect_ImRectNil();
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public static void ImRect_destroy(ImRect self) {
+    CImGuiJNI.ImRect_destroy(ImRect.getCPtr(self), self);
+  }
+
+  public static ImRect ImRect_ImRectVec2(ImVec2 min, ImVec2 max) {
+    long cPtr = CImGuiJNI.ImRect_ImRectVec2(ImVec2.getCPtr(min), min, ImVec2.getCPtr(max), max);
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public static ImRect ImRect_ImRectVec4(ImVec4 v) {
+    long cPtr = CImGuiJNI.ImRect_ImRectVec4(ImVec4.getCPtr(v), v);
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public static ImRect ImRect_ImRectFloat(float x1, float y1, float x2, float y2) {
+    long cPtr = CImGuiJNI.ImRect_ImRectFloat(x1, y1, x2, y2);
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public static void ImRect_GetCenter(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetCenter(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static void ImRect_GetSize(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetSize(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static float ImRect_GetWidth(ImRect self) {
+    return CImGuiJNI.ImRect_GetWidth(ImRect.getCPtr(self), self);
+  }
+
+  public static float ImRect_GetHeight(ImRect self) {
+    return CImGuiJNI.ImRect_GetHeight(ImRect.getCPtr(self), self);
+  }
+
+  public static void ImRect_GetTL(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetTL(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static void ImRect_GetTR(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetTR(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static void ImRect_GetBL(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetBL(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static void ImRect_GetBR(ImVec2 pOut, ImRect self) {
+    CImGuiJNI.ImRect_GetBR(ImVec2.getCPtr(pOut), pOut, ImRect.getCPtr(self), self);
+  }
+
+  public static boolean ImRect_ContainsVec2(ImRect self, ImVec2 p) {
+    return CImGuiJNI.ImRect_ContainsVec2(ImRect.getCPtr(self), self, ImVec2.getCPtr(p), p);
+  }
+
+  public static boolean ImRect_ContainsRect(ImRect self, ImRect r) {
+    return CImGuiJNI.ImRect_ContainsRect(ImRect.getCPtr(self), self, ImRect.getCPtr(r), r);
+  }
+
+  public static boolean ImRect_Overlaps(ImRect self, ImRect r) {
+    return CImGuiJNI.ImRect_Overlaps(ImRect.getCPtr(self), self, ImRect.getCPtr(r), r);
+  }
+
+  public static void ImRect_AddVec2(ImRect self, ImVec2 p) {
+    CImGuiJNI.ImRect_AddVec2(ImRect.getCPtr(self), self, ImVec2.getCPtr(p), p);
+  }
+
+  public static void ImRect_AddRect(ImRect self, ImRect r) {
+    CImGuiJNI.ImRect_AddRect(ImRect.getCPtr(self), self, ImRect.getCPtr(r), r);
+  }
+
+  public static void ImRect_ExpandFloat(ImRect self, float amount) {
+    CImGuiJNI.ImRect_ExpandFloat(ImRect.getCPtr(self), self, amount);
+  }
+
+  public static void ImRect_ExpandVec2(ImRect self, ImVec2 amount) {
+    CImGuiJNI.ImRect_ExpandVec2(ImRect.getCPtr(self), self, ImVec2.getCPtr(amount), amount);
+  }
+
+  public static void ImRect_Translate(ImRect self, ImVec2 d) {
+    CImGuiJNI.ImRect_Translate(ImRect.getCPtr(self), self, ImVec2.getCPtr(d), d);
+  }
+
+  public static void ImRect_TranslateX(ImRect self, float dx) {
+    CImGuiJNI.ImRect_TranslateX(ImRect.getCPtr(self), self, dx);
+  }
+
+  public static void ImRect_TranslateY(ImRect self, float dy) {
+    CImGuiJNI.ImRect_TranslateY(ImRect.getCPtr(self), self, dy);
+  }
+
+  public static void ImRect_ClipWith(ImRect self, ImRect r) {
+    CImGuiJNI.ImRect_ClipWith(ImRect.getCPtr(self), self, ImRect.getCPtr(r), r);
+  }
+
+  public static void ImRect_ClipWithFull(ImRect self, ImRect r) {
+    CImGuiJNI.ImRect_ClipWithFull(ImRect.getCPtr(self), self, ImRect.getCPtr(r), r);
+  }
+
+  public static void ImRect_Floor(ImRect self) {
+    CImGuiJNI.ImRect_Floor(ImRect.getCPtr(self), self);
+  }
+
+  public static boolean ImRect_IsInverted(ImRect self) {
+    return CImGuiJNI.ImRect_IsInverted(ImRect.getCPtr(self), self);
+  }
+
+  public static ImGuiStyleMod ImGuiStyleMod_ImGuiStyleModInt(int idx, int v) {
+    long cPtr = CImGuiJNI.ImGuiStyleMod_ImGuiStyleModInt(idx, v);
+    return (cPtr == 0) ? null : new ImGuiStyleMod(cPtr, false);
+  }
+
+  public static void ImGuiStyleMod_destroy(ImGuiStyleMod self) {
+    CImGuiJNI.ImGuiStyleMod_destroy(ImGuiStyleMod.getCPtr(self), self);
+  }
+
+  public static ImGuiStyleMod ImGuiStyleMod_ImGuiStyleModFloat(int idx, float v) {
+    long cPtr = CImGuiJNI.ImGuiStyleMod_ImGuiStyleModFloat(idx, v);
+    return (cPtr == 0) ? null : new ImGuiStyleMod(cPtr, false);
+  }
+
+  public static ImGuiStyleMod ImGuiStyleMod_ImGuiStyleModVec2(int idx, ImVec2 v) {
+    long cPtr = CImGuiJNI.ImGuiStyleMod_ImGuiStyleModVec2(idx, ImVec2.getCPtr(v), v);
+    return (cPtr == 0) ? null : new ImGuiStyleMod(cPtr, false);
+  }
+
+  public static ImGuiMenuColumns ImGuiMenuColumns_ImGuiMenuColumns() {
+    long cPtr = CImGuiJNI.ImGuiMenuColumns_ImGuiMenuColumns();
+    return (cPtr == 0) ? null : new ImGuiMenuColumns(cPtr, false);
+  }
+
+  public static void ImGuiMenuColumns_destroy(ImGuiMenuColumns self) {
+    CImGuiJNI.ImGuiMenuColumns_destroy(ImGuiMenuColumns.getCPtr(self), self);
+  }
+
+  public static void ImGuiMenuColumns_Update(ImGuiMenuColumns self, int count, float spacing, boolean clear) {
+    CImGuiJNI.ImGuiMenuColumns_Update(ImGuiMenuColumns.getCPtr(self), self, count, spacing, clear);
+  }
+
+  public static float ImGuiMenuColumns_DeclColumns(ImGuiMenuColumns self, float w0, float w1, float w2) {
+    return CImGuiJNI.ImGuiMenuColumns_DeclColumns(ImGuiMenuColumns.getCPtr(self), self, w0, w1, w2);
+  }
+
+  public static float ImGuiMenuColumns_CalcExtraSpace(ImGuiMenuColumns self, float avail_w) {
+    return CImGuiJNI.ImGuiMenuColumns_CalcExtraSpace(ImGuiMenuColumns.getCPtr(self), self, avail_w);
+  }
+
+  public static ImGuiInputTextState ImGuiInputTextState_ImGuiInputTextState() {
+    long cPtr = CImGuiJNI.ImGuiInputTextState_ImGuiInputTextState();
+    return (cPtr == 0) ? null : new ImGuiInputTextState(cPtr, false);
+  }
+
+  public static void ImGuiInputTextState_destroy(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_destroy(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_ClearText(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_ClearText(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_ClearFreeMemory(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_ClearFreeMemory(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static int ImGuiInputTextState_GetUndoAvailCount(ImGuiInputTextState self) {
+    return CImGuiJNI.ImGuiInputTextState_GetUndoAvailCount(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static int ImGuiInputTextState_GetRedoAvailCount(ImGuiInputTextState self) {
+    return CImGuiJNI.ImGuiInputTextState_GetRedoAvailCount(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_OnKeyPressed(ImGuiInputTextState self, int key) {
+    CImGuiJNI.ImGuiInputTextState_OnKeyPressed(ImGuiInputTextState.getCPtr(self), self, key);
+  }
+
+  public static void ImGuiInputTextState_CursorAnimReset(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_CursorAnimReset(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_CursorClamp(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_CursorClamp(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static boolean ImGuiInputTextState_HasSelection(ImGuiInputTextState self) {
+    return CImGuiJNI.ImGuiInputTextState_HasSelection(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_ClearSelection(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_ClearSelection(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static void ImGuiInputTextState_SelectAll(ImGuiInputTextState self) {
+    CImGuiJNI.ImGuiInputTextState_SelectAll(ImGuiInputTextState.getCPtr(self), self);
+  }
+
+  public static ImGuiWindowSettings ImGuiWindowSettings_ImGuiWindowSettings() {
+    long cPtr = CImGuiJNI.ImGuiWindowSettings_ImGuiWindowSettings();
+    return (cPtr == 0) ? null : new ImGuiWindowSettings(cPtr, false);
+  }
+
+  public static void ImGuiWindowSettings_destroy(ImGuiWindowSettings self) {
+    CImGuiJNI.ImGuiWindowSettings_destroy(ImGuiWindowSettings.getCPtr(self), self);
+  }
+
+  public static String ImGuiWindowSettings_GetName(ImGuiWindowSettings self) {
+    return CImGuiJNI.ImGuiWindowSettings_GetName(ImGuiWindowSettings.getCPtr(self), self);
+  }
+
+  public static ImGuiSettingsHandler ImGuiSettingsHandler_ImGuiSettingsHandler() {
+    long cPtr = CImGuiJNI.ImGuiSettingsHandler_ImGuiSettingsHandler();
+    return (cPtr == 0) ? null : new ImGuiSettingsHandler(cPtr, false);
+  }
+
+  public static void ImGuiSettingsHandler_destroy(ImGuiSettingsHandler self) {
+    CImGuiJNI.ImGuiSettingsHandler_destroy(ImGuiSettingsHandler.getCPtr(self), self);
+  }
+
+  public static ImGuiPopupData ImGuiPopupData_ImGuiPopupData() {
+    long cPtr = CImGuiJNI.ImGuiPopupData_ImGuiPopupData();
+    return (cPtr == 0) ? null : new ImGuiPopupData(cPtr, false);
+  }
+
+  public static void ImGuiPopupData_destroy(ImGuiPopupData self) {
+    CImGuiJNI.ImGuiPopupData_destroy(ImGuiPopupData.getCPtr(self), self);
+  }
+
+  public static ImGuiColumnData ImGuiColumnData_ImGuiColumnData() {
+    long cPtr = CImGuiJNI.ImGuiColumnData_ImGuiColumnData();
+    return (cPtr == 0) ? null : new ImGuiColumnData(cPtr, false);
+  }
+
+  public static void ImGuiColumnData_destroy(ImGuiColumnData self) {
+    CImGuiJNI.ImGuiColumnData_destroy(ImGuiColumnData.getCPtr(self), self);
+  }
+
+  public static ImGuiColumns ImGuiColumns_ImGuiColumns() {
+    long cPtr = CImGuiJNI.ImGuiColumns_ImGuiColumns();
+    return (cPtr == 0) ? null : new ImGuiColumns(cPtr, false);
+  }
+
+  public static void ImGuiColumns_destroy(ImGuiColumns self) {
+    CImGuiJNI.ImGuiColumns_destroy(ImGuiColumns.getCPtr(self), self);
+  }
+
+  public static void ImGuiColumns_Clear(ImGuiColumns self) {
+    CImGuiJNI.ImGuiColumns_Clear(ImGuiColumns.getCPtr(self), self);
+  }
+
+  public static ImDrawListSharedData ImDrawListSharedData_ImDrawListSharedData() {
+    long cPtr = CImGuiJNI.ImDrawListSharedData_ImDrawListSharedData();
+    return (cPtr == 0) ? null : new ImDrawListSharedData(cPtr, false);
+  }
+
+  public static void ImDrawListSharedData_destroy(ImDrawListSharedData self) {
+    CImGuiJNI.ImDrawListSharedData_destroy(ImDrawListSharedData.getCPtr(self), self);
+  }
+
+  public static void ImDrawListSharedData_SetCircleSegmentMaxError(ImDrawListSharedData self, float max_error) {
+    CImGuiJNI.ImDrawListSharedData_SetCircleSegmentMaxError(ImDrawListSharedData.getCPtr(self), self, max_error);
+  }
+
+  public static void ImDrawDataBuilder_Clear(ImDrawDataBuilder self) {
+    CImGuiJNI.ImDrawDataBuilder_Clear(ImDrawDataBuilder.getCPtr(self), self);
+  }
+
+  public static void ImDrawDataBuilder_ClearFreeMemory(ImDrawDataBuilder self) {
+    CImGuiJNI.ImDrawDataBuilder_ClearFreeMemory(ImDrawDataBuilder.getCPtr(self), self);
+  }
+
+  public static void ImDrawDataBuilder_FlattenIntoSingleLayer(ImDrawDataBuilder self) {
+    CImGuiJNI.ImDrawDataBuilder_FlattenIntoSingleLayer(ImDrawDataBuilder.getCPtr(self), self);
+  }
+
+  public static ImGuiNavMoveResult ImGuiNavMoveResult_ImGuiNavMoveResult() {
+    long cPtr = CImGuiJNI.ImGuiNavMoveResult_ImGuiNavMoveResult();
+    return (cPtr == 0) ? null : new ImGuiNavMoveResult(cPtr, false);
+  }
+
+  public static void ImGuiNavMoveResult_destroy(ImGuiNavMoveResult self) {
+    CImGuiJNI.ImGuiNavMoveResult_destroy(ImGuiNavMoveResult.getCPtr(self), self);
+  }
+
+  public static void ImGuiNavMoveResult_Clear(ImGuiNavMoveResult self) {
+    CImGuiJNI.ImGuiNavMoveResult_Clear(ImGuiNavMoveResult.getCPtr(self), self);
+  }
+
+  public static ImGuiNextWindowData ImGuiNextWindowData_ImGuiNextWindowData() {
+    long cPtr = CImGuiJNI.ImGuiNextWindowData_ImGuiNextWindowData();
+    return (cPtr == 0) ? null : new ImGuiNextWindowData(cPtr, false);
+  }
+
+  public static void ImGuiNextWindowData_destroy(ImGuiNextWindowData self) {
+    CImGuiJNI.ImGuiNextWindowData_destroy(ImGuiNextWindowData.getCPtr(self), self);
+  }
+
+  public static void ImGuiNextWindowData_ClearFlags(ImGuiNextWindowData self) {
+    CImGuiJNI.ImGuiNextWindowData_ClearFlags(ImGuiNextWindowData.getCPtr(self), self);
+  }
+
+  public static ImGuiNextItemData ImGuiNextItemData_ImGuiNextItemData() {
+    long cPtr = CImGuiJNI.ImGuiNextItemData_ImGuiNextItemData();
+    return (cPtr == 0) ? null : new ImGuiNextItemData(cPtr, false);
+  }
+
+  public static void ImGuiNextItemData_destroy(ImGuiNextItemData self) {
+    CImGuiJNI.ImGuiNextItemData_destroy(ImGuiNextItemData.getCPtr(self), self);
+  }
+
+  public static void ImGuiNextItemData_ClearFlags(ImGuiNextItemData self) {
+    CImGuiJNI.ImGuiNextItemData_ClearFlags(ImGuiNextItemData.getCPtr(self), self);
+  }
+
+  public static ImGuiPtrOrIndex ImGuiPtrOrIndex_ImGuiPtrOrIndexPtr(SWIGTYPE_p_void ptr) {
+    long cPtr = CImGuiJNI.ImGuiPtrOrIndex_ImGuiPtrOrIndexPtr(SWIGTYPE_p_void.getCPtr(ptr));
+    return (cPtr == 0) ? null : new ImGuiPtrOrIndex(cPtr, false);
+  }
+
+  public static void ImGuiPtrOrIndex_destroy(ImGuiPtrOrIndex self) {
+    CImGuiJNI.ImGuiPtrOrIndex_destroy(ImGuiPtrOrIndex.getCPtr(self), self);
+  }
+
+  public static ImGuiPtrOrIndex ImGuiPtrOrIndex_ImGuiPtrOrIndexInt(int index) {
+    long cPtr = CImGuiJNI.ImGuiPtrOrIndex_ImGuiPtrOrIndexInt(index);
+    return (cPtr == 0) ? null : new ImGuiPtrOrIndex(cPtr, false);
+  }
+
+  public static ImGuiContext ImGuiContext_ImGuiContext(ImFontAtlas shared_font_atlas) {
+    long cPtr = CImGuiJNI.ImGuiContext_ImGuiContext(ImFontAtlas.getCPtr(shared_font_atlas), shared_font_atlas);
+    return (cPtr == 0) ? null : new ImGuiContext(cPtr, false);
+  }
+
+  public static void ImGuiContext_destroy(ImGuiContext self) {
+    CImGuiJNI.ImGuiContext_destroy(ImGuiContext.getCPtr(self), self);
+  }
+
+  public static ImGuiWindowTempData ImGuiWindowTempData_ImGuiWindowTempData() {
+    long cPtr = CImGuiJNI.ImGuiWindowTempData_ImGuiWindowTempData();
+    return (cPtr == 0) ? null : new ImGuiWindowTempData(cPtr, false);
+  }
+
+  public static void ImGuiWindowTempData_destroy(ImGuiWindowTempData self) {
+    CImGuiJNI.ImGuiWindowTempData_destroy(ImGuiWindowTempData.getCPtr(self), self);
+  }
+
+  public static ImGuiWindow ImGuiWindow_ImGuiWindow(ImGuiContext context, String name) {
+    long cPtr = CImGuiJNI.ImGuiWindow_ImGuiWindow(ImGuiContext.getCPtr(context), context, name);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static void ImGuiWindow_destroy(ImGuiWindow self) {
+    CImGuiJNI.ImGuiWindow_destroy(ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static long ImGuiWindow_GetIDStr(ImGuiWindow self, String str, String str_end) {
+    return CImGuiJNI.ImGuiWindow_GetIDStr(ImGuiWindow.getCPtr(self), self, str, str_end);
+  }
+
+  public static long ImGuiWindow_GetIDPtr(ImGuiWindow self, SWIGTYPE_p_void ptr) {
+    return CImGuiJNI.ImGuiWindow_GetIDPtr(ImGuiWindow.getCPtr(self), self, SWIGTYPE_p_void.getCPtr(ptr));
+  }
+
+  public static long ImGuiWindow_GetIDInt(ImGuiWindow self, int n) {
+    return CImGuiJNI.ImGuiWindow_GetIDInt(ImGuiWindow.getCPtr(self), self, n);
+  }
+
+  public static long ImGuiWindow_GetIDNoKeepAliveStr(ImGuiWindow self, String str, String str_end) {
+    return CImGuiJNI.ImGuiWindow_GetIDNoKeepAliveStr(ImGuiWindow.getCPtr(self), self, str, str_end);
+  }
+
+  public static long ImGuiWindow_GetIDNoKeepAlivePtr(ImGuiWindow self, SWIGTYPE_p_void ptr) {
+    return CImGuiJNI.ImGuiWindow_GetIDNoKeepAlivePtr(ImGuiWindow.getCPtr(self), self, SWIGTYPE_p_void.getCPtr(ptr));
+  }
+
+  public static long ImGuiWindow_GetIDNoKeepAliveInt(ImGuiWindow self, int n) {
+    return CImGuiJNI.ImGuiWindow_GetIDNoKeepAliveInt(ImGuiWindow.getCPtr(self), self, n);
+  }
+
+  public static long ImGuiWindow_GetIDFromRectangle(ImGuiWindow self, ImRect r_abs) {
+    return CImGuiJNI.ImGuiWindow_GetIDFromRectangle(ImGuiWindow.getCPtr(self), self, ImRect.getCPtr(r_abs), r_abs);
+  }
+
+  public static void ImGuiWindow_Rect(ImRect pOut, ImGuiWindow self) {
+    CImGuiJNI.ImGuiWindow_Rect(ImRect.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static float ImGuiWindow_CalcFontSize(ImGuiWindow self) {
+    return CImGuiJNI.ImGuiWindow_CalcFontSize(ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static float ImGuiWindow_TitleBarHeight(ImGuiWindow self) {
+    return CImGuiJNI.ImGuiWindow_TitleBarHeight(ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static void ImGuiWindow_TitleBarRect(ImRect pOut, ImGuiWindow self) {
+    CImGuiJNI.ImGuiWindow_TitleBarRect(ImRect.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static float ImGuiWindow_MenuBarHeight(ImGuiWindow self) {
+    return CImGuiJNI.ImGuiWindow_MenuBarHeight(ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static void ImGuiWindow_MenuBarRect(ImRect pOut, ImGuiWindow self) {
+    CImGuiJNI.ImGuiWindow_MenuBarRect(ImRect.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(self), self);
+  }
+
+  public static ImGuiItemHoveredDataBackup ImGuiItemHoveredDataBackup_ImGuiItemHoveredDataBackup() {
+    long cPtr = CImGuiJNI.ImGuiItemHoveredDataBackup_ImGuiItemHoveredDataBackup();
+    return (cPtr == 0) ? null : new ImGuiItemHoveredDataBackup(cPtr, false);
+  }
+
+  public static void ImGuiItemHoveredDataBackup_destroy(ImGuiItemHoveredDataBackup self) {
+    CImGuiJNI.ImGuiItemHoveredDataBackup_destroy(ImGuiItemHoveredDataBackup.getCPtr(self), self);
+  }
+
+  public static void ImGuiItemHoveredDataBackup_Backup(ImGuiItemHoveredDataBackup self) {
+    CImGuiJNI.ImGuiItemHoveredDataBackup_Backup(ImGuiItemHoveredDataBackup.getCPtr(self), self);
+  }
+
+  public static void ImGuiItemHoveredDataBackup_Restore(ImGuiItemHoveredDataBackup self) {
+    CImGuiJNI.ImGuiItemHoveredDataBackup_Restore(ImGuiItemHoveredDataBackup.getCPtr(self), self);
+  }
+
+  public static ImGuiTabItem ImGuiTabItem_ImGuiTabItem() {
+    long cPtr = CImGuiJNI.ImGuiTabItem_ImGuiTabItem();
+    return (cPtr == 0) ? null : new ImGuiTabItem(cPtr, false);
+  }
+
+  public static void ImGuiTabItem_destroy(ImGuiTabItem self) {
+    CImGuiJNI.ImGuiTabItem_destroy(ImGuiTabItem.getCPtr(self), self);
+  }
+
+  public static ImGuiTabBar ImGuiTabBar_ImGuiTabBar() {
+    long cPtr = CImGuiJNI.ImGuiTabBar_ImGuiTabBar();
+    return (cPtr == 0) ? null : new ImGuiTabBar(cPtr, false);
+  }
+
+  public static void ImGuiTabBar_destroy(ImGuiTabBar self) {
+    CImGuiJNI.ImGuiTabBar_destroy(ImGuiTabBar.getCPtr(self), self);
+  }
+
+  public static int ImGuiTabBar_GetTabOrder(ImGuiTabBar self, ImGuiTabItem tab) {
+    return CImGuiJNI.ImGuiTabBar_GetTabOrder(ImGuiTabBar.getCPtr(self), self, ImGuiTabItem.getCPtr(tab), tab);
+  }
+
+  public static String ImGuiTabBar_GetTabName(ImGuiTabBar self, ImGuiTabItem tab) {
+    return CImGuiJNI.ImGuiTabBar_GetTabName(ImGuiTabBar.getCPtr(self), self, ImGuiTabItem.getCPtr(tab), tab);
+  }
+
+  public static ImGuiWindow igGetCurrentWindowRead() {
+    long cPtr = CImGuiJNI.igGetCurrentWindowRead();
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static ImGuiWindow igGetCurrentWindow() {
+    long cPtr = CImGuiJNI.igGetCurrentWindow();
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static ImGuiWindow igFindWindowByID(long id) {
+    long cPtr = CImGuiJNI.igFindWindowByID(id);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static ImGuiWindow igFindWindowByName(String name) {
+    long cPtr = CImGuiJNI.igFindWindowByName(name);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static void igUpdateWindowParentAndRootLinks(ImGuiWindow window, int flags, ImGuiWindow parent_window) {
+    CImGuiJNI.igUpdateWindowParentAndRootLinks(ImGuiWindow.getCPtr(window), window, flags, ImGuiWindow.getCPtr(parent_window), parent_window);
+  }
+
+  public static void igCalcWindowExpectedSize(ImVec2 pOut, ImGuiWindow window) {
+    CImGuiJNI.igCalcWindowExpectedSize(ImVec2.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static boolean igIsWindowChildOf(ImGuiWindow window, ImGuiWindow potential_parent) {
+    return CImGuiJNI.igIsWindowChildOf(ImGuiWindow.getCPtr(window), window, ImGuiWindow.getCPtr(potential_parent), potential_parent);
+  }
+
+  public static boolean igIsWindowNavFocusable(ImGuiWindow window) {
+    return CImGuiJNI.igIsWindowNavFocusable(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igGetWindowAllowedExtentRect(ImRect pOut, ImGuiWindow window) {
+    CImGuiJNI.igGetWindowAllowedExtentRect(ImRect.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igSetWindowPosWindowPtr(ImGuiWindow window, ImVec2 pos, int cond) {
+    CImGuiJNI.igSetWindowPosWindowPtr(ImGuiWindow.getCPtr(window), window, ImVec2.getCPtr(pos), pos, cond);
+  }
+
+  public static void igSetWindowSizeWindowPtr(ImGuiWindow window, ImVec2 size, int cond) {
+    CImGuiJNI.igSetWindowSizeWindowPtr(ImGuiWindow.getCPtr(window), window, ImVec2.getCPtr(size), size, cond);
+  }
+
+  public static void igSetWindowCollapsedWindowPtr(ImGuiWindow window, boolean collapsed, int cond) {
+    CImGuiJNI.igSetWindowCollapsedWindowPtr(ImGuiWindow.getCPtr(window), window, collapsed, cond);
+  }
+
+  public static void igFocusWindow(ImGuiWindow window) {
+    CImGuiJNI.igFocusWindow(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igFocusTopMostWindowUnderOne(ImGuiWindow under_this_window, ImGuiWindow ignore_window) {
+    CImGuiJNI.igFocusTopMostWindowUnderOne(ImGuiWindow.getCPtr(under_this_window), under_this_window, ImGuiWindow.getCPtr(ignore_window), ignore_window);
+  }
+
+  public static void igBringWindowToFocusFront(ImGuiWindow window) {
+    CImGuiJNI.igBringWindowToFocusFront(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igBringWindowToDisplayFront(ImGuiWindow window) {
+    CImGuiJNI.igBringWindowToDisplayFront(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igBringWindowToDisplayBack(ImGuiWindow window) {
+    CImGuiJNI.igBringWindowToDisplayBack(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igSetCurrentFont(ImFont font) {
+    CImGuiJNI.igSetCurrentFont(ImFont.getCPtr(font), font);
+  }
+
+  public static ImFont igGetDefaultFont() {
+    long cPtr = CImGuiJNI.igGetDefaultFont();
+    return (cPtr == 0) ? null : new ImFont(cPtr, false);
+  }
+
+  public static ImDrawList igGetForegroundDrawListWindowPtr(ImGuiWindow window) {
+    long cPtr = CImGuiJNI.igGetForegroundDrawListWindowPtr(ImGuiWindow.getCPtr(window), window);
+    return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
+  }
+
+  public static void igInitialize(ImGuiContext context) {
+    CImGuiJNI.igInitialize(ImGuiContext.getCPtr(context), context);
+  }
+
+  public static void igShutdown(ImGuiContext context) {
+    CImGuiJNI.igShutdown(ImGuiContext.getCPtr(context), context);
+  }
+
+  public static void igUpdateHoveredWindowAndCaptureFlags() {
+    CImGuiJNI.igUpdateHoveredWindowAndCaptureFlags();
+  }
+
+  public static void igStartMouseMovingWindow(ImGuiWindow window) {
+    CImGuiJNI.igStartMouseMovingWindow(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igUpdateMouseMovingWindowNewFrame() {
+    CImGuiJNI.igUpdateMouseMovingWindowNewFrame();
+  }
+
+  public static void igUpdateMouseMovingWindowEndFrame() {
+    CImGuiJNI.igUpdateMouseMovingWindowEndFrame();
+  }
+
+  public static void igMarkIniSettingsDirtyNil() {
+    CImGuiJNI.igMarkIniSettingsDirtyNil();
+  }
+
+  public static void igMarkIniSettingsDirtyWindowPtr(ImGuiWindow window) {
+    CImGuiJNI.igMarkIniSettingsDirtyWindowPtr(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static ImGuiWindowSettings igCreateNewWindowSettings(String name) {
+    long cPtr = CImGuiJNI.igCreateNewWindowSettings(name);
+    return (cPtr == 0) ? null : new ImGuiWindowSettings(cPtr, false);
+  }
+
+  public static ImGuiWindowSettings igFindWindowSettings(long id) {
+    long cPtr = CImGuiJNI.igFindWindowSettings(id);
+    return (cPtr == 0) ? null : new ImGuiWindowSettings(cPtr, false);
+  }
+
+  public static ImGuiWindowSettings igFindOrCreateWindowSettings(String name) {
+    long cPtr = CImGuiJNI.igFindOrCreateWindowSettings(name);
+    return (cPtr == 0) ? null : new ImGuiWindowSettings(cPtr, false);
+  }
+
+  public static ImGuiSettingsHandler igFindSettingsHandler(String type_name) {
+    long cPtr = CImGuiJNI.igFindSettingsHandler(type_name);
+    return (cPtr == 0) ? null : new ImGuiSettingsHandler(cPtr, false);
+  }
+
+  public static void igSetScrollXWindowPtr(ImGuiWindow window, float new_scroll_x) {
+    CImGuiJNI.igSetScrollXWindowPtr(ImGuiWindow.getCPtr(window), window, new_scroll_x);
+  }
+
+  public static void igSetScrollYWindowPtr(ImGuiWindow window, float new_scroll_y) {
+    CImGuiJNI.igSetScrollYWindowPtr(ImGuiWindow.getCPtr(window), window, new_scroll_y);
+  }
+
+  public static void igSetScrollFromPosXWindowPtr(ImGuiWindow window, float local_x, float center_x_ratio) {
+    CImGuiJNI.igSetScrollFromPosXWindowPtr(ImGuiWindow.getCPtr(window), window, local_x, center_x_ratio);
+  }
+
+  public static void igSetScrollFromPosYWindowPtr(ImGuiWindow window, float local_y, float center_y_ratio) {
+    CImGuiJNI.igSetScrollFromPosYWindowPtr(ImGuiWindow.getCPtr(window), window, local_y, center_y_ratio);
+  }
+
+  public static void igScrollToBringRectIntoView(ImVec2 pOut, ImGuiWindow window, ImRect item_rect) {
+    CImGuiJNI.igScrollToBringRectIntoView(ImVec2.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(window), window, ImRect.getCPtr(item_rect), item_rect);
+  }
+
+  public static long igGetItemID() {
+    return CImGuiJNI.igGetItemID();
+  }
+
+  public static int igGetItemStatusFlags() {
+    return CImGuiJNI.igGetItemStatusFlags();
+  }
+
+  public static long igGetActiveID() {
+    return CImGuiJNI.igGetActiveID();
+  }
+
+  public static long igGetFocusID() {
+    return CImGuiJNI.igGetFocusID();
+  }
+
+  public static void igSetActiveID(long id, ImGuiWindow window) {
+    CImGuiJNI.igSetActiveID(id, ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igSetFocusID(long id, ImGuiWindow window) {
+    CImGuiJNI.igSetFocusID(id, ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igClearActiveID() {
+    CImGuiJNI.igClearActiveID();
+  }
+
+  public static long igGetHoveredID() {
+    return CImGuiJNI.igGetHoveredID();
+  }
+
+  public static void igSetHoveredID(long id) {
+    CImGuiJNI.igSetHoveredID(id);
+  }
+
+  public static void igKeepAliveID(long id) {
+    CImGuiJNI.igKeepAliveID(id);
+  }
+
+  public static void igMarkItemEdited(long id) {
+    CImGuiJNI.igMarkItemEdited(id);
+  }
+
+  public static void igPushOverrideID(long id) {
+    CImGuiJNI.igPushOverrideID(id);
+  }
+
+  public static void igItemSizeVec2(ImVec2 size, float text_baseline_y) {
+    CImGuiJNI.igItemSizeVec2(ImVec2.getCPtr(size), size, text_baseline_y);
+  }
+
+  public static void igItemSizeRect(ImRect bb, float text_baseline_y) {
+    CImGuiJNI.igItemSizeRect(ImRect.getCPtr(bb), bb, text_baseline_y);
+  }
+
+  public static boolean igItemAdd(ImRect bb, long id, ImRect nav_bb) {
+    return CImGuiJNI.igItemAdd(ImRect.getCPtr(bb), bb, id, ImRect.getCPtr(nav_bb), nav_bb);
+  }
+
+  public static boolean igItemHoverable(ImRect bb, long id) {
+    return CImGuiJNI.igItemHoverable(ImRect.getCPtr(bb), bb, id);
+  }
+
+  public static boolean igIsClippedEx(ImRect bb, long id, boolean clip_even_when_logged) {
+    return CImGuiJNI.igIsClippedEx(ImRect.getCPtr(bb), bb, id, clip_even_when_logged);
+  }
+
+  public static boolean igFocusableItemRegister(ImGuiWindow window, long id) {
+    return CImGuiJNI.igFocusableItemRegister(ImGuiWindow.getCPtr(window), window, id);
+  }
+
+  public static void igFocusableItemUnregister(ImGuiWindow window) {
+    CImGuiJNI.igFocusableItemUnregister(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igCalcItemSize(ImVec2 pOut, ImVec2 size, float default_w, float default_h) {
+    CImGuiJNI.igCalcItemSize(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(size), size, default_w, default_h);
+  }
+
+  public static float igCalcWrapWidthForPos(ImVec2 pos, float wrap_pos_x) {
+    return CImGuiJNI.igCalcWrapWidthForPos(ImVec2.getCPtr(pos), pos, wrap_pos_x);
+  }
+
+  public static void igPushMultiItemsWidths(int components, float width_full) {
+    CImGuiJNI.igPushMultiItemsWidths(components, width_full);
+  }
+
+  public static void igPushItemFlag(int option, boolean enabled) {
+    CImGuiJNI.igPushItemFlag(option, enabled);
+  }
+
+  public static void igPopItemFlag() {
+    CImGuiJNI.igPopItemFlag();
+  }
+
+  public static boolean igIsItemToggledSelection() {
+    return CImGuiJNI.igIsItemToggledSelection();
+  }
+
+  public static void igGetContentRegionMaxAbs(ImVec2 pOut) {
+    CImGuiJNI.igGetContentRegionMaxAbs(ImVec2.getCPtr(pOut), pOut);
+  }
+
+  public static void igShrinkWidths(ImGuiShrinkWidthItem items, int count, float width_excess) {
+    CImGuiJNI.igShrinkWidths(ImGuiShrinkWidthItem.getCPtr(items), items, count, width_excess);
+  }
+
+  public static void igLogBegin(int type, int auto_open_depth) {
+    CImGuiJNI.igLogBegin(type, auto_open_depth);
+  }
+
+  public static void igLogToBuffer(int auto_open_depth) {
+    CImGuiJNI.igLogToBuffer(auto_open_depth);
+  }
+
+  public static boolean igBeginChildEx(String name, long id, ImVec2 size_arg, boolean border, int flags) {
+    return CImGuiJNI.igBeginChildEx(name, id, ImVec2.getCPtr(size_arg), size_arg, border, flags);
+  }
+
+  public static void igOpenPopupEx(long id) {
+    CImGuiJNI.igOpenPopupEx(id);
+  }
+
+  public static void igClosePopupToLevel(int remaining, boolean restore_focus_to_window_under_popup) {
+    CImGuiJNI.igClosePopupToLevel(remaining, restore_focus_to_window_under_popup);
+  }
+
+  public static void igClosePopupsOverWindow(ImGuiWindow ref_window, boolean restore_focus_to_window_under_popup) {
+    CImGuiJNI.igClosePopupsOverWindow(ImGuiWindow.getCPtr(ref_window), ref_window, restore_focus_to_window_under_popup);
+  }
+
+  public static boolean igIsPopupOpenID(long id) {
+    return CImGuiJNI.igIsPopupOpenID(id);
+  }
+
+  public static boolean igBeginPopupEx(long id, int extra_flags) {
+    return CImGuiJNI.igBeginPopupEx(id, extra_flags);
+  }
+
+  public static void igBeginTooltipEx(int extra_flags, int tooltip_flags) {
+    CImGuiJNI.igBeginTooltipEx(extra_flags, tooltip_flags);
+  }
+
+  public static ImGuiWindow igGetTopMostPopupModal() {
+    long cPtr = CImGuiJNI.igGetTopMostPopupModal();
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public static void igFindBestWindowPosForPopup(ImVec2 pOut, ImGuiWindow window) {
+    CImGuiJNI.igFindBestWindowPosForPopup(ImVec2.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igFindBestWindowPosForPopupEx(ImVec2 pOut, ImVec2 ref_pos, ImVec2 size, SWIGTYPE_p_int last_dir, ImRect r_outer, ImRect r_avoid, int policy) {
+    CImGuiJNI.igFindBestWindowPosForPopupEx(ImVec2.getCPtr(pOut), pOut, ImVec2.getCPtr(ref_pos), ref_pos, ImVec2.getCPtr(size), size, SWIGTYPE_p_int.getCPtr(last_dir), ImRect.getCPtr(r_outer), r_outer, ImRect.getCPtr(r_avoid), r_avoid, policy);
+  }
+
+  public static void igNavInitWindow(ImGuiWindow window, boolean force_reinit) {
+    CImGuiJNI.igNavInitWindow(ImGuiWindow.getCPtr(window), window, force_reinit);
+  }
+
+  public static boolean igNavMoveRequestButNoResultYet() {
+    return CImGuiJNI.igNavMoveRequestButNoResultYet();
+  }
+
+  public static void igNavMoveRequestCancel() {
+    CImGuiJNI.igNavMoveRequestCancel();
+  }
+
+  public static void igNavMoveRequestForward(int move_dir, int clip_dir, ImRect bb_rel, int move_flags) {
+    CImGuiJNI.igNavMoveRequestForward(move_dir, clip_dir, ImRect.getCPtr(bb_rel), bb_rel, move_flags);
+  }
+
+  public static void igNavMoveRequestTryWrapping(ImGuiWindow window, int move_flags) {
+    CImGuiJNI.igNavMoveRequestTryWrapping(ImGuiWindow.getCPtr(window), window, move_flags);
+  }
+
+  public static float igGetNavInputAmount(int n, int mode) {
+    return CImGuiJNI.igGetNavInputAmount(n, mode);
+  }
+
+  public static void igGetNavInputAmount2d(ImVec2 pOut, int dir_sources, int mode, float slow_factor, float fast_factor) {
+    CImGuiJNI.igGetNavInputAmount2d(ImVec2.getCPtr(pOut), pOut, dir_sources, mode, slow_factor, fast_factor);
+  }
+
+  public static int igCalcTypematicRepeatAmount(float t0, float t1, float repeat_delay, float repeat_rate) {
+    return CImGuiJNI.igCalcTypematicRepeatAmount(t0, t1, repeat_delay, repeat_rate);
+  }
+
+  public static void igActivateItem(long id) {
+    CImGuiJNI.igActivateItem(id);
+  }
+
+  public static void igSetNavID(long id, int nav_layer, long focus_scope_id) {
+    CImGuiJNI.igSetNavID(id, nav_layer, focus_scope_id);
+  }
+
+  public static void igSetNavIDWithRectRel(long id, int nav_layer, long focus_scope_id, ImRect rect_rel) {
+    CImGuiJNI.igSetNavIDWithRectRel(id, nav_layer, focus_scope_id, ImRect.getCPtr(rect_rel), rect_rel);
+  }
+
+  public static void igPushFocusScope(long id) {
+    CImGuiJNI.igPushFocusScope(id);
+  }
+
+  public static void igPopFocusScope() {
+    CImGuiJNI.igPopFocusScope();
+  }
+
+  public static long igGetFocusScopeID() {
+    return CImGuiJNI.igGetFocusScopeID();
+  }
+
+  public static boolean igIsActiveIdUsingNavDir(int dir) {
+    return CImGuiJNI.igIsActiveIdUsingNavDir(dir);
+  }
+
+  public static boolean igIsActiveIdUsingNavInput(int input) {
+    return CImGuiJNI.igIsActiveIdUsingNavInput(input);
+  }
+
+  public static boolean igIsActiveIdUsingKey(int key) {
+    return CImGuiJNI.igIsActiveIdUsingKey(key);
+  }
+
+  public static boolean igIsMouseDragPastThreshold(int button, float lock_threshold) {
+    return CImGuiJNI.igIsMouseDragPastThreshold(button, lock_threshold);
+  }
+
+  public static boolean igIsKeyPressedMap(int key, boolean repeat) {
+    return CImGuiJNI.igIsKeyPressedMap(key, repeat);
+  }
+
+  public static boolean igIsNavInputDown(int n) {
+    return CImGuiJNI.igIsNavInputDown(n);
+  }
+
+  public static boolean igIsNavInputTest(int n, int rm) {
+    return CImGuiJNI.igIsNavInputTest(n, rm);
+  }
+
+  public static int igGetMergedKeyModFlags() {
+    return CImGuiJNI.igGetMergedKeyModFlags();
+  }
+
+  public static boolean igBeginDragDropTargetCustom(ImRect bb, long id) {
+    return CImGuiJNI.igBeginDragDropTargetCustom(ImRect.getCPtr(bb), bb, id);
+  }
+
+  public static void igClearDragDrop() {
+    CImGuiJNI.igClearDragDrop();
+  }
+
+  public static boolean igIsDragDropPayloadBeingAccepted() {
+    return CImGuiJNI.igIsDragDropPayloadBeingAccepted();
+  }
+
+  public static void igBeginColumns(String str_id, int count, int flags) {
+    CImGuiJNI.igBeginColumns(str_id, count, flags);
+  }
+
+  public static void igEndColumns() {
+    CImGuiJNI.igEndColumns();
+  }
+
+  public static void igPushColumnClipRect(int column_index) {
+    CImGuiJNI.igPushColumnClipRect(column_index);
+  }
+
+  public static void igPushColumnsBackground() {
+    CImGuiJNI.igPushColumnsBackground();
+  }
+
+  public static void igPopColumnsBackground() {
+    CImGuiJNI.igPopColumnsBackground();
+  }
+
+  public static long igGetColumnsID(String str_id, int count) {
+    return CImGuiJNI.igGetColumnsID(str_id, count);
+  }
+
+  public static ImGuiColumns igFindOrCreateColumns(ImGuiWindow window, long id) {
+    long cPtr = CImGuiJNI.igFindOrCreateColumns(ImGuiWindow.getCPtr(window), window, id);
+    return (cPtr == 0) ? null : new ImGuiColumns(cPtr, false);
+  }
+
+  public static float igGetColumnOffsetFromNorm(ImGuiColumns columns, float offset_norm) {
+    return CImGuiJNI.igGetColumnOffsetFromNorm(ImGuiColumns.getCPtr(columns), columns, offset_norm);
+  }
+
+  public static float igGetColumnNormFromOffset(ImGuiColumns columns, float offset) {
+    return CImGuiJNI.igGetColumnNormFromOffset(ImGuiColumns.getCPtr(columns), columns, offset);
+  }
+
+  public static boolean igBeginTabBarEx(ImGuiTabBar tab_bar, ImRect bb, int flags) {
+    return CImGuiJNI.igBeginTabBarEx(ImGuiTabBar.getCPtr(tab_bar), tab_bar, ImRect.getCPtr(bb), bb, flags);
+  }
+
+  public static ImGuiTabItem igTabBarFindTabByID(ImGuiTabBar tab_bar, long tab_id) {
+    long cPtr = CImGuiJNI.igTabBarFindTabByID(ImGuiTabBar.getCPtr(tab_bar), tab_bar, tab_id);
+    return (cPtr == 0) ? null : new ImGuiTabItem(cPtr, false);
+  }
+
+  public static void igTabBarRemoveTab(ImGuiTabBar tab_bar, long tab_id) {
+    CImGuiJNI.igTabBarRemoveTab(ImGuiTabBar.getCPtr(tab_bar), tab_bar, tab_id);
+  }
+
+  public static void igTabBarCloseTab(ImGuiTabBar tab_bar, ImGuiTabItem tab) {
+    CImGuiJNI.igTabBarCloseTab(ImGuiTabBar.getCPtr(tab_bar), tab_bar, ImGuiTabItem.getCPtr(tab), tab);
+  }
+
+  public static void igTabBarQueueChangeTabOrder(ImGuiTabBar tab_bar, ImGuiTabItem tab, int dir) {
+    CImGuiJNI.igTabBarQueueChangeTabOrder(ImGuiTabBar.getCPtr(tab_bar), tab_bar, ImGuiTabItem.getCPtr(tab), tab, dir);
+  }
+
+  public static boolean igTabItemEx(ImGuiTabBar tab_bar, String label, SWIGTYPE_p_bool p_open, int flags) {
+    return CImGuiJNI.igTabItemEx(ImGuiTabBar.getCPtr(tab_bar), tab_bar, label, SWIGTYPE_p_bool.getCPtr(p_open), flags);
+  }
+
+  public static void igTabItemCalcSize(ImVec2 pOut, String label, boolean has_close_button) {
+    CImGuiJNI.igTabItemCalcSize(ImVec2.getCPtr(pOut), pOut, label, has_close_button);
+  }
+
+  public static void igTabItemBackground(ImDrawList draw_list, ImRect bb, int flags, long col) {
+    CImGuiJNI.igTabItemBackground(ImDrawList.getCPtr(draw_list), draw_list, ImRect.getCPtr(bb), bb, flags, col);
+  }
+
+  public static boolean igTabItemLabelAndCloseButton(ImDrawList draw_list, ImRect bb, int flags, ImVec2 frame_padding, String label, long tab_id, long close_button_id) {
+    return CImGuiJNI.igTabItemLabelAndCloseButton(ImDrawList.getCPtr(draw_list), draw_list, ImRect.getCPtr(bb), bb, flags, ImVec2.getCPtr(frame_padding), frame_padding, label, tab_id, close_button_id);
+  }
+
+  public static void igRenderText(ImVec2 pos, String text, String text_end, boolean hide_text_after_hash) {
+    CImGuiJNI.igRenderText(ImVec2.getCPtr(pos), pos, text, text_end, hide_text_after_hash);
+  }
+
+  public static void igRenderTextWrapped(ImVec2 pos, String text, String text_end, float wrap_width) {
+    CImGuiJNI.igRenderTextWrapped(ImVec2.getCPtr(pos), pos, text, text_end, wrap_width);
+  }
+
+  public static void igRenderTextClipped(ImVec2 pos_min, ImVec2 pos_max, String text, String text_end, ImVec2 text_size_if_known, ImVec2 align, ImRect clip_rect) {
+    CImGuiJNI.igRenderTextClipped(ImVec2.getCPtr(pos_min), pos_min, ImVec2.getCPtr(pos_max), pos_max, text, text_end, ImVec2.getCPtr(text_size_if_known), text_size_if_known, ImVec2.getCPtr(align), align, ImRect.getCPtr(clip_rect), clip_rect);
+  }
+
+  public static void igRenderTextClippedEx(ImDrawList draw_list, ImVec2 pos_min, ImVec2 pos_max, String text, String text_end, ImVec2 text_size_if_known, ImVec2 align, ImRect clip_rect) {
+    CImGuiJNI.igRenderTextClippedEx(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos_min), pos_min, ImVec2.getCPtr(pos_max), pos_max, text, text_end, ImVec2.getCPtr(text_size_if_known), text_size_if_known, ImVec2.getCPtr(align), align, ImRect.getCPtr(clip_rect), clip_rect);
+  }
+
+  public static void igRenderTextEllipsis(ImDrawList draw_list, ImVec2 pos_min, ImVec2 pos_max, float clip_max_x, float ellipsis_max_x, String text, String text_end, ImVec2 text_size_if_known) {
+    CImGuiJNI.igRenderTextEllipsis(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos_min), pos_min, ImVec2.getCPtr(pos_max), pos_max, clip_max_x, ellipsis_max_x, text, text_end, ImVec2.getCPtr(text_size_if_known), text_size_if_known);
+  }
+
+  public static void igRenderFrame(ImVec2 p_min, ImVec2 p_max, long fill_col, boolean border, float rounding) {
+    CImGuiJNI.igRenderFrame(ImVec2.getCPtr(p_min), p_min, ImVec2.getCPtr(p_max), p_max, fill_col, border, rounding);
+  }
+
+  public static void igRenderFrameBorder(ImVec2 p_min, ImVec2 p_max, float rounding) {
+    CImGuiJNI.igRenderFrameBorder(ImVec2.getCPtr(p_min), p_min, ImVec2.getCPtr(p_max), p_max, rounding);
+  }
+
+  public static void igRenderColorRectWithAlphaCheckerboard(ImDrawList draw_list, ImVec2 p_min, ImVec2 p_max, long fill_col, float grid_step, ImVec2 grid_off, float rounding, int rounding_corners_flags) {
+    CImGuiJNI.igRenderColorRectWithAlphaCheckerboard(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(p_min), p_min, ImVec2.getCPtr(p_max), p_max, fill_col, grid_step, ImVec2.getCPtr(grid_off), grid_off, rounding, rounding_corners_flags);
+  }
+
+  public static void igRenderNavHighlight(ImRect bb, long id, int flags) {
+    CImGuiJNI.igRenderNavHighlight(ImRect.getCPtr(bb), bb, id, flags);
+  }
+
+  public static String igFindRenderedTextEnd(String text, String text_end) {
+    return CImGuiJNI.igFindRenderedTextEnd(text, text_end);
+  }
+
+  public static void igLogRenderedText(ImVec2 ref_pos, String text, String text_end) {
+    CImGuiJNI.igLogRenderedText(ImVec2.getCPtr(ref_pos), ref_pos, text, text_end);
+  }
+
+  public static void igRenderArrow(ImDrawList draw_list, ImVec2 pos, long col, int dir, float scale) {
+    CImGuiJNI.igRenderArrow(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos), pos, col, dir, scale);
+  }
+
+  public static void igRenderBullet(ImDrawList draw_list, ImVec2 pos, long col) {
+    CImGuiJNI.igRenderBullet(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos), pos, col);
+  }
+
+  public static void igRenderCheckMark(ImDrawList draw_list, ImVec2 pos, long col, float sz) {
+    CImGuiJNI.igRenderCheckMark(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos), pos, col, sz);
+  }
+
+  public static void igRenderMouseCursor(ImDrawList draw_list, ImVec2 pos, float scale, int mouse_cursor, long col_fill, long col_border, long col_shadow) {
+    CImGuiJNI.igRenderMouseCursor(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos), pos, scale, mouse_cursor, col_fill, col_border, col_shadow);
+  }
+
+  public static void igRenderArrowPointingAt(ImDrawList draw_list, ImVec2 pos, ImVec2 half_sz, int direction, long col) {
+    CImGuiJNI.igRenderArrowPointingAt(ImDrawList.getCPtr(draw_list), draw_list, ImVec2.getCPtr(pos), pos, ImVec2.getCPtr(half_sz), half_sz, direction, col);
+  }
+
+  public static void igRenderRectFilledRangeH(ImDrawList draw_list, ImRect rect, long col, float x_start_norm, float x_end_norm, float rounding) {
+    CImGuiJNI.igRenderRectFilledRangeH(ImDrawList.getCPtr(draw_list), draw_list, ImRect.getCPtr(rect), rect, col, x_start_norm, x_end_norm, rounding);
+  }
+
+  public static void igTextEx(String text, String text_end, int flags) {
+    CImGuiJNI.igTextEx(text, text_end, flags);
+  }
+
+  public static boolean igButtonEx(String label, ImVec2 size_arg, int flags) {
+    return CImGuiJNI.igButtonEx(label, ImVec2.getCPtr(size_arg), size_arg, flags);
+  }
+
+  public static boolean igCloseButton(long id, ImVec2 pos) {
+    return CImGuiJNI.igCloseButton(id, ImVec2.getCPtr(pos), pos);
+  }
+
+  public static boolean igCollapseButton(long id, ImVec2 pos) {
+    return CImGuiJNI.igCollapseButton(id, ImVec2.getCPtr(pos), pos);
+  }
+
+  public static boolean igArrowButtonEx(String str_id, int dir, ImVec2 size_arg, int flags) {
+    return CImGuiJNI.igArrowButtonEx(str_id, dir, ImVec2.getCPtr(size_arg), size_arg, flags);
+  }
+
+  public static void igScrollbar(int axis) {
+    CImGuiJNI.igScrollbar(axis);
+  }
+
+  public static boolean igScrollbarEx(ImRect bb, long id, int axis, SWIGTYPE_p_float p_scroll_v, float avail_v, float contents_v, int rounding_corners) {
+    return CImGuiJNI.igScrollbarEx(ImRect.getCPtr(bb), bb, id, axis, SWIGTYPE_p_float.getCPtr(p_scroll_v), avail_v, contents_v, rounding_corners);
+  }
+
+  public static void igGetWindowScrollbarRect(ImRect pOut, ImGuiWindow window, int axis) {
+    CImGuiJNI.igGetWindowScrollbarRect(ImRect.getCPtr(pOut), pOut, ImGuiWindow.getCPtr(window), window, axis);
+  }
+
+  public static long igGetWindowScrollbarID(ImGuiWindow window, int axis) {
+    return CImGuiJNI.igGetWindowScrollbarID(ImGuiWindow.getCPtr(window), window, axis);
+  }
+
+  public static long igGetWindowResizeID(ImGuiWindow window, int n) {
+    return CImGuiJNI.igGetWindowResizeID(ImGuiWindow.getCPtr(window), window, n);
+  }
+
+  public static void igSeparatorEx(int flags) {
+    CImGuiJNI.igSeparatorEx(flags);
+  }
+
+  public static boolean igButtonBehavior(ImRect bb, long id, SWIGTYPE_p_bool out_hovered, SWIGTYPE_p_bool out_held, int flags) {
+    return CImGuiJNI.igButtonBehavior(ImRect.getCPtr(bb), bb, id, SWIGTYPE_p_bool.getCPtr(out_hovered), SWIGTYPE_p_bool.getCPtr(out_held), flags);
+  }
+
+  public static boolean igDragBehavior(long id, int data_type, SWIGTYPE_p_void p_v, float v_speed, SWIGTYPE_p_void p_min, SWIGTYPE_p_void p_max, String format, float power, int flags) {
+    return CImGuiJNI.igDragBehavior(id, data_type, SWIGTYPE_p_void.getCPtr(p_v), v_speed, SWIGTYPE_p_void.getCPtr(p_min), SWIGTYPE_p_void.getCPtr(p_max), format, power, flags);
+  }
+
+  public static boolean igSliderBehavior(ImRect bb, long id, int data_type, SWIGTYPE_p_void p_v, SWIGTYPE_p_void p_min, SWIGTYPE_p_void p_max, String format, float power, int flags, ImRect out_grab_bb) {
+    return CImGuiJNI.igSliderBehavior(ImRect.getCPtr(bb), bb, id, data_type, SWIGTYPE_p_void.getCPtr(p_v), SWIGTYPE_p_void.getCPtr(p_min), SWIGTYPE_p_void.getCPtr(p_max), format, power, flags, ImRect.getCPtr(out_grab_bb), out_grab_bb);
+  }
+
+  public static boolean igSplitterBehavior(ImRect bb, long id, int axis, SWIGTYPE_p_float size1, SWIGTYPE_p_float size2, float min_size1, float min_size2, float hover_extend, float hover_visibility_delay) {
+    return CImGuiJNI.igSplitterBehavior(ImRect.getCPtr(bb), bb, id, axis, SWIGTYPE_p_float.getCPtr(size1), SWIGTYPE_p_float.getCPtr(size2), min_size1, min_size2, hover_extend, hover_visibility_delay);
+  }
+
+  public static boolean igTreeNodeBehavior(long id, int flags, String label, String label_end) {
+    return CImGuiJNI.igTreeNodeBehavior(id, flags, label, label_end);
+  }
+
+  public static boolean igTreeNodeBehaviorIsOpen(long id, int flags) {
+    return CImGuiJNI.igTreeNodeBehaviorIsOpen(id, flags);
+  }
+
+  public static void igTreePushOverrideID(long id) {
+    CImGuiJNI.igTreePushOverrideID(id);
+  }
+
+  public static ImGuiDataTypeInfo igDataTypeGetInfo(int data_type) {
+    long cPtr = CImGuiJNI.igDataTypeGetInfo(data_type);
+    return (cPtr == 0) ? null : new ImGuiDataTypeInfo(cPtr, false);
+  }
+
+  public static int igDataTypeFormatString(byte[] buf, int buf_size, int data_type, SWIGTYPE_p_void p_data, String format) {
+    return CImGuiJNI.igDataTypeFormatString(buf, buf_size, data_type, SWIGTYPE_p_void.getCPtr(p_data), format);
+  }
+
+  public static void igDataTypeApplyOp(int data_type, int op, SWIGTYPE_p_void output, SWIGTYPE_p_void arg_1, SWIGTYPE_p_void arg_2) {
+    CImGuiJNI.igDataTypeApplyOp(data_type, op, SWIGTYPE_p_void.getCPtr(output), SWIGTYPE_p_void.getCPtr(arg_1), SWIGTYPE_p_void.getCPtr(arg_2));
+  }
+
+  public static boolean igDataTypeApplyOpFromText(byte[] buf, String initial_value_buf, int data_type, SWIGTYPE_p_void p_data, String format) {
+    return CImGuiJNI.igDataTypeApplyOpFromText(buf, initial_value_buf, data_type, SWIGTYPE_p_void.getCPtr(p_data), format);
+  }
+
+  public static boolean igInputTextEx(String label, String hint, byte[] buf, int buf_size, ImVec2 size_arg, int flags, InputTextCallback callback) {
+    return CImGuiJNI.igInputTextEx(label, hint, buf, buf_size, ImVec2.getCPtr(size_arg), size_arg, flags, callback);
+  }
+
+  public static boolean igTempInputText(ImRect bb, long id, String label, byte[] buf, int buf_size, int flags) {
+    return CImGuiJNI.igTempInputText(ImRect.getCPtr(bb), bb, id, label, buf, buf_size, flags);
+  }
+
+  public static boolean igTempInputScalar(ImRect bb, long id, String label, int data_type, SWIGTYPE_p_void p_data, String format) {
+    return CImGuiJNI.igTempInputScalar(ImRect.getCPtr(bb), bb, id, label, data_type, SWIGTYPE_p_void.getCPtr(p_data), format);
+  }
+
+  public static boolean igTempInputIsActive(long id) {
+    return CImGuiJNI.igTempInputIsActive(id);
+  }
+
+  public static ImGuiInputTextState igGetInputTextState(long id) {
+    long cPtr = CImGuiJNI.igGetInputTextState(id);
+    return (cPtr == 0) ? null : new ImGuiInputTextState(cPtr, false);
+  }
+
+  public static void igColorTooltip(String text, SWIGTYPE_p_float col, int flags) {
+    CImGuiJNI.igColorTooltip(text, SWIGTYPE_p_float.getCPtr(col), flags);
+  }
+
+  public static void igColorEditOptionsPopup(SWIGTYPE_p_float col, int flags) {
+    CImGuiJNI.igColorEditOptionsPopup(SWIGTYPE_p_float.getCPtr(col), flags);
+  }
+
+  public static void igColorPickerOptionsPopup(SWIGTYPE_p_float ref_col, int flags) {
+    CImGuiJNI.igColorPickerOptionsPopup(SWIGTYPE_p_float.getCPtr(ref_col), flags);
+  }
+
+  public static int igPlotEx(int plot_type, String label, ValuesGetter values_getter, int values_count, int values_offset, String overlay_text, float scale_min, float scale_max, ImVec2 frame_size) {
+    return CImGuiJNI.igPlotEx(plot_type, label, values_getter, values_count, values_offset, overlay_text, scale_min, scale_max, ImVec2.getCPtr(frame_size), frame_size);
+  }
+
+  public static void igShadeVertsLinearColorGradientKeepAlpha(ImDrawList draw_list, int vert_start_idx, int vert_end_idx, ImVec2 gradient_p0, ImVec2 gradient_p1, long col0, long col1) {
+    CImGuiJNI.igShadeVertsLinearColorGradientKeepAlpha(ImDrawList.getCPtr(draw_list), draw_list, vert_start_idx, vert_end_idx, ImVec2.getCPtr(gradient_p0), gradient_p0, ImVec2.getCPtr(gradient_p1), gradient_p1, col0, col1);
+  }
+
+  public static void igShadeVertsLinearUV(ImDrawList draw_list, int vert_start_idx, int vert_end_idx, ImVec2 a, ImVec2 b, ImVec2 uv_a, ImVec2 uv_b, boolean clamp) {
+    CImGuiJNI.igShadeVertsLinearUV(ImDrawList.getCPtr(draw_list), draw_list, vert_start_idx, vert_end_idx, ImVec2.getCPtr(a), a, ImVec2.getCPtr(b), b, ImVec2.getCPtr(uv_a), uv_a, ImVec2.getCPtr(uv_b), uv_b, clamp);
+  }
+
+  public static void igGcCompactTransientWindowBuffers(ImGuiWindow window) {
+    CImGuiJNI.igGcCompactTransientWindowBuffers(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igGcAwakeTransientWindowBuffers(ImGuiWindow window) {
+    CImGuiJNI.igGcAwakeTransientWindowBuffers(ImGuiWindow.getCPtr(window), window);
+  }
+
+  public static void igDebugDrawItemRect(long col) {
+    CImGuiJNI.igDebugDrawItemRect(col);
+  }
+
+  public static void igDebugStartItemPicker() {
+    CImGuiJNI.igDebugStartItemPicker();
+  }
+
+  public static boolean igImFontAtlasBuildWithStbTruetype(ImFontAtlas atlas) {
+    return CImGuiJNI.igImFontAtlasBuildWithStbTruetype(ImFontAtlas.getCPtr(atlas), atlas);
+  }
+
+  public static void igImFontAtlasBuildInit(ImFontAtlas atlas) {
+    CImGuiJNI.igImFontAtlasBuildInit(ImFontAtlas.getCPtr(atlas), atlas);
+  }
+
+  public static void igImFontAtlasBuildSetupFont(ImFontAtlas atlas, ImFont font, ImFontConfig font_config, float ascent, float descent) {
+    CImGuiJNI.igImFontAtlasBuildSetupFont(ImFontAtlas.getCPtr(atlas), atlas, ImFont.getCPtr(font), font, ImFontConfig.getCPtr(font_config), font_config, ascent, descent);
+  }
+
+  public static void igImFontAtlasBuildPackCustomRects(ImFontAtlas atlas, SWIGTYPE_p_void stbrp_context_opaque) {
+    CImGuiJNI.igImFontAtlasBuildPackCustomRects(ImFontAtlas.getCPtr(atlas), atlas, SWIGTYPE_p_void.getCPtr(stbrp_context_opaque));
+  }
+
+  public static void igImFontAtlasBuildFinish(ImFontAtlas atlas) {
+    CImGuiJNI.igImFontAtlasBuildFinish(ImFontAtlas.getCPtr(atlas), atlas);
+  }
+
+  public static void igImFontAtlasBuildMultiplyCalcLookupTable(SWIGTYPE_p_unsigned_char out_table, float in_multiply_factor) {
+    CImGuiJNI.igImFontAtlasBuildMultiplyCalcLookupTable(SWIGTYPE_p_unsigned_char.getCPtr(out_table), in_multiply_factor);
+  }
+
+  public static void igImFontAtlasBuildMultiplyRectAlpha8(SWIGTYPE_p_unsigned_char table, SWIGTYPE_p_unsigned_char pixels, int x, int y, int w, int h, int stride) {
+    CImGuiJNI.igImFontAtlasBuildMultiplyRectAlpha8(SWIGTYPE_p_unsigned_char.getCPtr(table), SWIGTYPE_p_unsigned_char.getCPtr(pixels), x, y, w, h, stride);
   }
 
   public static void igLogText(String fmt) {

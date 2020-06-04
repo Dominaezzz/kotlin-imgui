@@ -13,6 +13,25 @@ import kotlin.contracts.contract
 import kotlin.reflect.KMutableProperty0
 
 @UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.columns(
+    strId: String,
+    count: Int,
+    flags: Flag<ImGuiColumnsFlags>? = null,
+    block: () -> Unit
+) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+
+    beginColumns(strId, count, flags)
+    try {
+        block()
+    } finally {
+        endColumns()
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
 inline fun ImGui.combo(
     label: String,
     previewValue: String,
@@ -203,6 +222,25 @@ inline fun ImGui.popupContextWindow(
 }
 
 @UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.popupEx(
+    id: ImGuiID,
+    extraFlags: Flag<ImGuiWindowFlags>,
+    block: () -> Unit
+) {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+
+    if (beginPopupEx(id, extraFlags)) {
+        try {
+            block()
+        } finally {
+            endPopup()
+        }
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
 inline fun ImGui.popupModal(
     name: String,
     pOpen: KMutableProperty0<Boolean>? = null,
@@ -362,6 +400,34 @@ inline fun ImGui.withClipRect(
 }
 
 @UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.withColumnsBackground(block: () -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+
+    pushColumnsBackground()
+    try {
+        block()
+    } finally {
+        popColumnsBackground()
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.withFocusScope(id: ImGuiID, block: () -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+
+    pushFocusScope(id)
+    try {
+        block()
+    } finally {
+        popFocusScope()
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
 inline fun ImGui.withFont(font: ImFont, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -418,6 +484,24 @@ inline fun ImGui.withID(intId: Int, block: () -> Unit) {
         block()
     } finally {
         popID()
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.withItemFlag(
+    option: Flag<ImGuiItemFlags>,
+    enabled: Boolean,
+    block: () -> Unit
+) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+
+    pushItemFlag(option, enabled)
+    try {
+        block()
+    } finally {
+        popItemFlag()
     }
 }
 
@@ -547,6 +631,46 @@ inline fun ImGui.treeNode(
     }
 
     if (treeNode(strId, fmt)) {
+        try {
+            block()
+        } finally {
+            treePop()
+        }
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.treeNodeBehavior(
+    id: ImGuiID,
+    flags: Flag<ImGuiTreeNodeFlags>,
+    label: String,
+    labelEnd: String? = null,
+    block: () -> Unit
+) {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+
+    if (treeNodeBehavior(id, flags, label, labelEnd)) {
+        try {
+            block()
+        } finally {
+            treePop()
+        }
+    }
+}
+
+@UseExperimental(ExperimentalContracts::class)
+inline fun ImGui.treeNodeBehaviorIsOpen(
+    id: ImGuiID,
+    flags: Flag<ImGuiTreeNodeFlags>? = null,
+    block: () -> Unit
+) {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+
+    if (treeNodeBehaviorIsOpen(id, flags)) {
         try {
             block()
         } finally {

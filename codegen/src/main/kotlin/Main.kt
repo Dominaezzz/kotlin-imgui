@@ -48,7 +48,8 @@ val functionsToSkip = setOf(
 		"igInputText",
 		"igInputTextMultiline",
 		"igInputTextWithHint",
-		"igSetNextWindowSizeConstraints"
+		"igSetNextWindowSizeConstraints",
+		"igImTriangleBarycentricCoords" // Needs to be handwritten in cimgui.
 )
 
 fun String.snakeToPascalCase(abbreviations: Set<String> = emptySet()): String {
@@ -206,9 +207,12 @@ fun main(args: Array<String>) {
 	}
 
 	for ((enumName, entries) in enums) {
+		// Ignore internal flags
+		if (enumName.endsWith("FlagsPrivate_")) continue
+
 		val isBitmask = enumName in enumBitMasks
 
-		val enumNameKt = enumName.dropLast(1) // Remove trailing underscore.
+		val enumNameKt = enumName.removeSuffix("_")
 		val enumClass = ClassName("com.imgui", enumNameKt)
 		val enumValueType = ClassName("cimgui.internal", enumNameKt)
 		val enumJvmClass = ClassName("cimgui.internal", enumName)
@@ -241,7 +245,7 @@ fun main(args: Array<String>) {
 
 		for (enumValue in entries) {
 			val enumValueNameKt = enumValue.name.removePrefix(enumName)
-			check(enumValue.name != enumValueNameKt)
+			check(enumValue.name != enumValueNameKt) { "Could not remove prefix $enumName from ${enumValue.name}" }
 
 			if (isBitmask) {
 				if (enumValueNameKt == "None") {
@@ -438,6 +442,8 @@ fun main(args: Array<String>) {
 				// Must be a better way to do this.
 				if (it == "(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))") {
 					"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
+				} else if (it == "(((ImU32)(255)<<24)|((ImU32)(0)<<16)|((ImU32)(0)<<8)|((ImU32)(255)<<0))") {
+					"(255u shl 24) or (0u shl 16) or (0u shl 8) or (255u shl 0)"
 				} else {
 					it
 				}
@@ -493,7 +499,7 @@ fun main(args: Array<String>) {
 					} else if (passesStructByValue) {
 						jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
 					} else if (isUnicodeStr) {
-						jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String { $ptrName -> "))
+						jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String·{ $ptrName -> "))
 					}
 
 					val param = ParameterSpec.builder(argNameKt, paramType)
@@ -504,6 +510,7 @@ fun main(args: Array<String>) {
 							CodeBlock.of(when {
 								defaultValue == "((void*)0)" -> "null"
 								type == U_LONG -> "${defaultValue}uL"
+								type == U_INT && defaultValue.toIntOrNull() != null -> "${defaultValue}u"
 								defaultValue == "ImVec2(0,0)" -> "Vec2.Zero"
 								defaultValue == "ImVec4(0,0,0,0)" -> "Vec4.Zero"
 								defaultValue matches vec2Regex -> vec2Regex.replace(defaultValue, "Vec2($1f, $2f)")
@@ -703,6 +710,11 @@ fun main(args: Array<String>) {
 	val imguiDSL = FileSpec.builder("com.imgui", "ImguiDSL")
 	val functionMap = imguiObj.funSpecs.groupBy { it.name }
 	for (funSpec in imguiObj.funSpecs) {
+		if (funSpec.name == "beginTooltipEx") continue
+		if (funSpec.name == "pushColumnClipRect") continue
+		if (funSpec.name == "pushMultiItemsWidths") continue
+		if (funSpec.name == "pushOverrideID") continue
+
 		val exitFunction: FunSpec
 		val dslName: String
 		val isConditional: Boolean
@@ -713,7 +725,7 @@ fun main(args: Array<String>) {
 			isConditional = false
 		} else if (funSpec.name.startsWith("begin")) {
 			val noun = funSpec.name.removePrefix("begin")
-			if (noun.isEmpty() || noun == "Child" || noun == "ChildFrame") {
+			if (noun.isEmpty() || noun == "Child" || noun == "ChildFrame" || noun == "ChildEx") {
 				// TODO: Will handle these in future release.
 				continue
 			}

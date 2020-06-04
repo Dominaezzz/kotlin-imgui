@@ -3,7 +3,6 @@ package com.imgui
 import cimgui.internal.CImGui.ImFont_AddGlyph
 import cimgui.internal.CImGui.ImFont_AddRemapChar
 import cimgui.internal.CImGui.ImFont_BuildLookupTable
-import cimgui.internal.CImGui.ImFont_CalcTextSizeA_nonUDT
 import cimgui.internal.CImGui.ImFont_CalcWordWrapPositionA
 import cimgui.internal.CImGui.ImFont_ClearOutputData
 import cimgui.internal.CImGui.ImFont_FindGlyph
@@ -12,10 +11,12 @@ import cimgui.internal.CImGui.ImFont_GetCharAdvance
 import cimgui.internal.CImGui.ImFont_GetDebugName
 import cimgui.internal.CImGui.ImFont_GrowIndex
 import cimgui.internal.CImGui.ImFont_ImFont
+import cimgui.internal.CImGui.ImFont_IsGlyphRangeUnused
 import cimgui.internal.CImGui.ImFont_IsLoaded
 import cimgui.internal.CImGui.ImFont_RenderChar
 import cimgui.internal.CImGui.ImFont_RenderText
 import cimgui.internal.CImGui.ImFont_SetFallbackChar
+import cimgui.internal.CImGui.ImFont_SetGlyphVisible
 import cimgui.internal.CImGui.ImFont_destroy
 import kotlin.Boolean
 import kotlin.Char
@@ -101,16 +102,6 @@ actual inline class ImFont(
     ImFont_BuildLookupTable(ptr)
   }
 
-  actual fun calcTextSizeA(
-    size: Float,
-    maxWidth: Float,
-    wrapWidth: Float,
-    textBegin: String,
-    textEnd: String?
-  ): Vec2 = returnVec2 { returnVal ->
-    ImFont_CalcTextSizeA_nonUDT(returnVal, ptr, size, maxWidth, wrapWidth, textBegin, textEnd, null)
-  }
-
   actual fun calcWordWrapPositionA(
     scale: Float,
     text: String,
@@ -134,6 +125,9 @@ actual inline class ImFont(
   actual fun growIndex(newSize: Int) {
     ImFont_GrowIndex(ptr, newSize)
   }
+
+  actual fun isGlyphRangeUnused(cBegin: UInt, cLast: UInt): Boolean = ImFont_IsGlyphRangeUnused(ptr,
+      cBegin.toLong(), cLast.toLong())
 
   actual fun isLoaded(): Boolean = ImFont_IsLoaded(ptr)
 
@@ -170,6 +164,10 @@ actual inline class ImFont(
 
   actual fun setFallbackChar(c: Char) {
     ImFont_SetFallbackChar(ptr, c.toInt())
+  }
+
+  actual fun setGlyphVisible(c: Char, visible: Boolean) {
+    ImFont_SetGlyphVisible(ptr, c.toInt(), visible)
   }
 
   actual fun destroy() {

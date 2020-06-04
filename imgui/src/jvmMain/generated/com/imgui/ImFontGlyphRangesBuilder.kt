@@ -10,9 +10,9 @@ import cimgui.internal.CImGui.ImFontGlyphRangesBuilder_SetBit
 import cimgui.internal.CImGui.ImFontGlyphRangesBuilder_destroy
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
+import kotlin.ULong
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
 actual inline class ImFontGlyphRangesBuilder(
@@ -38,10 +38,10 @@ actual inline class ImFontGlyphRangesBuilder(
     ImFontGlyphRangesBuilder_Clear(ptr)
   }
 
-  actual fun getBit(n: Int): Boolean = ImFontGlyphRangesBuilder_GetBit(ptr, n)
+  actual fun getBit(n: ULong): Boolean = ImFontGlyphRangesBuilder_GetBit(ptr, n.toLong())
 
-  actual fun setBit(n: Int) {
-    ImFontGlyphRangesBuilder_SetBit(ptr, n)
+  actual fun setBit(n: ULong) {
+    ImFontGlyphRangesBuilder_SetBit(ptr, n.toLong())
   }
 
   actual fun destroy() {

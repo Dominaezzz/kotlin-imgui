@@ -1,15 +1,18 @@
 package com.imgui
 
-import kotlin.Char
 import kotlin.Float
 import kotlin.Suppress
+import kotlin.UInt
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
 actual inline class ImFontGlyph(
   val ptr: cimgui.internal.ImFontGlyph
 ) {
-  actual val codepoint: Char
-    get() = ptr.codepoint.toShort().toChar()
+  actual val codepoint: UInt
+    get() = ptr.codepoint.toUInt()
+
+  actual val visible: UInt
+    get() = ptr.visible.toUInt()
 
   actual val advanceX: Float
     get() = ptr.advanceX

@@ -99,6 +99,8 @@ expect class ImGuiIO {
 
   val mouseDelta: Vec2
 
+  val keyMods: Flag<ImGuiKeyModFlags>
+
   val mousePosPrev: Vec2
 
   constructor()

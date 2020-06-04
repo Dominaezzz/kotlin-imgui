@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_HDR
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_InputHSV
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_InputRGB
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_NoAlpha
+import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_NoBorder
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_NoDragDrop
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_NoInputs
 import cimgui.internal.ImGuiColorEditFlags_.ImGuiColorEditFlags_NoLabel
@@ -44,6 +45,8 @@ actual enum class ImGuiColorEditFlags(
   NoSidePreview(ImGuiColorEditFlags_NoSidePreview),
 
   NoDragDrop(ImGuiColorEditFlags_NoDragDrop),
+
+  NoBorder(ImGuiColorEditFlags_NoBorder),
 
   AlphaBar(ImGuiColorEditFlags_AlphaBar),
 
@@ -86,6 +89,7 @@ actual enum class ImGuiColorEditFlags(
       ImGuiColorEditFlags_NoLabel -> NoLabel
       ImGuiColorEditFlags_NoSidePreview -> NoSidePreview
       ImGuiColorEditFlags_NoDragDrop -> NoDragDrop
+      ImGuiColorEditFlags_NoBorder -> NoBorder
       ImGuiColorEditFlags_AlphaBar -> AlphaBar
       ImGuiColorEditFlags_AlphaPreview -> AlphaPreview
       ImGuiColorEditFlags_AlphaPreviewHalf -> AlphaPreviewHalf

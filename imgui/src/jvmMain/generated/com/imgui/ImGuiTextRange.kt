@@ -1,6 +1,6 @@
 package com.imgui
 
-import cimgui.internal.CImGui.ImGuiTextRange_ImGuiTextRange
+import cimgui.internal.CImGui.ImGuiTextRange_ImGuiTextRangeNil
 import cimgui.internal.CImGui.ImGuiTextRange_ImGuiTextRangeStr
 import cimgui.internal.CImGui.ImGuiTextRange_destroy
 import cimgui.internal.CImGui.ImGuiTextRange_empty
@@ -18,7 +18,7 @@ actual inline class ImGuiTextRange(
   actual val e: String
     get() = ptr.e!!
 
-  actual constructor() : this(ImGuiTextRange_ImGuiTextRange()!!)
+  actual constructor() : this(ImGuiTextRange_ImGuiTextRangeNil()!!)
 
   actual constructor(b: String, e: String) : this(ImGuiTextRange_ImGuiTextRangeStr(b, e)!!)
 

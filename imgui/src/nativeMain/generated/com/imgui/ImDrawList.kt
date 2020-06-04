@@ -17,8 +17,8 @@ import cimgui.internal.ImDrawList_AddQuadFilled
 import cimgui.internal.ImDrawList_AddRect
 import cimgui.internal.ImDrawList_AddRectFilled
 import cimgui.internal.ImDrawList_AddRectFilledMultiColor
-import cimgui.internal.ImDrawList_AddText
 import cimgui.internal.ImDrawList_AddTextFontPtr
+import cimgui.internal.ImDrawList_AddTextVec2
 import cimgui.internal.ImDrawList_AddTriangle
 import cimgui.internal.ImDrawList_AddTriangleFilled
 import cimgui.internal.ImDrawList_ChannelsMerge
@@ -27,8 +27,6 @@ import cimgui.internal.ImDrawList_ChannelsSplit
 import cimgui.internal.ImDrawList_Clear
 import cimgui.internal.ImDrawList_ClearFreeMemory
 import cimgui.internal.ImDrawList_CloneOutput
-import cimgui.internal.ImDrawList_GetClipRectMax
-import cimgui.internal.ImDrawList_GetClipRectMin
 import cimgui.internal.ImDrawList_ImDrawList
 import cimgui.internal.ImDrawList_PathArcTo
 import cimgui.internal.ImDrawList_PathArcToFast
@@ -260,7 +258,7 @@ actual inline class ImDrawList(
     textBegin: String,
     textEnd: String?
   ) {
-    ImDrawList_AddText(ptr, pos.toCValue(), col, textBegin, textEnd)
+    ImDrawList_AddTextVec2(ptr, pos.toCValue(), col, textBegin, textEnd)
   }
 
   actual fun addText(
@@ -317,10 +315,6 @@ actual inline class ImDrawList(
   }
 
   actual fun cloneOutput(): ImDrawList = ImDrawList_CloneOutput(ptr)!!.let(::ImDrawList)
-
-  actual fun getClipRectMax(): Vec2 = ImDrawList_GetClipRectMax(ptr).fromCValue()
-
-  actual fun getClipRectMin(): Vec2 = ImDrawList_GetClipRectMin(ptr).fromCValue()
 
   actual fun pathArcTo(
     center: Vec2,

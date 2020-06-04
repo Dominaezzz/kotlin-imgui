@@ -36,12 +36,20 @@ public class ImFontGlyph {
     }
   }
 
-  public void setCodepoint(int value) {
+  public void setCodepoint(long value) {
     CImGuiJNI.ImFontGlyph_Codepoint_set(swigCPtr, this, value);
   }
 
-  public int getCodepoint() {
+  public long getCodepoint() {
     return CImGuiJNI.ImFontGlyph_Codepoint_get(swigCPtr, this);
+  }
+
+  public void setVisible(long value) {
+    CImGuiJNI.ImFontGlyph_Visible_set(swigCPtr, this, value);
+  }
+
+  public long getVisible() {
+    return CImGuiJNI.ImFontGlyph_Visible_get(swigCPtr, this);
   }
 
   public void setAdvanceX(float value) {

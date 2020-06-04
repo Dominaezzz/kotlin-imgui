@@ -84,7 +84,7 @@ private inline fun <T> withItemsGetter(noinline itemsGetter: (idx: Int) -> Strin
 actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items: Array<String>, popupMaxHeightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		memScoped {
-			igCombo(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
+			igComboStr_arr(label, currentItemPtr, items.toCStringArray(memScope), items.size, popupMaxHeightInItems)
 		}
 	}
 }
@@ -139,7 +139,7 @@ actual fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valu
 
 actual fun ImGui.plotLines(label: String, values: FloatArray, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2, stride: Int) {
 	values.usePinned { valuesPinned ->
-		igPlotLines(label, valuesPinned.addressOf(0), values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSize.toCValue(), stride)
+		igPlotLinesFloatPtr(label, valuesPinned.addressOf(0), values.size, valuesOffset, overlayText, scaleMin, scaleMax, graphSize.toCValue(), stride)
 	}
 }
 

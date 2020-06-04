@@ -2,8 +2,8 @@ package com.imgui
 
 import kotlin.Boolean
 import kotlin.Char
-import kotlin.Int
 import kotlin.String
+import kotlin.ULong
 
 expect class ImFontGlyphRangesBuilder {
   constructor()
@@ -16,9 +16,9 @@ expect class ImFontGlyphRangesBuilder {
 
   fun clear()
 
-  fun getBit(n: Int): Boolean
+  fun getBit(n: ULong): Boolean
 
-  fun setBit(n: Int)
+  fun setBit(n: ULong)
 
   fun destroy()
 }

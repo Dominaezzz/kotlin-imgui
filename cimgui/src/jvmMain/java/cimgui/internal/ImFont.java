@@ -179,6 +179,15 @@ public class ImFont {
     return CImGuiJNI.ImFont_MetricsTotalSurface_get(swigCPtr, this);
   }
 
+  public void setUsed4kPagesMap(SWIGTYPE_p_unsigned_char value) {
+    CImGuiJNI.ImFont_Used4kPagesMap_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_unsigned_char getUsed4kPagesMap() {
+    long cPtr = CImGuiJNI.ImFont_Used4kPagesMap_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
+  }
+
   public ImFont() {
     this(CImGuiJNI.new_ImFont(), true);
   }

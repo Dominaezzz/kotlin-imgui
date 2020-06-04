@@ -536,6 +536,14 @@ public class ImGuiIO {
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
   }
 
+  public void setKeyMods(int value) {
+    CImGuiJNI.ImGuiIO_KeyMods_set(swigCPtr, this, value);
+  }
+
+  public int getKeyMods() {
+    return CImGuiJNI.ImGuiIO_KeyMods_get(swigCPtr, this);
+  }
+
   public void setMousePosPrev(ImVec2 value) {
     CImGuiJNI.ImGuiIO_MousePosPrev_set(swigCPtr, this, ImVec2.getCPtr(value), value);
   }
@@ -678,6 +686,14 @@ public class ImGuiIO {
   public SWIGTYPE_p_float getNavInputsDownDurationPrev() {
     long cPtr = CImGuiJNI.ImGuiIO_NavInputsDownDurationPrev_get(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_float(cPtr, false);
+  }
+
+  public void setInputQueueSurrogate(int value) {
+    CImGuiJNI.ImGuiIO_InputQueueSurrogate_set(swigCPtr, this, value);
+  }
+
+  public int getInputQueueSurrogate() {
+    return CImGuiJNI.ImGuiIO_InputQueueSurrogate_get(swigCPtr, this);
   }
 
   public void setInputQueueCharacters(ImVector_ImWchar value) {

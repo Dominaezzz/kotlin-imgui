@@ -1,8 +1,8 @@
 package com.imgui
 
-import cimgui.internal.ImColor_ImColor
 import cimgui.internal.ImColor_ImColorFloat
 import cimgui.internal.ImColor_ImColorInt
+import cimgui.internal.ImColor_ImColorNil
 import cimgui.internal.ImColor_ImColorU32
 import cimgui.internal.ImColor_ImColorVec4
 import cimgui.internal.ImColor_SetHSV
@@ -21,7 +21,7 @@ actual inline class ImColor(
   actual val value: Vec4
     get() = ptr.pointed.Value.fromCValue()
 
-  actual constructor() : this(ImColor_ImColor()!!)
+  actual constructor() : this(ImColor_ImColorNil()!!)
 
   actual constructor(
     r: Int,
