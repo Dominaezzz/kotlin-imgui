@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.konan.target.HostManager
 import java.io.ByteArrayOutputStream
 
 plugins {
-	kotlin("multiplatform") version "1.3.71" apply false
+	kotlin("multiplatform") version "1.3.72" apply false
 	id("de.undercouch.download") version ("4.0.2") apply false
 }
 
