@@ -697,9 +697,9 @@ fun main(args: Array<String>) {
 		addStatement("callsInPlace(block, %T.AT_MOST_ONCE)", ClassName("kotlin.contracts", "InvocationKind"))
 		endControlFlow()
 	}
-	val useExperimental = ClassName("kotlin", "UseExperimental")
+	val optIn = ClassName("kotlin", "OptIn")
 	val experimentalContracts = ClassName("kotlin.contracts", "ExperimentalContracts")
-	val experimentalAnnotation = AnnotationSpec.builder(useExperimental)
+	val experimentalAnnotation = AnnotationSpec.builder(optIn)
 			.addMember("%T::class", experimentalContracts)
 			.build()
 

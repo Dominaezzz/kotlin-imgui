@@ -3,16 +3,16 @@ package com.imgui
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.OptIn
 import kotlin.String
 import kotlin.UInt
 import kotlin.Unit
-import kotlin.UseExperimental
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.reflect.KMutableProperty0
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.combo(
     label: String,
     previewValue: String,
@@ -32,7 +32,7 @@ inline fun ImGui.combo(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.dragDropSource(flags: Flag<ImGuiDragDropFlags>? = null, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
@@ -47,7 +47,7 @@ inline fun ImGui.dragDropSource(flags: Flag<ImGuiDragDropFlags>? = null, block: 
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.dragDropTarget(block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
@@ -62,7 +62,7 @@ inline fun ImGui.dragDropTarget(block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.group(block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -76,7 +76,7 @@ inline fun ImGui.group(block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.mainMenuBar(block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
@@ -91,7 +91,7 @@ inline fun ImGui.mainMenuBar(block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.menu(
     label: String,
     enabled: Boolean = true,
@@ -110,7 +110,7 @@ inline fun ImGui.menu(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.menuBar(block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
@@ -125,7 +125,7 @@ inline fun ImGui.menuBar(block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.popup(
     strId: String,
     flags: Flag<ImGuiWindowFlags>? = null,
@@ -144,7 +144,7 @@ inline fun ImGui.popup(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextItem(
     strId: String? = null,
     mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
@@ -163,7 +163,7 @@ inline fun ImGui.popupContextItem(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextVoid(
     strId: String? = null,
     mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
@@ -182,7 +182,7 @@ inline fun ImGui.popupContextVoid(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextWindow(
     strId: String? = null,
     mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
@@ -202,7 +202,7 @@ inline fun ImGui.popupContextWindow(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupModal(
     name: String,
     pOpen: KMutableProperty0<Boolean>? = null,
@@ -222,7 +222,7 @@ inline fun ImGui.popupModal(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.tabBar(
     strId: String,
     flags: Flag<ImGuiTabBarFlags>? = null,
@@ -241,7 +241,7 @@ inline fun ImGui.tabBar(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.tabItem(
     label: String,
     pOpen: KMutableProperty0<Boolean>? = null,
@@ -261,7 +261,7 @@ inline fun ImGui.tabItem(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.tooltip(block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -275,7 +275,7 @@ inline fun ImGui.tooltip(block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.listBox(
     label: String,
     size: Vec2 = Vec2.Zero,
@@ -294,7 +294,7 @@ inline fun ImGui.listBox(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.listBox(
     label: String,
     itemsCount: Int,
@@ -314,7 +314,7 @@ inline fun ImGui.listBox(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withAllowKeyboardFocus(allowKeyboardFocus: Boolean, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -328,7 +328,7 @@ inline fun ImGui.withAllowKeyboardFocus(allowKeyboardFocus: Boolean, block: () -
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withButtonRepeat(repeat: Boolean, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -342,7 +342,7 @@ inline fun ImGui.withButtonRepeat(repeat: Boolean, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withClipRect(
     clipRectMin: Vec2,
     clipRectMax: Vec2,
@@ -361,7 +361,7 @@ inline fun ImGui.withClipRect(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withFont(font: ImFont, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -375,7 +375,7 @@ inline fun ImGui.withFont(font: ImFont, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withID(strId: String, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -389,7 +389,7 @@ inline fun ImGui.withID(strId: String, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withID(
     strIdBegin: String,
     strIdEnd: String,
@@ -407,7 +407,7 @@ inline fun ImGui.withID(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withID(intId: Int, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -421,7 +421,7 @@ inline fun ImGui.withID(intId: Int, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withItemWidth(itemWidth: Float, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -435,7 +435,7 @@ inline fun ImGui.withItemWidth(itemWidth: Float, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withStyleColor(
     idx: ImGuiCol,
     col: UInt,
@@ -453,7 +453,7 @@ inline fun ImGui.withStyleColor(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withStyleColor(
     idx: ImGuiCol,
     col: Vec4,
@@ -471,7 +471,7 @@ inline fun ImGui.withStyleColor(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withStyleVar(
     idx: ImGuiStyleVar,
     `val`: Float,
@@ -489,7 +489,7 @@ inline fun ImGui.withStyleVar(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withStyleVar(
     idx: ImGuiStyleVar,
     `val`: Vec2,
@@ -507,7 +507,7 @@ inline fun ImGui.withStyleVar(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.withTextWrapPos(wrapLocalPosX: Float = 0.0f, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
@@ -521,7 +521,7 @@ inline fun ImGui.withTextWrapPos(wrapLocalPosX: Float = 0.0f, block: () -> Unit)
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.treeNode(label: String, block: () -> Unit) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
@@ -536,7 +536,7 @@ inline fun ImGui.treeNode(label: String, block: () -> Unit) {
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.treeNode(
     strId: String,
     fmt: String,
@@ -555,7 +555,7 @@ inline fun ImGui.treeNode(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.treeNodeEx(
     label: String,
     flags: Flag<ImGuiTreeNodeFlags>? = null,
@@ -574,7 +574,7 @@ inline fun ImGui.treeNodeEx(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun ImGui.treeNodeEx(
     strId: String,
     flags: Flag<ImGuiTreeNodeFlags>,
