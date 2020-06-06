@@ -5,20 +5,26 @@ import com.kgl.core.Flag
 import com.kgl.glfw.*
 import io.ktor.utils.io.core.*
 
-class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeable {
+//TODO test against older version of glfw while linking
+class ImGuiGlfw(val mainWindow: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
-	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
+	private val mouseJustPressed = BooleanArray(5) { false }
+	private var wantUpdateMonitors: Boolean = true
+	private val callbacksAreInstalled = installCallbacks
 
 	private val prevUserCallbackMouseButton: MouseButtonCallback?
 	private val prevUserCallbackScroll: ScrollCallback?
 	private val prevUserCallbackKey: KeyCallback?
 	private val prevUserCallbackChar: CharCallback?
+	private val prevUserCallbackMonitor: MonitorCallback?
 
 	init {
 		val io = ImGui.getIO()
+		io.imGuiGlfw = this
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasMouseCursors
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasSetMousePos
+		io.backendFlags = io.backendFlags or ImGuiBackendFlags.PlatformHasViewports
 		// io.BackendPlatformName = "ImGuiGlfw".cstr
 
 		// Keyboard mapping.
@@ -48,8 +54,9 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 		mapKey(ImGuiKey.Y, KeyboardKey.Y)
 		mapKey(ImGuiKey.Z, KeyboardKey.Z)
 
-		setupClipboard(io, window)
+		setupClipboard(io, mainWindow)
 
+		val prevErrorCallback = Glfw.setErrorCallback(null)
 		mouseCursors[ImGuiMouseCursor.Arrow.cValue] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.TextInput.cValue] = Cursor(Cursor.Standard.IBeam)
 		// FIXME: GLFW doesn't have this.
@@ -61,22 +68,40 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 		// FIXME: GLFW doesn't have this.
 		mouseCursors[ImGuiMouseCursor.ResizeNWSE.cValue] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.Hand.cValue] = Cursor(Cursor.Standard.Hand)
+		Glfw.setErrorCallback(prevErrorCallback)
 
 		if (installCallbacks) {
-			prevUserCallbackMouseButton = window.setMouseButtonCallback(this::mouseButtonCallback)
-			prevUserCallbackScroll = window.setScrollCallback(this::scrollCallback)
-			prevUserCallbackKey = window.setKeyCallback(this::keyCallback)
-			prevUserCallbackChar = window.setCharCallback(this::charCallback)
+			prevUserCallbackMouseButton = mainWindow.setMouseButtonCallback(this::mouseButtonCallback)
+			prevUserCallbackScroll = mainWindow.setScrollCallback(this::scrollCallback)
+			prevUserCallbackKey = mainWindow.setKeyCallback(this::keyCallback)
+			prevUserCallbackChar = mainWindow.setCharCallback(this::charCallback)
+			prevUserCallbackMonitor = Glfw.setMonitorCallback(this::monitorCallback)
 		} else {
 			prevUserCallbackMouseButton = null
 			prevUserCallbackScroll = null
 			prevUserCallbackKey = null
 			prevUserCallbackChar = null
+			prevUserCallbackMonitor = null
+		}
+
+		// Update monitors the first time (note: monitor callback are broken in GLFW 3.2 and earlier, see github.com/glfw/glfw/issues/784)
+		updateMonitors()
+		Glfw.setMonitorCallback(this::monitorCallback)
+
+		// Our mouse update function expect PlatformHandle to be filled for the main viewport
+		val mainViewport = ImGui.getMainViewport()
+		// userPointer for a Window's ptr is the Window itself
+		mainViewport.glfwWindow = mainWindow
+
+		if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+			initPlatformInterface()
 		}
 	}
 
 	fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) {
-		prevUserCallbackMouseButton?.invoke(window, button, action, mods)
+		if (window == mainWindow) {
+			prevUserCallbackMouseButton?.invoke(window, button, action, mods)
+		}
 
 		if (action == Action.Press) {
 			mouseJustPressed[button.ordinal] = true
@@ -84,7 +109,9 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 	}
 
 	fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
-		prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
+		if (window == mainWindow) {
+			prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
+		}
 
 		val io = ImGui.getIO()
 		io.mouseWheelH += offsetX.toFloat()
@@ -92,7 +119,9 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 	}
 
 	fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
-		prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
+		if (window == mainWindow) {
+			prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
+		}
 
 		val io = ImGui.getIO()
 		if (action == Action.Press) {
@@ -106,14 +135,44 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 		io.keyCtrl = io.keysDown(KeyboardKey.LEFT_CONTROL.ordinal) || io.keysDown(KeyboardKey.RIGHT_CONTROL.ordinal)
 		io.keyShift = io.keysDown(KeyboardKey.LEFT_SHIFT.ordinal) || io.keysDown(KeyboardKey.RIGHT_SHIFT.ordinal)
 		io.keyAlt = io.keysDown(KeyboardKey.LEFT_ALT.ordinal) || io.keysDown(KeyboardKey.RIGHT_ALT.ordinal)
-		io.keySuper = io.keysDown(KeyboardKey.LEFT_SUPER.ordinal) || io.keysDown(KeyboardKey.RIGHT_SUPER.ordinal)
+		io.keySuper = if (isWin32) false else {
+			io.keysDown(KeyboardKey.LEFT_SUPER.ordinal) || io.keysDown(KeyboardKey.RIGHT_SUPER.ordinal)
+		}
 	}
 
 	fun charCallback(window: Window, codepoint: UInt) {
-		prevUserCallbackChar?.invoke(window, codepoint)
+		if (window == mainWindow) {
+			prevUserCallbackChar?.invoke(window, codepoint)
+		}
 
 		val io = ImGui.getIO()
 		io.addInputCharacter(codepoint)
+	}
+
+	@Suppress("UNUSED_PARAMETER")
+	fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
+		wantUpdateMonitors = true
+	}
+
+	private fun updateMonitors() {
+		val platformIO = ImGui.getPlatformIO()
+		val glfwMonitors = Glfw.monitors
+		platformIO.monitors.resize(0)
+		for (n in glfwMonitors.indices) {
+			val monitor = ImGuiPlatformMonitor()
+			val (monitorX, monitorY) = glfwMonitors[n].position
+			val vidMode = glfwMonitors[n].videoMode
+			monitor.mainPos = Vec2(monitorX.toFloat(), monitorY.toFloat())
+			monitor.mainSize = Vec2(vidMode.width.toFloat(), vidMode.height.toFloat())
+			val (x, y, w, h) = glfwMonitors[n].workarea
+			monitor.workPos = Vec2(x.toFloat(), y.toFloat())
+			monitor.workSize = Vec2(w.toFloat(), h.toFloat())
+			val (xScale, _) = glfwMonitors[n].contentScale
+			monitor.dpiScale = xScale
+			platformIO.monitors.pushBack(monitor)
+			monitor.destroy()
+		}
+		wantUpdateMonitors = false
 	}
 
 	fun newFrame() {
@@ -123,36 +182,53 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 		}
 
 		// Setup display size (every frame to accommodate for window resizing)
-		val (w, h) = window.size
-		val (displayWidth, displayHeight) = window.frameBufferSize
+		val (w, h) = mainWindow.size
+		val (displayWidth, displayHeight) = mainWindow.frameBufferSize
 
 		io.displaySize = Vec2(w.toFloat(), h.toFloat())
 		if (w > 0 && h > 0) {
 			io.displayFramebufferScale = Vec2(displayWidth / w.toFloat(), displayHeight / h.toFloat())
 		}
 
+		if (wantUpdateMonitors) {
+			updateMonitors()
+		}
+
 		// Setup time step
 		val currentTime = Glfw.time
-		io.deltaTime = (if (time > 0.0) (currentTime - time) else 1.0 / 60.0).toFloat()
+		io.deltaTime = if (time > 0) (currentTime - time).toFloat() else 1 / 60f
 		time = currentTime
 
 		// Update mouse position and buttons.
 		run {
 			// Update buttons
 			for (i in 0 until 5) {
-				io.mouseDown(i, mouseJustPressed[i] || window.getMouseButton(MouseButton.values()[i]) != Action.Release)
+				io.mouseDown(i, mouseJustPressed[i] || mainWindow.getMouseButton(MouseButton.values()[i]) != Action.Release)
 				mouseJustPressed[i] = false
 			}
 
 			// Update position
 			val mousePosBackup = io.mousePos
 			io.mousePos = Vec2(-Float.MAX_VALUE, -Float.MAX_VALUE)
-			if (window.isFocused) {
-				if (io.wantSetMousePos) {
-					window.cursorPosition = mousePosBackup.run { x.toDouble() to y.toDouble() }
-				} else {
-					val (mouseX, mouseY) = window.cursorPosition
-					io.mousePos = Vec2(mouseX.toFloat(), mouseY.toFloat())
+			val platformIO = ImGui.getPlatformIO()
+			for (viewport in platformIO.viewports) {
+				val window = viewport.glfwWindow!!
+				if (window.isFocused) {
+					if (io.wantSetMousePos) {
+						window.cursorPosition = mousePosBackup.x.toDouble() to mousePosBackup.y.toDouble()
+					} else {
+						val (mouseX, mouseY) = window.cursorPosition
+						if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+							val (windowX, windowY) = window.position
+							io.mousePos = Vec2(mouseX.toFloat() + windowX, mouseY.toFloat() + windowY)
+						} else {
+							io.mousePos = Vec2(mouseX.toFloat(), mouseY.toFloat())
+						}
+					}
+				}
+				for (i in 0 until 5) {
+					//FIXME com.kgl.glfw.MouseButton.from for common
+					io.mouseDown(i, io.mouseDown(i) || window.getMouseButton(MouseButton.values()[i]) != Action.Release)
 				}
 			}
 		}
@@ -160,16 +236,20 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 		// Update mouse cursor.
 		run {
 			val changeDisabled = ImGuiConfigFlags.NoMouseCursorChange in io.configFlags
-			if (!changeDisabled && window.cursorMode != CursorMode.Disabled) {
-				val imguiCursor = ImGui.getMouseCursor()
-				if (imguiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
-					// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
-					window.cursorMode = CursorMode.Hidden
-				} else {
-					// Show OS mouse cursor
-					// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
-					window.setCursor(mouseCursors[imguiCursor.cValue] ?: mouseCursors[ImGuiMouseCursor.Arrow.cValue])
-					window.cursorMode = CursorMode.Normal
+			if (!changeDisabled && mainWindow.cursorMode != CursorMode.Disabled) {
+				val imGuiCursor = ImGui.getMouseCursor()
+				val platformIO = ImGui.getPlatformIO()
+				for (viewport in platformIO.viewports) {
+					val window = viewport.glfwWindow!!
+					if (imGuiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
+						// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
+						window.cursorMode = CursorMode.Hidden
+					} else {
+						// Show OS mouse cursor
+						// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
+						window.setCursor(mouseCursors[imGuiCursor.cValue] ?: mouseCursors[ImGuiMouseCursor.Arrow.cValue])
+						window.cursorMode = CursorMode.Normal
+					}
 				}
 			}
 		}
@@ -182,17 +262,15 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 			if (ImGuiConfigFlags.NavEnableGamepad in io.configFlags) {
 				val axes = Joystick._1.axes!!
 				val buttons = Joystick._1.buttons!!
-				val axesCount = axes.size
-				val buttonsCount = buttons.size
 
 				fun mapButton(navNo: ImGuiNavInput, buttonNo: Int) {
-					if (buttonsCount > buttonNo && buttons[buttonNo] == Action.Press) {
-						io.navInputs(navNo.cValue, 1.0f)
+					if (buttons.size > buttonNo && buttons[buttonNo] == Action.Press) {
+						io.navInputs(navNo.cValue, 1f)
 					}
 				}
 
 				fun mapAnalog(navNo: ImGuiNavInput, axisNo: Int, v0: Float, v1: Float) {
-					var v = if (axesCount > axisNo) axes[axesCount] else v0
+					var v = if (axes.size > axisNo) axes[axes.size] else v0
 					v = (v - v0) / (v1 - v0)
 					v = v.coerceAtMost(1.0f)
 					if (io.navInputs(navNo.cValue) < v) {
@@ -219,7 +297,7 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 				mapAnalog(ImGuiNavInput.LStickDown, 1,  -0.3f,  -0.9f)
 				//@formatter:on
 
-				if (axesCount > 0 && buttonsCount > 0) {
+				if (axes.isNotEmpty() && buttons.isNotEmpty()) {
 					io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasGamepad
 				} else {
 					io.backendFlags = io.backendFlags - ImGuiBackendFlags.HasGamepad
@@ -230,6 +308,115 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 
 	override fun close() {
 		freeClipboard(ImGui.getIO())
+
+		shutdownPlatformInterface()
+
+		if (callbacksAreInstalled) {
+			mainWindow.setMouseButtonCallback(prevUserCallbackMouseButton)
+			mainWindow.setScrollCallback(prevUserCallbackScroll)
+			mainWindow.setKeyCallback(prevUserCallbackKey)
+			mainWindow.setCharCallback(prevUserCallbackChar)
+		}
+
 		mouseCursors.forEach { it?.close() }
+
+		ImGui.getIO().imGuiGlfw = null
+	}
+
+	//--------------------------------------------------------------------------------------------------------
+	// MULTI-VIEWPORT / PLATFORM INTERFACE SUPPORT
+	// This is an _advanced_ and _optional_ feature, allowing the back-end to create and handle multiple viewports simultaneously.
+	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
+	//--------------------------------------------------------------------------------------------------------
+
+	class ViewportData : Closeable {
+		val window: Window
+		val isWindowOwned: Boolean
+		var ignoreWindowPosEventFrame: Int = -1
+		var ignoreWindowSizeEventFrame: Int = -1
+
+		constructor(imGuiGlfw: ImGuiGlfw) {
+			window = imGuiGlfw.mainWindow
+			isWindowOwned = false
+		}
+
+		constructor(imGuiGlfw: ImGuiGlfw, viewport: ImGuiViewport) {
+			with(Glfw.windowHints) {
+				visible = false
+				focused = false
+				focusOnShow = false
+				decorated = ImGuiViewportFlags.NoDecoration !in viewport.flags
+				floating = ImGuiViewportFlags.TopMost in viewport.flags
+			}
+			val (width, height) = viewport.size
+			window = Window(width.toInt(), height.toInt(), "No Title Yet", null, imGuiGlfw.mainWindow)
+			isWindowOwned = true
+			window.position = viewport.pos.run { x.toInt() to y.toInt() }
+
+			window.setMouseButtonCallback(imGuiGlfw::mouseButtonCallback)
+			window.setScrollCallback(imGuiGlfw::scrollCallback)
+			window.setKeyCallback(imGuiGlfw::keyCallback)
+			window.setCharCallback(imGuiGlfw::charCallback)
+			window.setCloseCallback {
+				viewport.platformRequestClose = true
+			}
+			window.setPosCallback { _, _, _ ->
+				if (ImGui.getFrameCount() <= ignoreWindowPosEventFrame + 1) return@setPosCallback
+				viewport.platformRequestMove = true
+			}
+			window.setSizeCallback { _, _, _ ->
+				if (ImGui.getFrameCount() <= ignoreWindowSizeEventFrame + 1) return@setSizeCallback
+				viewport.platformRequestResize = true
+			}
+		}
+
+		override fun close() { // destroyWindow
+			if (isWindowOwned) {
+				window.close()
+			}
+		}
+
+		fun showWindow() {
+			window.isVisible = true
+		}
+
+		fun getWindowPos(): Vec2 = window.position.let { (x, y) -> Vec2(x.toFloat(), y.toFloat()) }
+
+		fun setWindowPos(pos: Vec2) {
+			ignoreWindowPosEventFrame = ImGui.getFrameCount()
+			window.position = pos.x.toInt() to pos.y.toInt()
+		}
+
+		fun getWindowSize(): Vec2 = window.size.let { (x, y) -> Vec2(x.toFloat(), y.toFloat()) }
+
+		fun setWindowSize(size: Vec2) {
+			ignoreWindowSizeEventFrame = ImGui.getFrameCount()
+			window.size = size.x.toInt() to size.y.toInt()
+		}
+
+		fun getWindowFocus(): Boolean = window.isFocused
+
+		fun setWindowFocus() {
+			window.focus()
+		}
+
+		fun getWindowMinimized(): Boolean = window.isIconified
+
+		fun setWindowTitle(title: String) {
+			window.setTitle(title)
+		}
+
+		fun renderWindow() {
+			Glfw.currentContext = window
+		}
+
+		fun swapBuffers() {
+			Glfw.currentContext = window
+			window.swapBuffers()
+		}
+
+		fun setWindowAlpha(alpha: Float) {
+			window.opacity = alpha
+		}
 	}
 }

@@ -29,6 +29,11 @@
 
 %}
 
+%inline %{
+const size_t platformMonitorSize = sizeof(ImGuiPlatformMonitor);
+const size_t pointerSize = sizeof(void *);
+%}
+
 %ignore igTextV;
 %ignore igTextColoredV;
 %ignore igTextDisabledV;
@@ -44,7 +49,7 @@
 %ignore igImFormatStringV;
 
 %ignore ImGuiDataTypePrivate_;
-
+%ignore ImGuiDockNodeFlagsPrivate_;
 
 %include cimgui_stringarray.i
 %include cimgui_valuesgetter.i
@@ -119,4 +124,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %array_functions(ImVec4, ImVec4Array);
 %array_functions(ImGuiID, ImGuiIDArray);
 %array_functions(ImDrawCmd, ImDrawCmdArray);
+%array_functions(ImGuiPlatformMonitor, ImGuiPlatformMonitorArray);
 %array_functions(ImDrawList*, pImDrawListArray);
+%array_functions(ImGuiDockNode*, pImGuiDockNodeArray);
+%array_functions(ImGuiViewport*, pImGuiViewportArray);

@@ -1,4 +1,3 @@
-import de.undercouch.gradle.tasks.download.*
 import org.gradle.internal.jvm.*
 import org.gradle.nativeplatform.MachineArchitecture.*
 import org.gradle.nativeplatform.OperatingSystemFamily.*
@@ -13,6 +12,7 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
+val cimguiVersion: String by rootProject.extra
 val imGuiVersion: String by rootProject.extra
 
 val konanUserDir = file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
@@ -69,40 +69,31 @@ val targetInfoMap = mapOf(
 )
 
 val downloadsDir = buildDir.resolve("downloads")
-val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")
+val cimguiDir = downloadsDir.resolve("cimgui-${cimguiVersion}")
 val cimguiOutput = cimguiDir.resolve("generator/output")
 val imguiDir = cimguiDir.resolve("imgui")
 val libsDir = buildDir.resolve("libs")
 
-val downloadCWrapper by tasks.registering(Download::class) {
-	src("https://github.com/cimgui/cimgui/archive/${imGuiVersion}.zip")
-	dest(downloadsDir.resolve("cimgui.zip"))
-	overwrite(false)
-}
-val extractCWrapper by tasks.registering(Copy::class) {
-	from(downloadCWrapper.map { zipTree(it.dest) })
-	into(downloadsDir)
-}
-
-val downloadImGui by tasks.registering(Download::class) {
-	src("https://github.com/ocornut/imgui/archive/v${imGuiVersion}.zip")
-	dest(downloadsDir.resolve("imgui.zip"))
-	overwrite(false)
-}
-val extractImGui by tasks.registering(Copy::class) {
-	dependsOn(extractCWrapper)
-
-	from(downloadImGui.map { zipTree(it.dest) }) {
-		eachFile {
-			relativePath = RelativePath(true, *relativePath.segments.drop(1).toTypedArray())
+val cloneCimgui by tasks.registering {
+	doLast {
+		if (!cimguiDir.exists()) {
+			exec {
+				commandLine(
+					"git",
+					"clone",
+					"--single-branch",
+					"--branch", cimguiVersion,
+					"--recurse-submodules",
+					"https://github.com/cimgui/cimgui",
+					cimguiDir
+				)
+			}
 		}
-		includeEmptyDirs = false
 	}
-	into(cimguiDir.resolve("imgui"))
 }
 
 val runSwig by tasks.registering(Exec::class) {
-	dependsOn(extractCWrapper)
+	dependsOn(cloneCimgui)
 
 	val swigInterfaceDir = file("src/nativeInterop/swig")
 	val javaOutputDir = file("src/jvmMain/java/cimgui/internal")
@@ -192,7 +183,7 @@ kotlin {
 
 		val objFiles = objFileNames.map { objDir.resolve(it) }
 		val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
-			dependsOn(extractImGui, extractCWrapper)
+			dependsOn(cloneCimgui)
 			onlyIf { HostManager().isEnabled(konanTarget) }
 			doFirst { mkdir(objDir) }
 
@@ -239,7 +230,7 @@ kotlin {
 					create("cimgui") {
 						includeDirs(cimguiOutput, imguiDir)
 						tasks.named(interopProcessingTaskName) {
-							dependsOn(extractImGui, extractCWrapper)
+							dependsOn(cloneCimgui)
 						}
 						compileImGui {
 							// This is to ensure native toolchain is downloaded before compiling with it.
@@ -281,7 +272,7 @@ kotlin {
 		val resourceDir = jvmGenResourceDir.resolve(jvmTarget.presetName)
 
 		val compileCImGui = tasks.register<Exec>("compileJniLibFor${jvmTarget.presetName.capitalize()}") {
-			dependsOn(extractImGui, extractCWrapper)
+			dependsOn(runSwig)
 			dependsOn("cinteropCimgui${jvmTarget.presetName.capitalize()}")
 			onlyIf { HostManager.host == jvmTarget }
 
