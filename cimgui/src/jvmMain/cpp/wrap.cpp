@@ -1205,6 +1205,113 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiSe
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  ImGuiPlatformMonitor *arg2 = (ImGuiPlatformMonitor *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = *(ImGuiPlatformMonitor **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPlatformMonitor_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  ImGuiPlatformMonitor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  result = (ImGuiPlatformMonitor *) ((arg1)->Data);
+  *(ImGuiPlatformMonitor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiPlatformMonitor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiPlatformMonitor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiPlatformMonitor *)new ImVector_ImGuiPlatformMonitor();
+  *(ImVector_ImGuiPlatformMonitor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiPlatformMonitor(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiPlatformMonitor *arg1 = (ImVector_ImGuiPlatformMonitor *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiPlatformMonitor **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec4_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImVector_ImVec4 *arg1 = (ImVector_ImVec4 *) 0 ;
   int arg2 ;
@@ -1312,109 +1419,215 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImVec4(
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
-  ImGuiGroupData *arg2 = (ImGuiGroupData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
+  ImGuiPopupData *arg2 = (ImGuiPopupData *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
-  arg2 = *(ImGuiGroupData **)&jarg2; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
+  arg2 = *(ImGuiPopupData **)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
-  ImGuiGroupData *result = 0 ;
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
+  ImGuiPopupData *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
-  result = (ImGuiGroupData *) ((arg1)->Data);
-  *(ImGuiGroupData **)&jresult = result; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
+  result = (ImGuiPopupData *) ((arg1)->Data);
+  *(ImGuiPopupData **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiGroupData(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiPopupData(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImGuiGroupData *result = 0 ;
+  ImVector_ImGuiPopupData *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImGuiGroupData *)new ImVector_ImGuiGroupData();
-  *(ImVector_ImGuiGroupData **)&jresult = result; 
+  result = (ImVector_ImGuiPopupData *)new ImVector_ImGuiPopupData();
+  *(ImVector_ImGuiPopupData **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiGroupData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiPopupData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  char **arg2 = (char **) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  arg2 = *(char ***)&jarg2; 
+  if (arg1) (arg1)->Data = (char const **)arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1const_1charPtr_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  char **result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
+  result = (char **) ((arg1)->Data);
+  *(char ***)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1const_1charPtr(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_const_charPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_const_charPtr *)new ImVector_const_charPtr();
+  *(ImVector_const_charPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1const_1charPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_const_charPtr *arg1 = (ImVector_const_charPtr *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_const_charPtr **)&jarg1; 
   delete arg1;
 }
 
@@ -1738,216 +1951,321 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiCo
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
-  ImGuiColumns *arg2 = (ImGuiColumns *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
+  ImGuiViewport **arg2 = (ImGuiViewport **) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
-  arg2 = *(ImGuiColumns **)&jarg2; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
+  arg2 = *(ImGuiViewport ***)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPtr_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
-  ImGuiColumns *result = 0 ;
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
+  ImGuiViewport **result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
-  result = (ImGuiColumns *) ((arg1)->Data);
-  *(ImGuiColumns **)&jresult = result; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
+  result = (ImGuiViewport **) ((arg1)->Data);
+  *(ImGuiViewport ***)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiColumns(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiViewportPtr(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImGuiColumns *result = 0 ;
+  ImVector_ImGuiViewportPtr *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImGuiColumns *)new ImVector_ImGuiColumns();
-  *(ImVector_ImGuiColumns **)&jresult = result; 
+  result = (ImVector_ImGuiViewportPtr *)new ImVector_ImGuiViewportPtr();
+  *(ImVector_ImGuiViewportPtr **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiColumns(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiViewportPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiViewportPtr *arg1 = (ImVector_ImGuiViewportPtr *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg1 = *(ImVector_ImGuiViewportPtr **)&jarg1; 
   delete arg1;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
-  ImVec2 *arg2 = (ImVec2 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+  ImGuiColorMod *arg2 = (ImGuiColorMod *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
-  arg2 = *(ImVec2 **)&jarg2; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  arg2 = *(ImGuiColorMod **)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
-  ImVec2 *result = 0 ;
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+  ImGuiColorMod *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
-  result = (ImVec2 *) ((arg1)->Data);
-  *(ImVec2 **)&jresult = result; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  result = (ImGuiColorMod *) ((arg1)->Data);
+  *(ImGuiColorMod **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImVec2(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiColorMod(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImVec2 *result = 0 ;
+  ImVector_ImGuiColorMod *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImVec2 *)new ImVector_ImVec2();
-  *(ImVector_ImVec2 **)&jresult = result; 
+  result = (ImVector_ImGuiColorMod *)new ImVector_ImGuiColorMod();
+  *(ImVector_ImGuiColorMod **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImVec2(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiColorMod(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  ImGuiDockRequest *arg2 = (ImGuiDockRequest *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  arg2 = *(ImGuiDockRequest **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockRequest_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  ImGuiDockRequest *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
+  result = (ImGuiDockRequest *) ((arg1)->Data);
+  *(ImGuiDockRequest **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiDockRequest(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiDockRequest *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiDockRequest *)new ImVector_ImGuiDockRequest();
+  *(ImVector_ImGuiDockRequest **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiDockRequest(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiDockRequest *arg1 = (ImVector_ImGuiDockRequest *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiDockRequest **)&jarg1; 
   delete arg1;
 }
 
@@ -2059,109 +2377,108 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImFontG
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
-  ImGuiTextRange *arg2 = (ImGuiTextRange *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
+  unsigned char *arg2 = (unsigned char *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
-  arg2 = *(ImGuiTextRange **)&jarg2; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
+  arg2 = *(unsigned char **)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
-  ImGuiTextRange *result = 0 ;
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
+  unsigned char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
-  result = (ImGuiTextRange *) ((arg1)->Data);
-  *(ImGuiTextRange **)&jresult = result; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
+  result = (unsigned char *) ((arg1)->Data);
+  *(unsigned char **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiTextRange(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1unsigned_1char(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImGuiTextRange *result = 0 ;
+  ImVector_unsigned_char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImGuiTextRange *)new ImVector_ImGuiTextRange();
-  *(ImVector_ImGuiTextRange **)&jresult = result; 
+  result = (ImVector_unsigned_char *)new ImVector_unsigned_char();
+  *(ImVector_unsigned_char **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiTextRange(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1unsigned_1char(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg1 = *(ImVector_unsigned_char **)&jarg1; 
   delete arg1;
 }
 
@@ -2380,6 +2697,112 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiSt
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  ImGuiViewportP **arg2 = (ImGuiViewportP **) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  arg2 = *(ImGuiViewportP ***)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiViewportPPtr_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  ImGuiViewportP **result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  result = (ImGuiViewportP **) ((arg1)->Data);
+  *(ImGuiViewportP ***)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiViewportPPtr(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiViewportPPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiViewportPPtr *)new ImVector_ImGuiViewportPPtr();
+  *(ImVector_ImGuiViewportPPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiViewportPPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiViewportPPtr *arg1 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiViewportPPtr **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawChannel_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImVector_ImDrawChannel *arg1 = (ImVector_ImDrawChannel *) 0 ;
   int arg2 ;
@@ -2589,6 +3012,113 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImDrawL
   (void)jenv;
   (void)jcls;
   arg1 = *(ImVector_ImDrawListPtr **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  ImGuiTabItem *arg2 = (ImGuiTabItem *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg2 = *(ImGuiTabItem **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  ImGuiTabItem *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  result = (ImGuiTabItem *) ((arg1)->Data);
+  *(ImGuiTabItem **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiTabItem(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiTabItem *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiTabItem *)new ImVector_ImGuiTabItem();
+  *(ImVector_ImGuiTabItem **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiTabItem(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
   delete arg1;
 }
 
@@ -2805,6 +3335,113 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiIt
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  ImGuiColumns *arg2 = (ImGuiColumns *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  arg2 = *(ImGuiColumns **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColumns_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  ImGuiColumns *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  result = (ImGuiColumns *) ((arg1)->Data);
+  *(ImGuiColumns **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiColumns(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiColumns *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiColumns *)new ImVector_ImGuiColumns();
+  *(ImVector_ImGuiColumns **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiColumns(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiColumns *arg1 = (ImVector_ImGuiColumns *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiColumns **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontAtlasCustomRect_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImVector_ImFontAtlasCustomRect *arg1 = (ImVector_ImFontAtlasCustomRect *) 0 ;
   int arg2 ;
@@ -2912,109 +3549,321 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImFontA
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
-  ImGuiTabItem *arg2 = (ImGuiTabItem *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
+  ImGuiDockNodeSettings *arg2 = (ImGuiDockNodeSettings *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
+  arg2 = *(ImGuiDockNodeSettings **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiDockNodeSettings_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
+  ImGuiDockNodeSettings *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
+  result = (ImGuiDockNodeSettings *) ((arg1)->Data);
+  *(ImGuiDockNodeSettings **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiDockNodeSettings(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiDockNodeSettings *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiDockNodeSettings *)new ImVector_ImGuiDockNodeSettings();
+  *(ImVector_ImGuiDockNodeSettings **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiDockNodeSettings(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiDockNodeSettings *arg1 = (ImVector_ImGuiDockNodeSettings *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiDockNodeSettings **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  ImGuiGroupData *arg2 = (ImGuiGroupData *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
-  arg2 = *(ImGuiTabItem **)&jarg2; 
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  arg2 = *(ImGuiGroupData **)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTabItem_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiGroupData_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
-  ImGuiTabItem *result = 0 ;
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
+  ImGuiGroupData *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
-  result = (ImGuiTabItem *) ((arg1)->Data);
-  *(ImGuiTabItem **)&jresult = result; 
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  result = (ImGuiGroupData *) ((arg1)->Data);
+  *(ImGuiGroupData **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiTabItem(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiGroupData(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImGuiTabItem *result = 0 ;
+  ImVector_ImGuiGroupData *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImGuiTabItem *)new ImVector_ImGuiTabItem();
-  *(ImVector_ImGuiTabItem **)&jresult = result; 
+  result = (ImVector_ImGuiGroupData *)new ImVector_ImGuiGroupData();
+  *(ImVector_ImGuiGroupData **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiTabItem(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiTabItem *arg1 = (ImVector_ImGuiTabItem *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiGroupData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiGroupData *arg1 = (ImVector_ImGuiGroupData *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImGuiTabItem **)&jarg1; 
+  arg1 = *(ImVector_ImGuiGroupData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  ImTextureID *arg2 = (ImTextureID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  arg2 = *(ImTextureID **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  ImTextureID *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
+  result = (ImTextureID *) ((arg1)->Data);
+  *(ImTextureID **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImTextureID(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImTextureID *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImTextureID *)new ImVector_ImTextureID();
+  *(ImVector_ImTextureID **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImTextureID(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImTextureID **)&jarg1; 
   delete arg1;
 }
 
@@ -3126,324 +3975,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiSh
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  unsigned char *arg2 = (unsigned char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  arg2 = *(unsigned char **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1unsigned_1char_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  unsigned char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  result = (unsigned char *) ((arg1)->Data);
-  *(unsigned char **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1unsigned_1char(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_unsigned_char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_unsigned_char *)new ImVector_unsigned_char();
-  *(ImVector_unsigned_char **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1unsigned_1char(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_unsigned_char *arg1 = (ImVector_unsigned_char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_unsigned_char **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  ImTextureID *arg2 = (ImTextureID *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  arg2 = *(ImTextureID **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImTextureID_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  ImTextureID *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  result = (ImTextureID *) ((arg1)->Data);
-  *(ImTextureID **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImTextureID(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImTextureID *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImTextureID *)new ImVector_ImTextureID();
-  *(ImVector_ImTextureID **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImTextureID(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImTextureID *arg1 = (ImVector_ImTextureID *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImTextureID **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  ImFont **arg2 = (ImFont **) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  arg2 = *(ImFont ***)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  ImFont **result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  result = (ImFont **) ((arg1)->Data);
-  *(ImFont ***)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImFontPtr(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImFontPtr *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImFontPtr *)new ImVector_ImFontPtr();
-  *(ImVector_ImFontPtr **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImFontPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontConfig_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImVector_ImFontConfig *arg1 = (ImVector_ImFontConfig *) 0 ;
   int arg2 ;
@@ -3551,536 +4082,109 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImFontC
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Size = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
   result = (int) ((arg1)->Size);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
   arg2 = (int)jarg2; 
   if (arg1) (arg1)->Capacity = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
   result = (int) ((arg1)->Capacity);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
-  ImGuiColorMod *arg2 = (ImGuiColorMod *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
-  arg2 = *(ImGuiColorMod **)&jarg2; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
   if (arg1) (arg1)->Data = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiColorMod_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImVec2_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
-  ImGuiColorMod *result = 0 ;
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
+  ImVec2 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
-  result = (ImGuiColorMod *) ((arg1)->Data);
-  *(ImGuiColorMod **)&jresult = result; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
+  result = (ImVec2 *) ((arg1)->Data);
+  *(ImVec2 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiColorMod(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImVec2(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  ImVector_ImGuiColorMod *result = 0 ;
+  ImVector_ImVec2 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImVector_ImGuiColorMod *)new ImVector_ImGuiColorMod();
-  *(ImVector_ImGuiColorMod **)&jresult = result; 
+  result = (ImVector_ImVec2 *)new ImVector_ImVec2();
+  *(ImVector_ImVec2 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiColorMod(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiColorMod *arg1 = (ImVector_ImGuiColorMod *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImVec2(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImVec2 *arg1 = (ImVector_ImVec2 *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImVector_ImGuiColorMod **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  ImDrawCmd *arg2 = (ImDrawCmd *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  arg2 = *(ImDrawCmd **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  ImDrawCmd *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  result = (ImDrawCmd *) ((arg1)->Data);
-  *(ImDrawCmd **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImDrawCmd(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImDrawCmd *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImDrawCmd *)new ImVector_ImDrawCmd();
-  *(ImVector_ImDrawCmd **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImDrawCmd(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  ImGuiPtrOrIndex *arg2 = (ImGuiPtrOrIndex *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  arg2 = *(ImGuiPtrOrIndex **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  ImGuiPtrOrIndex *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  result = (ImGuiPtrOrIndex *) ((arg1)->Data);
-  *(ImGuiPtrOrIndex **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImGuiPtrOrIndex *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImGuiPtrOrIndex *)new ImVector_ImGuiPtrOrIndex();
-  *(ImVector_ImGuiPtrOrIndex **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  ImGuiPopupData *arg2 = (ImGuiPopupData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  arg2 = *(ImGuiPopupData **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPopupData_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  ImGuiPopupData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  result = (ImGuiPopupData *) ((arg1)->Data);
-  *(ImGuiPopupData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiPopupData(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImGuiPopupData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImGuiPopupData *)new ImVector_ImGuiPopupData();
-  *(ImVector_ImGuiPopupData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiPopupData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImGuiPopupData *arg1 = (ImVector_ImGuiPopupData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImGuiPopupData **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Size = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  result = (int) ((arg1)->Size);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Capacity = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  result = (int) ((arg1)->Capacity);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  ImDrawIdx *arg2 = (ImDrawIdx *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  arg2 = *(ImDrawIdx **)&jarg2; 
-  if (arg1) (arg1)->Data = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  ImDrawIdx *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
-  result = (ImDrawIdx *) ((arg1)->Data);
-  *(ImDrawIdx **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImDrawIdx(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImVector_ImDrawIdx *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImVector_ImDrawIdx *)new ImVector_ImDrawIdx();
-  *(ImVector_ImDrawIdx **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImDrawIdx(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  arg1 = *(ImVector_ImVec2 **)&jarg1; 
   delete arg1;
 }
 
@@ -4200,6 +4304,539 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1char(JN
   (void)jenv;
   (void)jcls;
   arg1 = *(ImVector_char **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  ImDrawCmd *arg2 = (ImDrawCmd *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  arg2 = *(ImDrawCmd **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawCmd_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  ImDrawCmd *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  result = (ImDrawCmd *) ((arg1)->Data);
+  *(ImDrawCmd **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImDrawCmd(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImDrawCmd *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImDrawCmd *)new ImVector_ImDrawCmd();
+  *(ImVector_ImDrawCmd **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImDrawCmd(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImDrawCmd *arg1 = (ImVector_ImDrawCmd *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImDrawCmd **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  ImFont **arg2 = (ImFont **) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  arg2 = *(ImFont ***)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImFontPtr_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  ImFont **result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  result = (ImFont **) ((arg1)->Data);
+  *(ImFont ***)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImFontPtr(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImFontPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImFontPtr *)new ImVector_ImFontPtr();
+  *(ImVector_ImFontPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImFontPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImFontPtr *arg1 = (ImVector_ImFontPtr *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImFontPtr **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  ImGuiPtrOrIndex *arg2 = (ImGuiPtrOrIndex *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  arg2 = *(ImGuiPtrOrIndex **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiPtrOrIndex_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  ImGuiPtrOrIndex *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  result = (ImGuiPtrOrIndex *) ((arg1)->Data);
+  *(ImGuiPtrOrIndex **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiPtrOrIndex *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiPtrOrIndex *)new ImVector_ImGuiPtrOrIndex();
+  *(ImVector_ImGuiPtrOrIndex **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiPtrOrIndex *arg1 = (ImVector_ImGuiPtrOrIndex *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiPtrOrIndex **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  ImDrawIdx *arg2 = (ImDrawIdx *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  arg2 = *(ImDrawIdx **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImDrawIdx_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  ImDrawIdx *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  result = (ImDrawIdx *) ((arg1)->Data);
+  *(ImDrawIdx **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImDrawIdx(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImDrawIdx *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImDrawIdx *)new ImVector_ImDrawIdx();
+  *(ImVector_ImDrawIdx **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImDrawIdx(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImDrawIdx *arg1 = (ImVector_ImDrawIdx *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImDrawIdx **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  result = (int) ((arg1)->Size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Capacity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Capacity = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Capacity_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  result = (int) ((arg1)->Capacity);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  ImGuiTextRange *arg2 = (ImGuiTextRange *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  arg2 = *(ImGuiTextRange **)&jarg2; 
+  if (arg1) (arg1)->Data = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVector_1ImGuiTextRange_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  ImGuiTextRange *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
+  result = (ImGuiTextRange *) ((arg1)->Data);
+  *(ImGuiTextRange **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVector_1ImGuiTextRange(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImVector_ImGuiTextRange *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImVector_ImGuiTextRange *)new ImVector_ImGuiTextRange();
+  *(ImVector_ImGuiTextRange **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVector_1ImGuiTextRange(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImVector_ImGuiTextRange *arg1 = (ImVector_ImGuiTextRange *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImVector_ImGuiTextRange **)&jarg1; 
   delete arg1;
 }
 
@@ -6193,6 +6830,34 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1TabBorderSi
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1TabMinWidthForUnselectedCloseButton_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiStyle **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->TabMinWidthForUnselectedCloseButton = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1TabMinWidthForUnselectedCloseButton_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiStyle **)&jarg1; 
+  result = (float) ((arg1)->TabMinWidthForUnselectedCloseButton);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1ColorButtonPosition_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiStyle *arg1 = (ImGuiStyle *) 0 ;
   ImGuiDir arg2 ;
@@ -7098,6 +7763,230 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1DisplayFramebuf
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingNoSplit_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigDockingNoSplit = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingNoSplit_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigDockingNoSplit);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingWithShift_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigDockingWithShift = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingWithShift_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigDockingWithShift);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingAlwaysTabBar_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigDockingAlwaysTabBar = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingAlwaysTabBar_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigDockingAlwaysTabBar);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingTransparentPayload_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigDockingTransparentPayload = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigDockingTransparentPayload_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigDockingTransparentPayload);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoAutoMerge_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigViewportsNoAutoMerge = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoAutoMerge_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigViewportsNoAutoMerge);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoTaskBarIcon_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigViewportsNoTaskBarIcon = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoTaskBarIcon_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigViewportsNoTaskBarIcon);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoDecoration_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigViewportsNoDecoration = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoDecoration_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigViewportsNoDecoration);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoDefaultParent_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ConfigViewportsNoDefaultParent = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ConfigViewportsNoDefaultParent_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (bool) ((arg1)->ConfigViewportsNoDefaultParent);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1MouseDrawCursor_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
   ImGuiIO *arg1 = (ImGuiIO *) 0 ;
   bool arg2 ;
@@ -7514,62 +8403,6 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ClipboardUserDa
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ImeSetInputScreenPosFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
-  void (*arg2)(int,int) = (void (*)(int,int)) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiIO **)&jarg1; 
-  arg2 = *(void (**)(int,int))&jarg2; 
-  if (arg1) (arg1)->ImeSetInputScreenPosFn = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ImeSetInputScreenPosFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
-  void (*result)(int,int) = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiIO **)&jarg1; 
-  result = (void (*)(int,int)) ((arg1)->ImeSetInputScreenPosFn);
-  *(void (**)(int,int))&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ImeWindowHandle_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
-  void *arg2 = (void *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiIO **)&jarg1; 
-  arg2 = *(void **)&jarg2; 
-  if (arg1) (arg1)->ImeWindowHandle = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1ImeWindowHandle_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
-  void *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiIO **)&jarg1; 
-  result = (void *) ((arg1)->ImeWindowHandle);
-  *(void **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1RenderDrawListsFnUnused_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   ImGuiIO *arg1 = (ImGuiIO *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -7712,6 +8545,34 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1MouseWheelH_1g
   arg1 = *(ImGuiIO **)&jarg1; 
   result = (float) ((arg1)->MouseWheelH);
   jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1MouseHoveredViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->MouseHoveredViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIO_1MouseHoveredViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiIO *arg1 = (ImGuiIO *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiIO **)&jarg1; 
+  result = (ImGuiID) ((arg1)->MouseHoveredViewport);
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -9424,6 +10285,252 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiSizeCallback
   (void)jenv;
   (void)jcls;
   arg1 = *(ImGuiSizeCallbackData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ClassId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ClassId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ClassId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ClassId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ParentViewportId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ParentViewportId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ParentViewportId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ParentViewportId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ViewportFlagsOverrideSet_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiViewportFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiViewportFlags)jarg2; 
+  if (arg1) (arg1)->ViewportFlagsOverrideSet = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ViewportFlagsOverrideSet_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiViewportFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiViewportFlags) ((arg1)->ViewportFlagsOverrideSet);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ViewportFlagsOverrideClear_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiViewportFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiViewportFlags)jarg2; 
+  if (arg1) (arg1)->ViewportFlagsOverrideClear = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ViewportFlagsOverrideClear_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiViewportFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiViewportFlags) ((arg1)->ViewportFlagsOverrideClear);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockNodeFlagsOverrideSet_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiDockNodeFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  if (arg1) (arg1)->DockNodeFlagsOverrideSet = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockNodeFlagsOverrideSet_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiDockNodeFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiDockNodeFlags) ((arg1)->DockNodeFlagsOverrideSet);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockNodeFlagsOverrideClear_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiDockNodeFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  if (arg1) (arg1)->DockNodeFlagsOverrideClear = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockNodeFlagsOverrideClear_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  ImGuiDockNodeFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (ImGuiDockNodeFlags) ((arg1)->DockNodeFlagsOverrideClear);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockingAlwaysTabBar_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DockingAlwaysTabBar = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockingAlwaysTabBar_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (bool) ((arg1)->DockingAlwaysTabBar);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockingAllowUnclassed_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DockingAllowUnclassed = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1DockingAllowUnclassed_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  result = (bool) ((arg1)->DockingAllowUnclassed);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiWindowClass(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiWindowClass *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiWindowClass *)new ImGuiWindowClass();
+  *(ImGuiWindowClass **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiWindowClass(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
   delete arg1;
 }
 
@@ -11591,6 +12698,35 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawData_1FramebufferS
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawData_1OwnerViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawData *arg1 = (ImDrawData *) 0 ;
+  ImGuiViewport *arg2 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawData **)&jarg1; 
+  arg2 = *(ImGuiViewport **)&jarg2; 
+  if (arg1) (arg1)->OwnerViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawData_1OwnerViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawData *arg1 = (ImDrawData *) 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawData **)&jarg1; 
+  result = (ImGuiViewport *) ((arg1)->OwnerViewport);
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImDrawData(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImDrawData *result = 0 ;
@@ -12564,34 +13700,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImFontGlyphRanges
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImFontAtlasCustomRect *arg1 = (ImFontAtlasCustomRect *) 0 ;
-  unsigned int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImFontAtlasCustomRect **)&jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  if (arg1) (arg1)->ID = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImFontAtlasCustomRect *arg1 = (ImFontAtlasCustomRect *) 0 ;
-  unsigned int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImFontAtlasCustomRect **)&jarg1; 
-  result = (unsigned int) ((arg1)->ID);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1Width_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImFontAtlasCustomRect *arg1 = (ImFontAtlasCustomRect *) 0 ;
   unsigned short arg2 ;
@@ -12700,6 +13808,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1Y_
   arg1 = *(ImFontAtlasCustomRect **)&jarg1; 
   result = (unsigned short) ((arg1)->Y);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1GlyphID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImFontAtlasCustomRect *arg1 = (ImFontAtlasCustomRect *) 0 ;
+  unsigned int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImFontAtlasCustomRect **)&jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->GlyphID = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlasCustomRect_1GlyphID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImFontAtlasCustomRect *arg1 = (ImFontAtlasCustomRect *) 0 ;
+  unsigned int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImFontAtlasCustomRect **)&jarg1; 
+  result = (unsigned int) ((arg1)->GlyphID);
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -13802,53 +14938,1424 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImFont(JNIEnv *je
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Storage_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  ImVector_ImU32 *arg2 = (ImVector_ImU32 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1CreateWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_CreateWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1CreateWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_CreateWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1DestroyWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_DestroyWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1DestroyWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_DestroyWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1ShowWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_ShowWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1ShowWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_ShowWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,ImVec2) = (void (*)(ImGuiViewport *,ImVec2)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,ImVec2))&jarg2; 
+  if (arg1) (arg1)->Platform_SetWindowPos = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,ImVec2) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,ImVec2)) ((arg1)->Platform_SetWindowPos);
+  *(void (**)(ImGuiViewport *,ImVec2))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVec2 (*arg2)(ImGuiViewport *) = (ImVec2 (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(ImVec2 (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_GetWindowPos = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVec2 (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (ImVec2 (*)(ImGuiViewport *)) ((arg1)->Platform_GetWindowPos);
+  *(ImVec2 (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,ImVec2) = (void (*)(ImGuiViewport *,ImVec2)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,ImVec2))&jarg2; 
+  if (arg1) (arg1)->Platform_SetWindowSize = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,ImVec2) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,ImVec2)) ((arg1)->Platform_SetWindowSize);
+  *(void (**)(ImGuiViewport *,ImVec2))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVec2 (*arg2)(ImGuiViewport *) = (ImVec2 (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(ImVec2 (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_GetWindowSize = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVec2 (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (ImVec2 (*)(ImGuiViewport *)) ((arg1)->Platform_GetWindowSize);
+  *(ImVec2 (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowFocus_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_SetWindowFocus = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowFocus_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_SetWindowFocus);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowFocus_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  bool (*arg2)(ImGuiViewport *) = (bool (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(bool (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_GetWindowFocus = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowFocus_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  bool (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (bool (*)(ImGuiViewport *)) ((arg1)->Platform_GetWindowFocus);
+  *(bool (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowMinimized_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  bool (*arg2)(ImGuiViewport *) = (bool (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(bool (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_GetWindowMinimized = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowMinimized_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  bool (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (bool (*)(ImGuiViewport *)) ((arg1)->Platform_GetWindowMinimized);
+  *(bool (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowTitle_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,char const *) = (void (*)(ImGuiViewport *,char const *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,char const *))&jarg2; 
+  if (arg1) (arg1)->Platform_SetWindowTitle = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowTitle_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,char const *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,char const *)) ((arg1)->Platform_SetWindowTitle);
+  *(void (**)(ImGuiViewport *,char const *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowAlpha_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,float) = (void (*)(ImGuiViewport *,float)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,float))&jarg2; 
+  if (arg1) (arg1)->Platform_SetWindowAlpha = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetWindowAlpha_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,float) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,float)) ((arg1)->Platform_SetWindowAlpha);
+  *(void (**)(ImGuiViewport *,float))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1UpdateWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_UpdateWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1UpdateWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_UpdateWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1RenderWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,void *) = (void (*)(ImGuiViewport *,void *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,void *))&jarg2; 
+  if (arg1) (arg1)->Platform_RenderWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1RenderWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,void *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,void *)) ((arg1)->Platform_RenderWindow);
+  *(void (**)(ImGuiViewport *,void *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SwapBuffers_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,void *) = (void (*)(ImGuiViewport *,void *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,void *))&jarg2; 
+  if (arg1) (arg1)->Platform_SwapBuffers = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SwapBuffers_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,void *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,void *)) ((arg1)->Platform_SwapBuffers);
+  *(void (**)(ImGuiViewport *,void *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowDpiScale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  float (*arg2)(ImGuiViewport *) = (float (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(float (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_GetWindowDpiScale = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1GetWindowDpiScale_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  float (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (float (*)(ImGuiViewport *)) ((arg1)->Platform_GetWindowDpiScale);
+  *(float (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1OnChangedViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Platform_OnChangedViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1OnChangedViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Platform_OnChangedViewport);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetImeInputPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,ImVec2) = (void (*)(ImGuiViewport *,ImVec2)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,ImVec2))&jarg2; 
+  if (arg1) (arg1)->Platform_SetImeInputPos = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1SetImeInputPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,ImVec2) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,ImVec2)) ((arg1)->Platform_SetImeInputPos);
+  *(void (**)(ImGuiViewport *,ImVec2))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1CreateVkSurface_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  int (*arg2)(ImGuiViewport *,ImU64,void const *,ImU64 *) = (int (*)(ImGuiViewport *,ImU64,void const *,ImU64 *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(int (**)(ImGuiViewport *,ImU64,void const *,ImU64 *))&jarg2; 
+  if (arg1) (arg1)->Platform_CreateVkSurface = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Platform_1CreateVkSurface_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  int (*result)(ImGuiViewport *,ImU64,void const *,ImU64 *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (int (*)(ImGuiViewport *,ImU64,void const *,ImU64 *)) ((arg1)->Platform_CreateVkSurface);
+  *(int (**)(ImGuiViewport *,ImU64,void const *,ImU64 *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1CreateWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Renderer_CreateWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1CreateWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Renderer_CreateWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1DestroyWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *) = (void (*)(ImGuiViewport *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *))&jarg2; 
+  if (arg1) (arg1)->Renderer_DestroyWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1DestroyWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *)) ((arg1)->Renderer_DestroyWindow);
+  *(void (**)(ImGuiViewport *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1SetWindowSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,ImVec2) = (void (*)(ImGuiViewport *,ImVec2)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,ImVec2))&jarg2; 
+  if (arg1) (arg1)->Renderer_SetWindowSize = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1SetWindowSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,ImVec2) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,ImVec2)) ((arg1)->Renderer_SetWindowSize);
+  *(void (**)(ImGuiViewport *,ImVec2))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1RenderWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,void *) = (void (*)(ImGuiViewport *,void *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,void *))&jarg2; 
+  if (arg1) (arg1)->Renderer_RenderWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1RenderWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,void *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,void *)) ((arg1)->Renderer_RenderWindow);
+  *(void (**)(ImGuiViewport *,void *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1SwapBuffers_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*arg2)(ImGuiViewport *,void *) = (void (*)(ImGuiViewport *,void *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(void (**)(ImGuiViewport *,void *))&jarg2; 
+  if (arg1) (arg1)->Renderer_SwapBuffers = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Renderer_1SwapBuffers_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  void (*result)(ImGuiViewport *,void *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (void (*)(ImGuiViewport *,void *)) ((arg1)->Renderer_SwapBuffers);
+  *(void (**)(ImGuiViewport *,void *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Monitors_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVector_ImGuiPlatformMonitor *arg2 = (ImVector_ImGuiPlatformMonitor *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  arg2 = *(ImVector_ImU32 **)&jarg2; 
-  if (arg1) (arg1)->Storage = *arg2;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(ImVector_ImGuiPlatformMonitor **)&jarg2; 
+  if (arg1) (arg1)->Monitors = *arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Storage_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Monitors_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  ImVector_ImU32 *result = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVector_ImGuiPlatformMonitor *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  result = (ImVector_ImU32 *)& ((arg1)->Storage);
-  *(ImVector_ImU32 **)&jresult = result; 
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (ImVector_ImGuiPlatformMonitor *)& ((arg1)->Monitors);
+  *(ImVector_ImGuiPlatformMonitor **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImBitVector(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1MainViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImGuiViewport *arg2 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(ImGuiViewport **)&jarg2; 
+  if (arg1) (arg1)->MainViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1MainViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImBitVector *result = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImGuiViewport *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImBitVector *)new ImBitVector();
-  *(ImBitVector **)&jresult = result; 
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (ImGuiViewport *) ((arg1)->MainViewport);
+  *(ImGuiViewport **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImBitVector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Viewports_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVector_ImGuiViewportPtr *arg2 = (ImVector_ImGuiViewportPtr *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImBitVector **)&jarg1; 
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  arg2 = *(ImVector_ImGuiViewportPtr **)&jarg2; 
+  if (arg1) (arg1)->Viewports = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1Viewports_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  ImVector_ImGuiViewportPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  result = (ImVector_ImGuiViewportPtr *)& ((arg1)->Viewports);
+  *(ImVector_ImGuiViewportPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiPlatformIO(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPlatformIO *)new ImGuiPlatformIO();
+  *(ImGuiPlatformIO **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiPlatformIO(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1MainPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->MainPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1MainPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->MainPos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1MainSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->MainSize = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1MainSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->MainSize);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1WorkPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->WorkPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1WorkPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->WorkPos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1WorkSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->WorkSize = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1WorkSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->WorkSize);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1DpiScale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->DpiScale = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1DpiScale_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  result = (float) ((arg1)->DpiScale);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiPlatformMonitor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPlatformMonitor *)new ImGuiPlatformMonitor();
+  *(ImGuiPlatformMonitor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiPlatformMonitor(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ID = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ID);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Flags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiViewportFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = (ImGuiViewportFlags)jarg2; 
+  if (arg1) (arg1)->Flags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Flags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiViewportFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImGuiViewportFlags) ((arg1)->Flags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Pos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->Pos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Pos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->Pos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->Size = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->Size);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1WorkOffsetMin_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->WorkOffsetMin = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1WorkOffsetMin_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->WorkOffsetMin);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1WorkOffsetMax_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->WorkOffsetMax = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1WorkOffsetMax_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->WorkOffsetMax);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1DpiScale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->DpiScale = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1DpiScale_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (float) ((arg1)->DpiScale);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1DrawData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImDrawData *arg2 = (ImDrawData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(ImDrawData **)&jarg2; 
+  if (arg1) (arg1)->DrawData = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1DrawData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImDrawData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImDrawData *) ((arg1)->DrawData);
+  *(ImDrawData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1ParentViewportId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ParentViewportId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1ParentViewportId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ParentViewportId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1RendererUserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->RendererUserData = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1RendererUserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (void *) ((arg1)->RendererUserData);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformUserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->PlatformUserData = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformUserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (void *) ((arg1)->PlatformUserData);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformHandle_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->PlatformHandle = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformHandle_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (void *) ((arg1)->PlatformHandle);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformHandleRaw_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->PlatformHandleRaw = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformHandleRaw_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (void *) ((arg1)->PlatformHandleRaw);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestMove_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->PlatformRequestMove = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestMove_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (bool) ((arg1)->PlatformRequestMove);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestResize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->PlatformRequestResize = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestResize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (bool) ((arg1)->PlatformRequestResize);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestClose_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->PlatformRequestClose = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1PlatformRequestClose_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (bool) ((arg1)->PlatformRequestClose);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiViewport(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewport *)new ImGuiViewport();
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiViewport(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiViewport **)&jarg1; 
   delete arg1;
 }
 
@@ -14057,6 +16564,456 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImRect(JNIEnv *je
   (void)jenv;
   (void)jcls;
   arg1 = *(ImRect **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Storage_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  ImVector_ImU32 *arg2 = (ImVector_ImU32 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  arg2 = *(ImVector_ImU32 **)&jarg2; 
+  if (arg1) (arg1)->Storage = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Storage_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  ImVector_ImU32 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  result = (ImVector_ImU32 *)& ((arg1)->Storage);
+  *(ImVector_ImU32 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImBitVector(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImBitVector *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImBitVector *)new ImBitVector();
+  *(ImBitVector **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImBitVector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImBitVector **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1TexUvWhitePixel_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->TexUvWhitePixel = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1TexUvWhitePixel_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->TexUvWhitePixel);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1Font_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImFont *arg2 = (ImFont *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = *(ImFont **)&jarg2; 
+  if (arg1) (arg1)->Font = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1Font_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImFont *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImFont *) ((arg1)->Font);
+  *(ImFont **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1FontSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->FontSize = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1FontSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (float) ((arg1)->FontSize);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CurveTessellationTol_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->CurveTessellationTol = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CurveTessellationTol_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (float) ((arg1)->CurveTessellationTol);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentMaxError_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->CircleSegmentMaxError = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentMaxError_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (float) ((arg1)->CircleSegmentMaxError);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ClipRectFullscreen_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec4 *arg2 = (ImVec4 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = *(ImVec4 **)&jarg2; 
+  if (arg1) (arg1)->ClipRectFullscreen = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ClipRectFullscreen_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec4 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImVec4 *)& ((arg1)->ClipRectFullscreen);
+  *(ImVec4 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1InitialFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImDrawListFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = (ImDrawListFlags)jarg2; 
+  if (arg1) (arg1)->InitialFlags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1InitialFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImDrawListFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImDrawListFlags) ((arg1)->InitialFlags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ArcFastVtx_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec2 *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  {
+    size_t ii;
+    ImVec2 *b = (ImVec2 *) arg1->ArcFastVtx;
+    for (ii = 0; ii < (size_t)12*1; ii++) b[ii] = *((ImVec2 *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ArcFastVtx_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImVec2 *)(ImVec2 *) ((arg1)->ArcFastVtx);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentCounts_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImU8 *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = *(ImU8 **)&jarg2; 
+  {
+    size_t ii;
+    ImU8 *b = (ImU8 *) arg1->CircleSegmentCounts;
+    for (ii = 0; ii < (size_t)64; ii++) b[ii] = *((ImU8 *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentCounts_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  ImU8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  result = (ImU8 *)(ImU8 *) ((arg1)->CircleSegmentCounts);
+  *(ImU8 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImDrawListSharedData *)new ImDrawListSharedData();
+  *(ImDrawListSharedData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Layers_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  ImVector_ImDrawListPtr *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  arg2 = *(ImVector_ImDrawListPtr **)&jarg2; 
+  {
+    size_t ii;
+    ImVector_ImDrawListPtr *b = (ImVector_ImDrawListPtr *) arg1->Layers;
+    for (ii = 0; ii < (size_t)2; ii++) b[ii] = *((ImVector_ImDrawListPtr *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Layers_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  ImVector_ImDrawListPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  result = (ImVector_ImDrawListPtr *)(ImVector_ImDrawListPtr *) ((arg1)->Layers);
+  *(ImVector_ImDrawListPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImDrawDataBuilder(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImDrawDataBuilder *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImDrawDataBuilder *)new ImDrawDataBuilder();
+  *(ImDrawDataBuilder **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImDrawDataBuilder(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDataTypeTempStorage_1Data_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDataTypeTempStorage *arg1 = (ImGuiDataTypeTempStorage *) 0 ;
+  ImU8 *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDataTypeTempStorage **)&jarg1; 
+  arg2 = *(ImU8 **)&jarg2; 
+  {
+    size_t ii;
+    ImU8 *b = (ImU8 *) arg1->Data;
+    for (ii = 0; ii < (size_t)8; ii++) b[ii] = *((ImU8 *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDataTypeTempStorage_1Data_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDataTypeTempStorage *arg1 = (ImGuiDataTypeTempStorage *) 0 ;
+  ImU8 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDataTypeTempStorage **)&jarg1; 
+  result = (ImU8 *)(ImU8 *) ((arg1)->Data);
+  *(ImU8 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiDataTypeTempStorage(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiDataTypeTempStorage *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiDataTypeTempStorage *)new ImGuiDataTypeTempStorage();
+  *(ImGuiDataTypeTempStorage **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiDataTypeTempStorage(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiDataTypeTempStorage *arg1 = (ImGuiDataTypeTempStorage *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiDataTypeTempStorage **)&jarg1; 
   delete arg1;
 }
 
@@ -15311,344 +18268,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiInputTextSta
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImGuiID arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  arg2 = (ImGuiID)jarg2; 
-  if (arg1) (arg1)->ID = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImGuiID result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  result = (ImGuiID) ((arg1)->ID);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Pos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  arg2 = *(ImVec2ih **)&jarg2; 
-  if (arg1) (arg1)->Pos = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Pos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImVec2ih *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  result = (ImVec2ih *)& ((arg1)->Pos);
-  *(ImVec2ih **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  arg2 = *(ImVec2ih **)&jarg2; 
-  if (arg1) (arg1)->Size = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  ImVec2ih *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  result = (ImVec2ih *)& ((arg1)->Size);
-  *(ImVec2ih **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Collapsed_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  bool arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  if (arg1) (arg1)->Collapsed = arg2;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Collapsed_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  result = (bool) ((arg1)->Collapsed);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiWindowSettings *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiWindowSettings *)new ImGuiWindowSettings();
-  *(ImGuiWindowSettings **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeName_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  char *arg2 = (char *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2) return ;
-  }
-  {
-    if (arg2) {
-      arg1->TypeName = (char const *) (new char[strlen((const char *)arg2)+1]);
-      strcpy((char *)arg1->TypeName, (const char *)arg2);
-    } else {
-      arg1->TypeName = 0;
-    }
-  }
-  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeName_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (char *) ((arg1)->TypeName);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeHash_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  ImGuiID arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = (ImGuiID)jarg2; 
-  if (arg1) (arg1)->TypeHash = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeHash_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  ImGuiID result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (ImGuiID) ((arg1)->TypeHash);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadOpenFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void *(*arg2)(ImGuiContext *,ImGuiSettingsHandler *,char const *) = (void *(*)(ImGuiContext *,ImGuiSettingsHandler *,char const *)) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = *(void *(**)(ImGuiContext *,ImGuiSettingsHandler *,char const *))&jarg2; 
-  if (arg1) (arg1)->ReadOpenFn = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadOpenFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void *(*result)(ImGuiContext *,ImGuiSettingsHandler *,char const *) = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (void *(*)(ImGuiContext *,ImGuiSettingsHandler *,char const *)) ((arg1)->ReadOpenFn);
-  *(void *(**)(ImGuiContext *,ImGuiSettingsHandler *,char const *))&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadLineFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *)) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *))&jarg2; 
-  if (arg1) (arg1)->ReadLineFn = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadLineFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void (*result)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *) = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *)) ((arg1)->ReadLineFn);
-  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *))&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1WriteAllFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *)) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *))&jarg2; 
-  if (arg1) (arg1)->WriteAllFn = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1WriteAllFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void (*result)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *) = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *)) ((arg1)->WriteAllFn);
-  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *))&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1UserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void *arg2 = (void *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  arg2 = *(void **)&jarg2; 
-  if (arg1) (arg1)->UserData = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1UserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  void *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  result = (void *) ((arg1)->UserData);
-  *(void **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiSettingsHandler *)new ImGuiSettingsHandler();
-  *(ImGuiSettingsHandler **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPopupData_1PopupId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   ImGuiPopupData *arg1 = (ImGuiPopupData *) 0 ;
   ImGuiID arg2 ;
@@ -15867,6 +18486,1134 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiPopupData(JN
   (void)jenv;
   (void)jcls;
   arg1 = *(ImGuiPopupData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1Window_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->Window = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1Window_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->Window);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ID = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ID);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1FocusScopeId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->FocusScopeId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1FocusScopeId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (ImGuiID) ((arg1)->FocusScopeId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistBox_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->DistBox = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistBox_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (float) ((arg1)->DistBox);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistCenter_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->DistCenter = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistCenter_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (float) ((arg1)->DistCenter);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistAxial_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->DistAxial = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistAxial_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (float) ((arg1)->DistAxial);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1RectRel_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImRect *arg2 = (ImRect *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg2 = *(ImRect **)&jarg2; 
+  if (arg1) (arg1)->RectRel = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1RectRel_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImRect *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  result = (ImRect *)& ((arg1)->RectRel);
+  *(ImRect **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNavMoveResult(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiNavMoveResult *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiNavMoveResult *)new ImGuiNavMoveResult();
+  *(ImGuiNavMoveResult **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNavMoveResult(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1Flags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiNextWindowDataFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiNextWindowDataFlags)jarg2; 
+  if (arg1) (arg1)->Flags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1Flags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiNextWindowDataFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiNextWindowDataFlags) ((arg1)->Flags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->PosCond = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->PosCond);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->SizeCond = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->SizeCond);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->CollapsedCond = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->CollapsedCond);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1DockCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->DockCond = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1DockCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->DockCond);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->PosVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->PosVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosPivotVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->PosPivotVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosPivotVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->PosPivotVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->SizeVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->SizeVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ContentSizeVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->ContentSizeVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ContentSizeVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->ContentSizeVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ScrollVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->ScrollVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ScrollVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->ScrollVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosUndock_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->PosUndock = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosUndock_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (bool) ((arg1)->PosUndock);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->CollapsedVal = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (bool) ((arg1)->CollapsedVal);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeConstraintRect_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImRect *arg2 = (ImRect *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImRect **)&jarg2; 
+  if (arg1) (arg1)->SizeConstraintRect = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeConstraintRect_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImRect *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImRect *)& ((arg1)->SizeConstraintRect);
+  *(ImRect **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallback_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiSizeCallback arg2 = (ImGuiSizeCallback) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImGuiSizeCallback *)&jarg2; 
+  if (arg1) (arg1)->SizeCallback = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallback_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiSizeCallback result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiSizeCallback) ((arg1)->SizeCallback);
+  *(ImGuiSizeCallback *)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallbackUserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->SizeCallbackUserData = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallbackUserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (void *) ((arg1)->SizeCallbackUserData);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1BgAlphaVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->BgAlphaVal = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1BgAlphaVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (float) ((arg1)->BgAlphaVal);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ViewportId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ViewportId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ViewportId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ViewportId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1DockId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->DockId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1DockId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiID) ((arg1)->DockId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1WindowClass_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiWindowClass *arg2 = (ImGuiWindowClass *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImGuiWindowClass **)&jarg2; 
+  if (arg1) (arg1)->WindowClass = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1WindowClass_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiWindowClass *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImGuiWindowClass *)& ((arg1)->WindowClass);
+  *(ImGuiWindowClass **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1MenuBarOffsetMinVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->MenuBarOffsetMinVal = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1MenuBarOffsetMinVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->MenuBarOffsetMinVal);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNextWindowData(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiNextWindowData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiNextWindowData *)new ImGuiNextWindowData();
+  *(ImGuiNextWindowData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNextWindowData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Flags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiNextItemDataFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  arg2 = (ImGuiNextItemDataFlags)jarg2; 
+  if (arg1) (arg1)->Flags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Flags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiNextItemDataFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  result = (ImGuiNextItemDataFlags) ((arg1)->Flags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Width_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->Width = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Width_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  result = (float) ((arg1)->Width);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1FocusScopeId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->FocusScopeId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1FocusScopeId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  result = (ImGuiID) ((arg1)->FocusScopeId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->OpenCond = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->OpenCond);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->OpenVal = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  result = (bool) ((arg1)->OpenVal);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNextItemData(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiNextItemData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiNextItemData *)new ImGuiNextItemData();
+  *(ImGuiNextItemData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNextItemData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiNextItemData **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Index_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Index = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Index_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  result = (int) ((arg1)->Index);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Width_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->Width = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Width_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  result = (float) ((arg1)->Width);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiShrinkWidthItem(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiShrinkWidthItem *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiShrinkWidthItem *)new ImGuiShrinkWidthItem();
+  *(ImGuiShrinkWidthItem **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiShrinkWidthItem(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Ptr_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->Ptr = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Ptr_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  result = (void *) ((arg1)->Ptr);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Index_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Index = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Index_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  result = (int) ((arg1)->Index);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPtrOrIndex *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPtrOrIndex *)new ImGuiPtrOrIndex();
+  *(ImGuiPtrOrIndex **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
   delete arg1;
 }
 
@@ -16480,1304 +20227,2406 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiColumns(JNIE
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1TexUvWhitePixel_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec2 *arg2 = (ImVec2 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->TexUvWhitePixel = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1TexUvWhitePixel_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec2 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->TexUvWhitePixel);
-  *(ImVec2 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1Font_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImFont *arg2 = (ImFont *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = *(ImFont **)&jarg2; 
-  if (arg1) (arg1)->Font = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1Font_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImFont *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImFont *) ((arg1)->Font);
-  *(ImFont **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1FontSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->FontSize = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1FontSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (float) ((arg1)->FontSize);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CurveTessellationTol_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->CurveTessellationTol = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CurveTessellationTol_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (float) ((arg1)->CurveTessellationTol);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentMaxError_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->CircleSegmentMaxError = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentMaxError_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (float) ((arg1)->CircleSegmentMaxError);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ClipRectFullscreen_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec4 *arg2 = (ImVec4 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = *(ImVec4 **)&jarg2; 
-  if (arg1) (arg1)->ClipRectFullscreen = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ClipRectFullscreen_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec4 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImVec4 *)& ((arg1)->ClipRectFullscreen);
-  *(ImVec4 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1InitialFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImDrawListFlags arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = (ImDrawListFlags)jarg2; 
-  if (arg1) (arg1)->InitialFlags = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1InitialFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImDrawListFlags result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImDrawListFlags) ((arg1)->InitialFlags);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ArcFastVtx_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec2 *arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = *(ImVec2 **)&jarg2; 
-  {
-    size_t ii;
-    ImVec2 *b = (ImVec2 *) arg1->ArcFastVtx;
-    for (ii = 0; ii < (size_t)12*1; ii++) b[ii] = *((ImVec2 *) arg2 + ii);
-  }
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ArcFastVtx_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImVec2 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImVec2 *)(ImVec2 *) ((arg1)->ArcFastVtx);
-  *(ImVec2 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentCounts_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImU8 *arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = *(ImU8 **)&jarg2; 
-  {
-    size_t ii;
-    ImU8 *b = (ImU8 *) arg1->CircleSegmentCounts;
-    for (ii = 0; ii < (size_t)64; ii++) b[ii] = *((ImU8 *) arg2 + ii);
-  }
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1CircleSegmentCounts_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  ImU8 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  result = (ImU8 *)(ImU8 *) ((arg1)->CircleSegmentCounts);
-  *(ImU8 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImDrawListSharedData *)new ImDrawListSharedData();
-  *(ImDrawListSharedData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Layers_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  ImVector_ImDrawListPtr *arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  arg2 = *(ImVector_ImDrawListPtr **)&jarg2; 
-  {
-    size_t ii;
-    ImVector_ImDrawListPtr *b = (ImVector_ImDrawListPtr *) arg1->Layers;
-    for (ii = 0; ii < (size_t)2; ii++) b[ii] = *((ImVector_ImDrawListPtr *) arg2 + ii);
-  }
-  
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Layers_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  ImVector_ImDrawListPtr *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  result = (ImVector_ImDrawListPtr *)(ImVector_ImDrawListPtr *) ((arg1)->Layers);
-  *(ImVector_ImDrawListPtr **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImDrawDataBuilder(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImDrawDataBuilder *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImDrawDataBuilder *)new ImDrawDataBuilder();
-  *(ImDrawDataBuilder **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImDrawDataBuilder(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1Window_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = *(ImGuiWindow **)&jarg2; 
-  if (arg1) (arg1)->Window = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1Window_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImGuiWindow *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (ImGuiWindow *) ((arg1)->Window);
-  *(ImGuiWindow **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImGuiID arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = (ImGuiID)jarg2; 
   if (arg1) (arg1)->ID = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImGuiID result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   result = (ImGuiID) ((arg1)->ID);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1FocusScopeId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImGuiID arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SharedFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeFlags arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = (ImGuiID)jarg2; 
-  if (arg1) (arg1)->FocusScopeId = arg2;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  if (arg1) (arg1)->SharedFlags = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1FocusScopeId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImGuiID result;
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SharedFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeFlags result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (ImGuiID) ((arg1)->FocusScopeId);
-  jresult = (jlong)result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNodeFlags) ((arg1)->SharedFlags);
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistBox_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LocalFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeFlags arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->DistBox = arg2;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  if (arg1) (arg1)->LocalFlags = arg2;
 }
 
 
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistBox_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float result;
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LocalFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeFlags result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (float) ((arg1)->DistBox);
-  jresult = (jfloat)result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNodeFlags) ((arg1)->LocalFlags);
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistCenter_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->DistCenter = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistCenter_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (float) ((arg1)->DistCenter);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistAxial_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->DistAxial = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1DistAxial_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (float) ((arg1)->DistAxial);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1RectRel_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImRect *arg2 = (ImRect *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ParentNode_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  arg2 = *(ImRect **)&jarg2; 
-  if (arg1) (arg1)->RectRel = *arg2;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  if (arg1) (arg1)->ParentNode = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNavMoveResult_1RectRel_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ParentNode_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  ImRect *result = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  result = (ImRect *)& ((arg1)->RectRel);
-  *(ImRect **)&jresult = result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNode *) ((arg1)->ParentNode);
+  *(ImGuiDockNode **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNavMoveResult(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ChildNodes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode **arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiDockNode ***)&jarg2; 
+  {
+    size_t ii;
+    ImGuiDockNode * *b = (ImGuiDockNode * *) arg1->ChildNodes;
+    for (ii = 0; ii < (size_t)2; ii++) b[ii] = *((ImGuiDockNode * *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ChildNodes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNavMoveResult *result = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode **result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImGuiNavMoveResult *)new ImGuiNavMoveResult();
-  *(ImGuiNavMoveResult **)&jresult = result; 
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNode **)(ImGuiDockNode **) ((arg1)->ChildNodes);
+  *(ImGuiDockNode ***)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNavMoveResult(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiNavMoveResult *arg1 = (ImGuiNavMoveResult *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImGuiNavMoveResult **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1Flags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiNextWindowDataFlags arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Windows_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImVector_ImGuiWindowPtr *arg2 = (ImVector_ImGuiWindowPtr *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = (ImGuiNextWindowDataFlags)jarg2; 
-  if (arg1) (arg1)->Flags = arg2;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImVector_ImGuiWindowPtr **)&jarg2; 
+  if (arg1) (arg1)->Windows = *arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1Flags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiNextWindowDataFlags result;
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Windows_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImVector_ImGuiWindowPtr *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImGuiNextWindowDataFlags) ((arg1)->Flags);
-  jresult = (jint)result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImVector_ImGuiWindowPtr *)& ((arg1)->Windows);
+  *(ImVector_ImGuiWindowPtr **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1TabBar_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiTabBar *arg2 = (ImGuiTabBar *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = (ImGuiCond)jarg2; 
-  if (arg1) (arg1)->PosCond = arg2;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiTabBar **)&jarg2; 
+  if (arg1) (arg1)->TabBar = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond result;
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1TabBar_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiTabBar *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImGuiCond) ((arg1)->PosCond);
-  jresult = (jint)result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiTabBar *) ((arg1)->TabBar);
+  *(ImGuiTabBar **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = (ImGuiCond)jarg2; 
-  if (arg1) (arg1)->SizeCond = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImGuiCond) ((arg1)->SizeCond);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = (ImGuiCond)jarg2; 
-  if (arg1) (arg1)->CollapsedCond = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiCond result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImGuiCond) ((arg1)->CollapsedCond);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Pos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *arg2 = (ImVec2 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->PosVal = *arg2;
+  if (arg1) (arg1)->Pos = *arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Pos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->PosVal);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->Pos);
   *(ImVec2 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosPivotVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *arg2 = (ImVec2 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->PosPivotVal = *arg2;
+  if (arg1) (arg1)->Size = *arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1PosPivotVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->PosPivotVal);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->Size);
   *(ImVec2 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SizeRef_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *arg2 = (ImVec2 *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->SizeVal = *arg2;
+  if (arg1) (arg1)->SizeRef = *arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SizeRef_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   ImVec2 *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->SizeVal);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->SizeRef);
   *(ImVec2 **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ContentSizeVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImVec2 *arg2 = (ImVec2 *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SplitAxis_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiAxis arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->ContentSizeVal = *arg2;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiAxis)jarg2; 
+  if (arg1) (arg1)->SplitAxis = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1ContentSizeVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImVec2 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->ContentSizeVal);
-  *(ImVec2 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  bool arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  if (arg1) (arg1)->CollapsedVal = arg2;
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1CollapsedVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (bool) ((arg1)->CollapsedVal);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeConstraintRect_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImRect *arg2 = (ImRect *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = *(ImRect **)&jarg2; 
-  if (arg1) (arg1)->SizeConstraintRect = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeConstraintRect_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImRect *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImRect *)& ((arg1)->SizeConstraintRect);
-  *(ImRect **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallback_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiSizeCallback arg2 = (ImGuiSizeCallback) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = *(ImGuiSizeCallback *)&jarg2; 
-  if (arg1) (arg1)->SizeCallback = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallback_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImGuiSizeCallback result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImGuiSizeCallback) ((arg1)->SizeCallback);
-  *(ImGuiSizeCallback *)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallbackUserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  void *arg2 = (void *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = *(void **)&jarg2; 
-  if (arg1) (arg1)->SizeCallbackUserData = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1SizeCallbackUserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  void *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (void *) ((arg1)->SizeCallbackUserData);
-  *(void **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1BgAlphaVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->BgAlphaVal = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1BgAlphaVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (float) ((arg1)->BgAlphaVal);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1MenuBarOffsetMinVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImVec2 *arg2 = (ImVec2 *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  arg2 = *(ImVec2 **)&jarg2; 
-  if (arg1) (arg1)->MenuBarOffsetMinVal = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextWindowData_1MenuBarOffsetMinVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  ImVec2 *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  result = (ImVec2 *)& ((arg1)->MenuBarOffsetMinVal);
-  *(ImVec2 **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNextWindowData(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiNextWindowData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiNextWindowData *)new ImGuiNextWindowData();
-  *(ImGuiNextWindowData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNextWindowData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiNextWindowData *arg1 = (ImGuiNextWindowData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImGuiNextWindowData **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Flags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiNextItemDataFlags arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  arg2 = (ImGuiNextItemDataFlags)jarg2; 
-  if (arg1) (arg1)->Flags = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Flags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SplitAxis_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiNextItemDataFlags result;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiAxis result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  result = (ImGuiNextItemDataFlags) ((arg1)->Flags);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiAxis) ((arg1)->SplitAxis);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Width_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  float arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WindowClass_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindowClass *arg2 = (ImGuiWindowClass *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->Width = arg2;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiWindowClass **)&jarg2; 
+  if (arg1) (arg1)->WindowClass = *arg2;
 }
 
 
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1Width_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  result = (float) ((arg1)->Width);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1FocusScopeId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiID arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  arg2 = (ImGuiID)jarg2; 
-  if (arg1) (arg1)->FocusScopeId = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1FocusScopeId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WindowClass_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiID result;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindowClass *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  result = (ImGuiID) ((arg1)->FocusScopeId);
-  jresult = (jlong)result; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiWindowClass *)& ((arg1)->WindowClass);
+  *(ImGuiWindowClass **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenCond_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiCond arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1State_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeState arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  arg2 = (ImGuiCond)jarg2; 
-  if (arg1) (arg1)->OpenCond = arg2;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDockNodeState)jarg2; 
+  if (arg1) (arg1)->State = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenCond_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1State_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  ImGuiCond result;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeState result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  result = (ImGuiCond) ((arg1)->OpenCond);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNodeState) ((arg1)->State);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  bool arg2 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HostWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  arg2 = jarg2 ? true : false; 
-  if (arg1) (arg1)->OpenVal = arg2;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->HostWindow = arg2;
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiNextItemData_1OpenVal_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jboolean jresult = 0 ;
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  result = (bool) ((arg1)->OpenVal);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiNextItemData(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HostWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  ImGuiNextItemData *result = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImGuiNextItemData *)new ImGuiNextItemData();
-  *(ImGuiNextItemData **)&jresult = result; 
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->HostWindow);
+  *(ImGuiWindow **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiNextItemData(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiNextItemData *arg1 = (ImGuiNextItemData *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1VisibleWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImGuiNextItemData **)&jarg1; 
-  delete arg1;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->VisibleWindow = arg2;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Index_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1VisibleWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->VisibleWindow);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1CentralNode_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  if (arg1) (arg1)->CentralNode = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1CentralNode_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNode *) ((arg1)->CentralNode);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1OnlyNodeWithWindows_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  if (arg1) (arg1)->OnlyNodeWithWindows = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1OnlyNodeWithWindows_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNode *) ((arg1)->OnlyNodeWithWindows);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameAlive_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Index = arg2;
+  if (arg1) (arg1)->LastFrameAlive = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Index_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameAlive_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
-  result = (int) ((arg1)->Index);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (int) ((arg1)->LastFrameAlive);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Width_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
-  arg2 = (float)jarg2; 
-  if (arg1) (arg1)->Width = arg2;
-}
-
-
-SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiShrinkWidthItem_1Width_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jfloat jresult = 0 ;
-  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
-  float result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
-  result = (float) ((arg1)->Width);
-  jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiShrinkWidthItem(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiShrinkWidthItem *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiShrinkWidthItem *)new ImGuiShrinkWidthItem();
-  *(ImGuiShrinkWidthItem **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiShrinkWidthItem(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiShrinkWidthItem *arg1 = (ImGuiShrinkWidthItem *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImGuiShrinkWidthItem **)&jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Ptr_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
-  void *arg2 = (void *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
-  arg2 = *(void **)&jarg2; 
-  if (arg1) (arg1)->Ptr = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Ptr_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
-  void *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
-  result = (void *) ((arg1)->Ptr);
-  *(void **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Index_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameActive_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   int arg2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  arg1 = *(ImGuiDockNode **)&jarg1; 
   arg2 = (int)jarg2; 
-  if (arg1) (arg1)->Index = arg2;
+  if (arg1) (arg1)->LastFrameActive = arg2;
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1Index_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameActive_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jint jresult = 0 ;
-  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
-  result = (int) ((arg1)->Index);
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (int) ((arg1)->LastFrameActive);
   jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiPtrOrIndex *result = 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameFocused_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  int arg2 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImGuiPtrOrIndex *)new ImGuiPtrOrIndex();
-  *(ImGuiPtrOrIndex **)&jresult = result; 
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->LastFrameFocused = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFrameFocused_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (int) ((arg1)->LastFrameFocused);
+  jresult = (jint)result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiPtrOrIndex(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  ImGuiPtrOrIndex *arg1 = (ImGuiPtrOrIndex *) 0 ;
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFocusedNodeId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID arg2 ;
   
   (void)jenv;
   (void)jcls;
-  arg1 = *(ImGuiPtrOrIndex **)&jarg1; 
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->LastFocusedNodeId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1LastFocusedNodeId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiID) ((arg1)->LastFocusedNodeId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SelectedTabId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->SelectedTabId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1SelectedTabId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiID) ((arg1)->SelectedTabId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantCloseTabId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->WantCloseTabId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantCloseTabId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiID) ((arg1)->WantCloseTabId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDataAuthority)jarg2; 
+  if (arg1) (arg1)->AuthorityForPos = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDataAuthority) ((arg1)->AuthorityForPos);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDataAuthority)jarg2; 
+  if (arg1) (arg1)->AuthorityForSize = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDataAuthority) ((arg1)->AuthorityForSize);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = (ImGuiDataAuthority)jarg2; 
+  if (arg1) (arg1)->AuthorityForViewport = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1AuthorityForViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDataAuthority result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDataAuthority) ((arg1)->AuthorityForViewport);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsVisible_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->IsVisible = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsVisible_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->IsVisible);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsFocused_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->IsFocused = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsFocused_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->IsFocused);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HasCloseButton_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->HasCloseButton = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HasCloseButton_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->HasCloseButton);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HasWindowMenuButton_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->HasWindowMenuButton = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1HasWindowMenuButton_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->HasWindowMenuButton);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1EnableCloseButton_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->EnableCloseButton = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1EnableCloseButton_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->EnableCloseButton);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantCloseAll_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantCloseAll = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantCloseAll_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->WantCloseAll);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantLockSizeOnce_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantLockSizeOnce = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantLockSizeOnce_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->WantLockSizeOnce);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantMouseMove_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantMouseMove = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantMouseMove_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->WantMouseMove);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantHiddenTabBarUpdate_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantHiddenTabBarUpdate = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantHiddenTabBarUpdate_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->WantHiddenTabBarUpdate);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantHiddenTabBarToggle_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantHiddenTabBarToggle = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1WantHiddenTabBarToggle_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->WantHiddenTabBarToggle);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1MarkedForPosSizeWrite_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->MarkedForPosSizeWrite = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1MarkedForPosSizeWrite_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool) ((arg1)->MarkedForPosSizeWrite);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiDockNode(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiDockNode *)new ImGuiDockNode();
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiDockNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1Nodes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImGuiStorage *arg2 = (ImGuiStorage *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  arg2 = *(ImGuiStorage **)&jarg2; 
+  if (arg1) (arg1)->Nodes = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1Nodes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImGuiStorage *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  result = (ImGuiStorage *)& ((arg1)->Nodes);
+  *(ImGuiStorage **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1Requests_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImVector_ImGuiDockRequest *arg2 = (ImVector_ImGuiDockRequest *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  arg2 = *(ImVector_ImGuiDockRequest **)&jarg2; 
+  if (arg1) (arg1)->Requests = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1Requests_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImVector_ImGuiDockRequest *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  result = (ImVector_ImGuiDockRequest *)& ((arg1)->Requests);
+  *(ImVector_ImGuiDockRequest **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1NodesSettings_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImVector_ImGuiDockNodeSettings *arg2 = (ImVector_ImGuiDockNodeSettings *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  arg2 = *(ImVector_ImGuiDockNodeSettings **)&jarg2; 
+  if (arg1) (arg1)->NodesSettings = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1NodesSettings_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  ImVector_ImGuiDockNodeSettings *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  result = (ImVector_ImGuiDockNodeSettings *)& ((arg1)->NodesSettings);
+  *(ImVector_ImGuiDockNodeSettings **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1WantFullRebuild_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantFullRebuild = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1WantFullRebuild_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  result = (bool) ((arg1)->WantFullRebuild);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiDockContext(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiDockContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiDockContext *)new ImGuiDockContext();
+  *(ImGuiDockContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiDockContext(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1_1ImGuiViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiViewport *arg2 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImGuiViewport **)&jarg2; 
+  if (arg1) (arg1)->_ImGuiViewport = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1_1ImGuiViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImGuiViewport *)& ((arg1)->_ImGuiViewport);
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Idx_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->Idx = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Idx_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (int) ((arg1)->Idx);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrameActive_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->LastFrameActive = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrameActive_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (int) ((arg1)->LastFrameActive);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrameDrawLists_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(int **)&jarg2; 
+  {
+    size_t ii;
+    int *b = (int *) arg1->LastFrameDrawLists;
+    for (ii = 0; ii < (size_t)2; ii++) b[ii] = *((int *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrameDrawLists_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (int *)(int *) ((arg1)->LastFrameDrawLists);
+  *(int **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrontMostStampCount_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->LastFrontMostStampCount = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastFrontMostStampCount_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (int) ((arg1)->LastFrontMostStampCount);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastNameHash_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->LastNameHash = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastNameHash_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImGuiID) ((arg1)->LastNameHash);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->LastPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->LastPos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Alpha_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->Alpha = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Alpha_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (float) ((arg1)->Alpha);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastAlpha_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->LastAlpha = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastAlpha_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (float) ((arg1)->LastAlpha);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1PlatformMonitor_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  short arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->PlatformMonitor = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1PlatformMonitor_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  short result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (short) ((arg1)->PlatformMonitor);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1PlatformWindowCreated_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->PlatformWindowCreated = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1PlatformWindowCreated_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (bool) ((arg1)->PlatformWindowCreated);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Window_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->Window = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1Window_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->Window);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawLists_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawList **arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImDrawList ***)&jarg2; 
+  {
+    size_t ii;
+    ImDrawList * *b = (ImDrawList * *) arg1->DrawLists;
+    for (ii = 0; ii < (size_t)2; ii++) b[ii] = *((ImDrawList * *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawLists_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawList **result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImDrawList **)(ImDrawList **) ((arg1)->DrawLists);
+  *(ImDrawList ***)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawDataP_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawData *arg2 = (ImDrawData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImDrawData **)&jarg2; 
+  if (arg1) (arg1)->DrawDataP = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawDataP_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImDrawData *)& ((arg1)->DrawDataP);
+  *(ImDrawData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawDataBuilder_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawDataBuilder *arg2 = (ImDrawDataBuilder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImDrawDataBuilder **)&jarg2; 
+  if (arg1) (arg1)->DrawDataBuilder = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1DrawDataBuilder_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImDrawDataBuilder *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImDrawDataBuilder *)& ((arg1)->DrawDataBuilder);
+  *(ImDrawDataBuilder **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPlatformPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->LastPlatformPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPlatformPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->LastPlatformPos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPlatformSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->LastPlatformSize = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastPlatformSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->LastPlatformSize);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastRendererSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->LastRendererSize = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1LastRendererSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->LastRendererSize);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1CurrWorkOffsetMin_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->CurrWorkOffsetMin = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1CurrWorkOffsetMin_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->CurrWorkOffsetMin);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1CurrWorkOffsetMax_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->CurrWorkOffsetMax = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1CurrWorkOffsetMax_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->CurrWorkOffsetMax);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiViewportP(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewportP *)new ImGuiViewportP();
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiViewportP(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ID_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ID = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ID_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ID);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Pos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = *(ImVec2ih **)&jarg2; 
+  if (arg1) (arg1)->Pos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Pos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImVec2ih *)& ((arg1)->Pos);
+  *(ImVec2ih **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = *(ImVec2ih **)&jarg2; 
+  if (arg1) (arg1)->Size = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImVec2ih *)& ((arg1)->Size);
+  *(ImVec2ih **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ViewportPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = *(ImVec2ih **)&jarg2; 
+  if (arg1) (arg1)->ViewportPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ViewportPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImVec2ih *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImVec2ih *)& ((arg1)->ViewportPos);
+  *(ImVec2ih **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ViewportId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ViewportId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ViewportId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ViewportId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1DockId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->DockId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1DockId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImGuiID) ((arg1)->DockId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ClassId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ClassId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ClassId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ClassId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1DockOrder_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  short arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->DockOrder = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1DockOrder_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  short result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (short) ((arg1)->DockOrder);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Collapsed_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->Collapsed = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1Collapsed_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (bool) ((arg1)->Collapsed);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1WantApply_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->WantApply = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1WantApply_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (bool) ((arg1)->WantApply);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiWindowSettings *)new ImGuiWindowSettings();
+  *(ImGuiWindowSettings **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeName_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  {
+    if (arg2) {
+      arg1->TypeName = (char const *) (new char[strlen((const char *)arg2)+1]);
+      strcpy((char *)arg1->TypeName, (const char *)arg2);
+    } else {
+      arg1->TypeName = 0;
+    }
+  }
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeName_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (char *) ((arg1)->TypeName);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeHash_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->TypeHash = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1TypeHash_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (ImGuiID) ((arg1)->TypeHash);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ClearAllFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jarg2; 
+  if (arg1) (arg1)->ClearAllFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ClearAllFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*result)(ImGuiContext *,ImGuiSettingsHandler *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) ((arg1)->ClearAllFn);
+  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadInitFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jarg2; 
+  if (arg1) (arg1)->ReadInitFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadInitFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*result)(ImGuiContext *,ImGuiSettingsHandler *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) ((arg1)->ReadInitFn);
+  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadOpenFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void *(*arg2)(ImGuiContext *,ImGuiSettingsHandler *,char const *) = (void *(*)(ImGuiContext *,ImGuiSettingsHandler *,char const *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void *(**)(ImGuiContext *,ImGuiSettingsHandler *,char const *))&jarg2; 
+  if (arg1) (arg1)->ReadOpenFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadOpenFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void *(*result)(ImGuiContext *,ImGuiSettingsHandler *,char const *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void *(*)(ImGuiContext *,ImGuiSettingsHandler *,char const *)) ((arg1)->ReadOpenFn);
+  *(void *(**)(ImGuiContext *,ImGuiSettingsHandler *,char const *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadLineFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *))&jarg2; 
+  if (arg1) (arg1)->ReadLineFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ReadLineFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*result)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *)) ((arg1)->ReadLineFn);
+  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,void *,char const *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ApplyAllFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jarg2; 
+  if (arg1) (arg1)->ApplyAllFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ApplyAllFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*result)(ImGuiContext *,ImGuiSettingsHandler *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *)) ((arg1)->ApplyAllFn);
+  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1WriteAllFn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*arg2)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *) = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *)) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *))&jarg2; 
+  if (arg1) (arg1)->WriteAllFn = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1WriteAllFn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void (*result)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *) = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void (*)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *)) ((arg1)->WriteAllFn);
+  *(void (**)(ImGuiContext *,ImGuiSettingsHandler *,ImGuiTextBuffer *))&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1UserData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->UserData = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1UserData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  result = (void *) ((arg1)->UserData);
+  *(void **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiSettingsHandler *)new ImGuiSettingsHandler();
+  *(ImGuiSettingsHandler **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
   delete arg1;
 }
 
@@ -17867,6 +22716,35 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1IO_1get(JN
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformIO_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiPlatformIO *arg2 = (ImGuiPlatformIO *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiPlatformIO **)&jarg2; 
+  if (arg1) (arg1)->PlatformIO = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformIO_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiPlatformIO *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiPlatformIO *)& ((arg1)->PlatformIO);
+  *(ImGuiPlatformIO **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1Style_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   ImGuiStyle *arg2 = (ImGuiStyle *) 0 ;
@@ -17892,6 +22770,62 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1Style_1get
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (ImGuiStyle *)& ((arg1)->Style);
   *(ImGuiStyle **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ConfigFlagsCurrFrame_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiConfigFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiConfigFlags)jarg2; 
+  if (arg1) (arg1)->ConfigFlagsCurrFrame = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ConfigFlagsCurrFrame_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiConfigFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiConfigFlags) ((arg1)->ConfigFlagsCurrFrame);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ConfigFlagsLastFrame_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiConfigFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiConfigFlags)jarg2; 
+  if (arg1) (arg1)->ConfigFlagsLastFrame = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ConfigFlagsLastFrame_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiConfigFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiConfigFlags) ((arg1)->ConfigFlagsLastFrame);
+  jresult = (jint)result; 
   return jresult;
 }
 
@@ -18094,6 +23028,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1FrameCountE
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1FrameCountPlatformEnded_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->FrameCountPlatformEnded = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1FrameCountPlatformEnded_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (int) ((arg1)->FrameCountPlatformEnded);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1FrameCountRendered_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   int arg2 ;
@@ -18202,6 +23164,90 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1WithinE
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (bool) ((arg1)->WithinEndChild);
   jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngineHookItems_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->TestEngineHookItems = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngineHookItems_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (bool) ((arg1)->TestEngineHookItems);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngineHookIdInfo_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->TestEngineHookIdInfo = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngineHookIdInfo_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiID) ((arg1)->TestEngineHookIdInfo);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngine_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  if (arg1) (arg1)->TestEngine = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1TestEngine_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  void *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (void *) ((arg1)->TestEngine);
+  *(void **)&jresult = result; 
   return jresult;
 }
 
@@ -18461,6 +23507,35 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1HoveredRoo
   (void)jarg1_;
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (ImGuiWindow *) ((arg1)->HoveredRootWindow);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1HoveredWindowUnderMovingWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->HoveredWindowUnderMovingWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1HoveredWindowUnderMovingWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->HoveredWindowUnderMovingWindow);
   *(ImGuiWindow **)&jresult = result; 
   return jresult;
 }
@@ -19521,6 +24596,206 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1BeginPopup
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1Viewports_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImVector_ImGuiViewportPPtr *arg2 = (ImVector_ImGuiViewportPPtr *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImVector_ImGuiViewportPPtr **)&jarg2; 
+  if (arg1) (arg1)->Viewports = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1Viewports_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImVector_ImGuiViewportPPtr *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImVector_ImGuiViewportPPtr *)& ((arg1)->Viewports);
+  *(ImVector_ImGuiViewportPPtr **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1CurrentDpiScale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->CurrentDpiScale = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1CurrentDpiScale_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (float) ((arg1)->CurrentDpiScale);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1CurrentViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  if (arg1) (arg1)->CurrentViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1CurrentViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiViewportP *) ((arg1)->CurrentViewport);
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1MouseViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  if (arg1) (arg1)->MouseViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1MouseViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiViewportP *) ((arg1)->MouseViewport);
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1MouseLastHoveredViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  if (arg1) (arg1)->MouseLastHoveredViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1MouseLastHoveredViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiViewportP *) ((arg1)->MouseLastHoveredViewport);
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformLastFocusedViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->PlatformLastFocusedViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformLastFocusedViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiID) ((arg1)->PlatformLastFocusedViewport);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ViewportFrontMostStampCount_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->ViewportFrontMostStampCount = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ViewportFrontMostStampCount_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (int) ((arg1)->ViewportFrontMostStampCount);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
@@ -20563,6 +25838,63 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavMoveRes
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWrapRequestWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->NavWrapRequestWindow = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWrapRequestWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->NavWrapRequestWindow);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWrapRequestFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiNavMoveFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiNavMoveFlags)jarg2; 
+  if (arg1) (arg1)->NavWrapRequestFlags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWrapRequestFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiNavMoveFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiNavMoveFlags) ((arg1)->NavWrapRequestFlags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowingTarget_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
@@ -20621,7 +25953,7 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowi
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowingList_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowingListWindow_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
   
@@ -20631,11 +25963,11 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowin
   (void)jarg2_;
   arg1 = *(ImGuiContext **)&jarg1; 
   arg2 = *(ImGuiWindow **)&jarg2; 
-  if (arg1) (arg1)->NavWindowingList = arg2;
+  if (arg1) (arg1)->NavWindowingListWindow = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowingList_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowingListWindow_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   ImGuiWindow *result = 0 ;
@@ -20644,7 +25976,7 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1NavWindowi
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImGuiContext **)&jarg1; 
-  result = (ImGuiWindow *) ((arg1)->NavWindowingList);
+  result = (ImGuiWindow *) ((arg1)->NavWindowingListWindow);
   *(ImGuiWindow **)&jresult = result; 
   return jresult;
 }
@@ -20932,64 +26264,6 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1FocusTa
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DrawData_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawData *arg2 = (ImDrawData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  arg2 = *(ImDrawData **)&jarg2; 
-  if (arg1) (arg1)->DrawData = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DrawData_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  result = (ImDrawData *)& ((arg1)->DrawData);
-  *(ImDrawData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DrawDataBuilder_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawDataBuilder *arg2 = (ImDrawDataBuilder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  arg2 = *(ImDrawDataBuilder **)&jarg2; 
-  if (arg1) (arg1)->DrawDataBuilder = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DrawDataBuilder_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawDataBuilder *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  result = (ImDrawDataBuilder *)& ((arg1)->DrawDataBuilder);
-  *(ImDrawDataBuilder **)&jresult = result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DimBgRatio_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
   ImGuiContext *arg1 = (ImGuiContext *) 0 ;
   float arg2 ;
@@ -21014,64 +26288,6 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DimBgRati
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (float) ((arg1)->DimBgRatio);
   jresult = (jfloat)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1BackgroundDrawList_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawList *arg2 = (ImDrawList *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  arg2 = *(ImDrawList **)&jarg2; 
-  if (arg1) (arg1)->BackgroundDrawList = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1BackgroundDrawList_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawList *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  result = (ImDrawList *)& ((arg1)->BackgroundDrawList);
-  *(ImDrawList **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ForegroundDrawList_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawList *arg2 = (ImDrawList *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  arg2 = *(ImDrawList **)&jarg2; 
-  if (arg1) (arg1)->ForegroundDrawList = *arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1ForegroundDrawList_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
-  ImDrawList *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiContext **)&jarg1; 
-  result = (ImDrawList *)& ((arg1)->ForegroundDrawList);
-  *(ImDrawList **)&jresult = result; 
   return jresult;
 }
 
@@ -21494,6 +26710,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DragDropAcc
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (int) ((arg1)->DragDropAcceptFrameCount);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DragDropHoldJustPressedId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->DragDropHoldJustPressedId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DragDropHoldJustPressedId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiID) ((arg1)->DragDropHoldJustPressedId);
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -22189,6 +27433,64 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformIm
   arg1 = *(ImGuiContext **)&jarg1; 
   result = (ImVec2 *)& ((arg1)->PlatformImeLastPos);
   *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformImePosViewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  if (arg1) (arg1)->PlatformImePosViewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1PlatformImePosViewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiViewportP *) ((arg1)->PlatformImePosViewport);
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DockContext_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiDockContext *arg2 = (ImGuiDockContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiDockContext **)&jarg2; 
+  if (arg1) (arg1)->DockContext = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiContext_1DockContext_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiDockContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiDockContext *)& ((arg1)->DockContext);
+  *(ImGuiDockContext **)&jresult = result; 
   return jresult;
 }
 
@@ -24201,6 +29503,177 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1Flags_1get(J
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1FlagsPreviousFrame_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindowFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiWindowFlags)jarg2; 
+  if (arg1) (arg1)->FlagsPreviousFrame = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1FlagsPreviousFrame_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindowFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiWindowFlags) ((arg1)->FlagsPreviousFrame);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1WindowClass_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindowClass *arg2 = (ImGuiWindowClass *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiWindowClass **)&jarg2; 
+  if (arg1) (arg1)->WindowClass = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1WindowClass_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindowClass *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiWindowClass *)& ((arg1)->WindowClass);
+  *(ImGuiWindowClass **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1Viewport_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  if (arg1) (arg1)->Viewport = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1Viewport_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiViewportP *) ((arg1)->Viewport);
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->ViewportId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiID) ((arg1)->ViewportId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportPos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2 *arg2 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImVec2 **)&jarg2; 
+  if (arg1) (arg1)->ViewportPos = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportPos_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImVec2 *)& ((arg1)->ViewportPos);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportAllowPlatformMonitorExtend_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->ViewportAllowPlatformMonitorExtend = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportAllowPlatformMonitorExtend_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (int) ((arg1)->ViewportAllowPlatformMonitorExtend);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1Pos_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
   ImVec2 *arg2 = (ImVec2 *) 0 ;
@@ -24711,6 +30184,34 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1Scrollba
   (void)jarg1_;
   arg1 = *(ImGuiWindow **)&jarg1; 
   result = (bool) ((arg1)->ScrollbarY);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportOwned_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->ViewportOwned = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ViewportOwned_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (bool) ((arg1)->ViewportOwned);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -25416,6 +30917,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1SetWindowCol
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1SetWindowDockAllowFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  if (arg1) (arg1)->SetWindowDockAllowFlags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1SetWindowDockAllowFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiCond result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiCond) ((arg1)->SetWindowDockAllowFlags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1SetWindowPosVal_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
   ImVec2 *arg2 = (ImVec2 *) 0 ;
@@ -25706,6 +31235,64 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1ContentRegi
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1HitTestHoleSize_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImVec2ih **)&jarg2; 
+  if (arg1) (arg1)->HitTestHoleSize = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1HitTestHoleSize_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2ih *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImVec2ih *)& ((arg1)->HitTestHoleSize);
+  *(ImVec2ih **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1HitTestHoleOffset_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2ih *arg2 = (ImVec2ih *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImVec2ih **)&jarg2; 
+  if (arg1) (arg1)->HitTestHoleOffset = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1HitTestHoleOffset_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2ih *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImVec2ih *)& ((arg1)->HitTestHoleOffset);
+  *(ImVec2ih **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1LastFrameActive_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
   int arg2 ;
@@ -25729,6 +31316,34 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1LastFrameAct
   (void)jarg1_;
   arg1 = *(ImGuiWindow **)&jarg1; 
   result = (int) ((arg1)->LastFrameActive);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1LastFrameJustFocused_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->LastFrameJustFocused = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1LastFrameJustFocused_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (int) ((arg1)->LastFrameJustFocused);
   jresult = (jint)result; 
   return jresult;
 }
@@ -25876,6 +31491,34 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1FontWindow
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1FontDpiScale_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (float)jarg2; 
+  if (arg1) (arg1)->FontDpiScale = arg2;
+}
+
+
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1FontDpiScale_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jfloat jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (float) ((arg1)->FontDpiScale);
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1SettingsOffset_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
   int arg2 ;
@@ -26015,6 +31658,35 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1RootWindow_
   (void)jarg1_;
   arg1 = *(ImGuiWindow **)&jarg1; 
   result = (ImGuiWindow *) ((arg1)->RootWindow);
+  *(ImGuiWindow **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1RootWindowDockStop_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->RootWindowDockStop = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1RootWindowDockStop_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->RootWindowDockStop);
   *(ImGuiWindow **)&jresult = result; 
   return jresult;
 }
@@ -26258,6 +31930,261 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1MemoryDrawLi
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockNode_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  if (arg1) (arg1)->DockNode = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockNode_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiDockNode *) ((arg1)->DockNode);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockNodeAsHost_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  if (arg1) (arg1)->DockNodeAsHost = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockNodeAsHost_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiDockNode *) ((arg1)->DockNodeAsHost);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockId_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  if (arg1) (arg1)->DockId = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockId_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiID) ((arg1)->DockId);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabItemStatusFlags_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiItemStatusFlags arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiItemStatusFlags)jarg2; 
+  if (arg1) (arg1)->DockTabItemStatusFlags = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabItemStatusFlags_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiItemStatusFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImGuiItemStatusFlags) ((arg1)->DockTabItemStatusFlags);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabItemRect_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImRect *arg2 = (ImRect *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImRect **)&jarg2; 
+  if (arg1) (arg1)->DockTabItemRect = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabItemRect_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImRect *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (ImRect *)& ((arg1)->DockTabItemRect);
+  *(ImRect **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockOrder_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  short arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->DockOrder = arg2;
+}
+
+
+SWIGEXPORT jshort JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockOrder_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jshort jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  short result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (short) ((arg1)->DockOrder);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockIsActive_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DockIsActive = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockIsActive_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (bool) ((arg1)->DockIsActive);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabIsVisible_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DockTabIsVisible = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabIsVisible_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (bool) ((arg1)->DockTabIsVisible);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabWantClose_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jboolean jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->DockTabWantClose = arg2;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindow_1DockTabWantClose_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (bool) ((arg1)->DockTabWantClose);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiWindow(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImGuiWindow *result = 0 ;
@@ -26468,6 +32395,35 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiTabItem_1Flags_1get(
   arg1 = *(ImGuiTabItem **)&jarg1; 
   result = (ImGuiTabItemFlags) ((arg1)->Flags);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiTabItem_1Window_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiTabItem *arg1 = (ImGuiTabItem *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiTabItem **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  if (arg1) (arg1)->Window = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiTabItem_1Window_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiTabItem *arg1 = (ImGuiTabItem *) 0 ;
+  ImGuiWindow *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiTabItem **)&jarg1; 
+  result = (ImGuiWindow *) ((arg1)->Window);
+  *(ImGuiWindow **)&jresult = result; 
   return jresult;
 }
 
@@ -28071,6 +34027,30 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowDrawList(JNIE
 }
 
 
+SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowDpiScale(JNIEnv *jenv, jclass jcls) {
+  jfloat jresult = 0 ;
+  float result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (float)igGetWindowDpiScale();
+  jresult = (jfloat)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowViewport(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewport *)igGetWindowViewport();
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowPos(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   ImVec2 *arg1 = (ImVec2 *) 0 ;
   
@@ -28247,6 +34227,16 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetNextWindowBgAlpha(JN
   (void)jcls;
   arg1 = (float)jarg1; 
   igSetNextWindowBgAlpha(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetNextWindowViewport(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiID arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  igSetNextWindowViewport(arg1);
 }
 
 
@@ -29816,7 +35806,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igComboStr(JNIEnv *je
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igComboFnPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg3, jint jarg5, jint jarg6) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igComboFnBoolPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg3, jint jarg5, jint jarg6) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
   int *arg2 = (int *) 0 ;
@@ -29845,7 +35835,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igComboFnPtr(JNIEnv *
   }
   arg5 = (int)jarg5; 
   arg6 = (int)jarg6; 
-  result = (bool)igComboFnPtr((char const *)arg1,arg2,arg3,arg4,arg5,arg6);
+  result = (bool)igComboFnBoolPtr((char const *)arg1,arg2,arg3,arg4,arg5,arg6);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   {
@@ -31804,7 +37794,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igListBoxStr_1arr(JNI
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igListBoxFnPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg3, jint jarg5, jint jarg6) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igListBoxFnBoolPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2, jobject jarg3, jint jarg5, jint jarg6) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
   int *arg2 = (int *) 0 ;
@@ -31833,7 +37823,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igListBoxFnPtr(JNIEnv
   }
   arg5 = (int)jarg5; 
   arg6 = (int)jarg6; 
-  result = (bool)igListBoxFnPtr((char const *)arg1,arg2,arg3,arg4,arg5,arg6);
+  result = (bool)igListBoxFnBoolPtr((char const *)arg1,arg2,arg3,arg4,arg5,arg6);
   jresult = (jboolean)result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   {
@@ -31948,7 +37938,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotLinesFloatPtr(JNIEn
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotLinesFnPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg4, jint jarg5, jstring jarg6, jfloat jarg7, jfloat jarg8, jlong jarg9, jobject jarg9_) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotLinesFnFloatPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg4, jint jarg5, jstring jarg6, jfloat jarg7, jfloat jarg8, jlong jarg9, jobject jarg9_) {
   char *arg1 = (char *) 0 ;
   float (*arg2)(void *,int) = (float (*)(void *,int)) 0 ;
   void *arg3 = (void *) 0 ;
@@ -31990,7 +37980,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotLinesFnPtr(JNIEnv *
     return ;
   }
   arg9 = *argp9; 
-  igPlotLinesFnPtr((char const *)arg1,arg2,arg3,arg4,arg5,(char const *)arg6,arg7,arg8,arg9);
+  igPlotLinesFnFloatPtr((char const *)arg1,arg2,arg3,arg4,arg5,(char const *)arg6,arg7,arg8,arg9);
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   if (arg6) jenv->ReleaseStringUTFChars(jarg6, (const char *)arg6);
 }
@@ -32039,7 +38029,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotHistogramFloatPtr(J
 }
 
 
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotHistogramFnPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg4, jint jarg5, jstring jarg6, jfloat jarg7, jfloat jarg8, jlong jarg9, jobject jarg9_) {
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotHistogramFnFloatPtr(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg4, jint jarg5, jstring jarg6, jfloat jarg7, jfloat jarg8, jlong jarg9, jobject jarg9_) {
   char *arg1 = (char *) 0 ;
   float (*arg2)(void *,int) = (float (*)(void *,int)) 0 ;
   void *arg3 = (void *) 0 ;
@@ -32081,7 +38071,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igPlotHistogramFnPtr(JNIE
     return ;
   }
   arg9 = *argp9; 
-  igPlotHistogramFnPtr((char const *)arg1,arg2,arg3,arg4,arg5,(char const *)arg6,arg7,arg8,arg9);
+  igPlotHistogramFnFloatPtr((char const *)arg1,arg2,arg3,arg4,arg5,(char const *)arg6,arg7,arg8,arg9);
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   if (arg6) jenv->ReleaseStringUTFChars(jarg6, (const char *)arg6);
 }
@@ -32671,6 +38661,97 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetTabItemClosed(JNIEnv
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockSpace(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_) {
+  ImGuiID arg1 ;
+  ImVec2 arg2 ;
+  ImGuiDockNodeFlags arg3 ;
+  ImGuiWindowClass *arg4 = (ImGuiWindowClass *) 0 ;
+  ImVec2 const *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  (void)jarg4_;
+  arg1 = (ImGuiID)jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg2 = *argp2; 
+  arg3 = (ImGuiDockNodeFlags)jarg3; 
+  arg4 = *(ImGuiWindowClass **)&jarg4; 
+  igDockSpace(arg1,arg2,arg3,(ImGuiWindowClass const *)arg4);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockSpaceOverViewport(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImGuiDockNodeFlags arg2 ;
+  ImGuiWindowClass *arg3 = (ImGuiWindowClass *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  arg3 = *(ImGuiWindowClass **)&jarg3; 
+  result = (ImGuiID)igDockSpaceOverViewport(arg1,arg2,(ImGuiWindowClass const *)arg3);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetNextWindowDockID(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  ImGuiID arg1 ;
+  ImGuiCond arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = (ImGuiCond)jarg2; 
+  igSetNextWindowDockID(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetNextWindowClass(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  igSetNextWindowClass((ImGuiWindowClass const *)arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowDockID(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiID)igGetWindowDockID();
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igIsWindowDocked(JNIEnv *jenv, jclass jcls) {
+  jboolean jresult = 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (bool)igIsWindowDocked();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igLogToTTY(JNIEnv *jenv, jclass jcls, jint jarg1) {
   int arg1 ;
   
@@ -33147,13 +39228,13 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igGetFrameCount(JNIEnv *j
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetBackgroundDrawList(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetBackgroundDrawListNil(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImDrawList *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (ImDrawList *)igGetBackgroundDrawList();
+  result = (ImDrawList *)igGetBackgroundDrawListNil();
   *(ImDrawList **)&jresult = result; 
   return jresult;
 }
@@ -33166,6 +39247,36 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetForegroundDrawListN
   (void)jenv;
   (void)jcls;
   result = (ImDrawList *)igGetForegroundDrawListNil();
+  *(ImDrawList **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetBackgroundDrawListViewportPtr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImDrawList *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImDrawList *)igGetBackgroundDrawListViewportPtr(arg1);
+  *(ImDrawList **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetForegroundDrawListViewportPtr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  ImDrawList *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  result = (ImDrawList *)igGetForegroundDrawListViewportPtr(arg1);
   *(ImDrawList **)&jresult = result; 
   return jresult;
 }
@@ -33786,6 +39897,84 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igMemFree(JNIEnv *jenv, j
 }
 
 
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetPlatformIO(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPlatformIO *)igGetPlatformIO();
+  *(ImGuiPlatformIO **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetMainViewport(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewport *)igGetMainViewport();
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igUpdatePlatformWindows(JNIEnv *jenv, jclass jcls) {
+  (void)jenv;
+  (void)jcls;
+  igUpdatePlatformWindows();
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderPlatformWindowsDefault(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  void *arg1 = (void *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(void **)&jarg1; 
+  arg2 = *(void **)&jarg2; 
+  igRenderPlatformWindowsDefault(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDestroyPlatformWindows(JNIEnv *jenv, jclass jcls) {
+  (void)jenv;
+  (void)jcls;
+  igDestroyPlatformWindows();
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igFindViewportByID(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  result = (ImGuiViewport *)igFindViewportByID(arg1);
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igFindViewportByPlatformHandle(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  void *arg1 = (void *) 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(void **)&jarg1; 
+  result = (ImGuiViewport *)igFindViewportByPlatformHandle(arg1);
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyle_1ImGuiStyle(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImGuiStyle *result = 0 ;
@@ -33977,6 +40166,29 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiInputTextCallbac
   result = (bool)ImGuiInputTextCallbackData_HasSelection(arg1);
   jresult = (jboolean)result; 
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1ImGuiWindowClass(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiWindowClass *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiWindowClass *)ImGuiWindowClass_ImGuiWindowClass();
+  *(ImGuiWindowClass **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowClass_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiWindowClass *arg1 = (ImGuiWindowClass *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowClass **)&jarg1; 
+  ImGuiWindowClass_destroy(arg1);
 }
 
 
@@ -37261,22 +43473,20 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlas_1GetGlyphRan
 }
 
 
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlas_1AddCustomRectRegular(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3, jint jarg4) {
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImFontAtlas_1AddCustomRectRegular(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3) {
   jint jresult = 0 ;
   ImFontAtlas *arg1 = (ImFontAtlas *) 0 ;
-  unsigned int arg2 ;
+  int arg2 ;
   int arg3 ;
-  int arg4 ;
   int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(ImFontAtlas **)&jarg1; 
-  arg2 = (unsigned int)jarg2; 
+  arg2 = (int)jarg2; 
   arg3 = (int)jarg3; 
-  arg4 = (int)jarg4; 
-  result = (int)ImFontAtlas_AddCustomRectRegular(arg1,arg2,arg3,arg4);
+  result = (int)ImFontAtlas_AddCustomRectRegular(arg1,arg2,arg3);
   jresult = (jint)result; 
   return jresult;
 }
@@ -37771,6 +43981,103 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImFont_1IsGlyphRangeU
 }
 
 
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1ImGuiPlatformIO(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPlatformIO *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPlatformIO *)ImGuiPlatformIO_ImGuiPlatformIO();
+  *(ImGuiPlatformIO **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformIO_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiPlatformIO *arg1 = (ImGuiPlatformIO *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformIO **)&jarg1; 
+  ImGuiPlatformIO_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1ImGuiPlatformMonitor(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiPlatformMonitor *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiPlatformMonitor *)ImGuiPlatformMonitor_ImGuiPlatformMonitor();
+  *(ImGuiPlatformMonitor **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPlatformMonitor_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiPlatformMonitor *arg1 = (ImGuiPlatformMonitor *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiPlatformMonitor **)&jarg1; 
+  ImGuiPlatformMonitor_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1ImGuiViewport(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewport *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewport *)ImGuiViewport_ImGuiViewport();
+  *(ImGuiViewport **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiViewport *arg1 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewport **)&jarg1; 
+  ImGuiViewport_destroy(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1GetWorkPos(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVec2 *arg1 = (ImVec2 *) 0 ;
+  ImGuiViewport *arg2 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVec2 **)&jarg1; 
+  arg2 = *(ImGuiViewport **)&jarg2; 
+  ImGuiViewport_GetWorkPos(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewport_1GetWorkSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImVec2 *arg1 = (ImVec2 *) 0 ;
+  ImGuiViewport *arg2 = (ImGuiViewport *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImVec2 **)&jarg1; 
+  arg2 = *(ImGuiViewport **)&jarg2; 
+  ImGuiViewport_GetWorkSize(arg1,arg2);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igImHashData(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   void *arg1 = (void *) 0 ;
@@ -38159,43 +44466,6 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igImFormatString(JNIEnv *
     if (!arg3) return 0;
   }
   result = (int)igImFormatString(arg1,arg2,(char const *)arg3,arg4);
-  jresult = (jint)result; 
-  {
-    jenv->ReleaseByteArrayElements(jarg1, (jbyte *) arg1, 0); 
-  }
-  
-  if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igImFormatStringV(JNIEnv *jenv, jclass jcls, jbyteArray jarg1, jlong jarg2, jstring jarg3, jlong jarg4) {
-  jint jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  size_t arg2 ;
-  char *arg3 = (char *) 0 ;
-  va_list arg4 ;
-  va_list *argp4 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  {
-    arg1 = (char *) jenv->GetByteArrayElements(jarg1, 0); 
-  }
-  arg2 = (size_t)jarg2; 
-  arg3 = 0;
-  if (jarg3) {
-    arg3 = (char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3) return 0;
-  }
-  argp4 = *(va_list **)&jarg4; 
-  if (!argp4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null va_list");
-    return 0;
-  }
-  arg4 = *argp4; 
-  result = (int)igImFormatStringV(arg1,arg2,(char const *)arg3,arg4);
   jresult = (jint)result; 
   {
     jenv->ReleaseByteArrayElements(jarg1, (jbyte *) arg1, 0); 
@@ -39485,127 +45755,6 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igImGetDirQuadrantFromDel
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArrayTestBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
-  jboolean jresult = 0 ;
-  ImU32 *arg1 = (ImU32 *) 0 ;
-  int arg2 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImU32 **)&jarg1; 
-  arg2 = (int)jarg2; 
-  result = (bool)igImBitArrayTestBit((unsigned int const *)arg1,arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArrayClearBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
-  ImU32 *arg1 = (ImU32 *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImU32 **)&jarg1; 
-  arg2 = (int)jarg2; 
-  igImBitArrayClearBit(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArraySetBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
-  ImU32 *arg1 = (ImU32 *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImU32 **)&jarg1; 
-  arg2 = (int)jarg2; 
-  igImBitArraySetBit(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArraySetBitRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jint jarg3) {
-  ImU32 *arg1 = (ImU32 *) 0 ;
-  int arg2 ;
-  int arg3 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(ImU32 **)&jarg1; 
-  arg2 = (int)jarg2; 
-  arg3 = (int)jarg3; 
-  igImBitArraySetBitRange(arg1,arg2,arg3);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Create(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  arg2 = (int)jarg2; 
-  ImBitVector_Create(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  ImBitVector_Clear(arg1);
-}
-
-
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1TestBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  jboolean jresult = 0 ;
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  int arg2 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  arg2 = (int)jarg2; 
-  result = (bool)ImBitVector_TestBit(arg1,arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1SetBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  arg2 = (int)jarg2; 
-  ImBitVector_SetBit(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1ClearBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  ImBitVector *arg1 = (ImBitVector *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImBitVector **)&jarg1; 
-  arg2 = (int)jarg2; 
-  ImBitVector_ClearBit(arg1,arg2);
-}
-
-
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVec1_1ImVec1Nil(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImVec1 *result = 0 ;
@@ -40168,6 +46317,196 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImRect_1IsInverted(JN
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArrayTestBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jboolean jresult = 0 ;
+  ImU32 *arg1 = (ImU32 *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImU32 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)igImBitArrayTestBit((unsigned int const *)arg1,arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArrayClearBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  ImU32 *arg1 = (ImU32 *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImU32 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  igImBitArrayClearBit(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArraySetBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  ImU32 *arg1 = (ImU32 *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImU32 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  igImBitArraySetBit(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igImBitArraySetBitRange(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jint jarg3) {
+  ImU32 *arg1 = (ImU32 *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImU32 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  igImBitArraySetBitRange(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Create(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  arg2 = (int)jarg2; 
+  ImBitVector_Create(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  ImBitVector_Clear(arg1);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1TestBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jboolean jresult = 0 ;
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  int arg2 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (bool)ImBitVector_TestBit(arg1,arg2);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1SetBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  arg2 = (int)jarg2; 
+  ImBitVector_SetBit(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImBitVector_1ClearBit(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ImBitVector *arg1 = (ImBitVector *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImBitVector **)&jarg1; 
+  arg2 = (int)jarg2; 
+  ImBitVector_ClearBit(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImDrawListSharedData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImDrawListSharedData *)ImDrawListSharedData_ImDrawListSharedData();
+  *(ImDrawListSharedData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  ImDrawListSharedData_destroy(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1SetCircleSegmentMaxError(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawListSharedData **)&jarg1; 
+  arg2 = (float)jarg2; 
+  ImDrawListSharedData_SetCircleSegmentMaxError(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  ImDrawDataBuilder_Clear(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1ClearFreeMemory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  ImDrawDataBuilder_ClearFreeMemory(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1FlattenIntoSingleLayer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImDrawDataBuilder **)&jarg1; 
+  ImDrawDataBuilder_FlattenIntoSingleLayer(arg1);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiStyleMod_1ImGuiStyleModInt(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2) {
   jlong jresult = 0 ;
   ImGuiStyleVar arg1 ;
@@ -40459,67 +46798,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiInputTextState_1Sele
 }
 
 
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiWindowSettings *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiWindowSettings *)ImGuiWindowSettings_ImGuiWindowSettings();
-  *(ImGuiWindowSettings **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  ImGuiWindowSettings_destroy(arg1);
-}
-
-
-SWIGEXPORT jstring JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1GetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jstring jresult = 0 ;
-  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
-  char *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiWindowSettings **)&jarg1; 
-  result = (char *)ImGuiWindowSettings_GetName(arg1);
-  if (result) jresult = jenv->NewStringUTF((const char *)result);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiSettingsHandler *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiSettingsHandler *)ImGuiSettingsHandler_ImGuiSettingsHandler();
-  *(ImGuiSettingsHandler **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
-  ImGuiSettingsHandler_destroy(arg1);
-}
-
-
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPopupData_1ImGuiPopupData(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   ImGuiPopupData *result = 0 ;
@@ -40540,132 +46818,6 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPopupData_1destroy(J
   (void)jarg1_;
   arg1 = *(ImGuiPopupData **)&jarg1; 
   ImGuiPopupData_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumnData_1ImGuiColumnData(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiColumnData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiColumnData *)ImGuiColumnData_ImGuiColumnData();
-  *(ImGuiColumnData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumnData_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImGuiColumnData *arg1 = (ImGuiColumnData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiColumnData **)&jarg1; 
-  ImGuiColumnData_destroy(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1ImGuiColumns(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImGuiColumns *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImGuiColumns *)ImGuiColumns_ImGuiColumns();
-  *(ImGuiColumns **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImGuiColumns *arg1 = (ImGuiColumns *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiColumns **)&jarg1; 
-  ImGuiColumns_destroy(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImGuiColumns *arg1 = (ImGuiColumns *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImGuiColumns **)&jarg1; 
-  ImGuiColumns_Clear(arg1);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1ImDrawListSharedData(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  ImDrawListSharedData *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (ImDrawListSharedData *)ImDrawListSharedData_ImDrawListSharedData();
-  *(ImDrawListSharedData **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  ImDrawListSharedData_destroy(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawListSharedData_1SetCircleSegmentMaxError(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
-  ImDrawListSharedData *arg1 = (ImDrawListSharedData *) 0 ;
-  float arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawListSharedData **)&jarg1; 
-  arg2 = (float)jarg2; 
-  ImDrawListSharedData_SetCircleSegmentMaxError(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  ImDrawDataBuilder_Clear(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1ClearFreeMemory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  ImDrawDataBuilder_ClearFreeMemory(arg1);
-}
-
-
-SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImDrawDataBuilder_1FlattenIntoSingleLayer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  ImDrawDataBuilder *arg1 = (ImDrawDataBuilder *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(ImDrawDataBuilder **)&jarg1; 
-  ImDrawDataBuilder_FlattenIntoSingleLayer(arg1);
 }
 
 
@@ -40807,6 +46959,398 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiPtrOrIndex_1ImGuiPt
   result = (ImGuiPtrOrIndex *)ImGuiPtrOrIndex_ImGuiPtrOrIndexInt(arg1);
   *(ImGuiPtrOrIndex **)&jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumnData_1ImGuiColumnData(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiColumnData *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiColumnData *)ImGuiColumnData_ImGuiColumnData();
+  *(ImGuiColumnData **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumnData_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiColumnData *arg1 = (ImGuiColumnData *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiColumnData **)&jarg1; 
+  ImGuiColumnData_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1ImGuiColumns(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiColumns *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiColumns *)ImGuiColumns_ImGuiColumns();
+  *(ImGuiColumns **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiColumns *arg1 = (ImGuiColumns *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiColumns **)&jarg1; 
+  ImGuiColumns_destroy(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiColumns_1Clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiColumns *arg1 = (ImGuiColumns *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiColumns **)&jarg1; 
+  ImGuiColumns_Clear(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1ImGuiDockNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  result = (ImGuiDockNode *)ImGuiDockNode_ImGuiDockNode(arg1);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  ImGuiDockNode_destroy(arg1);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsRootNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsRootNode(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsDockSpace(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsDockSpace(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsFloatingNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsFloatingNode(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsCentralNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsCentralNode(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsHiddenTabBar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsHiddenTabBar(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsNoTabBar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsNoTabBar(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsSplitNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsSplitNode(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsLeafNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsLeafNode(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1IsEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (bool)ImGuiDockNode_IsEmpty(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1GetMergedFlags(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNodeFlags result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNodeFlags)ImGuiDockNode_GetMergedFlags(arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockNode_1Rect(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImRect *arg1 = (ImRect *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImRect **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  ImGuiDockNode_Rect(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1ImGuiDockContext(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiDockContext *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiDockContext *)ImGuiDockContext_ImGuiDockContext();
+  *(ImGuiDockContext **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiDockContext_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiDockContext *arg1 = (ImGuiDockContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockContext **)&jarg1; 
+  ImGuiDockContext_destroy(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1ImGuiViewportP(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiViewportP *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiViewportP *)ImGuiViewportP_ImGuiViewportP();
+  *(ImGuiViewportP **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  ImGuiViewportP_destroy(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1GetMainRect(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImRect *arg1 = (ImRect *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImRect **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  ImGuiViewportP_GetMainRect(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1GetWorkRect(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImRect *arg1 = (ImRect *) 0 ;
+  ImGuiViewportP *arg2 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImRect **)&jarg1; 
+  arg2 = *(ImGuiViewportP **)&jarg2; 
+  ImGuiViewportP_GetWorkRect(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiViewportP_1ClearRequestFlags(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  ImGuiViewportP_ClearRequestFlags(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1ImGuiWindowSettings(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiWindowSettings *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiWindowSettings *)ImGuiWindowSettings_ImGuiWindowSettings();
+  *(ImGuiWindowSettings **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  ImGuiWindowSettings_destroy(arg1);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiWindowSettings_1GetName(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  ImGuiWindowSettings *arg1 = (ImGuiWindowSettings *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindowSettings **)&jarg1; 
+  result = (char *)ImGuiWindowSettings_GetName(arg1);
+  if (result) jresult = jenv->NewStringUTF((const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1ImGuiSettingsHandler(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiSettingsHandler *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiSettingsHandler *)ImGuiSettingsHandler_ImGuiSettingsHandler();
+  *(ImGuiSettingsHandler **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiSettingsHandler_1destroy(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiSettingsHandler *arg1 = (ImGuiSettingsHandler *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiSettingsHandler **)&jarg1; 
+  ImGuiSettingsHandler_destroy(arg1);
 }
 
 
@@ -41449,6 +47993,35 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetWindowCollapsedWindo
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetWindowHitTestHole(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImVec2 arg2 ;
+  ImVec2 arg3 ;
+  ImVec2 const *argp2 ;
+  ImVec2 const *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg2 = *argp2; 
+  argp3 = *(ImVec2 **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg3 = *argp3; 
+  igSetWindowHitTestHole(arg1,arg2,arg3);
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igFocusWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
   
@@ -41585,6 +48158,22 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igStartMouseMovingWindow(
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igStartMouseMovingWindowOrNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jboolean jarg3) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  arg3 = jarg3 ? true : false; 
+  igStartMouseMovingWindowOrNode(arg1,arg2,arg3);
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igUpdateMouseMovingWindowNewFrame(JNIEnv *jenv, jclass jcls) {
   (void)jenv;
   (void)jcls;
@@ -41596,6 +48185,66 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igUpdateMouseMovingWindow
   (void)jenv;
   (void)jcls;
   igUpdateMouseMovingWindowEndFrame();
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igTranslateWindowsInViewport(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  ImVec2 arg2 ;
+  ImVec2 arg3 ;
+  ImVec2 const *argp2 ;
+  ImVec2 const *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg2 = *argp2; 
+  argp3 = *(ImVec2 **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg3 = *argp3; 
+  igTranslateWindowsInViewport(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igScaleWindowsInViewport(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jfloat jarg2) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  float arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  arg2 = (float)jarg2; 
+  igScaleWindowsInViewport(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDestroyPlatformWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiViewportP *arg1 = (ImGuiViewportP *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiViewportP **)&jarg1; 
+  igDestroyPlatformWindow(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igShowViewportThumbnails(JNIEnv *jenv, jclass jcls) {
+  (void)jenv;
+  (void)jcls;
+  igShowViewportThumbnails();
 }
 
 
@@ -41614,6 +48263,13 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igMarkIniSettingsDirtyWin
   (void)jarg1_;
   arg1 = *(ImGuiWindow **)&jarg1; 
   igMarkIniSettingsDirtyWindowPtr(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igClearIniSettings(JNIEnv *jenv, jclass jcls) {
+  (void)jenv;
+  (void)jcls;
+  igClearIniSettings();
 }
 
 
@@ -41685,6 +48341,23 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igFindSettingsHandler(JN
   *(ImGuiSettingsHandler **)&jresult = result; 
   if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
   return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetNextWindowScroll(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImVec2 arg1 ;
+  ImVec2 const *argp1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  argp1 = *(ImVec2 **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2 const");
+    return ;
+  }
+  arg1 = *argp1; 
+  igSetNextWindowScroll(arg1);
 }
 
 
@@ -42681,6 +49354,495 @@ SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igGetMergedKeyModFlags(JN
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextInitialize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  igDockContextInitialize(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextShutdown(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  igDockContextShutdown(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextClearNodes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jboolean jarg3) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID arg2 ;
+  bool arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  arg3 = jarg3 ? true : false; 
+  igDockContextClearNodes(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextRebuildNodes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  igDockContextRebuildNodes(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextUpdateUndocking(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  igDockContextUpdateUndocking(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextUpdateDocking(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  igDockContextUpdateDocking(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextGenNodeID(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  result = (ImGuiID)igDockContextGenNodeID(arg1);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextQueueDock(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jobject jarg4_, jint jarg5, jfloat jarg6, jboolean jarg7) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *arg3 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *arg4 = (ImGuiWindow *) 0 ;
+  ImGuiDir arg5 ;
+  float arg6 ;
+  bool arg7 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  (void)jarg4_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  arg3 = *(ImGuiDockNode **)&jarg3; 
+  arg4 = *(ImGuiWindow **)&jarg4; 
+  arg5 = (ImGuiDir)jarg5; 
+  arg6 = (float)jarg6; 
+  arg7 = jarg7 ? true : false; 
+  igDockContextQueueDock(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextQueueUndockWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiWindow *arg2 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiWindow **)&jarg2; 
+  igDockContextQueueUndockWindow(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextQueueUndockNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  ImGuiContext *arg1 = (ImGuiContext *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImGuiContext **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  igDockContextQueueUndockNode(arg1,arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igDockContextCalcDropPosForDocking(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jint jarg4, jboolean jarg5, jlong jarg6, jobject jarg6_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiDockNode *arg2 = (ImGuiDockNode *) 0 ;
+  ImGuiWindow *arg3 = (ImGuiWindow *) 0 ;
+  ImGuiDir arg4 ;
+  bool arg5 ;
+  ImVec2 *arg6 = (ImVec2 *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  (void)jarg6_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(ImGuiDockNode **)&jarg2; 
+  arg3 = *(ImGuiWindow **)&jarg3; 
+  arg4 = (ImGuiDir)jarg4; 
+  arg5 = jarg5 ? true : false; 
+  arg6 = *(ImVec2 **)&jarg6; 
+  result = (bool)igDockContextCalcDropPosForDocking(arg1,arg2,arg3,arg4,arg5,arg6);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockNodeGetRootNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (ImGuiDockNode *)igDockNodeGetRootNode(arg1);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_cimgui_internal_CImGuiJNI_igDockNodeGetDepth(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ImGuiDockNode *arg1 = (ImGuiDockNode *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiDockNode **)&jarg1; 
+  result = (int)igDockNodeGetDepth((ImGuiDockNode const *)arg1);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowDockNode(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ImGuiDockNode *)igGetWindowDockNode();
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igGetWindowAlwaysWantOwnTabBar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  result = (bool)igGetWindowAlwaysWantOwnTabBar(arg1);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igBeginDocked(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  bool *arg2 = (bool *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = *(bool **)&jarg2; 
+  igBeginDocked(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igBeginDockableDragDropSource(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  igBeginDockableDragDropSource(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igBeginDockableDragDropTarget(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  igBeginDockableDragDropTarget(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igSetWindowDock(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jint jarg3) {
+  ImGuiWindow *arg1 = (ImGuiWindow *) 0 ;
+  ImGuiID arg2 ;
+  ImGuiCond arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiWindow **)&jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  arg3 = (ImGuiCond)jarg3; 
+  igSetWindowDock(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderDockWindow(JNIEnv *jenv, jclass jcls, jstring jarg1, jlong jarg2) {
+  char *arg1 = (char *) 0 ;
+  ImGuiID arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return ;
+  }
+  arg2 = (ImGuiID)jarg2; 
+  igDockBuilderDockWindow((char const *)arg1,arg2);
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderGetNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  result = (ImGuiDockNode *)igDockBuilderGetNode(arg1);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderGetCentralNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiDockNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  result = (ImGuiDockNode *)igDockBuilderGetCentralNode(arg1);
+  *(ImGuiDockNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderAddNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiDockNodeFlags arg2 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = (ImGuiDockNodeFlags)jarg2; 
+  result = (ImGuiID)igDockBuilderAddNode(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderRemoveNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiID arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  igDockBuilderRemoveNode(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderRemoveNodeDockedWindows(JNIEnv *jenv, jclass jcls, jlong jarg1, jboolean jarg2) {
+  ImGuiID arg1 ;
+  bool arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  igDockBuilderRemoveNodeDockedWindows(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderRemoveNodeChildNodes(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiID arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  igDockBuilderRemoveNodeChildNodes(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderSetNodePos(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+  ImGuiID arg1 ;
+  ImVec2 arg2 ;
+  ImVec2 *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  arg1 = (ImGuiID)jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2");
+    return ;
+  }
+  arg2 = *argp2; 
+  igDockBuilderSetNodePos(arg1,arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderSetNodeSize(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+  ImGuiID arg1 ;
+  ImVec2 arg2 ;
+  ImVec2 *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  arg1 = (ImGuiID)jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2");
+    return ;
+  }
+  arg2 = *argp2; 
+  igDockBuilderSetNodeSize(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderSplitNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jfloat jarg3, jlong jarg4, jlong jarg5) {
+  jlong jresult = 0 ;
+  ImGuiID arg1 ;
+  ImGuiDir arg2 ;
+  float arg3 ;
+  ImGuiID *arg4 = (ImGuiID *) 0 ;
+  ImGuiID *arg5 = (ImGuiID *) 0 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = (ImGuiDir)jarg2; 
+  arg3 = (float)jarg3; 
+  arg4 = *(ImGuiID **)&jarg4; 
+  arg5 = *(ImGuiID **)&jarg5; 
+  result = (ImGuiID)igDockBuilderSplitNode(arg1,arg2,arg3,arg4,arg5);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderCopyDockSpace(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jobject jarg3_) {
+  ImGuiID arg1 ;
+  ImGuiID arg2 ;
+  ImVector_const_charPtr *arg3 = (ImVector_const_charPtr *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg3_;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  arg3 = *(ImVector_const_charPtr **)&jarg3; 
+  igDockBuilderCopyDockSpace(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderCopyNode(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jobject jarg3_) {
+  ImGuiID arg1 ;
+  ImGuiID arg2 ;
+  ImVector_ImGuiID *arg3 = (ImVector_ImGuiID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg3_;
+  arg1 = (ImGuiID)jarg1; 
+  arg2 = (ImGuiID)jarg2; 
+  arg3 = *(ImVector_ImGuiID **)&jarg3; 
+  igDockBuilderCopyNode(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderCopyWindowSettings(JNIEnv *jenv, jclass jcls, jstring jarg1, jstring jarg2) {
+  char *arg1 = (char *) 0 ;
+  char *arg2 = (char *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = 0;
+  if (jarg1) {
+    arg1 = (char *)jenv->GetStringUTFChars(jarg1, 0);
+    if (!arg1) return ;
+  }
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)jenv->GetStringUTFChars(jarg2, 0);
+    if (!arg2) return ;
+  }
+  igDockBuilderCopyWindowSettings((char const *)arg1,(char const *)arg2);
+  if (arg1) jenv->ReleaseStringUTFChars(jarg1, (const char *)arg1);
+  if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igDockBuilderFinish(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiID arg1 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiID)jarg1; 
+  igDockBuilderFinish(arg1);
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginDragDropTargetCustom(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   jboolean jresult = 0 ;
   ImRect arg1 ;
@@ -42845,11 +50007,12 @@ SWIGEXPORT jfloat JNICALL Java_cimgui_internal_CImGuiJNI_igGetColumnNormFromOffs
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginTabBarEx(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginTabBarEx(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_) {
   jboolean jresult = 0 ;
   ImGuiTabBar *arg1 = (ImGuiTabBar *) 0 ;
   ImRect arg2 ;
   ImGuiTabBarFlags arg3 ;
+  ImGuiDockNode *arg4 = (ImGuiDockNode *) 0 ;
   ImRect const *argp2 ;
   bool result;
   
@@ -42857,6 +50020,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginTabBarEx(JNIEn
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
+  (void)jarg4_;
   arg1 = *(ImGuiTabBar **)&jarg1; 
   argp2 = *(ImRect **)&jarg2; 
   if (!argp2) {
@@ -42865,7 +50029,8 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igBeginTabBarEx(JNIEn
   }
   arg2 = *argp2; 
   arg3 = (ImGuiTabBarFlags)jarg3; 
-  result = (bool)igBeginTabBarEx(arg1,arg2,arg3);
+  arg4 = *(ImGuiDockNode **)&jarg4; 
+  result = (bool)igBeginTabBarEx(arg1,arg2,arg3,arg4);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -42885,6 +50050,37 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igTabBarFindTabByID(JNIE
   result = (ImGuiTabItem *)igTabBarFindTabByID(arg1,arg2);
   *(ImGuiTabItem **)&jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_igTabBarFindMostRecentlySelectedTabForActiveWindow(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  ImGuiTabBar *arg1 = (ImGuiTabBar *) 0 ;
+  ImGuiTabItem *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImGuiTabBar **)&jarg1; 
+  result = (ImGuiTabItem *)igTabBarFindMostRecentlySelectedTabForActiveWindow(arg1);
+  *(ImGuiTabItem **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igTabBarAddTab(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  ImGuiTabBar *arg1 = (ImGuiTabBar *) 0 ;
+  ImGuiTabItemFlags arg2 ;
+  ImGuiWindow *arg3 = (ImGuiWindow *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(ImGuiTabBar **)&jarg1; 
+  arg2 = (ImGuiTabItemFlags)jarg2; 
+  arg3 = *(ImGuiWindow **)&jarg3; 
+  igTabBarAddTab(arg1,arg2,arg3);
 }
 
 
@@ -42931,17 +50127,19 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igTabBarQueueChangeTabOrd
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemEx(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jint jarg4) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemEx(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
   jboolean jresult = 0 ;
   ImGuiTabBar *arg1 = (ImGuiTabBar *) 0 ;
   char *arg2 = (char *) 0 ;
   bool *arg3 = (bool *) 0 ;
   ImGuiTabItemFlags arg4 ;
+  ImGuiWindow *arg5 = (ImGuiWindow *) 0 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
+  (void)jarg5_;
   arg1 = *(ImGuiTabBar **)&jarg1; 
   arg2 = 0;
   if (jarg2) {
@@ -42950,7 +50148,8 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemEx(JNIEnv *j
   }
   arg3 = *(bool **)&jarg3; 
   arg4 = (ImGuiTabItemFlags)jarg4; 
-  result = (bool)igTabItemEx(arg1,(char const *)arg2,arg3,arg4);
+  arg5 = *(ImGuiWindow **)&jarg5; 
+  result = (bool)igTabItemEx(arg1,(char const *)arg2,arg3,arg4,arg5);
   jresult = (jboolean)result; 
   if (arg2) jenv->ReleaseStringUTFChars(jarg2, (const char *)arg2);
   return jresult;
@@ -43001,7 +50200,7 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemBackground(JNIEn
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemLabelAndCloseButton(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_, jstring jarg5, jlong jarg6, jlong jarg7) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemLabelAndCloseButton(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jlong jarg4, jobject jarg4_, jstring jarg5, jlong jarg6, jlong jarg7, jboolean jarg8) {
   jboolean jresult = 0 ;
   ImDrawList *arg1 = (ImDrawList *) 0 ;
   ImRect arg2 ;
@@ -43010,6 +50209,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemLabelAndClos
   char *arg5 = (char *) 0 ;
   ImGuiID arg6 ;
   ImGuiID arg7 ;
+  bool arg8 ;
   ImRect const *argp2 ;
   ImVec2 *argp4 ;
   bool result;
@@ -43040,7 +50240,8 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTabItemLabelAndClos
   }
   arg6 = (ImGuiID)jarg6; 
   arg7 = (ImGuiID)jarg7; 
-  result = (bool)igTabItemLabelAndCloseButton(arg1,arg2,arg3,arg4,(char const *)arg5,arg6,arg7);
+  arg8 = jarg8 ? true : false; 
+  result = (bool)igTabItemLabelAndCloseButton(arg1,arg2,arg3,arg4,(char const *)arg5,arg6,arg7,arg8);
   jresult = (jboolean)result; 
   if (arg5) jenv->ReleaseStringUTFChars(jarg5, (const char *)arg5);
   return jresult;
@@ -43589,6 +50790,30 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderArrowPointingAt(J
 }
 
 
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderArrowDockMenu(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jfloat jarg3, jlong jarg4) {
+  ImDrawList *arg1 = (ImDrawList *) 0 ;
+  ImVec2 arg2 ;
+  float arg3 ;
+  ImU32 arg4 ;
+  ImVec2 *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(ImDrawList **)&jarg1; 
+  argp2 = *(ImVec2 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2");
+    return ;
+  }
+  arg2 = *argp2; 
+  arg3 = (float)jarg3; 
+  arg4 = (ImU32)jarg4; 
+  igRenderArrowDockMenu(arg1,arg2,arg3,arg4);
+}
+
+
 SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderRectFilledRangeH(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jfloat jarg4, jfloat jarg5, jfloat jarg6) {
   ImDrawList *arg1 = (ImDrawList *) 0 ;
   ImRect arg2 ;
@@ -43614,6 +50839,39 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderRectFilledRangeH(
   arg5 = (float)jarg5; 
   arg6 = (float)jarg6; 
   igRenderRectFilledRangeH(arg1,arg2,arg3,arg4,arg5,arg6);
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_igRenderRectFilledWithHole(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4, jfloat jarg5) {
+  ImDrawList *arg1 = (ImDrawList *) 0 ;
+  ImRect arg2 ;
+  ImRect arg3 ;
+  ImU32 arg4 ;
+  float arg5 ;
+  ImRect *argp2 ;
+  ImRect *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg3_;
+  arg1 = *(ImDrawList **)&jarg1; 
+  argp2 = *(ImRect **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImRect");
+    return ;
+  }
+  arg2 = *argp2; 
+  argp3 = *(ImRect **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImRect");
+    return ;
+  }
+  arg3 = *argp3; 
+  arg4 = (ImU32)jarg4; 
+  arg5 = (float)jarg5; 
+  igRenderRectFilledWithHole(arg1,arg2,arg3,arg4,arg5);
 }
 
 
@@ -43694,16 +50952,18 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igCloseButton(JNIEnv 
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igCollapseButton(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igCollapseButton(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jboolean jresult = 0 ;
   ImGuiID arg1 ;
   ImVec2 arg2 ;
+  ImGuiDockNode *arg3 = (ImGuiDockNode *) 0 ;
   ImVec2 const *argp2 ;
   bool result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg2_;
+  (void)jarg3_;
   arg1 = (ImGuiID)jarg1; 
   argp2 = *(ImVec2 **)&jarg2; 
   if (!argp2) {
@@ -43711,7 +50971,8 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igCollapseButton(JNIE
     return 0;
   }
   arg2 = *argp2; 
-  result = (bool)igCollapseButton(arg1,arg2);
+  arg3 = *(ImGuiDockNode **)&jarg3; 
+  result = (bool)igCollapseButton(arg1,arg2,arg3);
   jresult = (jboolean)result; 
   return jresult;
 }
@@ -44157,6 +51418,26 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igDataTypeApplyOpFrom
 }
 
 
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igDataTypeClamp(JNIEnv *jenv, jclass jcls, jint jarg1, jlong jarg2, jlong jarg3, jlong jarg4) {
+  jboolean jresult = 0 ;
+  ImGuiDataType arg1 ;
+  void *arg2 = (void *) 0 ;
+  void *arg3 = (void *) 0 ;
+  void *arg4 = (void *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (ImGuiDataType)jarg1; 
+  arg2 = *(void **)&jarg2; 
+  arg3 = *(void **)&jarg3; 
+  arg4 = *(void **)&jarg4; 
+  result = (bool)igDataTypeClamp(arg1,arg2,(void const *)arg3,(void const *)arg4);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igInputTextEx(JNIEnv *jenv, jclass jcls, jstring jarg1, jstring jarg2, jbyteArray jarg3, jint jarg4, jlong jarg5, jobject jarg5_, jint jarg6, jobject jarg7) {
   jboolean jresult = 0 ;
   char *arg1 = (char *) 0 ;
@@ -44260,7 +51541,7 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTempInputText(JNIEn
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTempInputScalar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jstring jarg3, jint jarg4, jlong jarg5, jstring jarg6) {
+SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTempInputScalar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jstring jarg3, jint jarg4, jlong jarg5, jstring jarg6, jlong jarg7, jlong jarg8) {
   jboolean jresult = 0 ;
   ImRect arg1 ;
   ImGuiID arg2 ;
@@ -44268,6 +51549,8 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTempInputScalar(JNI
   ImGuiDataType arg4 ;
   void *arg5 = (void *) 0 ;
   char *arg6 = (char *) 0 ;
+  void *arg7 = (void *) 0 ;
+  void *arg8 = (void *) 0 ;
   ImRect const *argp1 ;
   bool result;
   
@@ -44293,7 +51576,9 @@ SWIGEXPORT jboolean JNICALL Java_cimgui_internal_CImGuiJNI_igTempInputScalar(JNI
     arg6 = (char *)jenv->GetStringUTFChars(jarg6, 0);
     if (!arg6) return 0;
   }
-  result = (bool)igTempInputScalar(arg1,arg2,(char const *)arg3,arg4,arg5,(char const *)arg6);
+  arg7 = *(void **)&jarg7; 
+  arg8 = *(void **)&jarg8; 
+  result = (bool)igTempInputScalar(arg1,arg2,(char const *)arg3,arg4,arg5,(char const *)arg6,(void const *)arg7,(void const *)arg8);
   jresult = (jboolean)result; 
   if (arg3) jenv->ReleaseStringUTFChars(jarg3, (const char *)arg3);
   if (arg6) jenv->ReleaseStringUTFChars(jarg6, (const char *)arg6);

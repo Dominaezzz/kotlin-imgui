@@ -18,6 +18,8 @@ expect class ImDrawData {
 
   val framebufferScale: Vec2
 
+  val ownerViewport: ImGuiViewport?
+
   constructor()
 
   fun clear()

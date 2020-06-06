@@ -60,6 +60,57 @@ public class ImGuiWindow {
     return CImGuiJNI.ImGuiWindow_Flags_get(swigCPtr, this);
   }
 
+  public void setFlagsPreviousFrame(int value) {
+    CImGuiJNI.ImGuiWindow_FlagsPreviousFrame_set(swigCPtr, this, value);
+  }
+
+  public int getFlagsPreviousFrame() {
+    return CImGuiJNI.ImGuiWindow_FlagsPreviousFrame_get(swigCPtr, this);
+  }
+
+  public void setWindowClass(ImGuiWindowClass value) {
+    CImGuiJNI.ImGuiWindow_WindowClass_set(swigCPtr, this, ImGuiWindowClass.getCPtr(value), value);
+  }
+
+  public ImGuiWindowClass getWindowClass() {
+    long cPtr = CImGuiJNI.ImGuiWindow_WindowClass_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindowClass(cPtr, false);
+  }
+
+  public void setViewport(ImGuiViewportP value) {
+    CImGuiJNI.ImGuiWindow_Viewport_set(swigCPtr, this, ImGuiViewportP.getCPtr(value), value);
+  }
+
+  public ImGuiViewportP getViewport() {
+    long cPtr = CImGuiJNI.ImGuiWindow_Viewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewportP(cPtr, false);
+  }
+
+  public void setViewportId(long value) {
+    CImGuiJNI.ImGuiWindow_ViewportId_set(swigCPtr, this, value);
+  }
+
+  public long getViewportId() {
+    return CImGuiJNI.ImGuiWindow_ViewportId_get(swigCPtr, this);
+  }
+
+  public void setViewportPos(ImVec2 value) {
+    CImGuiJNI.ImGuiWindow_ViewportPos_set(swigCPtr, this, ImVec2.getCPtr(value), value);
+  }
+
+  public ImVec2 getViewportPos() {
+    long cPtr = CImGuiJNI.ImGuiWindow_ViewportPos_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
+  public void setViewportAllowPlatformMonitorExtend(int value) {
+    CImGuiJNI.ImGuiWindow_ViewportAllowPlatformMonitorExtend_set(swigCPtr, this, value);
+  }
+
+  public int getViewportAllowPlatformMonitorExtend() {
+    return CImGuiJNI.ImGuiWindow_ViewportAllowPlatformMonitorExtend_get(swigCPtr, this);
+  }
+
   public void setPos(ImVec2 value) {
     CImGuiJNI.ImGuiWindow_Pos_set(swigCPtr, this, ImVec2.getCPtr(value), value);
   }
@@ -213,6 +264,14 @@ public class ImGuiWindow {
 
   public boolean getScrollbarY() {
     return CImGuiJNI.ImGuiWindow_ScrollbarY_get(swigCPtr, this);
+  }
+
+  public void setViewportOwned(boolean value) {
+    CImGuiJNI.ImGuiWindow_ViewportOwned_set(swigCPtr, this, value);
+  }
+
+  public boolean getViewportOwned() {
+    return CImGuiJNI.ImGuiWindow_ViewportOwned_get(swigCPtr, this);
   }
 
   public void setActive(boolean value) {
@@ -415,6 +474,14 @@ public class ImGuiWindow {
     return CImGuiJNI.ImGuiWindow_SetWindowCollapsedAllowFlags_get(swigCPtr, this);
   }
 
+  public void setSetWindowDockAllowFlags(int value) {
+    CImGuiJNI.ImGuiWindow_SetWindowDockAllowFlags_set(swigCPtr, this, value);
+  }
+
+  public int getSetWindowDockAllowFlags() {
+    return CImGuiJNI.ImGuiWindow_SetWindowDockAllowFlags_get(swigCPtr, this);
+  }
+
   public void setSetWindowPosVal(ImVec2 value) {
     CImGuiJNI.ImGuiWindow_SetWindowPosVal_set(swigCPtr, this, ImVec2.getCPtr(value), value);
   }
@@ -505,12 +572,38 @@ public class ImGuiWindow {
     return (cPtr == 0) ? null : new ImRect(cPtr, false);
   }
 
+  public void setHitTestHoleSize(ImVec2ih value) {
+    CImGuiJNI.ImGuiWindow_HitTestHoleSize_set(swigCPtr, this, ImVec2ih.getCPtr(value), value);
+  }
+
+  public ImVec2ih getHitTestHoleSize() {
+    long cPtr = CImGuiJNI.ImGuiWindow_HitTestHoleSize_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVec2ih(cPtr, false);
+  }
+
+  public void setHitTestHoleOffset(ImVec2ih value) {
+    CImGuiJNI.ImGuiWindow_HitTestHoleOffset_set(swigCPtr, this, ImVec2ih.getCPtr(value), value);
+  }
+
+  public ImVec2ih getHitTestHoleOffset() {
+    long cPtr = CImGuiJNI.ImGuiWindow_HitTestHoleOffset_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVec2ih(cPtr, false);
+  }
+
   public void setLastFrameActive(int value) {
     CImGuiJNI.ImGuiWindow_LastFrameActive_set(swigCPtr, this, value);
   }
 
   public int getLastFrameActive() {
     return CImGuiJNI.ImGuiWindow_LastFrameActive_get(swigCPtr, this);
+  }
+
+  public void setLastFrameJustFocused(int value) {
+    CImGuiJNI.ImGuiWindow_LastFrameJustFocused_set(swigCPtr, this, value);
+  }
+
+  public int getLastFrameJustFocused() {
+    return CImGuiJNI.ImGuiWindow_LastFrameJustFocused_get(swigCPtr, this);
   }
 
   public void setLastTimeActive(float value) {
@@ -555,6 +648,14 @@ public class ImGuiWindow {
     return CImGuiJNI.ImGuiWindow_FontWindowScale_get(swigCPtr, this);
   }
 
+  public void setFontDpiScale(float value) {
+    CImGuiJNI.ImGuiWindow_FontDpiScale_set(swigCPtr, this, value);
+  }
+
+  public float getFontDpiScale() {
+    return CImGuiJNI.ImGuiWindow_FontDpiScale_get(swigCPtr, this);
+  }
+
   public void setSettingsOffset(int value) {
     CImGuiJNI.ImGuiWindow_SettingsOffset_set(swigCPtr, this, value);
   }
@@ -596,6 +697,15 @@ public class ImGuiWindow {
 
   public ImGuiWindow getRootWindow() {
     long cPtr = CImGuiJNI.ImGuiWindow_RootWindow_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public void setRootWindowDockStop(ImGuiWindow value) {
+    CImGuiJNI.ImGuiWindow_RootWindowDockStop_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  }
+
+  public ImGuiWindow getRootWindowDockStop() {
+    long cPtr = CImGuiJNI.ImGuiWindow_RootWindowDockStop_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
@@ -666,6 +776,81 @@ public class ImGuiWindow {
 
   public int getMemoryDrawListVtxCapacity() {
     return CImGuiJNI.ImGuiWindow_MemoryDrawListVtxCapacity_get(swigCPtr, this);
+  }
+
+  public void setDockNode(ImGuiDockNode value) {
+    CImGuiJNI.ImGuiWindow_DockNode_set(swigCPtr, this, ImGuiDockNode.getCPtr(value), value);
+  }
+
+  public ImGuiDockNode getDockNode() {
+    long cPtr = CImGuiJNI.ImGuiWindow_DockNode_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiDockNode(cPtr, false);
+  }
+
+  public void setDockNodeAsHost(ImGuiDockNode value) {
+    CImGuiJNI.ImGuiWindow_DockNodeAsHost_set(swigCPtr, this, ImGuiDockNode.getCPtr(value), value);
+  }
+
+  public ImGuiDockNode getDockNodeAsHost() {
+    long cPtr = CImGuiJNI.ImGuiWindow_DockNodeAsHost_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiDockNode(cPtr, false);
+  }
+
+  public void setDockId(long value) {
+    CImGuiJNI.ImGuiWindow_DockId_set(swigCPtr, this, value);
+  }
+
+  public long getDockId() {
+    return CImGuiJNI.ImGuiWindow_DockId_get(swigCPtr, this);
+  }
+
+  public void setDockTabItemStatusFlags(int value) {
+    CImGuiJNI.ImGuiWindow_DockTabItemStatusFlags_set(swigCPtr, this, value);
+  }
+
+  public int getDockTabItemStatusFlags() {
+    return CImGuiJNI.ImGuiWindow_DockTabItemStatusFlags_get(swigCPtr, this);
+  }
+
+  public void setDockTabItemRect(ImRect value) {
+    CImGuiJNI.ImGuiWindow_DockTabItemRect_set(swigCPtr, this, ImRect.getCPtr(value), value);
+  }
+
+  public ImRect getDockTabItemRect() {
+    long cPtr = CImGuiJNI.ImGuiWindow_DockTabItemRect_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public void setDockOrder(short value) {
+    CImGuiJNI.ImGuiWindow_DockOrder_set(swigCPtr, this, value);
+  }
+
+  public short getDockOrder() {
+    return CImGuiJNI.ImGuiWindow_DockOrder_get(swigCPtr, this);
+  }
+
+  public void setDockIsActive(boolean value) {
+    CImGuiJNI.ImGuiWindow_DockIsActive_set(swigCPtr, this, value);
+  }
+
+  public boolean getDockIsActive() {
+    return CImGuiJNI.ImGuiWindow_DockIsActive_get(swigCPtr, this);
+  }
+
+  public void setDockTabIsVisible(boolean value) {
+    CImGuiJNI.ImGuiWindow_DockTabIsVisible_set(swigCPtr, this, value);
+  }
+
+  public boolean getDockTabIsVisible() {
+    return CImGuiJNI.ImGuiWindow_DockTabIsVisible_get(swigCPtr, this);
+  }
+
+  public void setDockTabWantClose(boolean value) {
+    CImGuiJNI.ImGuiWindow_DockTabWantClose_set(swigCPtr, this, value);
+  }
+
+  public boolean getDockTabWantClose() {
+    return CImGuiJNI.ImGuiWindow_DockTabWantClose_get(swigCPtr, this);
   }
 
   public ImGuiWindow() {

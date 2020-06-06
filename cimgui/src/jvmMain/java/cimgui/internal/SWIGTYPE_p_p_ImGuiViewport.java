@@ -8,18 +8,18 @@
 
 package cimgui.internal;
 
-public class SWIGTYPE_p_va_list {
+public class SWIGTYPE_p_p_ImGuiViewport {
   private transient long swigCPtr;
 
-  public SWIGTYPE_p_va_list(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  public SWIGTYPE_p_p_ImGuiViewport(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  public SWIGTYPE_p_va_list() {
+  public SWIGTYPE_p_p_ImGuiViewport() {
     swigCPtr = 0;
   }
 
-  public static long getCPtr(SWIGTYPE_p_va_list obj) {
+  public static long getCPtr(SWIGTYPE_p_p_ImGuiViewport obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class SWIGTYPE_p_va_list {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    SWIGTYPE_p_va_list that = (SWIGTYPE_p_va_list) o;
+    SWIGTYPE_p_p_ImGuiViewport that = (SWIGTYPE_p_p_ImGuiViewport) o;
 
     return swigCPtr == that.swigCPtr;
   }

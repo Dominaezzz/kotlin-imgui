@@ -77,6 +77,10 @@ expect enum class ImGuiCol {
 
   TabUnfocusedActive,
 
+  DockingPreview,
+
+  DockingEmptyBg,
+
   PlotLines,
 
   PlotLinesHovered,

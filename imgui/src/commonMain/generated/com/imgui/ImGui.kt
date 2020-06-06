@@ -73,6 +73,12 @@ expect object ImGui {
         flags: Flag<ImGuiComboFlags>? = null
     ): Boolean
 
+    fun beginDockableDragDropSource(window: ImGuiWindow)
+
+    fun beginDockableDragDropTarget(window: ImGuiWindow)
+
+    fun beginDocked(window: ImGuiWindow, pOpen: KMutableProperty0<Boolean>)
+
     fun beginDragDropSource(flags: Flag<ImGuiDragDropFlags>? = null): Boolean
 
     fun beginDragDropTarget(): Boolean
@@ -171,6 +177,8 @@ expect object ImGui {
 
     fun clearDragDrop()
 
+    fun clearIniSettings()
+
     fun closeButton(id: ImGuiID, pos: Vec2): Boolean
 
     fun closeCurrentPopup()
@@ -179,7 +187,11 @@ expect object ImGui {
 
     fun closePopupsOverWindow(refWindow: ImGuiWindow, restoreFocusToWindowUnderPopup: Boolean)
 
-    fun collapseButton(id: ImGuiID, pos: Vec2): Boolean
+    fun collapseButton(
+        id: ImGuiID,
+        pos: Vec2,
+        dockNode: ImGuiDockNode
+    ): Boolean
 
     fun collapsingHeader(label: String, flags: Flag<ImGuiTreeNodeFlags>? = null): Boolean
 
@@ -274,6 +286,90 @@ expect object ImGui {
     fun debugStartItemPicker()
 
     fun destroyContext(ctx: ImGuiContext? = null)
+
+    fun destroyPlatformWindow(viewport: ImGuiViewportP)
+
+    fun destroyPlatformWindows()
+
+    fun dockBuilderAddNode(nodeId: ImGuiID, flags: Flag<ImGuiDockNodeFlags>? = null): ImGuiID
+
+    fun dockBuilderCopyWindowSettings(srcName: String, dstName: String)
+
+    fun dockBuilderDockWindow(windowName: String, nodeId: ImGuiID)
+
+    fun dockBuilderFinish(nodeId: ImGuiID)
+
+    fun dockBuilderGetCentralNode(nodeId: ImGuiID): ImGuiDockNode
+
+    fun dockBuilderGetNode(nodeId: ImGuiID): ImGuiDockNode
+
+    fun dockBuilderRemoveNode(nodeId: ImGuiID)
+
+    fun dockBuilderRemoveNodeChildNodes(nodeId: ImGuiID)
+
+    fun dockBuilderRemoveNodeDockedWindows(nodeId: ImGuiID, clearSettingsRefs: Boolean = true)
+
+    fun dockBuilderSetNodePos(nodeId: ImGuiID, pos: Vec2)
+
+    fun dockBuilderSetNodeSize(nodeId: ImGuiID, size: Vec2)
+
+    fun dockContextCalcDropPosForDocking(
+        target: ImGuiWindow,
+        targetNode: ImGuiDockNode,
+        payload: ImGuiWindow,
+        splitDir: ImGuiDir,
+        splitOuter: Boolean,
+        outPos: ImVec2
+    ): Boolean
+
+    fun dockContextClearNodes(
+        ctx: ImGuiContext,
+        rootId: ImGuiID,
+        clearSettingsRefs: Boolean
+    )
+
+    fun dockContextGenNodeID(ctx: ImGuiContext): ImGuiID
+
+    fun dockContextInitialize(ctx: ImGuiContext)
+
+    fun dockContextQueueDock(
+        ctx: ImGuiContext,
+        target: ImGuiWindow,
+        targetNode: ImGuiDockNode,
+        payload: ImGuiWindow,
+        splitDir: ImGuiDir,
+        splitRatio: Float,
+        splitOuter: Boolean
+    )
+
+    fun dockContextQueueUndockNode(ctx: ImGuiContext, node: ImGuiDockNode)
+
+    fun dockContextQueueUndockWindow(ctx: ImGuiContext, window: ImGuiWindow)
+
+    fun dockContextRebuildNodes(ctx: ImGuiContext)
+
+    fun dockContextShutdown(ctx: ImGuiContext)
+
+    fun dockContextUpdateDocking(ctx: ImGuiContext)
+
+    fun dockContextUpdateUndocking(ctx: ImGuiContext)
+
+    fun dockNodeGetDepth(node: ImGuiDockNode): Int
+
+    fun dockNodeGetRootNode(node: ImGuiDockNode): ImGuiDockNode
+
+    fun dockSpace(
+        id: ImGuiID,
+        size: Vec2 = Vec2.Zero,
+        flags: Flag<ImGuiDockNodeFlags>? = null,
+        windowClass: ImGuiWindowClass? = null
+    )
+
+    fun dockSpaceOverViewport(
+        viewport: ImGuiViewport? = null,
+        flags: Flag<ImGuiDockNodeFlags>? = null,
+        windowClass: ImGuiWindowClass? = null
+    ): ImGuiID
 
     fun dragFloat(
         label: String,
@@ -416,6 +512,8 @@ expect object ImGui {
 
     fun findSettingsHandler(typeName: String): ImGuiSettingsHandler
 
+    fun findViewportByID(id: ImGuiID): ImGuiViewport
+
     fun findWindowByID(id: ImGuiID): ImGuiWindow
 
     fun findWindowByName(name: String): ImGuiWindow
@@ -437,6 +535,8 @@ expect object ImGui {
     fun getActiveID(): ImGuiID
 
     fun getBackgroundDrawList(): ImDrawList
+
+    fun getBackgroundDrawList(viewport: ImGuiViewport): ImDrawList
 
     fun getClipboardText(): String?
 
@@ -488,6 +588,8 @@ expect object ImGui {
 
     fun getForegroundDrawList(): ImDrawList
 
+    fun getForegroundDrawList(viewport: ImGuiViewport): ImDrawList
+
     fun getForegroundDrawList(window: ImGuiWindow): ImDrawList
 
     fun getFrameCount(): Int
@@ -518,9 +620,13 @@ expect object ImGui {
         rate: Float
     ): Int
 
+    fun getMainViewport(): ImGuiViewport
+
     fun getMergedKeyModFlags(): Flag<ImGuiKeyModFlags>
 
     fun getMouseCursor(): ImGuiMouseCursor
+
+    fun getPlatformIO(): ImGuiPlatformIO
 
     fun getScrollMaxX(): Float
 
@@ -550,13 +656,23 @@ expect object ImGui {
 
     fun getVersion(): String?
 
+    fun getWindowAlwaysWantOwnTabBar(window: ImGuiWindow): Boolean
+
     fun getWindowContentRegionWidth(): Float
+
+    fun getWindowDockID(): ImGuiID
+
+    fun getWindowDockNode(): ImGuiDockNode
+
+    fun getWindowDpiScale(): Float
 
     fun getWindowDrawList(): ImDrawList
 
     fun getWindowHeight(): Float
 
     fun getWindowResizeID(window: ImGuiWindow, n: Int): ImGuiID
+
+    fun getWindowViewport(): ImGuiViewport
 
     fun getWindowWidth(): Float
 
@@ -840,6 +956,8 @@ expect object ImGui {
 
     fun isWindowCollapsed(): Boolean
 
+    fun isWindowDocked(): Boolean
+
     fun isWindowFocused(flags: Flag<ImGuiFocusedFlags>? = null): Boolean
 
     fun isWindowHovered(flags: Flag<ImGuiHoveredFlags>? = null): Boolean
@@ -1017,6 +1135,13 @@ expect object ImGui {
         scale: Float = 1.0f
     )
 
+    fun renderArrowDockMenu(
+        drawList: ImDrawList,
+        pMin: Vec2,
+        sz: Float,
+        col: UInt
+    )
+
     fun renderArrowPointingAt(
         drawList: ImDrawList,
         pos: Vec2,
@@ -1073,6 +1198,8 @@ expect object ImGui {
         colShadow: UInt
     )
 
+    fun renderPlatformWindowsDefault()
+
     fun renderText(
         pos: Vec2,
         text: String,
@@ -1126,6 +1253,8 @@ expect object ImGui {
     fun saveIniSettingsToDisk(iniFilename: String)
 
     fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>? = null): String?
+
+    fun scaleWindowsInViewport(viewport: ImGuiViewportP, scale: Float)
 
     fun selectable(
         label: String,
@@ -1191,9 +1320,13 @@ expect object ImGui {
 
     fun setNextWindowBgAlpha(alpha: Float)
 
+    fun setNextWindowClass(windowClass: ImGuiWindowClass)
+
     fun setNextWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>? = null)
 
     fun setNextWindowContentSize(size: Vec2)
+
+    fun setNextWindowDockID(dockId: ImGuiID, cond: Flag<ImGuiCond>? = null)
 
     fun setNextWindowFocus()
 
@@ -1203,7 +1336,11 @@ expect object ImGui {
         pivot: Vec2 = Vec2.Zero
     )
 
+    fun setNextWindowScroll(scroll: Vec2)
+
     fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>? = null)
+
+    fun setNextWindowViewport(viewportId: ImGuiID)
 
     fun setScrollFromPosX(localX: Float, centerXRatio: Float = 0.5f)
 
@@ -1253,11 +1390,23 @@ expect object ImGui {
         cond: Flag<ImGuiCond>? = null
     )
 
+    fun setWindowDock(
+        window: ImGuiWindow,
+        dockId: ImGuiID,
+        cond: Flag<ImGuiCond>
+    )
+
     fun setWindowFocus()
 
     fun setWindowFocus(name: String)
 
     fun setWindowFontScale(scale: Float)
+
+    fun setWindowHitTestHole(
+        window: ImGuiWindow,
+        pos: Vec2,
+        size: Vec2
+    )
 
     fun setWindowPos(pos: Vec2, cond: Flag<ImGuiCond>? = null)
 
@@ -1321,6 +1470,8 @@ expect object ImGui {
     fun showStyleSelector(label: String): Boolean
 
     fun showUserGuide()
+
+    fun showViewportThumbnails()
 
     fun shrinkWidths(
         items: ImGuiShrinkWidthItem,
@@ -1412,13 +1563,27 @@ expect object ImGui {
 
     fun startMouseMovingWindow(window: ImGuiWindow)
 
+    fun startMouseMovingWindowOrNode(
+        window: ImGuiWindow,
+        node: ImGuiDockNode,
+        undockFloatingNode: Boolean
+    )
+
     fun styleColorsClassic(dst: ImGuiStyle? = null)
 
     fun styleColorsDark(dst: ImGuiStyle? = null)
 
     fun styleColorsLight(dst: ImGuiStyle? = null)
 
+    fun tabBarAddTab(
+        tabBar: ImGuiTabBar,
+        tabFlags: Flag<ImGuiTabItemFlags>,
+        window: ImGuiWindow
+    )
+
     fun tabBarCloseTab(tabBar: ImGuiTabBar, tab: ImGuiTabItem)
+
+    fun tabBarFindMostRecentlySelectedTabForActiveWindow(tabBar: ImGuiTabBar): ImGuiTabItem
 
     fun tabBarFindTabByID(tabBar: ImGuiTabBar, tabId: ImGuiID): ImGuiTabItem
 
@@ -1434,7 +1599,8 @@ expect object ImGui {
         tabBar: ImGuiTabBar,
         label: String,
         pOpen: KMutableProperty0<Boolean>,
-        flags: Flag<ImGuiTabItemFlags>
+        flags: Flag<ImGuiTabItemFlags>,
+        dockedWindow: ImGuiWindow
     ): Boolean
 
     fun tempInputIsActive(id: ImGuiID): Boolean
@@ -1454,6 +1620,12 @@ expect object ImGui {
     fun textUnformatted(text: String, textEnd: String? = null)
 
     fun textWrapped(fmt: String)
+
+    fun translateWindowsInViewport(
+        viewport: ImGuiViewportP,
+        oldPos: Vec2,
+        newPos: Vec2
+    )
 
     fun treeNode(label: String): Boolean
 
@@ -1491,6 +1663,8 @@ expect object ImGui {
     fun updateMouseMovingWindowEndFrame()
 
     fun updateMouseMovingWindowNewFrame()
+
+    fun updatePlatformWindows()
 
     fun updateWindowParentAndRootLinks(
         window: ImGuiWindow,

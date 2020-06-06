@@ -26,6 +26,21 @@ actual inline class ImGuiWindow(
   actual val flags: Flag<ImGuiWindowFlags>
     get() = ptr.flags.let { ImGuiWindowFlags.fromMultiple(it) }
 
+  actual val flagsPreviousFrame: Flag<ImGuiWindowFlags>
+    get() = ptr.flagsPreviousFrame.let { ImGuiWindowFlags.fromMultiple(it) }
+
+  actual val viewport: ImGuiViewportP?
+    get() = ptr.viewport?.let(::ImGuiViewportP)
+
+  actual val viewportId: ImGuiID
+    get() = ptr.viewportId.let(::ImGuiID)
+
+  actual val viewportPos: Vec2
+    get() = ptr.viewportPos.fromCValue()
+
+  actual val viewportAllowPlatformMonitorExtend: Int
+    get() = ptr.viewportAllowPlatformMonitorExtend
+
   actual val pos: Vec2
     get() = ptr.pos.fromCValue()
 
@@ -79,6 +94,9 @@ actual inline class ImGuiWindow(
 
   actual val scrollbarY: Boolean
     get() = ptr.scrollbarY
+
+  actual val viewportOwned: Boolean
+    get() = ptr.viewportOwned
 
   actual val active: Boolean
     get() = ptr.active
@@ -143,6 +161,9 @@ actual inline class ImGuiWindow(
   actual val setWindowCollapsedAllowFlags: Flag<ImGuiCond>
     get() = ptr.setWindowCollapsedAllowFlags.let { ImGuiCond.fromMultiple(it) }
 
+  actual val setWindowDockAllowFlags: Flag<ImGuiCond>
+    get() = ptr.setWindowDockAllowFlags.let { ImGuiCond.fromMultiple(it) }
+
   actual val setWindowPosVal: Vec2
     get() = ptr.setWindowPosVal.fromCValue()
 
@@ -152,6 +173,9 @@ actual inline class ImGuiWindow(
   actual val lastFrameActive: Int
     get() = ptr.lastFrameActive
 
+  actual val lastFrameJustFocused: Int
+    get() = ptr.lastFrameJustFocused
+
   actual val lastTimeActive: Float
     get() = ptr.lastTimeActive
 
@@ -160,6 +184,9 @@ actual inline class ImGuiWindow(
 
   actual val fontWindowScale: Float
     get() = ptr.fontWindowScale
+
+  actual val fontDpiScale: Float
+    get() = ptr.fontDpiScale
 
   actual val settingsOffset: Int
     get() = ptr.settingsOffset
@@ -172,6 +199,9 @@ actual inline class ImGuiWindow(
 
   actual val rootWindow: ImGuiWindow?
     get() = ptr.rootWindow?.let(::ImGuiWindow)
+
+  actual val rootWindowDockStop: ImGuiWindow?
+    get() = ptr.rootWindowDockStop?.let(::ImGuiWindow)
 
   actual val rootWindowForTitleBarHighlight: ImGuiWindow?
     get() = ptr.rootWindowForTitleBarHighlight?.let(::ImGuiWindow)
@@ -190,6 +220,30 @@ actual inline class ImGuiWindow(
 
   actual val memoryDrawListVtxCapacity: Int
     get() = ptr.memoryDrawListVtxCapacity
+
+  actual val dockNode: ImGuiDockNode?
+    get() = ptr.dockNode?.let(::ImGuiDockNode)
+
+  actual val dockNodeAsHost: ImGuiDockNode?
+    get() = ptr.dockNodeAsHost?.let(::ImGuiDockNode)
+
+  actual val dockId: ImGuiID
+    get() = ptr.dockId.let(::ImGuiID)
+
+  actual val dockTabItemStatusFlags: Flag<ImGuiItemStatusFlags>
+    get() = ptr.dockTabItemStatusFlags.let { ImGuiItemStatusFlags.fromMultiple(it) }
+
+  actual val dockOrder: Short
+    get() = ptr.dockOrder
+
+  actual val dockIsActive: Boolean
+    get() = ptr.dockIsActive
+
+  actual val dockTabIsVisible: Boolean
+    get() = ptr.dockTabIsVisible
+
+  actual val dockTabWantClose: Boolean
+    get() = ptr.dockTabWantClose
 
   actual constructor(context: ImGuiContext, name: String) :
       this(ImGuiWindow_ImGuiWindow(context.ptr, name)!!)

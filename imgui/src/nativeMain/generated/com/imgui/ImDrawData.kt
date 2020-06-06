@@ -36,6 +36,9 @@ actual inline class ImDrawData(
   actual val framebufferScale: Vec2
     get() = ptr.pointed.FramebufferScale.fromCValue()
 
+  actual val ownerViewport: ImGuiViewport?
+    get() = ptr.pointed.OwnerViewport?.let(::ImGuiViewport)
+
   actual constructor() : this(ImDrawData_ImDrawData()!!)
 
   actual fun clear() {

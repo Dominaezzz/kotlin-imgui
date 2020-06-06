@@ -52,6 +52,24 @@ public class ImGuiSettingsHandler {
     return CImGuiJNI.ImGuiSettingsHandler_TypeHash_get(swigCPtr, this);
   }
 
+  public void setClearAllFn(SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void value) {
+    CImGuiJNI.ImGuiSettingsHandler_ClearAllFn_set(swigCPtr, this, SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void getClearAllFn() {
+    long cPtr = CImGuiJNI.ImGuiSettingsHandler_ClearAllFn_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void(cPtr, false);
+  }
+
+  public void setReadInitFn(SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void value) {
+    CImGuiJNI.ImGuiSettingsHandler_ReadInitFn_set(swigCPtr, this, SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void getReadInitFn() {
+    long cPtr = CImGuiJNI.ImGuiSettingsHandler_ReadInitFn_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void(cPtr, false);
+  }
+
   public void setReadOpenFn(SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler_p_q_const__char__p_void value) {
     CImGuiJNI.ImGuiSettingsHandler_ReadOpenFn_set(swigCPtr, this, SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler_p_q_const__char__p_void.getCPtr(value));
   }
@@ -68,6 +86,15 @@ public class ImGuiSettingsHandler {
   public SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler_p_void_p_q_const__char__void getReadLineFn() {
     long cPtr = CImGuiJNI.ImGuiSettingsHandler_ReadLineFn_get(swigCPtr, this);
     return (cPtr == 0) ? null : new SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler_p_void_p_q_const__char__void(cPtr, false);
+  }
+
+  public void setApplyAllFn(SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void value) {
+    CImGuiJNI.ImGuiSettingsHandler_ApplyAllFn_set(swigCPtr, this, SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void getApplyAllFn() {
+    long cPtr = CImGuiJNI.ImGuiSettingsHandler_ApplyAllFn_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler__void(cPtr, false);
   }
 
   public void setWriteAllFn(SWIGTYPE_p_f_p_ImGuiContext_p_ImGuiSettingsHandler_p_ImGuiTextBuffer__void value) {

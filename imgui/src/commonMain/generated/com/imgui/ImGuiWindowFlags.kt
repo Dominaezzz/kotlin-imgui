@@ -41,6 +41,8 @@ expect enum class ImGuiWindowFlags : Flag<ImGuiWindowFlags> {
 
   UnsavedDocument,
 
+  NoDocking,
+
   NavFlattened,
 
   ChildWindow,
@@ -51,7 +53,9 @@ expect enum class ImGuiWindowFlags : Flag<ImGuiWindowFlags> {
 
   Modal,
 
-  ChildMenu;
+  ChildMenu,
+
+  DockNodeHost;
 
   companion object {
     val NoNav: Flag<ImGuiWindowFlags>

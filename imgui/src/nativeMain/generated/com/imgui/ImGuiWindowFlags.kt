@@ -7,6 +7,7 @@ import cimgui.internal.ImGuiWindowFlags_AlwaysUseWindowPadding
 import cimgui.internal.ImGuiWindowFlags_AlwaysVerticalScrollbar
 import cimgui.internal.ImGuiWindowFlags_ChildMenu
 import cimgui.internal.ImGuiWindowFlags_ChildWindow
+import cimgui.internal.ImGuiWindowFlags_DockNodeHost
 import cimgui.internal.ImGuiWindowFlags_HorizontalScrollbar
 import cimgui.internal.ImGuiWindowFlags_MenuBar
 import cimgui.internal.ImGuiWindowFlags_Modal
@@ -15,6 +16,7 @@ import cimgui.internal.ImGuiWindowFlags_NoBackground
 import cimgui.internal.ImGuiWindowFlags_NoBringToFrontOnFocus
 import cimgui.internal.ImGuiWindowFlags_NoCollapse
 import cimgui.internal.ImGuiWindowFlags_NoDecoration
+import cimgui.internal.ImGuiWindowFlags_NoDocking
 import cimgui.internal.ImGuiWindowFlags_NoFocusOnAppearing
 import cimgui.internal.ImGuiWindowFlags_NoInputs
 import cimgui.internal.ImGuiWindowFlags_NoMouseInputs
@@ -75,6 +77,8 @@ actual enum class ImGuiWindowFlags(
 
   UnsavedDocument(ImGuiWindowFlags_UnsavedDocument.convert()),
 
+  NoDocking(ImGuiWindowFlags_NoDocking.convert()),
+
   NavFlattened(ImGuiWindowFlags_NavFlattened.convert()),
 
   ChildWindow(ImGuiWindowFlags_ChildWindow.convert()),
@@ -85,7 +89,9 @@ actual enum class ImGuiWindowFlags(
 
   Modal(ImGuiWindowFlags_Modal.convert()),
 
-  ChildMenu(ImGuiWindowFlags_ChildMenu.convert());
+  ChildMenu(ImGuiWindowFlags_ChildMenu.convert()),
+
+  DockNodeHost(ImGuiWindowFlags_DockNodeHost.convert());
 
   override val info: Flag.EnumInfo<ImGuiWindowFlags>
     get() = cachedInfo
@@ -122,12 +128,14 @@ actual enum class ImGuiWindowFlags(
       ImGuiWindowFlags_NoNavInputs -> NoNavInputs
       ImGuiWindowFlags_NoNavFocus -> NoNavFocus
       ImGuiWindowFlags_UnsavedDocument -> UnsavedDocument
+      ImGuiWindowFlags_NoDocking -> NoDocking
       ImGuiWindowFlags_NavFlattened -> NavFlattened
       ImGuiWindowFlags_ChildWindow -> ChildWindow
       ImGuiWindowFlags_Tooltip -> Tooltip
       ImGuiWindowFlags_Popup -> Popup
       ImGuiWindowFlags_Modal -> Modal
       ImGuiWindowFlags_ChildMenu -> ChildMenu
+      ImGuiWindowFlags_DockNodeHost -> DockNodeHost
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
 

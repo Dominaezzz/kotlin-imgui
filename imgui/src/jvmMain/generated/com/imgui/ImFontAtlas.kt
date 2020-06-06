@@ -31,7 +31,6 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.UInt
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
 actual inline class ImFontAtlas(
@@ -78,11 +77,8 @@ actual inline class ImFontAtlas(
         ptrOffset)
   }
 
-  actual fun addCustomRectRegular(
-    id: UInt,
-    width: Int,
-    height: Int
-  ): Int = ImFontAtlas_AddCustomRectRegular(ptr, id.toLong(), width, height)
+  actual fun addCustomRectRegular(width: Int, height: Int): Int =
+      ImFontAtlas_AddCustomRectRegular(ptr, width, height)
 
   actual fun addFont(fontCfg: ImFontConfig): ImFont = ImFontAtlas_AddFont(ptr,
       fontCfg.ptr)!!.let(::ImFont)

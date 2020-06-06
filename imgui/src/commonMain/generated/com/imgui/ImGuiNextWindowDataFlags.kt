@@ -13,7 +13,15 @@ expect enum class ImGuiNextWindowDataFlags : Flag<ImGuiNextWindowDataFlags> {
 
   HasFocus,
 
-  HasBgAlpha;
+  HasBgAlpha,
+
+  HasScroll,
+
+  HasViewport,
+
+  HasDock,
+
+  HasWindowClass;
 
   companion object
 }

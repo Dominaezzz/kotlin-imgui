@@ -12,6 +12,8 @@ expect class ImGuiNextWindowData {
 
   val collapsedCond: Flag<ImGuiCond>
 
+  val dockCond: Flag<ImGuiCond>
+
   val posVal: Vec2
 
   val posPivotVal: Vec2
@@ -20,9 +22,17 @@ expect class ImGuiNextWindowData {
 
   val contentSizeVal: Vec2
 
+  val scrollVal: Vec2
+
+  val posUndock: Boolean
+
   val collapsedVal: Boolean
 
   val bgAlphaVal: Float
+
+  val viewportId: ImGuiID
+
+  val dockId: ImGuiID
 
   val menuBarOffsetMinVal: Vec2
 

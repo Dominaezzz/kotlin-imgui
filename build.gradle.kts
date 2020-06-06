@@ -17,7 +17,8 @@ exec {
 version = stdout.toString().trim()
 group = "com.kotlin-imgui"
 
-val imGuiVersion: String by extra("1.76")
+val cimguiVersion: String by extra("docking_inter")
+val imguiVersion: String by extra("docking")
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 
 subprojects {

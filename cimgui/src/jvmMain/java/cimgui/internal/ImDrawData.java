@@ -104,6 +104,15 @@ public class ImDrawData {
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
   }
 
+  public void setOwnerViewport(ImGuiViewport value) {
+    CImGuiJNI.ImDrawData_OwnerViewport_set(swigCPtr, this, ImGuiViewport.getCPtr(value), value);
+  }
+
+  public ImGuiViewport getOwnerViewport() {
+    long cPtr = CImGuiJNI.ImDrawData_OwnerViewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewport(cPtr, false);
+  }
+
   public ImDrawData() {
     this(CImGuiJNI.new_ImDrawData(), true);
   }

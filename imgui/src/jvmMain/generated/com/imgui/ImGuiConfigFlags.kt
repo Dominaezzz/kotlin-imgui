@@ -1,5 +1,8 @@
 package com.imgui
 
+import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_DockingEnable
+import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_DpiEnableScaleFonts
+import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_DpiEnableScaleViewports
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_IsSRGB
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_IsTouchScreen
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableGamepad
@@ -8,6 +11,7 @@ import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_NavEnableSetMousePos
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_NavNoCaptureKeyboard
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouse
 import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_NoMouseCursorChange
+import cimgui.internal.ImGuiConfigFlags_.ImGuiConfigFlags_ViewportsEnable
 import kotlin.Int
 
 actual enum class ImGuiConfigFlags(
@@ -25,6 +29,14 @@ actual enum class ImGuiConfigFlags(
 
   NoMouseCursorChange(ImGuiConfigFlags_NoMouseCursorChange),
 
+  DockingEnable(ImGuiConfigFlags_DockingEnable),
+
+  ViewportsEnable(ImGuiConfigFlags_ViewportsEnable),
+
+  DpiEnableScaleViewports(ImGuiConfigFlags_DpiEnableScaleViewports),
+
+  DpiEnableScaleFonts(ImGuiConfigFlags_DpiEnableScaleFonts),
+
   IsSRGB(ImGuiConfigFlags_IsSRGB),
 
   IsTouchScreen(ImGuiConfigFlags_IsTouchScreen);
@@ -41,6 +53,10 @@ actual enum class ImGuiConfigFlags(
       ImGuiConfigFlags_NavNoCaptureKeyboard -> NavNoCaptureKeyboard
       ImGuiConfigFlags_NoMouse -> NoMouse
       ImGuiConfigFlags_NoMouseCursorChange -> NoMouseCursorChange
+      ImGuiConfigFlags_DockingEnable -> DockingEnable
+      ImGuiConfigFlags_ViewportsEnable -> ViewportsEnable
+      ImGuiConfigFlags_DpiEnableScaleViewports -> DpiEnableScaleViewports
+      ImGuiConfigFlags_DpiEnableScaleFonts -> DpiEnableScaleFonts
       ImGuiConfigFlags_IsSRGB -> IsSRGB
       ImGuiConfigFlags_IsTouchScreen -> IsTouchScreen
       else -> throw NoSuchElementException("""Unknown enum constant $value""")

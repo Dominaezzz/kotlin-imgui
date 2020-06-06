@@ -92,7 +92,7 @@ actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items
 actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, popupMaxHeightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		withItemsGetter(itemsGetter) { getter, data ->
-			igComboFnPtr(label, currentItemPtr, getter, data, itemsCount, popupMaxHeightInItems)
+			igComboFnBoolPtr(label, currentItemPtr, getter, data, itemsCount, popupMaxHeightInItems)
 		}
 	}
 }
@@ -109,7 +109,7 @@ actual fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, ite
 actual fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, itemsGetter: (idx: Int) -> String?, itemsCount: Int, heightInItems: Int): Boolean {
 	return usingProperty(currentItem) { currentItemPtr ->
 		withItemsGetter(itemsGetter) { getter, data ->
-			igListBoxFnPtr(label, currentItemPtr, getter, data, itemsCount, heightInItems)
+			igListBoxFnBoolPtr(label, currentItemPtr, getter, data, itemsCount, heightInItems)
 		}
 	}
 }
@@ -124,7 +124,7 @@ actual fun ImGui.plotHistogram(label: String, values: FloatArray, valuesOffset: 
 actual fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2) {
 	val stableRef = StableRef.create(valuesGetter)
 	try {
-		return igPlotHistogramFnPtr(label,
+		return igPlotHistogramFnFloatPtr(label,
 				staticCFunction { data, idx ->
 					val getter = data!!.asStableRef<(Int) -> Float>().get()
 					getter(idx)
@@ -146,7 +146,7 @@ actual fun ImGui.plotLines(label: String, values: FloatArray, valuesOffset: Int,
 actual fun ImGui.plotLines(label: String, valuesGetter: (Int) -> Float, valuesCount: Int, valuesOffset: Int, overlayText: String?, scaleMin: Float, scaleMax: Float, graphSize: Vec2) {
 	val stableRef = StableRef.create(valuesGetter)
 	try {
-		return igPlotLinesFnPtr(label,
+		return igPlotLinesFnFloatPtr(label,
 				staticCFunction { data, idx ->
 					val getter = data!!.asStableRef<(Int) -> Float>().get()
 					getter(idx)

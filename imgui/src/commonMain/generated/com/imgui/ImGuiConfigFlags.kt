@@ -13,6 +13,14 @@ expect enum class ImGuiConfigFlags : Flag<ImGuiConfigFlags> {
 
   NoMouseCursorChange,
 
+  DockingEnable,
+
+  ViewportsEnable,
+
+  DpiEnableScaleViewports,
+
+  DpiEnableScaleFonts,
+
   IsSRGB,
 
   IsTouchScreen;

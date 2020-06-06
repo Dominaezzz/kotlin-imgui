@@ -41,6 +41,22 @@ expect class ImGuiIO {
 
   val displayFramebufferScale: Vec2
 
+  val configDockingNoSplit: Boolean
+
+  val configDockingWithShift: Boolean
+
+  val configDockingAlwaysTabBar: Boolean
+
+  val configDockingTransparentPayload: Boolean
+
+  val configViewportsNoAutoMerge: Boolean
+
+  val configViewportsNoTaskBarIcon: Boolean
+
+  val configViewportsNoDecoration: Boolean
+
+  val configViewportsNoDefaultParent: Boolean
+
   val mouseDrawCursor: Boolean
 
   val configMacOSXBehaviors: Boolean
@@ -62,6 +78,8 @@ expect class ImGuiIO {
   val mouseWheel: Float
 
   val mouseWheelH: Float
+
+  val mouseHoveredViewport: ImGuiID
 
   val keyCtrl: Boolean
 

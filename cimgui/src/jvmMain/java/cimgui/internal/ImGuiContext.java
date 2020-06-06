@@ -61,6 +61,15 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImGuiIO(cPtr, false);
   }
 
+  public void setPlatformIO(ImGuiPlatformIO value) {
+    CImGuiJNI.ImGuiContext_PlatformIO_set(swigCPtr, this, ImGuiPlatformIO.getCPtr(value), value);
+  }
+
+  public ImGuiPlatformIO getPlatformIO() {
+    long cPtr = CImGuiJNI.ImGuiContext_PlatformIO_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiPlatformIO(cPtr, false);
+  }
+
   public void setStyle(ImGuiStyle value) {
     CImGuiJNI.ImGuiContext_Style_set(swigCPtr, this, ImGuiStyle.getCPtr(value), value);
   }
@@ -68,6 +77,22 @@ public class ImGuiContext {
   public ImGuiStyle getStyle() {
     long cPtr = CImGuiJNI.ImGuiContext_Style_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImGuiStyle(cPtr, false);
+  }
+
+  public void setConfigFlagsCurrFrame(int value) {
+    CImGuiJNI.ImGuiContext_ConfigFlagsCurrFrame_set(swigCPtr, this, value);
+  }
+
+  public int getConfigFlagsCurrFrame() {
+    return CImGuiJNI.ImGuiContext_ConfigFlagsCurrFrame_get(swigCPtr, this);
+  }
+
+  public void setConfigFlagsLastFrame(int value) {
+    CImGuiJNI.ImGuiContext_ConfigFlagsLastFrame_set(swigCPtr, this, value);
+  }
+
+  public int getConfigFlagsLastFrame() {
+    return CImGuiJNI.ImGuiContext_ConfigFlagsLastFrame_get(swigCPtr, this);
   }
 
   public void setFont(ImFont value) {
@@ -128,6 +153,14 @@ public class ImGuiContext {
     return CImGuiJNI.ImGuiContext_FrameCountEnded_get(swigCPtr, this);
   }
 
+  public void setFrameCountPlatformEnded(int value) {
+    CImGuiJNI.ImGuiContext_FrameCountPlatformEnded_set(swigCPtr, this, value);
+  }
+
+  public int getFrameCountPlatformEnded() {
+    return CImGuiJNI.ImGuiContext_FrameCountPlatformEnded_get(swigCPtr, this);
+  }
+
   public void setFrameCountRendered(int value) {
     CImGuiJNI.ImGuiContext_FrameCountRendered_set(swigCPtr, this, value);
   }
@@ -158,6 +191,31 @@ public class ImGuiContext {
 
   public boolean getWithinEndChild() {
     return CImGuiJNI.ImGuiContext_WithinEndChild_get(swigCPtr, this);
+  }
+
+  public void setTestEngineHookItems(boolean value) {
+    CImGuiJNI.ImGuiContext_TestEngineHookItems_set(swigCPtr, this, value);
+  }
+
+  public boolean getTestEngineHookItems() {
+    return CImGuiJNI.ImGuiContext_TestEngineHookItems_get(swigCPtr, this);
+  }
+
+  public void setTestEngineHookIdInfo(long value) {
+    CImGuiJNI.ImGuiContext_TestEngineHookIdInfo_set(swigCPtr, this, value);
+  }
+
+  public long getTestEngineHookIdInfo() {
+    return CImGuiJNI.ImGuiContext_TestEngineHookIdInfo_get(swigCPtr, this);
+  }
+
+  public void setTestEngine(SWIGTYPE_p_void value) {
+    CImGuiJNI.ImGuiContext_TestEngine_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_void getTestEngine() {
+    long cPtr = CImGuiJNI.ImGuiContext_TestEngine_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
   }
 
   public void setWindows(ImVector_ImGuiWindowPtr value) {
@@ -237,6 +295,15 @@ public class ImGuiContext {
 
   public ImGuiWindow getHoveredRootWindow() {
     long cPtr = CImGuiJNI.ImGuiContext_HoveredRootWindow_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public void setHoveredWindowUnderMovingWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiContext_HoveredWindowUnderMovingWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  }
+
+  public ImGuiWindow getHoveredWindowUnderMovingWindow() {
+    long cPtr = CImGuiJNI.ImGuiContext_HoveredWindowUnderMovingWindow_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
@@ -549,6 +616,66 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImVector_ImGuiPopupData(cPtr, false);
   }
 
+  public void setViewports(ImVector_ImGuiViewportPPtr value) {
+    CImGuiJNI.ImGuiContext_Viewports_set(swigCPtr, this, ImVector_ImGuiViewportPPtr.getCPtr(value), value);
+  }
+
+  public ImVector_ImGuiViewportPPtr getViewports() {
+    long cPtr = CImGuiJNI.ImGuiContext_Viewports_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVector_ImGuiViewportPPtr(cPtr, false);
+  }
+
+  public void setCurrentDpiScale(float value) {
+    CImGuiJNI.ImGuiContext_CurrentDpiScale_set(swigCPtr, this, value);
+  }
+
+  public float getCurrentDpiScale() {
+    return CImGuiJNI.ImGuiContext_CurrentDpiScale_get(swigCPtr, this);
+  }
+
+  public void setCurrentViewport(ImGuiViewportP value) {
+    CImGuiJNI.ImGuiContext_CurrentViewport_set(swigCPtr, this, ImGuiViewportP.getCPtr(value), value);
+  }
+
+  public ImGuiViewportP getCurrentViewport() {
+    long cPtr = CImGuiJNI.ImGuiContext_CurrentViewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewportP(cPtr, false);
+  }
+
+  public void setMouseViewport(ImGuiViewportP value) {
+    CImGuiJNI.ImGuiContext_MouseViewport_set(swigCPtr, this, ImGuiViewportP.getCPtr(value), value);
+  }
+
+  public ImGuiViewportP getMouseViewport() {
+    long cPtr = CImGuiJNI.ImGuiContext_MouseViewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewportP(cPtr, false);
+  }
+
+  public void setMouseLastHoveredViewport(ImGuiViewportP value) {
+    CImGuiJNI.ImGuiContext_MouseLastHoveredViewport_set(swigCPtr, this, ImGuiViewportP.getCPtr(value), value);
+  }
+
+  public ImGuiViewportP getMouseLastHoveredViewport() {
+    long cPtr = CImGuiJNI.ImGuiContext_MouseLastHoveredViewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewportP(cPtr, false);
+  }
+
+  public void setPlatformLastFocusedViewport(long value) {
+    CImGuiJNI.ImGuiContext_PlatformLastFocusedViewport_set(swigCPtr, this, value);
+  }
+
+  public long getPlatformLastFocusedViewport() {
+    return CImGuiJNI.ImGuiContext_PlatformLastFocusedViewport_get(swigCPtr, this);
+  }
+
+  public void setViewportFrontMostStampCount(int value) {
+    CImGuiJNI.ImGuiContext_ViewportFrontMostStampCount_set(swigCPtr, this, value);
+  }
+
+  public int getViewportFrontMostStampCount() {
+    return CImGuiJNI.ImGuiContext_ViewportFrontMostStampCount_get(swigCPtr, this);
+  }
+
   public void setNavWindow(ImGuiWindow value) {
     CImGuiJNI.ImGuiContext_NavWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
   }
@@ -851,6 +978,23 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImGuiNavMoveResult(cPtr, false);
   }
 
+  public void setNavWrapRequestWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiContext_NavWrapRequestWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  }
+
+  public ImGuiWindow getNavWrapRequestWindow() {
+    long cPtr = CImGuiJNI.ImGuiContext_NavWrapRequestWindow_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public void setNavWrapRequestFlags(int value) {
+    CImGuiJNI.ImGuiContext_NavWrapRequestFlags_set(swigCPtr, this, value);
+  }
+
+  public int getNavWrapRequestFlags() {
+    return CImGuiJNI.ImGuiContext_NavWrapRequestFlags_get(swigCPtr, this);
+  }
+
   public void setNavWindowingTarget(ImGuiWindow value) {
     CImGuiJNI.ImGuiContext_NavWindowingTarget_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
   }
@@ -869,12 +1013,12 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
-  public void setNavWindowingList(ImGuiWindow value) {
-    CImGuiJNI.ImGuiContext_NavWindowingList_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  public void setNavWindowingListWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiContext_NavWindowingListWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
   }
 
-  public ImGuiWindow getNavWindowingList() {
-    long cPtr = CImGuiJNI.ImGuiContext_NavWindowingList_get(swigCPtr, this);
+  public ImGuiWindow getNavWindowingListWindow() {
+    long cPtr = CImGuiJNI.ImGuiContext_NavWindowingListWindow_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
@@ -960,48 +1104,12 @@ public class ImGuiContext {
     return CImGuiJNI.ImGuiContext_FocusTabPressed_get(swigCPtr, this);
   }
 
-  public void setDrawData(ImDrawData value) {
-    CImGuiJNI.ImGuiContext_DrawData_set(swigCPtr, this, ImDrawData.getCPtr(value), value);
-  }
-
-  public ImDrawData getDrawData() {
-    long cPtr = CImGuiJNI.ImGuiContext_DrawData_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ImDrawData(cPtr, false);
-  }
-
-  public void setDrawDataBuilder(ImDrawDataBuilder value) {
-    CImGuiJNI.ImGuiContext_DrawDataBuilder_set(swigCPtr, this, ImDrawDataBuilder.getCPtr(value), value);
-  }
-
-  public ImDrawDataBuilder getDrawDataBuilder() {
-    long cPtr = CImGuiJNI.ImGuiContext_DrawDataBuilder_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ImDrawDataBuilder(cPtr, false);
-  }
-
   public void setDimBgRatio(float value) {
     CImGuiJNI.ImGuiContext_DimBgRatio_set(swigCPtr, this, value);
   }
 
   public float getDimBgRatio() {
     return CImGuiJNI.ImGuiContext_DimBgRatio_get(swigCPtr, this);
-  }
-
-  public void setBackgroundDrawList(ImDrawList value) {
-    CImGuiJNI.ImGuiContext_BackgroundDrawList_set(swigCPtr, this, ImDrawList.getCPtr(value), value);
-  }
-
-  public ImDrawList getBackgroundDrawList() {
-    long cPtr = CImGuiJNI.ImGuiContext_BackgroundDrawList_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
-  }
-
-  public void setForegroundDrawList(ImDrawList value) {
-    CImGuiJNI.ImGuiContext_ForegroundDrawList_set(swigCPtr, this, ImDrawList.getCPtr(value), value);
-  }
-
-  public ImDrawList getForegroundDrawList() {
-    long cPtr = CImGuiJNI.ImGuiContext_ForegroundDrawList_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new ImDrawList(cPtr, false);
   }
 
   public void setMouseCursor(int value) {
@@ -1124,6 +1232,14 @@ public class ImGuiContext {
 
   public int getDragDropAcceptFrameCount() {
     return CImGuiJNI.ImGuiContext_DragDropAcceptFrameCount_get(swigCPtr, this);
+  }
+
+  public void setDragDropHoldJustPressedId(long value) {
+    CImGuiJNI.ImGuiContext_DragDropHoldJustPressedId_set(swigCPtr, this, value);
+  }
+
+  public long getDragDropHoldJustPressedId() {
+    return CImGuiJNI.ImGuiContext_DragDropHoldJustPressedId_get(swigCPtr, this);
   }
 
   public void setDragDropPayloadBufHeap(ImVector_unsigned_char value) {
@@ -1331,6 +1447,24 @@ public class ImGuiContext {
   public ImVec2 getPlatformImeLastPos() {
     long cPtr = CImGuiJNI.ImGuiContext_PlatformImeLastPos_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
+  public void setPlatformImePosViewport(ImGuiViewportP value) {
+    CImGuiJNI.ImGuiContext_PlatformImePosViewport_set(swigCPtr, this, ImGuiViewportP.getCPtr(value), value);
+  }
+
+  public ImGuiViewportP getPlatformImePosViewport() {
+    long cPtr = CImGuiJNI.ImGuiContext_PlatformImePosViewport_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiViewportP(cPtr, false);
+  }
+
+  public void setDockContext(ImGuiDockContext value) {
+    CImGuiJNI.ImGuiContext_DockContext_set(swigCPtr, this, ImGuiDockContext.getCPtr(value), value);
+  }
+
+  public ImGuiDockContext getDockContext() {
+    long cPtr = CImGuiJNI.ImGuiContext_DockContext_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiDockContext(cPtr, false);
   }
 
   public void setSettingsLoaded(boolean value) {

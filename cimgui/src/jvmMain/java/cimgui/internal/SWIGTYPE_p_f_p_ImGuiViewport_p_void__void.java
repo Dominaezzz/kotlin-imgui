@@ -8,18 +8,18 @@
 
 package cimgui.internal;
 
-public class SWIGTYPE_p_f_int_int__void {
+public class SWIGTYPE_p_f_p_ImGuiViewport_p_void__void {
   private transient long swigCPtr;
 
-  public SWIGTYPE_p_f_int_int__void(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  public SWIGTYPE_p_f_p_ImGuiViewport_p_void__void(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  public SWIGTYPE_p_f_int_int__void() {
+  public SWIGTYPE_p_f_p_ImGuiViewport_p_void__void() {
     swigCPtr = 0;
   }
 
-  public static long getCPtr(SWIGTYPE_p_f_int_int__void obj) {
+  public static long getCPtr(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class SWIGTYPE_p_f_int_int__void {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    SWIGTYPE_p_f_int_int__void that = (SWIGTYPE_p_f_int_int__void) o;
+    SWIGTYPE_p_f_p_ImGuiViewport_p_void__void that = (SWIGTYPE_p_f_p_ImGuiViewport_p_void__void) o;
 
     return swigCPtr == that.swigCPtr;
   }

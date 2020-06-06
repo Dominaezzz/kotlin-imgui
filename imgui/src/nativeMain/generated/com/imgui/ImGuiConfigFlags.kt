@@ -1,6 +1,9 @@
 package com.imgui
 
 import cimgui.internal.ImGuiConfigFlags_
+import cimgui.internal.ImGuiConfigFlags_DockingEnable
+import cimgui.internal.ImGuiConfigFlags_DpiEnableScaleFonts
+import cimgui.internal.ImGuiConfigFlags_DpiEnableScaleViewports
 import cimgui.internal.ImGuiConfigFlags_IsSRGB
 import cimgui.internal.ImGuiConfigFlags_IsTouchScreen
 import cimgui.internal.ImGuiConfigFlags_NavEnableGamepad
@@ -9,6 +12,7 @@ import cimgui.internal.ImGuiConfigFlags_NavEnableSetMousePos
 import cimgui.internal.ImGuiConfigFlags_NavNoCaptureKeyboard
 import cimgui.internal.ImGuiConfigFlags_NoMouse
 import cimgui.internal.ImGuiConfigFlags_NoMouseCursorChange
+import cimgui.internal.ImGuiConfigFlags_ViewportsEnable
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiConfigFlags(
@@ -25,6 +29,14 @@ actual enum class ImGuiConfigFlags(
   NoMouse(ImGuiConfigFlags_NoMouse.convert()),
 
   NoMouseCursorChange(ImGuiConfigFlags_NoMouseCursorChange.convert()),
+
+  DockingEnable(ImGuiConfigFlags_DockingEnable.convert()),
+
+  ViewportsEnable(ImGuiConfigFlags_ViewportsEnable.convert()),
+
+  DpiEnableScaleViewports(ImGuiConfigFlags_DpiEnableScaleViewports.convert()),
+
+  DpiEnableScaleFonts(ImGuiConfigFlags_DpiEnableScaleFonts.convert()),
 
   IsSRGB(ImGuiConfigFlags_IsSRGB.convert()),
 
@@ -43,6 +55,10 @@ actual enum class ImGuiConfigFlags(
       ImGuiConfigFlags_NavNoCaptureKeyboard -> NavNoCaptureKeyboard
       ImGuiConfigFlags_NoMouse -> NoMouse
       ImGuiConfigFlags_NoMouseCursorChange -> NoMouseCursorChange
+      ImGuiConfigFlags_DockingEnable -> DockingEnable
+      ImGuiConfigFlags_ViewportsEnable -> ViewportsEnable
+      ImGuiConfigFlags_DpiEnableScaleViewports -> DpiEnableScaleViewports
+      ImGuiConfigFlags_DpiEnableScaleFonts -> DpiEnableScaleFonts
       ImGuiConfigFlags_IsSRGB -> IsSRGB
       ImGuiConfigFlags_IsTouchScreen -> IsTouchScreen
       else -> throw NoSuchElementException("""Unknown enum constant $value""")

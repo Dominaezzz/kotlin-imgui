@@ -88,6 +88,9 @@ actual inline class ImGuiStyle(
   actual val tabBorderSize: Float
     get() = ptr.pointed.TabBorderSize
 
+  actual val tabMinWidthForUnselectedCloseButton: Float
+    get() = ptr.pointed.TabMinWidthForUnselectedCloseButton
+
   actual val colorButtonPosition: ImGuiDir
     get() = ptr.pointed.ColorButtonPosition.let { ImGuiDir.from(it) }
 

@@ -8,6 +8,8 @@ import cimgui.internal.ImGuiCol_ButtonActive
 import cimgui.internal.ImGuiCol_ButtonHovered
 import cimgui.internal.ImGuiCol_CheckMark
 import cimgui.internal.ImGuiCol_ChildBg
+import cimgui.internal.ImGuiCol_DockingEmptyBg
+import cimgui.internal.ImGuiCol_DockingPreview
 import cimgui.internal.ImGuiCol_DragDropTarget
 import cimgui.internal.ImGuiCol_FrameBg
 import cimgui.internal.ImGuiCol_FrameBgActive
@@ -130,6 +132,10 @@ actual enum class ImGuiCol(
 
   TabUnfocusedActive(ImGuiCol_TabUnfocusedActive.convert()),
 
+  DockingPreview(ImGuiCol_DockingPreview.convert()),
+
+  DockingEmptyBg(ImGuiCol_DockingEmptyBg.convert()),
+
   PlotLines(ImGuiCol_PlotLines.convert()),
 
   PlotLinesHovered(ImGuiCol_PlotLinesHovered.convert()),
@@ -190,6 +196,8 @@ actual enum class ImGuiCol(
       ImGuiCol_TabActive -> TabActive
       ImGuiCol_TabUnfocused -> TabUnfocused
       ImGuiCol_TabUnfocusedActive -> TabUnfocusedActive
+      ImGuiCol_DockingPreview -> DockingPreview
+      ImGuiCol_DockingEmptyBg -> DockingEmptyBg
       ImGuiCol_PlotLines -> PlotLines
       ImGuiCol_PlotLinesHovered -> PlotLinesHovered
       ImGuiCol_PlotHistogram -> PlotHistogram

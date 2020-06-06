@@ -47,7 +47,9 @@ public final class ImGuiCol_ {
   public final static int ImGuiCol_TabActive = ImGuiCol_TabHovered + 1;
   public final static int ImGuiCol_TabUnfocused = ImGuiCol_TabActive + 1;
   public final static int ImGuiCol_TabUnfocusedActive = ImGuiCol_TabUnfocused + 1;
-  public final static int ImGuiCol_PlotLines = ImGuiCol_TabUnfocusedActive + 1;
+  public final static int ImGuiCol_DockingPreview = ImGuiCol_TabUnfocusedActive + 1;
+  public final static int ImGuiCol_DockingEmptyBg = ImGuiCol_DockingPreview + 1;
+  public final static int ImGuiCol_PlotLines = ImGuiCol_DockingEmptyBg + 1;
   public final static int ImGuiCol_PlotLinesHovered = ImGuiCol_PlotLines + 1;
   public final static int ImGuiCol_PlotHistogram = ImGuiCol_PlotLinesHovered + 1;
   public final static int ImGuiCol_PlotHistogramHovered = ImGuiCol_PlotHistogram + 1;

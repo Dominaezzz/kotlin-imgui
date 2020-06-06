@@ -2,7 +2,10 @@ package com.imgui
 
 import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_HasGamepad
 import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_HasMouseCursors
+import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_HasMouseHoveredViewport
 import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_HasSetMousePos
+import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_PlatformHasViewports
+import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_RendererHasViewports
 import cimgui.internal.ImGuiBackendFlags_.ImGuiBackendFlags_RendererHasVtxOffset
 import kotlin.Int
 
@@ -15,7 +18,13 @@ actual enum class ImGuiBackendFlags(
 
   HasSetMousePos(ImGuiBackendFlags_HasSetMousePos),
 
-  RendererHasVtxOffset(ImGuiBackendFlags_RendererHasVtxOffset);
+  RendererHasVtxOffset(ImGuiBackendFlags_RendererHasVtxOffset),
+
+  PlatformHasViewports(ImGuiBackendFlags_PlatformHasViewports),
+
+  HasMouseHoveredViewport(ImGuiBackendFlags_HasMouseHoveredViewport),
+
+  RendererHasViewports(ImGuiBackendFlags_RendererHasViewports);
 
   override val info: Flag.EnumInfo<ImGuiBackendFlags>
     get() = cachedInfo
@@ -27,6 +36,9 @@ actual enum class ImGuiBackendFlags(
       ImGuiBackendFlags_HasMouseCursors -> HasMouseCursors
       ImGuiBackendFlags_HasSetMousePos -> HasSetMousePos
       ImGuiBackendFlags_RendererHasVtxOffset -> RendererHasVtxOffset
+      ImGuiBackendFlags_PlatformHasViewports -> PlatformHasViewports
+      ImGuiBackendFlags_HasMouseHoveredViewport -> HasMouseHoveredViewport
+      ImGuiBackendFlags_RendererHasViewports -> RendererHasViewports
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
 

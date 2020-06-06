@@ -12,6 +12,9 @@ import cimgui.internal.CImGui.igBeginChildID
 import cimgui.internal.CImGui.igBeginChildStr
 import cimgui.internal.CImGui.igBeginColumns
 import cimgui.internal.CImGui.igBeginCombo
+import cimgui.internal.CImGui.igBeginDockableDragDropSource
+import cimgui.internal.CImGui.igBeginDockableDragDropTarget
+import cimgui.internal.CImGui.igBeginDocked
 import cimgui.internal.CImGui.igBeginDragDropSource
 import cimgui.internal.CImGui.igBeginDragDropTarget
 import cimgui.internal.CImGui.igBeginGroup
@@ -45,6 +48,7 @@ import cimgui.internal.CImGui.igCheckbox
 import cimgui.internal.CImGui.igCheckboxFlags
 import cimgui.internal.CImGui.igClearActiveID
 import cimgui.internal.CImGui.igClearDragDrop
+import cimgui.internal.CImGui.igClearIniSettings
 import cimgui.internal.CImGui.igCloseButton
 import cimgui.internal.CImGui.igCloseCurrentPopup
 import cimgui.internal.CImGui.igClosePopupToLevel
@@ -69,6 +73,34 @@ import cimgui.internal.CImGui.igDebugCheckVersionAndDataLayout
 import cimgui.internal.CImGui.igDebugDrawItemRect
 import cimgui.internal.CImGui.igDebugStartItemPicker
 import cimgui.internal.CImGui.igDestroyContext
+import cimgui.internal.CImGui.igDestroyPlatformWindow
+import cimgui.internal.CImGui.igDestroyPlatformWindows
+import cimgui.internal.CImGui.igDockBuilderAddNode
+import cimgui.internal.CImGui.igDockBuilderCopyWindowSettings
+import cimgui.internal.CImGui.igDockBuilderDockWindow
+import cimgui.internal.CImGui.igDockBuilderFinish
+import cimgui.internal.CImGui.igDockBuilderGetCentralNode
+import cimgui.internal.CImGui.igDockBuilderGetNode
+import cimgui.internal.CImGui.igDockBuilderRemoveNode
+import cimgui.internal.CImGui.igDockBuilderRemoveNodeChildNodes
+import cimgui.internal.CImGui.igDockBuilderRemoveNodeDockedWindows
+import cimgui.internal.CImGui.igDockBuilderSetNodePos
+import cimgui.internal.CImGui.igDockBuilderSetNodeSize
+import cimgui.internal.CImGui.igDockContextCalcDropPosForDocking
+import cimgui.internal.CImGui.igDockContextClearNodes
+import cimgui.internal.CImGui.igDockContextGenNodeID
+import cimgui.internal.CImGui.igDockContextInitialize
+import cimgui.internal.CImGui.igDockContextQueueDock
+import cimgui.internal.CImGui.igDockContextQueueUndockNode
+import cimgui.internal.CImGui.igDockContextQueueUndockWindow
+import cimgui.internal.CImGui.igDockContextRebuildNodes
+import cimgui.internal.CImGui.igDockContextShutdown
+import cimgui.internal.CImGui.igDockContextUpdateDocking
+import cimgui.internal.CImGui.igDockContextUpdateUndocking
+import cimgui.internal.CImGui.igDockNodeGetDepth
+import cimgui.internal.CImGui.igDockNodeGetRootNode
+import cimgui.internal.CImGui.igDockSpace
+import cimgui.internal.CImGui.igDockSpaceOverViewport
 import cimgui.internal.CImGui.igDragFloat
 import cimgui.internal.CImGui.igDragFloat2
 import cimgui.internal.CImGui.igDragFloat3
@@ -100,6 +132,7 @@ import cimgui.internal.CImGui.igFindOrCreateColumns
 import cimgui.internal.CImGui.igFindOrCreateWindowSettings
 import cimgui.internal.CImGui.igFindRenderedTextEnd
 import cimgui.internal.CImGui.igFindSettingsHandler
+import cimgui.internal.CImGui.igFindViewportByID
 import cimgui.internal.CImGui.igFindWindowByID
 import cimgui.internal.CImGui.igFindWindowByName
 import cimgui.internal.CImGui.igFindWindowSettings
@@ -110,7 +143,8 @@ import cimgui.internal.CImGui.igFocusableItemUnregister
 import cimgui.internal.CImGui.igGcAwakeTransientWindowBuffers
 import cimgui.internal.CImGui.igGcCompactTransientWindowBuffers
 import cimgui.internal.CImGui.igGetActiveID
-import cimgui.internal.CImGui.igGetBackgroundDrawList
+import cimgui.internal.CImGui.igGetBackgroundDrawListNil
+import cimgui.internal.CImGui.igGetBackgroundDrawListViewportPtr
 import cimgui.internal.CImGui.igGetClipboardText
 import cimgui.internal.CImGui.igGetColorU32Col
 import cimgui.internal.CImGui.igGetColorU32U32
@@ -136,6 +170,7 @@ import cimgui.internal.CImGui.igGetFocusScopeID
 import cimgui.internal.CImGui.igGetFont
 import cimgui.internal.CImGui.igGetFontSize
 import cimgui.internal.CImGui.igGetForegroundDrawListNil
+import cimgui.internal.CImGui.igGetForegroundDrawListViewportPtr
 import cimgui.internal.CImGui.igGetForegroundDrawListWindowPtr
 import cimgui.internal.CImGui.igGetFrameCount
 import cimgui.internal.CImGui.igGetFrameHeight
@@ -149,8 +184,10 @@ import cimgui.internal.CImGui.igGetItemID
 import cimgui.internal.CImGui.igGetItemStatusFlags
 import cimgui.internal.CImGui.igGetKeyIndex
 import cimgui.internal.CImGui.igGetKeyPressedAmount
+import cimgui.internal.CImGui.igGetMainViewport
 import cimgui.internal.CImGui.igGetMergedKeyModFlags
 import cimgui.internal.CImGui.igGetMouseCursor
+import cimgui.internal.CImGui.igGetPlatformIO
 import cimgui.internal.CImGui.igGetScrollMaxX
 import cimgui.internal.CImGui.igGetScrollMaxY
 import cimgui.internal.CImGui.igGetScrollX
@@ -165,10 +202,15 @@ import cimgui.internal.CImGui.igGetTime
 import cimgui.internal.CImGui.igGetTopMostPopupModal
 import cimgui.internal.CImGui.igGetTreeNodeToLabelSpacing
 import cimgui.internal.CImGui.igGetVersion
+import cimgui.internal.CImGui.igGetWindowAlwaysWantOwnTabBar
 import cimgui.internal.CImGui.igGetWindowContentRegionWidth
+import cimgui.internal.CImGui.igGetWindowDockID
+import cimgui.internal.CImGui.igGetWindowDockNode
+import cimgui.internal.CImGui.igGetWindowDpiScale
 import cimgui.internal.CImGui.igGetWindowDrawList
 import cimgui.internal.CImGui.igGetWindowHeight
 import cimgui.internal.CImGui.igGetWindowResizeID
+import cimgui.internal.CImGui.igGetWindowViewport
 import cimgui.internal.CImGui.igGetWindowWidth
 import cimgui.internal.CImGui.igImAlphaBlendColors
 import cimgui.internal.CImGui.igImCharIsBlankW
@@ -259,6 +301,7 @@ import cimgui.internal.CImGui.igIsRectVisibleVec2
 import cimgui.internal.CImGui.igIsWindowAppearing
 import cimgui.internal.CImGui.igIsWindowChildOf
 import cimgui.internal.CImGui.igIsWindowCollapsed
+import cimgui.internal.CImGui.igIsWindowDocked
 import cimgui.internal.CImGui.igIsWindowFocused
 import cimgui.internal.CImGui.igIsWindowHovered
 import cimgui.internal.CImGui.igIsWindowNavFocusable
@@ -329,6 +372,7 @@ import cimgui.internal.CImGui.igRadioButtonBool
 import cimgui.internal.CImGui.igRadioButtonIntPtr
 import cimgui.internal.CImGui.igRender
 import cimgui.internal.CImGui.igRenderArrow
+import cimgui.internal.CImGui.igRenderArrowDockMenu
 import cimgui.internal.CImGui.igRenderArrowPointingAt
 import cimgui.internal.CImGui.igRenderBullet
 import cimgui.internal.CImGui.igRenderCheckMark
@@ -336,6 +380,7 @@ import cimgui.internal.CImGui.igRenderColorRectWithAlphaCheckerboard
 import cimgui.internal.CImGui.igRenderFrame
 import cimgui.internal.CImGui.igRenderFrameBorder
 import cimgui.internal.CImGui.igRenderMouseCursor
+import cimgui.internal.CImGui.igRenderPlatformWindowsDefault
 import cimgui.internal.CImGui.igRenderText
 import cimgui.internal.CImGui.igRenderTextClipped
 import cimgui.internal.CImGui.igRenderTextClippedEx
@@ -345,6 +390,7 @@ import cimgui.internal.CImGui.igResetMouseDragDelta
 import cimgui.internal.CImGui.igSameLine
 import cimgui.internal.CImGui.igSaveIniSettingsToDisk
 import cimgui.internal.CImGui.igSaveIniSettingsToMemory
+import cimgui.internal.CImGui.igScaleWindowsInViewport
 import cimgui.internal.CImGui.igSelectableBool
 import cimgui.internal.CImGui.igSelectableBoolPtr
 import cimgui.internal.CImGui.igSeparator
@@ -370,11 +416,15 @@ import cimgui.internal.CImGui.igSetNavID
 import cimgui.internal.CImGui.igSetNextItemOpen
 import cimgui.internal.CImGui.igSetNextItemWidth
 import cimgui.internal.CImGui.igSetNextWindowBgAlpha
+import cimgui.internal.CImGui.igSetNextWindowClass
 import cimgui.internal.CImGui.igSetNextWindowCollapsed
 import cimgui.internal.CImGui.igSetNextWindowContentSize
+import cimgui.internal.CImGui.igSetNextWindowDockID
 import cimgui.internal.CImGui.igSetNextWindowFocus
 import cimgui.internal.CImGui.igSetNextWindowPos
+import cimgui.internal.CImGui.igSetNextWindowScroll
 import cimgui.internal.CImGui.igSetNextWindowSize
+import cimgui.internal.CImGui.igSetNextWindowViewport
 import cimgui.internal.CImGui.igSetScrollFromPosXFloat
 import cimgui.internal.CImGui.igSetScrollFromPosXWindowPtr
 import cimgui.internal.CImGui.igSetScrollFromPosYFloat
@@ -391,9 +441,11 @@ import cimgui.internal.CImGui.igSetTooltip
 import cimgui.internal.CImGui.igSetWindowCollapsedBool
 import cimgui.internal.CImGui.igSetWindowCollapsedStr
 import cimgui.internal.CImGui.igSetWindowCollapsedWindowPtr
+import cimgui.internal.CImGui.igSetWindowDock
 import cimgui.internal.CImGui.igSetWindowFocusNil
 import cimgui.internal.CImGui.igSetWindowFocusStr
 import cimgui.internal.CImGui.igSetWindowFontScale
+import cimgui.internal.CImGui.igSetWindowHitTestHole
 import cimgui.internal.CImGui.igSetWindowPosStr
 import cimgui.internal.CImGui.igSetWindowPosVec2
 import cimgui.internal.CImGui.igSetWindowPosWindowPtr
@@ -409,6 +461,7 @@ import cimgui.internal.CImGui.igShowMetricsWindow
 import cimgui.internal.CImGui.igShowStyleEditor
 import cimgui.internal.CImGui.igShowStyleSelector
 import cimgui.internal.CImGui.igShowUserGuide
+import cimgui.internal.CImGui.igShowViewportThumbnails
 import cimgui.internal.CImGui.igShrinkWidths
 import cimgui.internal.CImGui.igShutdown
 import cimgui.internal.CImGui.igSliderAngle
@@ -423,10 +476,13 @@ import cimgui.internal.CImGui.igSliderInt4
 import cimgui.internal.CImGui.igSmallButton
 import cimgui.internal.CImGui.igSpacing
 import cimgui.internal.CImGui.igStartMouseMovingWindow
+import cimgui.internal.CImGui.igStartMouseMovingWindowOrNode
 import cimgui.internal.CImGui.igStyleColorsClassic
 import cimgui.internal.CImGui.igStyleColorsDark
 import cimgui.internal.CImGui.igStyleColorsLight
+import cimgui.internal.CImGui.igTabBarAddTab
 import cimgui.internal.CImGui.igTabBarCloseTab
+import cimgui.internal.CImGui.igTabBarFindMostRecentlySelectedTabForActiveWindow
 import cimgui.internal.CImGui.igTabBarFindTabByID
 import cimgui.internal.CImGui.igTabBarQueueChangeTabOrder
 import cimgui.internal.CImGui.igTabBarRemoveTab
@@ -438,6 +494,7 @@ import cimgui.internal.CImGui.igTextDisabled
 import cimgui.internal.CImGui.igTextEx
 import cimgui.internal.CImGui.igTextUnformatted
 import cimgui.internal.CImGui.igTextWrapped
+import cimgui.internal.CImGui.igTranslateWindowsInViewport
 import cimgui.internal.CImGui.igTreeNodeBehavior
 import cimgui.internal.CImGui.igTreeNodeBehaviorIsOpen
 import cimgui.internal.CImGui.igTreeNodeExStr
@@ -452,6 +509,7 @@ import cimgui.internal.CImGui.igUnindent
 import cimgui.internal.CImGui.igUpdateHoveredWindowAndCaptureFlags
 import cimgui.internal.CImGui.igUpdateMouseMovingWindowEndFrame
 import cimgui.internal.CImGui.igUpdateMouseMovingWindowNewFrame
+import cimgui.internal.CImGui.igUpdatePlatformWindows
 import cimgui.internal.CImGui.igUpdateWindowParentAndRootLinks
 import cimgui.internal.CImGui.igVSliderFloat
 import cimgui.internal.CImGui.igVSliderInt
@@ -554,6 +612,20 @@ actual object ImGui {
         previewValue: String,
         flags: Flag<ImGuiComboFlags>?
     ): Boolean = igBeginCombo(label, previewValue, flags?.value ?: 0)
+
+    actual fun beginDockableDragDropSource(window: ImGuiWindow) {
+        igBeginDockableDragDropSource(window.ptr)
+    }
+
+    actual fun beginDockableDragDropTarget(window: ImGuiWindow) {
+        igBeginDockableDragDropTarget(window.ptr)
+    }
+
+    actual fun beginDocked(window: ImGuiWindow, pOpen: KMutableProperty0<Boolean>) {
+        usingProperty(pOpen) { ptrPOpen ->
+            igBeginDocked(window.ptr, ptrPOpen)
+        }
+    }
 
     actual fun beginDragDropSource(flags: Flag<ImGuiDragDropFlags>?): Boolean =
             igBeginDragDropSource(flags?.value ?: 0)
@@ -704,6 +776,10 @@ actual object ImGui {
         igClearDragDrop()
     }
 
+    actual fun clearIniSettings() {
+        igClearIniSettings()
+    }
+
     actual fun closeButton(id: ImGuiID, pos: Vec2): Boolean = usingVec2 { ptrPos -> 
         igCloseButton(id.value, ptrPos)
     }
@@ -721,8 +797,12 @@ actual object ImGui {
         igClosePopupsOverWindow(refWindow.ptr, restoreFocusToWindowUnderPopup)
     }
 
-    actual fun collapseButton(id: ImGuiID, pos: Vec2): Boolean = usingVec2 { ptrPos -> 
-        igCollapseButton(id.value, ptrPos)
+    actual fun collapseButton(
+        id: ImGuiID,
+        pos: Vec2,
+        dockNode: ImGuiDockNode
+    ): Boolean = usingVec2 { ptrPos -> 
+        igCollapseButton(id.value, ptrPos, dockNode.ptr)
     }
 
     actual fun collapsingHeader(label: String, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
@@ -881,6 +961,144 @@ actual object ImGui {
     actual fun destroyContext(ctx: ImGuiContext?) {
         igDestroyContext(ctx?.ptr)
     }
+
+    actual fun destroyPlatformWindow(viewport: ImGuiViewportP) {
+        igDestroyPlatformWindow(viewport.ptr)
+    }
+
+    actual fun destroyPlatformWindows() {
+        igDestroyPlatformWindows()
+    }
+
+    actual fun dockBuilderAddNode(nodeId: ImGuiID, flags: Flag<ImGuiDockNodeFlags>?): ImGuiID =
+            igDockBuilderAddNode(nodeId.value, flags?.value ?: 0).let(::ImGuiID)
+
+    actual fun dockBuilderCopyWindowSettings(srcName: String, dstName: String) {
+        igDockBuilderCopyWindowSettings(srcName, dstName)
+    }
+
+    actual fun dockBuilderDockWindow(windowName: String, nodeId: ImGuiID) {
+        igDockBuilderDockWindow(windowName, nodeId.value)
+    }
+
+    actual fun dockBuilderFinish(nodeId: ImGuiID) {
+        igDockBuilderFinish(nodeId.value)
+    }
+
+    actual fun dockBuilderGetCentralNode(nodeId: ImGuiID): ImGuiDockNode =
+            igDockBuilderGetCentralNode(nodeId.value)!!.let(::ImGuiDockNode)
+
+    actual fun dockBuilderGetNode(nodeId: ImGuiID): ImGuiDockNode =
+            igDockBuilderGetNode(nodeId.value)!!.let(::ImGuiDockNode)
+
+    actual fun dockBuilderRemoveNode(nodeId: ImGuiID) {
+        igDockBuilderRemoveNode(nodeId.value)
+    }
+
+    actual fun dockBuilderRemoveNodeChildNodes(nodeId: ImGuiID) {
+        igDockBuilderRemoveNodeChildNodes(nodeId.value)
+    }
+
+    actual fun dockBuilderRemoveNodeDockedWindows(nodeId: ImGuiID, clearSettingsRefs: Boolean) {
+        igDockBuilderRemoveNodeDockedWindows(nodeId.value, clearSettingsRefs)
+    }
+
+    actual fun dockBuilderSetNodePos(nodeId: ImGuiID, pos: Vec2) {
+        usingVec2 { ptrPos -> 
+            igDockBuilderSetNodePos(nodeId.value, ptrPos)
+        }
+    }
+
+    actual fun dockBuilderSetNodeSize(nodeId: ImGuiID, size: Vec2) {
+        usingVec2 { ptrSize -> 
+            igDockBuilderSetNodeSize(nodeId.value, ptrSize)
+        }
+    }
+
+    actual fun dockContextCalcDropPosForDocking(
+        target: ImGuiWindow,
+        targetNode: ImGuiDockNode,
+        payload: ImGuiWindow,
+        splitDir: ImGuiDir,
+        splitOuter: Boolean,
+        outPos: ImVec2
+    ): Boolean = igDockContextCalcDropPosForDocking(target.ptr, targetNode.ptr, payload.ptr,
+            splitDir.value, splitOuter, outPos.ptr)
+
+    actual fun dockContextClearNodes(
+        ctx: ImGuiContext,
+        rootId: ImGuiID,
+        clearSettingsRefs: Boolean
+    ) {
+        igDockContextClearNodes(ctx.ptr, rootId.value, clearSettingsRefs)
+    }
+
+    actual fun dockContextGenNodeID(ctx: ImGuiContext): ImGuiID =
+            igDockContextGenNodeID(ctx.ptr).let(::ImGuiID)
+
+    actual fun dockContextInitialize(ctx: ImGuiContext) {
+        igDockContextInitialize(ctx.ptr)
+    }
+
+    actual fun dockContextQueueDock(
+        ctx: ImGuiContext,
+        target: ImGuiWindow,
+        targetNode: ImGuiDockNode,
+        payload: ImGuiWindow,
+        splitDir: ImGuiDir,
+        splitRatio: Float,
+        splitOuter: Boolean
+    ) {
+        igDockContextQueueDock(ctx.ptr, target.ptr, targetNode.ptr, payload.ptr, splitDir.value,
+                splitRatio, splitOuter)
+    }
+
+    actual fun dockContextQueueUndockNode(ctx: ImGuiContext, node: ImGuiDockNode) {
+        igDockContextQueueUndockNode(ctx.ptr, node.ptr)
+    }
+
+    actual fun dockContextQueueUndockWindow(ctx: ImGuiContext, window: ImGuiWindow) {
+        igDockContextQueueUndockWindow(ctx.ptr, window.ptr)
+    }
+
+    actual fun dockContextRebuildNodes(ctx: ImGuiContext) {
+        igDockContextRebuildNodes(ctx.ptr)
+    }
+
+    actual fun dockContextShutdown(ctx: ImGuiContext) {
+        igDockContextShutdown(ctx.ptr)
+    }
+
+    actual fun dockContextUpdateDocking(ctx: ImGuiContext) {
+        igDockContextUpdateDocking(ctx.ptr)
+    }
+
+    actual fun dockContextUpdateUndocking(ctx: ImGuiContext) {
+        igDockContextUpdateUndocking(ctx.ptr)
+    }
+
+    actual fun dockNodeGetDepth(node: ImGuiDockNode): Int = igDockNodeGetDepth(node.ptr)
+
+    actual fun dockNodeGetRootNode(node: ImGuiDockNode): ImGuiDockNode =
+            igDockNodeGetRootNode(node.ptr)!!.let(::ImGuiDockNode)
+
+    actual fun dockSpace(
+        id: ImGuiID,
+        size: Vec2,
+        flags: Flag<ImGuiDockNodeFlags>?,
+        windowClass: ImGuiWindowClass?
+    ) {
+        usingVec2 { ptrSize -> 
+            igDockSpace(id.value, ptrSize, flags?.value ?: 0, windowClass?.ptr)
+        }
+    }
+
+    actual fun dockSpaceOverViewport(
+        viewport: ImGuiViewport?,
+        flags: Flag<ImGuiDockNodeFlags>?,
+        windowClass: ImGuiWindowClass?
+    ): ImGuiID = igDockSpaceOverViewport(viewport?.ptr, flags?.value ?: 0,
+            windowClass?.ptr).let(::ImGuiID)
 
     actual fun dragFloat(
         label: String,
@@ -1113,6 +1331,9 @@ actual object ImGui {
     actual fun findSettingsHandler(typeName: String): ImGuiSettingsHandler =
             igFindSettingsHandler(typeName)!!.let(::ImGuiSettingsHandler)
 
+    actual fun findViewportByID(id: ImGuiID): ImGuiViewport =
+            igFindViewportByID(id.value)!!.let(::ImGuiViewport)
+
     actual fun findWindowByID(id: ImGuiID): ImGuiWindow =
             igFindWindowByID(id.value)!!.let(::ImGuiWindow)
 
@@ -1147,7 +1368,11 @@ actual object ImGui {
 
     actual fun getActiveID(): ImGuiID = igGetActiveID().let(::ImGuiID)
 
-    actual fun getBackgroundDrawList(): ImDrawList = igGetBackgroundDrawList()!!.let(::ImDrawList)
+    actual fun getBackgroundDrawList(): ImDrawList =
+            igGetBackgroundDrawListNil()!!.let(::ImDrawList)
+
+    actual fun getBackgroundDrawList(viewport: ImGuiViewport): ImDrawList =
+            igGetBackgroundDrawListViewportPtr(viewport.ptr)!!.let(::ImDrawList)
 
     actual fun getClipboardText(): String? = igGetClipboardText()
 
@@ -1207,6 +1432,9 @@ actual object ImGui {
     actual fun getForegroundDrawList(): ImDrawList =
             igGetForegroundDrawListNil()!!.let(::ImDrawList)
 
+    actual fun getForegroundDrawList(viewport: ImGuiViewport): ImDrawList =
+            igGetForegroundDrawListViewportPtr(viewport.ptr)!!.let(::ImDrawList)
+
     actual fun getForegroundDrawList(window: ImGuiWindow): ImDrawList =
             igGetForegroundDrawListWindowPtr(window.ptr)!!.let(::ImDrawList)
 
@@ -1241,11 +1469,15 @@ actual object ImGui {
         rate: Float
     ): Int = igGetKeyPressedAmount(keyIndex, repeatDelay, rate)
 
+    actual fun getMainViewport(): ImGuiViewport = igGetMainViewport()!!.let(::ImGuiViewport)
+
     actual fun getMergedKeyModFlags(): Flag<ImGuiKeyModFlags> = igGetMergedKeyModFlags().let {
             ImGuiKeyModFlags.fromMultiple(it) }
 
     actual fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let {
             ImGuiMouseCursor.from(it) }
+
+    actual fun getPlatformIO(): ImGuiPlatformIO = igGetPlatformIO()!!.let(::ImGuiPlatformIO)
 
     actual fun getScrollMaxX(): Float = igGetScrollMaxX()
 
@@ -1276,7 +1508,16 @@ actual object ImGui {
 
     actual fun getVersion(): String? = igGetVersion()
 
+    actual fun getWindowAlwaysWantOwnTabBar(window: ImGuiWindow): Boolean =
+            igGetWindowAlwaysWantOwnTabBar(window.ptr)
+
     actual fun getWindowContentRegionWidth(): Float = igGetWindowContentRegionWidth()
+
+    actual fun getWindowDockID(): ImGuiID = igGetWindowDockID().let(::ImGuiID)
+
+    actual fun getWindowDockNode(): ImGuiDockNode = igGetWindowDockNode()!!.let(::ImGuiDockNode)
+
+    actual fun getWindowDpiScale(): Float = igGetWindowDpiScale()
 
     actual fun getWindowDrawList(): ImDrawList = igGetWindowDrawList()!!.let(::ImDrawList)
 
@@ -1284,6 +1525,8 @@ actual object ImGui {
 
     actual fun getWindowResizeID(window: ImGuiWindow, n: Int): ImGuiID =
             igGetWindowResizeID(window.ptr, n).let(::ImGuiID)
+
+    actual fun getWindowViewport(): ImGuiViewport = igGetWindowViewport()!!.let(::ImGuiViewport)
 
     actual fun getWindowWidth(): Float = igGetWindowWidth()
 
@@ -1709,6 +1952,8 @@ actual object ImGui {
 
     actual fun isWindowCollapsed(): Boolean = igIsWindowCollapsed()
 
+    actual fun isWindowDocked(): Boolean = igIsWindowDocked()
+
     actual fun isWindowFocused(flags: Flag<ImGuiFocusedFlags>?): Boolean =
             igIsWindowFocused(flags?.value ?: 0)
 
@@ -2028,6 +2273,17 @@ actual object ImGui {
         }
     }
 
+    actual fun renderArrowDockMenu(
+        drawList: ImDrawList,
+        pMin: Vec2,
+        sz: Float,
+        col: UInt
+    ) {
+        usingVec2 { ptrPMin -> 
+            igRenderArrowDockMenu(drawList.ptr, ptrPMin, sz, col.toLong())
+        }
+    }
+
     actual fun renderArrowPointingAt(
         drawList: ImDrawList,
         pos: Vec2,
@@ -2125,6 +2381,10 @@ actual object ImGui {
         }
     }
 
+    actual fun renderPlatformWindowsDefault() {
+        igRenderPlatformWindowsDefault(null, null)
+    }
+
     actual fun renderText(
         pos: Vec2,
         text: String,
@@ -2219,6 +2479,10 @@ actual object ImGui {
     actual fun saveIniSettingsToMemory(outIniSize: KMutableProperty0<ULong>?): String? =
             usingPropertyN(outIniSize) { ptrOutIniSize ->
         igSaveIniSettingsToMemory(ptrOutIniSize)
+    }
+
+    actual fun scaleWindowsInViewport(viewport: ImGuiViewportP, scale: Float) {
+        igScaleWindowsInViewport(viewport.ptr, scale)
     }
 
     actual fun selectable(
@@ -2341,6 +2605,10 @@ actual object ImGui {
         igSetNextWindowBgAlpha(alpha)
     }
 
+    actual fun setNextWindowClass(windowClass: ImGuiWindowClass) {
+        igSetNextWindowClass(windowClass.ptr)
+    }
+
     actual fun setNextWindowCollapsed(collapsed: Boolean, cond: Flag<ImGuiCond>?) {
         igSetNextWindowCollapsed(collapsed, cond?.value ?: 0)
     }
@@ -2349,6 +2617,10 @@ actual object ImGui {
         usingVec2 { ptrSize -> 
             igSetNextWindowContentSize(ptrSize)
         }
+    }
+
+    actual fun setNextWindowDockID(dockId: ImGuiID, cond: Flag<ImGuiCond>?) {
+        igSetNextWindowDockID(dockId.value, cond?.value ?: 0)
     }
 
     actual fun setNextWindowFocus() {
@@ -2367,10 +2639,20 @@ actual object ImGui {
         }
     }
 
+    actual fun setNextWindowScroll(scroll: Vec2) {
+        usingVec2 { ptrScroll -> 
+            igSetNextWindowScroll(ptrScroll)
+        }
+    }
+
     actual fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {
         usingVec2 { ptrSize -> 
             igSetNextWindowSize(ptrSize, cond?.value ?: 0)
         }
+    }
+
+    actual fun setNextWindowViewport(viewportId: ImGuiID) {
+        igSetNextWindowViewport(viewportId.value)
     }
 
     actual fun setScrollFromPosX(localX: Float, centerXRatio: Float) {
@@ -2453,6 +2735,14 @@ actual object ImGui {
         igSetWindowCollapsedWindowPtr(window.ptr, collapsed, cond?.value ?: 0)
     }
 
+    actual fun setWindowDock(
+        window: ImGuiWindow,
+        dockId: ImGuiID,
+        cond: Flag<ImGuiCond>
+    ) {
+        igSetWindowDock(window.ptr, dockId.value, cond.value)
+    }
+
     actual fun setWindowFocus() {
         igSetWindowFocusNil()
     }
@@ -2463,6 +2753,18 @@ actual object ImGui {
 
     actual fun setWindowFontScale(scale: Float) {
         igSetWindowFontScale(scale)
+    }
+
+    actual fun setWindowHitTestHole(
+        window: ImGuiWindow,
+        pos: Vec2,
+        size: Vec2
+    ) {
+        usingVec2 { ptrPos -> 
+            usingVec2 { ptrSize -> 
+                igSetWindowHitTestHole(window.ptr, ptrPos, ptrSize)
+            }
+        }
     }
 
     actual fun setWindowPos(pos: Vec2, cond: Flag<ImGuiCond>?) {
@@ -2586,6 +2888,10 @@ actual object ImGui {
 
     actual fun showUserGuide() {
         igShowUserGuide()
+    }
+
+    actual fun showViewportThumbnails() {
+        igShowViewportThumbnails()
     }
 
     actual fun shrinkWidths(
@@ -2728,6 +3034,14 @@ actual object ImGui {
         igStartMouseMovingWindow(window.ptr)
     }
 
+    actual fun startMouseMovingWindowOrNode(
+        window: ImGuiWindow,
+        node: ImGuiDockNode,
+        undockFloatingNode: Boolean
+    ) {
+        igStartMouseMovingWindowOrNode(window.ptr, node.ptr, undockFloatingNode)
+    }
+
     actual fun styleColorsClassic(dst: ImGuiStyle?) {
         igStyleColorsClassic(dst?.ptr)
     }
@@ -2740,9 +3054,20 @@ actual object ImGui {
         igStyleColorsLight(dst?.ptr)
     }
 
+    actual fun tabBarAddTab(
+        tabBar: ImGuiTabBar,
+        tabFlags: Flag<ImGuiTabItemFlags>,
+        window: ImGuiWindow
+    ) {
+        igTabBarAddTab(tabBar.ptr, tabFlags.value, window.ptr)
+    }
+
     actual fun tabBarCloseTab(tabBar: ImGuiTabBar, tab: ImGuiTabItem) {
         igTabBarCloseTab(tabBar.ptr, tab.ptr)
     }
+
+    actual fun tabBarFindMostRecentlySelectedTabForActiveWindow(tabBar: ImGuiTabBar): ImGuiTabItem =
+            igTabBarFindMostRecentlySelectedTabForActiveWindow(tabBar.ptr)!!.let(::ImGuiTabItem)
 
     actual fun tabBarFindTabByID(tabBar: ImGuiTabBar, tabId: ImGuiID): ImGuiTabItem =
             igTabBarFindTabByID(tabBar.ptr, tabId.value)!!.let(::ImGuiTabItem)
@@ -2763,9 +3088,10 @@ actual object ImGui {
         tabBar: ImGuiTabBar,
         label: String,
         pOpen: KMutableProperty0<Boolean>,
-        flags: Flag<ImGuiTabItemFlags>
+        flags: Flag<ImGuiTabItemFlags>,
+        dockedWindow: ImGuiWindow
     ): Boolean = usingProperty(pOpen) { ptrPOpen ->
-        igTabItemEx(tabBar.ptr, label, ptrPOpen, flags.value)
+        igTabItemEx(tabBar.ptr, label, ptrPOpen, flags.value, dockedWindow.ptr)
     }
 
     actual fun tempInputIsActive(id: ImGuiID): Boolean = igTempInputIsActive(id.value)
@@ -2798,6 +3124,18 @@ actual object ImGui {
 
     actual fun textWrapped(fmt: String) {
         igTextWrapped(fmt)
+    }
+
+    actual fun translateWindowsInViewport(
+        viewport: ImGuiViewportP,
+        oldPos: Vec2,
+        newPos: Vec2
+    ) {
+        usingVec2 { ptrOldPos -> 
+            usingVec2 { ptrNewPos -> 
+                igTranslateWindowsInViewport(viewport.ptr, ptrOldPos, ptrNewPos)
+            }
+        }
     }
 
     actual fun treeNode(label: String): Boolean = igTreeNodeStr(label)
@@ -2853,6 +3191,10 @@ actual object ImGui {
 
     actual fun updateMouseMovingWindowNewFrame() {
         igUpdateMouseMovingWindowNewFrame()
+    }
+
+    actual fun updatePlatformWindows() {
+        igUpdatePlatformWindows()
     }
 
     actual fun updateWindowParentAndRootLinks(

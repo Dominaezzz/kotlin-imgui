@@ -243,6 +243,14 @@ public class ImGuiStyle {
     return CImGuiJNI.ImGuiStyle_TabBorderSize_get(swigCPtr, this);
   }
 
+  public void setTabMinWidthForUnselectedCloseButton(float value) {
+    CImGuiJNI.ImGuiStyle_TabMinWidthForUnselectedCloseButton_set(swigCPtr, this, value);
+  }
+
+  public float getTabMinWidthForUnselectedCloseButton() {
+    return CImGuiJNI.ImGuiStyle_TabMinWidthForUnselectedCloseButton_get(swigCPtr, this);
+  }
+
   public void setColorButtonPosition(int value) {
     CImGuiJNI.ImGuiStyle_ColorButtonPosition_set(swigCPtr, this, value);
   }

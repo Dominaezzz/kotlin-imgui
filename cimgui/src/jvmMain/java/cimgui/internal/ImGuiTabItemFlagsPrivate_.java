@@ -10,5 +10,7 @@ package cimgui.internal;
 
 public final class ImGuiTabItemFlagsPrivate_ {
   public final static int ImGuiTabItemFlags_NoCloseButton = 1 << 20;
+  public final static int ImGuiTabItemFlags_Unsorted = 1 << 21;
+  public final static int ImGuiTabItemFlags_Preview = 1 << 22;
 }
 

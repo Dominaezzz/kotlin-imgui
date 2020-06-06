@@ -67,6 +67,30 @@ actual inline class ImGuiIO(
   actual val displayFramebufferScale: Vec2
     get() = ptr.displayFramebufferScale.fromCValue()
 
+  actual val configDockingNoSplit: Boolean
+    get() = ptr.configDockingNoSplit
+
+  actual val configDockingWithShift: Boolean
+    get() = ptr.configDockingWithShift
+
+  actual val configDockingAlwaysTabBar: Boolean
+    get() = ptr.configDockingAlwaysTabBar
+
+  actual val configDockingTransparentPayload: Boolean
+    get() = ptr.configDockingTransparentPayload
+
+  actual val configViewportsNoAutoMerge: Boolean
+    get() = ptr.configViewportsNoAutoMerge
+
+  actual val configViewportsNoTaskBarIcon: Boolean
+    get() = ptr.configViewportsNoTaskBarIcon
+
+  actual val configViewportsNoDecoration: Boolean
+    get() = ptr.configViewportsNoDecoration
+
+  actual val configViewportsNoDefaultParent: Boolean
+    get() = ptr.configViewportsNoDefaultParent
+
   actual val mouseDrawCursor: Boolean
     get() = ptr.mouseDrawCursor
 
@@ -99,6 +123,9 @@ actual inline class ImGuiIO(
 
   actual val mouseWheelH: Float
     get() = ptr.mouseWheelH
+
+  actual val mouseHoveredViewport: ImGuiID
+    get() = ptr.mouseHoveredViewport.let(::ImGuiID)
 
   actual val keyCtrl: Boolean
     get() = ptr.keyCtrl

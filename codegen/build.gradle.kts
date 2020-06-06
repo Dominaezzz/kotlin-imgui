@@ -4,7 +4,7 @@ plugins {
     application
 }
 
-val imGuiVersion: String by rootProject.extra
+val cimguiVersion: String by rootProject.extra
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -26,6 +26,6 @@ tasks {
 
     run.configure {
         workingDir(rootProject.projectDir.resolve("imgui/src"))
-        args(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
+        args(project(":cimgui").buildDir.resolve("downloads/cimgui-${cimguiVersion}/generator/output"))
     }
 }

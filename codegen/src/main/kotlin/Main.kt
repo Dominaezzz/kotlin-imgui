@@ -208,7 +208,7 @@ fun main(args: Array<String>) {
 
 	for ((enumName, entries) in enums) {
 		// Ignore internal flags
-		if (enumName.endsWith("FlagsPrivate_")) continue
+		if (enumName.endsWith("Private_")) continue
 
 		val isBitmask = enumName in enumBitMasks
 
@@ -725,7 +725,7 @@ fun main(args: Array<String>) {
 			isConditional = false
 		} else if (funSpec.name.startsWith("begin")) {
 			val noun = funSpec.name.removePrefix("begin")
-			if (noun.isEmpty() || noun == "Child" || noun == "ChildFrame" || noun == "ChildEx") {
+			if (noun in listOf("", "Child", "ChildFrame", "ChildEx", "DockableDragDropSource", "DockableDragDropTarget", "Docked")) {
 				// TODO: Will handle these in future release.
 				continue
 			}

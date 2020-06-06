@@ -18,6 +18,9 @@ actual inline class ImGuiTabItem(
   actual val flags: Flag<ImGuiTabItemFlags>
     get() = ptr.pointed.Flags.let { ImGuiTabItemFlags.fromMultiple(it) }
 
+  actual val window: ImGuiWindow?
+    get() = ptr.pointed.Window?.let(::ImGuiWindow)
+
   actual val lastFrameVisible: Int
     get() = ptr.pointed.LastFrameVisible
 

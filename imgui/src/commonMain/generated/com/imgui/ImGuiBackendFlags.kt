@@ -7,7 +7,13 @@ expect enum class ImGuiBackendFlags : Flag<ImGuiBackendFlags> {
 
   HasSetMousePos,
 
-  RendererHasVtxOffset;
+  RendererHasVtxOffset,
+
+  PlatformHasViewports,
+
+  HasMouseHoveredViewport,
+
+  RendererHasViewports;
 
   companion object
 }

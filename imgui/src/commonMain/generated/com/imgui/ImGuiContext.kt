@@ -11,6 +11,10 @@ expect class ImGuiContext {
 
   val fontAtlasOwnedByContext: Boolean
 
+  val configFlagsCurrFrame: Flag<ImGuiConfigFlags>
+
+  val configFlagsLastFrame: Flag<ImGuiConfigFlags>
+
   val font: ImFont?
 
   val fontSize: Float
@@ -23,6 +27,8 @@ expect class ImGuiContext {
 
   val frameCountEnded: Int
 
+  val frameCountPlatformEnded: Int
+
   val frameCountRendered: Int
 
   val withinFrameScope: Boolean
@@ -31,6 +37,10 @@ expect class ImGuiContext {
 
   val withinEndChild: Boolean
 
+  val testEngineHookItems: Boolean
+
+  val testEngineHookIdInfo: ImGuiID
+
   val windowsActiveCount: Int
 
   val currentWindow: ImGuiWindow?
@@ -38,6 +48,8 @@ expect class ImGuiContext {
   val hoveredWindow: ImGuiWindow?
 
   val hoveredRootWindow: ImGuiWindow?
+
+  val hoveredWindowUnderMovingWindow: ImGuiWindow?
 
   val movingWindow: ImGuiWindow?
 
@@ -94,6 +106,18 @@ expect class ImGuiContext {
   val lastActiveId: ImGuiID
 
   val lastActiveIdTimer: Float
+
+  val currentDpiScale: Float
+
+  val currentViewport: ImGuiViewportP?
+
+  val mouseViewport: ImGuiViewportP?
+
+  val mouseLastHoveredViewport: ImGuiViewportP?
+
+  val platformLastFocusedViewport: ImGuiID
+
+  val viewportFrontMostStampCount: Int
 
   val navWindow: ImGuiWindow?
 
@@ -153,11 +177,15 @@ expect class ImGuiContext {
 
   val navMoveClipDir: ImGuiDir
 
+  val navWrapRequestWindow: ImGuiWindow?
+
+  val navWrapRequestFlags: Flag<ImGuiNavMoveFlags>
+
   val navWindowingTarget: ImGuiWindow?
 
   val navWindowingTargetAnim: ImGuiWindow?
 
-  val navWindowingList: ImGuiWindow?
+  val navWindowingListWindow: ImGuiWindow?
 
   val navWindowingTimer: Float
 
@@ -207,6 +235,8 @@ expect class ImGuiContext {
 
   val dragDropAcceptFrameCount: Int
 
+  val dragDropHoldJustPressedId: ImGuiID
+
   val currentTabBar: ImGuiTabBar?
 
   val lastValidMousePos: Vec2
@@ -234,6 +264,8 @@ expect class ImGuiContext {
   val platformImePos: Vec2
 
   val platformImeLastPos: Vec2
+
+  val platformImePosViewport: ImGuiViewportP?
 
   val settingsLoaded: Boolean
 

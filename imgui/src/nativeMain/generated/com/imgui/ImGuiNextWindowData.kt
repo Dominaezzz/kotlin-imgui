@@ -25,6 +25,9 @@ actual inline class ImGuiNextWindowData(
   actual val collapsedCond: Flag<ImGuiCond>
     get() = ptr.pointed.CollapsedCond.let { ImGuiCond.fromMultiple(it) }
 
+  actual val dockCond: Flag<ImGuiCond>
+    get() = ptr.pointed.DockCond.let { ImGuiCond.fromMultiple(it) }
+
   actual val posVal: Vec2
     get() = ptr.pointed.PosVal.fromCValue()
 
@@ -37,11 +40,23 @@ actual inline class ImGuiNextWindowData(
   actual val contentSizeVal: Vec2
     get() = ptr.pointed.ContentSizeVal.fromCValue()
 
+  actual val scrollVal: Vec2
+    get() = ptr.pointed.ScrollVal.fromCValue()
+
+  actual val posUndock: Boolean
+    get() = ptr.pointed.PosUndock
+
   actual val collapsedVal: Boolean
     get() = ptr.pointed.CollapsedVal
 
   actual val bgAlphaVal: Float
     get() = ptr.pointed.BgAlphaVal
+
+  actual val viewportId: ImGuiID
+    get() = ptr.pointed.ViewportId.let(::ImGuiID)
+
+  actual val dockId: ImGuiID
+    get() = ptr.pointed.DockId.let(::ImGuiID)
 
   actual val menuBarOffsetMinVal: Vec2
     get() = ptr.pointed.MenuBarOffsetMinVal.fromCValue()

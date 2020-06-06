@@ -30,6 +30,7 @@ public final class ImGuiWindowFlags_ {
   public final static int ImGuiWindowFlags_NoNavInputs = 1 << 18;
   public final static int ImGuiWindowFlags_NoNavFocus = 1 << 19;
   public final static int ImGuiWindowFlags_UnsavedDocument = 1 << 20;
+  public final static int ImGuiWindowFlags_NoDocking = 1 << 21;
   public final static int ImGuiWindowFlags_NoNav = ImGuiWindowFlags_NoNavInputs|ImGuiWindowFlags_NoNavFocus;
   public final static int ImGuiWindowFlags_NoDecoration = ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NoCollapse;
   public final static int ImGuiWindowFlags_NoInputs = ImGuiWindowFlags_NoMouseInputs|ImGuiWindowFlags_NoNavInputs|ImGuiWindowFlags_NoNavFocus;
@@ -39,5 +40,6 @@ public final class ImGuiWindowFlags_ {
   public final static int ImGuiWindowFlags_Popup = 1 << 26;
   public final static int ImGuiWindowFlags_Modal = 1 << 27;
   public final static int ImGuiWindowFlags_ChildMenu = 1 << 28;
+  public final static int ImGuiWindowFlags_DockNodeHost = 1 << 29;
 }
 

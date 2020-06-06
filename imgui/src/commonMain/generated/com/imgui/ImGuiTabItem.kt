@@ -8,6 +8,8 @@ expect class ImGuiTabItem {
 
   val flags: Flag<ImGuiTabItemFlags>
 
+  val window: ImGuiWindow?
+
   val lastFrameVisible: Int
 
   val lastFrameSelected: Int

@@ -19,6 +19,12 @@ actual inline class ImGuiContext(
   actual val fontAtlasOwnedByContext: Boolean
     get() = ptr.fontAtlasOwnedByContext
 
+  actual val configFlagsCurrFrame: Flag<ImGuiConfigFlags>
+    get() = ptr.configFlagsCurrFrame.let { ImGuiConfigFlags.fromMultiple(it) }
+
+  actual val configFlagsLastFrame: Flag<ImGuiConfigFlags>
+    get() = ptr.configFlagsLastFrame.let { ImGuiConfigFlags.fromMultiple(it) }
+
   actual val font: ImFont?
     get() = ptr.font?.let(::ImFont)
 
@@ -37,6 +43,9 @@ actual inline class ImGuiContext(
   actual val frameCountEnded: Int
     get() = ptr.frameCountEnded
 
+  actual val frameCountPlatformEnded: Int
+    get() = ptr.frameCountPlatformEnded
+
   actual val frameCountRendered: Int
     get() = ptr.frameCountRendered
 
@@ -49,6 +58,12 @@ actual inline class ImGuiContext(
   actual val withinEndChild: Boolean
     get() = ptr.withinEndChild
 
+  actual val testEngineHookItems: Boolean
+    get() = ptr.testEngineHookItems
+
+  actual val testEngineHookIdInfo: ImGuiID
+    get() = ptr.testEngineHookIdInfo.let(::ImGuiID)
+
   actual val windowsActiveCount: Int
     get() = ptr.windowsActiveCount
 
@@ -60,6 +75,9 @@ actual inline class ImGuiContext(
 
   actual val hoveredRootWindow: ImGuiWindow?
     get() = ptr.hoveredRootWindow?.let(::ImGuiWindow)
+
+  actual val hoveredWindowUnderMovingWindow: ImGuiWindow?
+    get() = ptr.hoveredWindowUnderMovingWindow?.let(::ImGuiWindow)
 
   actual val movingWindow: ImGuiWindow?
     get() = ptr.movingWindow?.let(::ImGuiWindow)
@@ -144,6 +162,24 @@ actual inline class ImGuiContext(
 
   actual val lastActiveIdTimer: Float
     get() = ptr.lastActiveIdTimer
+
+  actual val currentDpiScale: Float
+    get() = ptr.currentDpiScale
+
+  actual val currentViewport: ImGuiViewportP?
+    get() = ptr.currentViewport?.let(::ImGuiViewportP)
+
+  actual val mouseViewport: ImGuiViewportP?
+    get() = ptr.mouseViewport?.let(::ImGuiViewportP)
+
+  actual val mouseLastHoveredViewport: ImGuiViewportP?
+    get() = ptr.mouseLastHoveredViewport?.let(::ImGuiViewportP)
+
+  actual val platformLastFocusedViewport: ImGuiID
+    get() = ptr.platformLastFocusedViewport.let(::ImGuiID)
+
+  actual val viewportFrontMostStampCount: Int
+    get() = ptr.viewportFrontMostStampCount
 
   actual val navWindow: ImGuiWindow?
     get() = ptr.navWindow?.let(::ImGuiWindow)
@@ -232,14 +268,20 @@ actual inline class ImGuiContext(
   actual val navMoveClipDir: ImGuiDir
     get() = ptr.navMoveClipDir.let { ImGuiDir.from(it) }
 
+  actual val navWrapRequestWindow: ImGuiWindow?
+    get() = ptr.navWrapRequestWindow?.let(::ImGuiWindow)
+
+  actual val navWrapRequestFlags: Flag<ImGuiNavMoveFlags>
+    get() = ptr.navWrapRequestFlags.let { ImGuiNavMoveFlags.fromMultiple(it) }
+
   actual val navWindowingTarget: ImGuiWindow?
     get() = ptr.navWindowingTarget?.let(::ImGuiWindow)
 
   actual val navWindowingTargetAnim: ImGuiWindow?
     get() = ptr.navWindowingTargetAnim?.let(::ImGuiWindow)
 
-  actual val navWindowingList: ImGuiWindow?
-    get() = ptr.navWindowingList?.let(::ImGuiWindow)
+  actual val navWindowingListWindow: ImGuiWindow?
+    get() = ptr.navWindowingListWindow?.let(::ImGuiWindow)
 
   actual val navWindowingTimer: Float
     get() = ptr.navWindowingTimer
@@ -313,6 +355,9 @@ actual inline class ImGuiContext(
   actual val dragDropAcceptFrameCount: Int
     get() = ptr.dragDropAcceptFrameCount
 
+  actual val dragDropHoldJustPressedId: ImGuiID
+    get() = ptr.dragDropHoldJustPressedId.let(::ImGuiID)
+
   actual val currentTabBar: ImGuiTabBar?
     get() = ptr.currentTabBar?.let(::ImGuiTabBar)
 
@@ -354,6 +399,9 @@ actual inline class ImGuiContext(
 
   actual val platformImeLastPos: Vec2
     get() = ptr.platformImeLastPos.fromCValue()
+
+  actual val platformImePosViewport: ImGuiViewportP?
+    get() = ptr.platformImePosViewport?.let(::ImGuiViewportP)
 
   actual val settingsLoaded: Boolean
     get() = ptr.settingsLoaded

@@ -14,5 +14,8 @@ public final class ImGuiBackendFlags_ {
   public final static int ImGuiBackendFlags_HasMouseCursors = 1 << 1;
   public final static int ImGuiBackendFlags_HasSetMousePos = 1 << 2;
   public final static int ImGuiBackendFlags_RendererHasVtxOffset = 1 << 3;
+  public final static int ImGuiBackendFlags_PlatformHasViewports = 1 << 10;
+  public final static int ImGuiBackendFlags_HasMouseHoveredViewport = 1 << 11;
+  public final static int ImGuiBackendFlags_RendererHasViewports = 1 << 12;
 }
 

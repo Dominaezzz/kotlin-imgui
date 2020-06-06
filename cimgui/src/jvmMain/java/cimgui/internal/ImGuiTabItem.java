@@ -52,6 +52,15 @@ public class ImGuiTabItem {
     return CImGuiJNI.ImGuiTabItem_Flags_get(swigCPtr, this);
   }
 
+  public void setWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiTabItem_Window_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  }
+
+  public ImGuiWindow getWindow() {
+    long cPtr = CImGuiJNI.ImGuiTabItem_Window_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
   public void setLastFrameVisible(int value) {
     CImGuiJNI.ImGuiTabItem_LastFrameVisible_set(swigCPtr, this, value);
   }

@@ -29,6 +29,7 @@
 
 %}
 
+%ignore igImFormatStringV;
 %ignore igTextV;
 %ignore igTextColoredV;
 %ignore igTextDisabledV;
@@ -42,6 +43,8 @@
 %ignore igSetTooltipV;
 %ignore ImGuiTextBuffer_appendfv;
 
+%ignore ImGuiDataTypePrivate_;
+%ignore ImGuiDockNodeFlagsPrivate_;
 
 %include cimgui_stringarray.i
 %include cimgui_valuesgetter.i

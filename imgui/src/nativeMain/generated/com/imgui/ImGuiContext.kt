@@ -21,6 +21,12 @@ actual inline class ImGuiContext(
   actual val fontAtlasOwnedByContext: Boolean
     get() = ptr.pointed.FontAtlasOwnedByContext
 
+  actual val configFlagsCurrFrame: Flag<ImGuiConfigFlags>
+    get() = ptr.pointed.ConfigFlagsCurrFrame.let { ImGuiConfigFlags.fromMultiple(it) }
+
+  actual val configFlagsLastFrame: Flag<ImGuiConfigFlags>
+    get() = ptr.pointed.ConfigFlagsLastFrame.let { ImGuiConfigFlags.fromMultiple(it) }
+
   actual val font: ImFont?
     get() = ptr.pointed.Font?.let(::ImFont)
 
@@ -39,6 +45,9 @@ actual inline class ImGuiContext(
   actual val frameCountEnded: Int
     get() = ptr.pointed.FrameCountEnded
 
+  actual val frameCountPlatformEnded: Int
+    get() = ptr.pointed.FrameCountPlatformEnded
+
   actual val frameCountRendered: Int
     get() = ptr.pointed.FrameCountRendered
 
@@ -51,6 +60,12 @@ actual inline class ImGuiContext(
   actual val withinEndChild: Boolean
     get() = ptr.pointed.WithinEndChild
 
+  actual val testEngineHookItems: Boolean
+    get() = ptr.pointed.TestEngineHookItems
+
+  actual val testEngineHookIdInfo: ImGuiID
+    get() = ptr.pointed.TestEngineHookIdInfo.let(::ImGuiID)
+
   actual val windowsActiveCount: Int
     get() = ptr.pointed.WindowsActiveCount
 
@@ -62,6 +77,9 @@ actual inline class ImGuiContext(
 
   actual val hoveredRootWindow: ImGuiWindow?
     get() = ptr.pointed.HoveredRootWindow?.let(::ImGuiWindow)
+
+  actual val hoveredWindowUnderMovingWindow: ImGuiWindow?
+    get() = ptr.pointed.HoveredWindowUnderMovingWindow?.let(::ImGuiWindow)
 
   actual val movingWindow: ImGuiWindow?
     get() = ptr.pointed.MovingWindow?.let(::ImGuiWindow)
@@ -146,6 +164,24 @@ actual inline class ImGuiContext(
 
   actual val lastActiveIdTimer: Float
     get() = ptr.pointed.LastActiveIdTimer
+
+  actual val currentDpiScale: Float
+    get() = ptr.pointed.CurrentDpiScale
+
+  actual val currentViewport: ImGuiViewportP?
+    get() = ptr.pointed.CurrentViewport?.let(::ImGuiViewportP)
+
+  actual val mouseViewport: ImGuiViewportP?
+    get() = ptr.pointed.MouseViewport?.let(::ImGuiViewportP)
+
+  actual val mouseLastHoveredViewport: ImGuiViewportP?
+    get() = ptr.pointed.MouseLastHoveredViewport?.let(::ImGuiViewportP)
+
+  actual val platformLastFocusedViewport: ImGuiID
+    get() = ptr.pointed.PlatformLastFocusedViewport.let(::ImGuiID)
+
+  actual val viewportFrontMostStampCount: Int
+    get() = ptr.pointed.ViewportFrontMostStampCount
 
   actual val navWindow: ImGuiWindow?
     get() = ptr.pointed.NavWindow?.let(::ImGuiWindow)
@@ -234,14 +270,20 @@ actual inline class ImGuiContext(
   actual val navMoveClipDir: ImGuiDir
     get() = ptr.pointed.NavMoveClipDir.let { ImGuiDir.from(it) }
 
+  actual val navWrapRequestWindow: ImGuiWindow?
+    get() = ptr.pointed.NavWrapRequestWindow?.let(::ImGuiWindow)
+
+  actual val navWrapRequestFlags: Flag<ImGuiNavMoveFlags>
+    get() = ptr.pointed.NavWrapRequestFlags.let { ImGuiNavMoveFlags.fromMultiple(it) }
+
   actual val navWindowingTarget: ImGuiWindow?
     get() = ptr.pointed.NavWindowingTarget?.let(::ImGuiWindow)
 
   actual val navWindowingTargetAnim: ImGuiWindow?
     get() = ptr.pointed.NavWindowingTargetAnim?.let(::ImGuiWindow)
 
-  actual val navWindowingList: ImGuiWindow?
-    get() = ptr.pointed.NavWindowingList?.let(::ImGuiWindow)
+  actual val navWindowingListWindow: ImGuiWindow?
+    get() = ptr.pointed.NavWindowingListWindow?.let(::ImGuiWindow)
 
   actual val navWindowingTimer: Float
     get() = ptr.pointed.NavWindowingTimer
@@ -315,6 +357,9 @@ actual inline class ImGuiContext(
   actual val dragDropAcceptFrameCount: Int
     get() = ptr.pointed.DragDropAcceptFrameCount
 
+  actual val dragDropHoldJustPressedId: ImGuiID
+    get() = ptr.pointed.DragDropHoldJustPressedId.let(::ImGuiID)
+
   actual val currentTabBar: ImGuiTabBar?
     get() = ptr.pointed.CurrentTabBar?.let(::ImGuiTabBar)
 
@@ -356,6 +401,9 @@ actual inline class ImGuiContext(
 
   actual val platformImeLastPos: Vec2
     get() = ptr.pointed.PlatformImeLastPos.fromCValue()
+
+  actual val platformImePosViewport: ImGuiViewportP?
+    get() = ptr.pointed.PlatformImePosViewport?.let(::ImGuiViewportP)
 
   actual val settingsLoaded: Boolean
     get() = ptr.pointed.SettingsLoaded

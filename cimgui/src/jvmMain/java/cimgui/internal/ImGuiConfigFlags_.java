@@ -16,6 +16,10 @@ public final class ImGuiConfigFlags_ {
   public final static int ImGuiConfigFlags_NavNoCaptureKeyboard = 1 << 3;
   public final static int ImGuiConfigFlags_NoMouse = 1 << 4;
   public final static int ImGuiConfigFlags_NoMouseCursorChange = 1 << 5;
+  public final static int ImGuiConfigFlags_DockingEnable = 1 << 6;
+  public final static int ImGuiConfigFlags_ViewportsEnable = 1 << 10;
+  public final static int ImGuiConfigFlags_DpiEnableScaleViewports = 1 << 14;
+  public final static int ImGuiConfigFlags_DpiEnableScaleFonts = 1 << 15;
   public final static int ImGuiConfigFlags_IsSRGB = 1 << 20;
   public final static int ImGuiConfigFlags_IsTouchScreen = 1 << 21;
 }

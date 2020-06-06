@@ -15,9 +15,6 @@ import kotlinx.cinterop.pointed
 actual inline class ImFontAtlasCustomRect(
   val ptr: CPointer<cimgui.internal.ImFontAtlasCustomRect>
 ) {
-  actual val id: UInt
-    get() = ptr.pointed.ID.toUInt()
-
   actual val width: UShort
     get() = ptr.pointed.Width.toUShort()
 
@@ -29,6 +26,9 @@ actual inline class ImFontAtlasCustomRect(
 
   actual val y: UShort
     get() = ptr.pointed.Y.toUShort()
+
+  actual val glyphID: UInt
+    get() = ptr.pointed.GlyphID.toUInt()
 
   actual val glyphAdvanceX: Float
     get() = ptr.pointed.GlyphAdvanceX

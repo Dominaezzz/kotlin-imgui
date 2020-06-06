@@ -11,6 +11,16 @@ expect class ImGuiWindow {
 
   val flags: Flag<ImGuiWindowFlags>
 
+  val flagsPreviousFrame: Flag<ImGuiWindowFlags>
+
+  val viewport: ImGuiViewportP?
+
+  val viewportId: ImGuiID
+
+  val viewportPos: Vec2
+
+  val viewportAllowPlatformMonitorExtend: Int
+
   val pos: Vec2
 
   val size: Vec2
@@ -46,6 +56,8 @@ expect class ImGuiWindow {
   val scrollbarX: Boolean
 
   val scrollbarY: Boolean
+
+  val viewportOwned: Boolean
 
   val active: Boolean
 
@@ -89,17 +101,23 @@ expect class ImGuiWindow {
 
   val setWindowCollapsedAllowFlags: Flag<ImGuiCond>
 
+  val setWindowDockAllowFlags: Flag<ImGuiCond>
+
   val setWindowPosVal: Vec2
 
   val setWindowPosPivot: Vec2
 
   val lastFrameActive: Int
 
+  val lastFrameJustFocused: Int
+
   val lastTimeActive: Float
 
   val itemWidthDefault: Float
 
   val fontWindowScale: Float
+
+  val fontDpiScale: Float
 
   val settingsOffset: Int
 
@@ -108,6 +126,8 @@ expect class ImGuiWindow {
   val parentWindow: ImGuiWindow?
 
   val rootWindow: ImGuiWindow?
+
+  val rootWindowDockStop: ImGuiWindow?
 
   val rootWindowForTitleBarHighlight: ImGuiWindow?
 
@@ -120,6 +140,22 @@ expect class ImGuiWindow {
   val memoryDrawListIdxCapacity: Int
 
   val memoryDrawListVtxCapacity: Int
+
+  val dockNode: ImGuiDockNode?
+
+  val dockNodeAsHost: ImGuiDockNode?
+
+  val dockId: ImGuiID
+
+  val dockTabItemStatusFlags: Flag<ImGuiItemStatusFlags>
+
+  val dockOrder: Short
+
+  val dockIsActive: Boolean
+
+  val dockTabIsVisible: Boolean
+
+  val dockTabWantClose: Boolean
 
   constructor(context: ImGuiContext, name: String)
 

@@ -68,6 +68,14 @@ public class ImGuiNextWindowData {
     return CImGuiJNI.ImGuiNextWindowData_CollapsedCond_get(swigCPtr, this);
   }
 
+  public void setDockCond(int value) {
+    CImGuiJNI.ImGuiNextWindowData_DockCond_set(swigCPtr, this, value);
+  }
+
+  public int getDockCond() {
+    return CImGuiJNI.ImGuiNextWindowData_DockCond_get(swigCPtr, this);
+  }
+
   public void setPosVal(ImVec2 value) {
     CImGuiJNI.ImGuiNextWindowData_PosVal_set(swigCPtr, this, ImVec2.getCPtr(value), value);
   }
@@ -102,6 +110,23 @@ public class ImGuiNextWindowData {
   public ImVec2 getContentSizeVal() {
     long cPtr = CImGuiJNI.ImGuiNextWindowData_ContentSizeVal_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
+  public void setScrollVal(ImVec2 value) {
+    CImGuiJNI.ImGuiNextWindowData_ScrollVal_set(swigCPtr, this, ImVec2.getCPtr(value), value);
+  }
+
+  public ImVec2 getScrollVal() {
+    long cPtr = CImGuiJNI.ImGuiNextWindowData_ScrollVal_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
+  public void setPosUndock(boolean value) {
+    CImGuiJNI.ImGuiNextWindowData_PosUndock_set(swigCPtr, this, value);
+  }
+
+  public boolean getPosUndock() {
+    return CImGuiJNI.ImGuiNextWindowData_PosUndock_get(swigCPtr, this);
   }
 
   public void setCollapsedVal(boolean value) {
@@ -145,6 +170,31 @@ public class ImGuiNextWindowData {
 
   public float getBgAlphaVal() {
     return CImGuiJNI.ImGuiNextWindowData_BgAlphaVal_get(swigCPtr, this);
+  }
+
+  public void setViewportId(long value) {
+    CImGuiJNI.ImGuiNextWindowData_ViewportId_set(swigCPtr, this, value);
+  }
+
+  public long getViewportId() {
+    return CImGuiJNI.ImGuiNextWindowData_ViewportId_get(swigCPtr, this);
+  }
+
+  public void setDockId(long value) {
+    CImGuiJNI.ImGuiNextWindowData_DockId_set(swigCPtr, this, value);
+  }
+
+  public long getDockId() {
+    return CImGuiJNI.ImGuiNextWindowData_DockId_get(swigCPtr, this);
+  }
+
+  public void setWindowClass(ImGuiWindowClass value) {
+    CImGuiJNI.ImGuiNextWindowData_WindowClass_set(swigCPtr, this, ImGuiWindowClass.getCPtr(value), value);
+  }
+
+  public ImGuiWindowClass getWindowClass() {
+    long cPtr = CImGuiJNI.ImGuiNextWindowData_WindowClass_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindowClass(cPtr, false);
   }
 
   public void setMenuBarOffsetMinVal(ImVec2 value) {
