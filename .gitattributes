@@ -1,2 +1,8 @@
 gradlew      text eol=lf
 gradlew.bat  text eol=crlf
+
+cimgui/src/jvmMain/java         linguist-generated=true
+cimgui/src/jvmMain/cpp          linguist-generated=true
+imgui/src/commonMain/generated  linguist-generated=true
+imgui/src/jvmMain/generated     linguist-generated=true
+imgui/src/nativeMain/generated  linguist-generated=true
