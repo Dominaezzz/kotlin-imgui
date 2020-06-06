@@ -80,6 +80,9 @@ fun main(args: Array<String>) {
 	val commonDir = srcDir.resolve("commonMain").resolve("generated")
 	val nativeDir = srcDir.resolve("nativeMain").resolve("generated")
 	val jvmDir = srcDir.resolve("jvmMain").resolve("generated")
+	check(commonDir.toFile().deleteRecursively())
+	check(nativeDir.toFile().deleteRecursively())
+	check(jvmDir.toFile().deleteRecursively())
 
 	val definitionsStr = inputDir.resolve("definitions.json").toFile().readText()
 	val structsAndEnumsStr = inputDir.resolve("structs_and_enums.json").toFile().readText()
