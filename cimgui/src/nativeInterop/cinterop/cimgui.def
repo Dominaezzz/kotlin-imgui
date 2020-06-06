@@ -3,4 +3,4 @@ headers=cimgui.h
 headerFilter=cimgui.h
 compilerOpts=-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS
 nonStrictEnums=ImGuiCol_ ImGuiDataType_ ImGuiDir_ ImGuiKey_ ImGuiMouseCursor_ ImGuiNavInput_ ImGuiStyleVar_ \
- ImGuiInputReadMode ImGuiNavForward ImGuiPlotType ImGuiPopupPositionPolicy
+ ImGuiInputReadMode ImGuiNavForward ImGuiPlotType ImGuiPopupPositionPolicy ImGuiDataAuthority_ ImGuiDockNodeState

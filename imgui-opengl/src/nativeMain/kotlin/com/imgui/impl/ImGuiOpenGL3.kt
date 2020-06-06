@@ -5,6 +5,7 @@ import cimgui.internal.ImDrawVert
 import com.imgui.*
 import com.imgui.ImDrawData
 import com.imgui.ImGuiBackendFlags
+import com.imgui.ImGuiConfigFlags
 import com.kgl.opengl.*
 import io.ktor.utils.io.core.*
 import kotlinx.cinterop.*
@@ -63,11 +64,13 @@ actual constructor(
 		glMayHaveVertexOffset = !glIsOpenGLES
 
 		val io = ImGui.getIO()
+		io.ptr.pointed.BackendRendererUserData = StableRef.create(this).asCPointer()
 		// io.backendRendererName = "ImGui OpenGL3"
 		if (glMayHaveVertexOffset) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
 			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset
 		}
+		io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasViewports
 
 		// Make a dummy GL call (we don't actually need the result)
 		// IF YOU GET A CRASH HERE: it probably means that you haven't initialized the OpenGL function loader used by this code.
@@ -75,6 +78,10 @@ actual constructor(
 		val currentTexture = glGetInteger(GL_TEXTURE_BINDING_2D)
 		// Make a dummy test call.
 		check(currentTexture >= 0)
+
+		if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+			initPlatformInterface()
+		}
 
 		// Create device objects
 		// Backup GL state
@@ -355,6 +362,8 @@ actual constructor(
 	}
 
 	override fun close() {
+		shutdownPlatformInterface()
+
 		// Destroy device objects
 		glDeleteBuffers(2, cValuesOf(vboHandle, elementsHandle))
 		glDetachShader(shaderHandle, vertHandle)
@@ -367,6 +376,28 @@ actual constructor(
 		val io = ImGui.getIO().ptr.pointed
 		glDeleteTexture(fontTexture)
 		io.Fonts!!.pointed.TexID = null
+
+		io.BackendRendererUserData?.asStableRef<ImGuiOpenGL3>()?.dispose()
+	}
+
+	//--------------------------------------------------------------------------------------------------------
+	// MULTI-VIEWPORT / PLATFORM INTERFACE SUPPORT
+	// This is an _advanced_ and _optional_ feature, allowing the back-end to create and handle multiple viewports simultaneously.
+	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
+	//--------------------------------------------------------------------------------------------------------
+
+	private fun initPlatformInterface() {
+		val platformIO = ImGui.getPlatformIO().ptr.pointed
+		platformIO.Renderer_RenderWindow = staticCFunction { viewport, _ ->
+			val imGuiOpenGL3 = ImGui.getIO().ptr.pointed.BackendRendererUserData!!.asStableRef<ImGuiOpenGL3>().get()
+			glClearColor(0f, 0f, 0f, 1f)
+			glClear(GL_COLOR_BUFFER_BIT)
+			imGuiOpenGL3.renderDrawData(ImDrawData(viewport!!.pointed.DrawData!!))
+		}
+	}
+
+	private fun shutdownPlatformInterface() {
+		ImGui.destroyPlatformWindows()
 	}
 
 	companion object {

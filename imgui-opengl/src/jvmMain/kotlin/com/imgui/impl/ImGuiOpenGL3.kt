@@ -2,10 +2,14 @@ package com.imgui.impl
 
 import cimgui.internal.*
 import cimgui.internal.ImDrawVert
+import cimgui.internal.ImGuiViewport
 import com.imgui.*
 import com.imgui.ImDrawData
 import io.ktor.utils.io.core.*
 import org.lwjgl.opengl.*
+import org.lwjgl.system.*
+import org.lwjgl.system.dyncall.*
+import org.lwjgl.system.jni.*
 
 //----------------------------------------
 // OpenGL    GLSL      GLSL
@@ -62,11 +66,13 @@ actual constructor(
 		glMayHaveVertexOffset = !glIsOpenGLES
 
 		val io = ImGui.getIO()
+		io.ptr.backendRendererUserData = SWIGTYPE_p_void(JNINativeInterface.NewGlobalRef(this), false)
 		// io.backendRendererName = "ImGui OpenGL3"
 		if (glMayHaveVertexOffset) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
 			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset
 		}
+		io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasViewports
 
 		// Make a dummy GL call (we don't actually need the result)
 		// IF YOU GET A CRASH HERE: it probably means that you haven't initialized the OpenGL function loader used by this code.
@@ -74,6 +80,10 @@ actual constructor(
 		val currentTexture = GL30.glGetInteger(GL30.GL_TEXTURE_BINDING_2D)
 		// Make a dummy test call.
 		check(currentTexture >= 0)
+
+		if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+			initPlatformInterface()
+		}
 
 		// Create device objects
 		// Backup GL state
@@ -363,6 +373,8 @@ actual constructor(
 	}
 
 	override fun close() {
+		shutdownPlatformInterface()
+
 		// Destroy device objects
 		GL30.glDeleteBuffers(intArrayOf(vboHandle, elementsHandle))
 		GL30.glDetachShader(shaderHandle, vertHandle)
@@ -375,6 +387,39 @@ actual constructor(
 		val io = ImGui.getIO()
 		GL30.glDeleteTextures(fontTexture)
 		io.fonts!!.ptr.texID = null
+
+		io.ptr.backendRendererUserData?.let { JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(it)) }
+	}
+
+	//--------------------------------------------------------------------------------------------------------
+	// MULTI-VIEWPORT / PLATFORM INTERFACE SUPPORT
+	// This is an _advanced_ and _optional_ feature, allowing the back-end to create and handle multiple viewports simultaneously.
+	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
+	//--------------------------------------------------------------------------------------------------------
+
+	private fun initPlatformInterface() {
+		val platformIO = ImGui.getPlatformIO().ptr
+		platformIO.renderer_RenderWindow = SWIGTYPE_p_f_p_ImGuiViewport_p_void__void(
+			object : CallbackI.V {
+				override fun getSignature(): String = "(pp)v"
+				override fun callback(args: Long) {
+					val imGuiOpenGL3 = MemoryUtil.memGlobalRefToObject<ImGuiOpenGL3>(SWIGTYPE_p_void.getCPtr(ImGui.getIO().ptr.backendRendererUserData!!))
+					val viewport = ImGuiViewport(DynCallback.dcbArgPointer(args), false)
+
+					GL30.glClearColor(0f, 0f, 0f, 1f)
+					GL30.glClear(GL30.GL_COLOR_BUFFER_BIT)
+					imGuiOpenGL3.renderDrawData(ImDrawData(viewport.drawData))
+				}
+			}.address(),
+			false
+		)
+	}
+
+	private fun shutdownPlatformInterface() {
+		val platformIO = ImGui.getPlatformIO().ptr
+		Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.renderer_RenderWindow))
+
+		ImGui.destroyPlatformWindows()
 	}
 
 	companion object {
