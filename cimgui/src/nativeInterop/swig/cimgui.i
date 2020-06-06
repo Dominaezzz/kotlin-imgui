@@ -44,7 +44,7 @@
 %ignore igImFormatStringV;
 
 %ignore ImGuiDataTypePrivate_;
-
+%ignore ImGuiDockNodeFlagsPrivate_;
 
 %include cimgui_stringarray.i
 %include cimgui_valuesgetter.i
