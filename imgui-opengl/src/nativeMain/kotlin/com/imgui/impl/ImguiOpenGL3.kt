@@ -159,7 +159,7 @@ actual class ImguiOpenGL3 actual constructor(
 
 		// Restore modified GL state
 		glBindTexture(GL_TEXTURE_2D, lastTexture.toUInt())
-		glBindTexture(GL_ARRAY_BUFFER, lastArrayBuffer.toUInt())
+		glBindBuffer(GL_ARRAY_BUFFER, lastArrayBuffer.toUInt())
 		if (useVertexArray) glBindVertexArray(lastVertexArray.toUInt())
 	}
 
