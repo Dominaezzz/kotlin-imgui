@@ -11,27 +11,27 @@ import kotlinx.cinterop.convert
 actual enum class ImGuiInputReadMode(
   val value: cimgui.internal.ImGuiInputReadMode
 ) {
-  _Down(ImGuiInputReadMode_Down.convert()),
+  Down(ImGuiInputReadMode_Down.convert()),
 
-  _Pressed(ImGuiInputReadMode_Pressed.convert()),
+  Pressed(ImGuiInputReadMode_Pressed.convert()),
 
-  _Released(ImGuiInputReadMode_Released.convert()),
+  Released(ImGuiInputReadMode_Released.convert()),
 
-  _Repeat(ImGuiInputReadMode_Repeat.convert()),
+  Repeat(ImGuiInputReadMode_Repeat.convert()),
 
-  _RepeatSlow(ImGuiInputReadMode_RepeatSlow.convert()),
+  RepeatSlow(ImGuiInputReadMode_RepeatSlow.convert()),
 
-  _RepeatFast(ImGuiInputReadMode_RepeatFast.convert());
+  RepeatFast(ImGuiInputReadMode_RepeatFast.convert());
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiInputReadMode): ImGuiInputReadMode = when
         (value.convert<cimgui.internal.ImGuiInputReadMode>()) {
-      ImGuiInputReadMode_Down -> _Down
-      ImGuiInputReadMode_Pressed -> _Pressed
-      ImGuiInputReadMode_Released -> _Released
-      ImGuiInputReadMode_Repeat -> _Repeat
-      ImGuiInputReadMode_RepeatSlow -> _RepeatSlow
-      ImGuiInputReadMode_RepeatFast -> _RepeatFast
+      ImGuiInputReadMode_Down -> Down
+      ImGuiInputReadMode_Pressed -> Pressed
+      ImGuiInputReadMode_Released -> Released
+      ImGuiInputReadMode_Repeat -> Repeat
+      ImGuiInputReadMode_RepeatSlow -> RepeatSlow
+      ImGuiInputReadMode_RepeatFast -> RepeatFast
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

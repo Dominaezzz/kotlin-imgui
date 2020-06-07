@@ -1,17 +1,15 @@
 package com.imgui
 
 expect enum class ImGuiInputSource {
-  _None,
+  None,
 
-  _Mouse,
+  Mouse,
 
-  _Nav,
+  Nav,
 
-  _NavKeyboard,
+  NavKeyboard,
 
-  _NavGamepad,
-
-  _COUNT;
+  NavGamepad;
 
   companion object
 }

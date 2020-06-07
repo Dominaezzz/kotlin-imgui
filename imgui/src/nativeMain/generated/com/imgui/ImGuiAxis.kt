@@ -8,18 +8,18 @@ import kotlinx.cinterop.convert
 actual enum class ImGuiAxis(
   val value: cimgui.internal.ImGuiAxis
 ) {
-  _None(ImGuiAxis_None.convert()),
+  None(ImGuiAxis_None.convert()),
 
-  _X(ImGuiAxis_X.convert()),
+  X(ImGuiAxis_X.convert()),
 
-  _Y(ImGuiAxis_Y.convert());
+  Y(ImGuiAxis_Y.convert());
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiAxis): ImGuiAxis = when
         (value.convert<cimgui.internal.ImGuiAxis>()) {
-      ImGuiAxis_None -> _None
-      ImGuiAxis_X -> _X
-      ImGuiAxis_Y -> _Y
+      ImGuiAxis_None -> None
+      ImGuiAxis_X -> X
+      ImGuiAxis_Y -> Y
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

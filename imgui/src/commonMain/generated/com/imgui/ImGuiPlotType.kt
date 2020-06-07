@@ -1,9 +1,9 @@
 package com.imgui
 
 expect enum class ImGuiPlotType {
-  _Lines,
+  Lines,
 
-  _Histogram;
+  Histogram;
 
   companion object
 }

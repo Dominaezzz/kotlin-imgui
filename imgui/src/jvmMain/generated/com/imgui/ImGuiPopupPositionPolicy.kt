@@ -7,14 +7,14 @@ import kotlin.Int
 actual enum class ImGuiPopupPositionPolicy(
   val value: Int
 ) {
-  _Default(ImGuiPopupPositionPolicy_Default),
+  Default(ImGuiPopupPositionPolicy_Default),
 
-  _ComboBox(ImGuiPopupPositionPolicy_ComboBox);
+  ComboBox(ImGuiPopupPositionPolicy_ComboBox);
 
   actual companion object {
     fun from(value: Int): ImGuiPopupPositionPolicy = when (value) {
-      ImGuiPopupPositionPolicy_Default -> _Default
-      ImGuiPopupPositionPolicy_ComboBox -> _ComboBox
+      ImGuiPopupPositionPolicy_Default -> Default
+      ImGuiPopupPositionPolicy_ComboBox -> ComboBox
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

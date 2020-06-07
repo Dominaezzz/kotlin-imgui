@@ -1,15 +1,15 @@
 package com.imgui
 
 expect enum class ImGuiLogType {
-  _None,
+  None,
 
-  _TTY,
+  TTY,
 
-  _File,
+  File,
 
-  _Buffer,
+  Buffer,
 
-  _Clipboard;
+  Clipboard;
 
   companion object
 }
