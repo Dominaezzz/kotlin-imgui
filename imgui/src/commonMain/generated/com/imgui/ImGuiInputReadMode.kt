@@ -1,17 +1,17 @@
 package com.imgui
 
 expect enum class ImGuiInputReadMode {
-  _Down,
+  Down,
 
-  _Pressed,
+  Pressed,
 
-  _Released,
+  Released,
 
-  _Repeat,
+  Repeat,
 
-  _RepeatSlow,
+  RepeatSlow,
 
-  _RepeatFast;
+  RepeatFast;
 
   companion object
 }

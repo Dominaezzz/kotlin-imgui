@@ -1,11 +1,9 @@
 package com.imgui
 
 expect enum class ImGuiNavLayer {
-  _Main,
+  Main,
 
-  _Menu,
-
-  _COUNT;
+  Menu;
 
   companion object
 }

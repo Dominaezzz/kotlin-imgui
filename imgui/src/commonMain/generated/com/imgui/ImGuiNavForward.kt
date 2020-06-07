@@ -1,11 +1,11 @@
 package com.imgui
 
 expect enum class ImGuiNavForward {
-  _None,
+  None,
 
-  _ForwardQueued,
+  ForwardQueued,
 
-  _ForwardActive;
+  ForwardActive;
 
   companion object
 }

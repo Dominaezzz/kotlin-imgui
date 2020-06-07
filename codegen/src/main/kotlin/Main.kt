@@ -247,7 +247,7 @@ fun main(args: Array<String>) {
 		val lookUpTable = CodeBlock.builder()
 
 		for (enumValue in entries) {
-			val enumValueNameKt = enumValue.name.removePrefix(enumName)
+			val enumValueNameKt = enumValue.name.substringAfter('_')
 			check(enumValue.name != enumValueNameKt) { "Could not remove prefix $enumName from ${enumValue.name}" }
 
 			if (isBitmask) {

@@ -1,9 +1,9 @@
 package com.imgui
 
 expect enum class ImGuiPopupPositionPolicy {
-  _Default,
+  Default,
 
-  _ComboBox;
+  ComboBox;
 
   companion object
 }

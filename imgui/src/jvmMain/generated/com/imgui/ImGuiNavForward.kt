@@ -8,17 +8,17 @@ import kotlin.Int
 actual enum class ImGuiNavForward(
   val value: Int
 ) {
-  _None(ImGuiNavForward_None),
+  None(ImGuiNavForward_None),
 
-  _ForwardQueued(ImGuiNavForward_ForwardQueued),
+  ForwardQueued(ImGuiNavForward_ForwardQueued),
 
-  _ForwardActive(ImGuiNavForward_ForwardActive);
+  ForwardActive(ImGuiNavForward_ForwardActive);
 
   actual companion object {
     fun from(value: Int): ImGuiNavForward = when (value) {
-      ImGuiNavForward_None -> _None
-      ImGuiNavForward_ForwardQueued -> _ForwardQueued
-      ImGuiNavForward_ForwardActive -> _ForwardActive
+      ImGuiNavForward_None -> None
+      ImGuiNavForward_ForwardQueued -> ForwardQueued
+      ImGuiNavForward_ForwardActive -> ForwardActive
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

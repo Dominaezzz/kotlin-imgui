@@ -8,18 +8,18 @@ import kotlinx.cinterop.convert
 actual enum class ImGuiNavForward(
   val value: cimgui.internal.ImGuiNavForward
 ) {
-  _None(ImGuiNavForward_None.convert()),
+  None(ImGuiNavForward_None.convert()),
 
-  _ForwardQueued(ImGuiNavForward_ForwardQueued.convert()),
+  ForwardQueued(ImGuiNavForward_ForwardQueued.convert()),
 
-  _ForwardActive(ImGuiNavForward_ForwardActive.convert());
+  ForwardActive(ImGuiNavForward_ForwardActive.convert());
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiNavForward): ImGuiNavForward = when
         (value.convert<cimgui.internal.ImGuiNavForward>()) {
-      ImGuiNavForward_None -> _None
-      ImGuiNavForward_ForwardQueued -> _ForwardQueued
-      ImGuiNavForward_ForwardActive -> _ForwardActive
+      ImGuiNavForward_None -> None
+      ImGuiNavForward_ForwardQueued -> ForwardQueued
+      ImGuiNavForward_ForwardActive -> ForwardActive
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }

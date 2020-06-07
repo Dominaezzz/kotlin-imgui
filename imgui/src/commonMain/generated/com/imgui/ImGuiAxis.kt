@@ -1,11 +1,11 @@
 package com.imgui
 
 expect enum class ImGuiAxis {
-  _None,
+  None,
 
-  _X,
+  X,
 
-  _Y;
+  Y;
 
   companion object
 }
