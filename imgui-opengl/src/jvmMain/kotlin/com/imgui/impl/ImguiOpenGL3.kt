@@ -140,7 +140,7 @@ actual class ImguiOpenGL3 actual constructor(
 
 		// Restore modified GL state
 		GL30.glBindTexture(GL30.GL_TEXTURE_2D, lastTexture)
-		GL30.glBindTexture(GL30.GL_ARRAY_BUFFER, lastArrayBuffer)
+		GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, lastArrayBuffer)
 		if (useVertexArray) GL30.glBindVertexArray(lastVertexArray)
 	}
 
