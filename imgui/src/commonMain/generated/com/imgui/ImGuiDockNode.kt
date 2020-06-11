@@ -68,27 +68,5 @@ expect class ImGuiDockNode {
 
   val markedForPosSizeWrite: Boolean
 
-  constructor(id: ImGuiID)
-
-  fun getMergedFlags(): Flag<ImGuiDockNodeFlags>
-
-  fun isCentralNode(): Boolean
-
-  fun isDockSpace(): Boolean
-
-  fun isEmpty(): Boolean
-
-  fun isFloatingNode(): Boolean
-
-  fun isHiddenTabBar(): Boolean
-
-  fun isLeafNode(): Boolean
-
-  fun isNoTabBar(): Boolean
-
-  fun isRootNode(): Boolean
-
-  fun isSplitNode(): Boolean
-
   fun destroy()
 }

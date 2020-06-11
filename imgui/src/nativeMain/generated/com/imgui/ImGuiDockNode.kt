@@ -1,16 +1,5 @@
 package com.imgui
 
-import cimgui.internal.ImGuiDockNode_GetMergedFlags
-import cimgui.internal.ImGuiDockNode_ImGuiDockNode
-import cimgui.internal.ImGuiDockNode_IsCentralNode
-import cimgui.internal.ImGuiDockNode_IsDockSpace
-import cimgui.internal.ImGuiDockNode_IsEmpty
-import cimgui.internal.ImGuiDockNode_IsFloatingNode
-import cimgui.internal.ImGuiDockNode_IsHiddenTabBar
-import cimgui.internal.ImGuiDockNode_IsLeafNode
-import cimgui.internal.ImGuiDockNode_IsNoTabBar
-import cimgui.internal.ImGuiDockNode_IsRootNode
-import cimgui.internal.ImGuiDockNode_IsSplitNode
 import cimgui.internal.ImGuiDockNode_destroy
 import kotlin.Boolean
 import kotlin.Int
@@ -117,29 +106,6 @@ actual inline class ImGuiDockNode(
 
   actual val markedForPosSizeWrite: Boolean
     get() = ptr.pointed.MarkedForPosSizeWrite
-
-  actual constructor(id: ImGuiID) : this(ImGuiDockNode_ImGuiDockNode(id.value)!!)
-
-  actual fun getMergedFlags(): Flag<ImGuiDockNodeFlags> = ImGuiDockNode_GetMergedFlags(ptr).let {
-      ImGuiDockNodeFlags.fromMultiple(it) }
-
-  actual fun isCentralNode(): Boolean = ImGuiDockNode_IsCentralNode(ptr)
-
-  actual fun isDockSpace(): Boolean = ImGuiDockNode_IsDockSpace(ptr)
-
-  actual fun isEmpty(): Boolean = ImGuiDockNode_IsEmpty(ptr)
-
-  actual fun isFloatingNode(): Boolean = ImGuiDockNode_IsFloatingNode(ptr)
-
-  actual fun isHiddenTabBar(): Boolean = ImGuiDockNode_IsHiddenTabBar(ptr)
-
-  actual fun isLeafNode(): Boolean = ImGuiDockNode_IsLeafNode(ptr)
-
-  actual fun isNoTabBar(): Boolean = ImGuiDockNode_IsNoTabBar(ptr)
-
-  actual fun isRootNode(): Boolean = ImGuiDockNode_IsRootNode(ptr)
-
-  actual fun isSplitNode(): Boolean = ImGuiDockNode_IsSplitNode(ptr)
 
   actual fun destroy() {
     ImGuiDockNode_destroy(ptr)

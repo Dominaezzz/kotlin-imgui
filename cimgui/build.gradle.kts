@@ -13,6 +13,7 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
+val cimguiVersion: String by rootProject.extra
 val imGuiVersion: String by rootProject.extra
 
 val konanUserDir = file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
@@ -69,13 +70,14 @@ val targetInfoMap = mapOf(
 )
 
 val downloadsDir = buildDir.resolve("downloads")
-val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")
-val cimguiOutput = cimguiDir.resolve("generator/output")
+val cimguiDir = downloadsDir.resolve("cimgui-${cimguiVersion}")
+val generatorDir = cimguiDir.resolve("generator")
+val cimguiOutput = generatorDir.resolve("output")
 val imguiDir = cimguiDir.resolve("imgui")
 val libsDir = buildDir.resolve("libs")
 
 val downloadCWrapper by tasks.registering(Download::class) {
-	src("https://github.com/cimgui/cimgui/archive/${imGuiVersion}.zip")
+	src("https://github.com/cimgui/cimgui/archive/${cimguiVersion}.zip")
 	dest(downloadsDir.resolve("cimgui.zip"))
 	overwrite(false)
 }
@@ -85,7 +87,7 @@ val extractCWrapper by tasks.registering(Copy::class) {
 }
 
 val downloadImGui by tasks.registering(Download::class) {
-	src("https://github.com/ocornut/imgui/archive/v${imGuiVersion}.zip")
+	src("https://github.com/ocornut/imgui/archive/${imGuiVersion}.zip")
 	dest(downloadsDir.resolve("imgui.zip"))
 	overwrite(false)
 }
@@ -98,11 +100,19 @@ val extractImGui by tasks.registering(Copy::class) {
 		}
 		includeEmptyDirs = false
 	}
-	into(cimguiDir.resolve("imgui"))
+	into(imguiDir)
+}
+
+val runGenerator by tasks.registering(Exec::class) {
+	dependsOn(extractImGui)
+
+	executable = "luajit"
+	workingDir = generatorDir
+	args("./generator.lua", "gcc", "true", "glfw", "opengl3", "opengl2", "sdl")
 }
 
 val runSwig by tasks.registering(Exec::class) {
-	dependsOn(extractCWrapper)
+	dependsOn(runGenerator)
 
 	val swigInterfaceDir = file("src/nativeInterop/swig")
 	val javaOutputDir = file("src/jvmMain/java/cimgui/internal")
@@ -153,22 +163,22 @@ kotlin {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(runSwig)
-                defaultSourceSet {
-                    kotlin.srcDir("src/jvmMain/java")
-                    kotlin.srcDir("src/jvmMain/kotlin")
-                }
-                dependencies {
-                    implementation(kotlin("stdlib-jdk8"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
-    }
+				defaultSourceSet {
+					kotlin.srcDir("src/jvmMain/java")
+					kotlin.srcDir("src/jvmMain/kotlin")
+				}
+				dependencies {
+					implementation(kotlin("stdlib-jdk8"))
+				}
+			}
+			"test" {
+				dependencies {
+					implementation(kotlin("test"))
+					implementation(kotlin("test-junit"))
+				}
+			}
+		}
+	}
 
 	sourceSets {
 		commonMain {
@@ -192,7 +202,7 @@ kotlin {
 
 		val objFiles = objFileNames.map { objDir.resolve(it) }
 		val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
-			dependsOn(extractImGui, extractCWrapper)
+			dependsOn(runGenerator)
 			onlyIf { HostManager().isEnabled(konanTarget) }
 			doFirst { mkdir(objDir) }
 
@@ -239,7 +249,7 @@ kotlin {
 					create("cimgui") {
 						includeDirs(cimguiOutput, imguiDir)
 						tasks.named(interopProcessingTaskName) {
-							dependsOn(extractImGui, extractCWrapper)
+							dependsOn(runGenerator)
 						}
 						compileImGui {
 							// This is to ensure native toolchain is downloaded before compiling with it.
@@ -281,7 +291,7 @@ kotlin {
 		val resourceDir = jvmGenResourceDir.resolve(jvmTarget.presetName)
 
 		val compileCImGui = tasks.register<Exec>("compileJniLibFor${jvmTarget.presetName.capitalize()}") {
-			dependsOn(extractImGui, extractCWrapper)
+			dependsOn(runGenerator)
 			dependsOn("cinteropCimgui${jvmTarget.presetName.capitalize()}")
 			onlyIf { HostManager.host == jvmTarget }
 

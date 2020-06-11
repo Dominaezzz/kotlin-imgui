@@ -9,21 +9,21 @@ import kotlin.Int
 actual enum class ImGuiDockNodeState(
   val value: Int
 ) {
-  _Unknown(ImGuiDockNodeState_Unknown),
+  Unknown(ImGuiDockNodeState_Unknown),
 
-  _HostWindowHiddenBecauseSingleWindow(ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow),
+  HostWindowHiddenBecauseSingleWindow(ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow),
 
-  _HostWindowHiddenBecauseWindowsAreResizing(ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing),
+  HostWindowHiddenBecauseWindowsAreResizing(ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing),
 
-  _HostWindowVisible(ImGuiDockNodeState_HostWindowVisible);
+  HostWindowVisible(ImGuiDockNodeState_HostWindowVisible);
 
   actual companion object {
     fun from(value: Int): ImGuiDockNodeState = when (value) {
-      ImGuiDockNodeState_Unknown -> _Unknown
-      ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow -> _HostWindowHiddenBecauseSingleWindow
+      ImGuiDockNodeState_Unknown -> Unknown
+      ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow -> HostWindowHiddenBecauseSingleWindow
       ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing ->
-          _HostWindowHiddenBecauseWindowsAreResizing
-      ImGuiDockNodeState_HostWindowVisible -> _HostWindowVisible
+          HostWindowHiddenBecauseWindowsAreResizing
+      ImGuiDockNodeState_HostWindowVisible -> HostWindowVisible
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
   }
