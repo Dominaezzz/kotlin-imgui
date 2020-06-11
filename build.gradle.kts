@@ -18,7 +18,6 @@ version = stdout.toString().trim()
 group = "com.kotlin-imgui"
 
 val cimguiVersion: String by extra("docking_inter")
-val imGuiVersion: String by extra("docking")
 val kglVersion: String by extra("0.1.9-dev-13")
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 

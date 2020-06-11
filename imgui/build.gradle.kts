@@ -26,31 +26,31 @@ kotlin {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
-                defaultSourceSet {
-                    kotlin.srcDir("src/jvmMain/generated")
-                }
-                dependencies {
-                    api(kotlin("stdlib-jdk8"))
-                    compileOnly(project(":cimgui", "jvmDefault"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
-    }
+				defaultSourceSet {
+					kotlin.srcDir("src/jvmMain/generated")
+				}
+				dependencies {
+					api(kotlin("stdlib-jdk8"))
+					compileOnly(project(":cimgui", "jvmDefault"))
+				}
+			}
+			"test" {
+				dependencies {
+					implementation(kotlin("test"))
+					implementation(kotlin("test-junit"))
+				}
+			}
+		}
+	}
 
 	targets.withType<KotlinNativeTarget> {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
-                defaultSourceSet {
-                    kotlin.srcDir("src/nativeMain/generated")
-                    kotlin.srcDir("src/nativeMain/kotlin")
-                }
+				defaultSourceSet {
+					kotlin.srcDir("src/nativeMain/generated")
+					kotlin.srcDir("src/nativeMain/kotlin")
+				}
 
 				dependencies {
 					implementation(project(":cimgui"))
