@@ -1,13 +1,13 @@
 package com.imgui
 
 expect enum class ImGuiDockNodeState {
-  _Unknown,
+  Unknown,
 
-  _HostWindowHiddenBecauseSingleWindow,
+  HostWindowHiddenBecauseSingleWindow,
 
-  _HostWindowHiddenBecauseWindowsAreResizing,
+  HostWindowHiddenBecauseWindowsAreResizing,
 
-  _HostWindowVisible;
+  HostWindowVisible;
 
   companion object
 }

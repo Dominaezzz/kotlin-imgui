@@ -1,7 +1,5 @@
 package com.imgui
 
-import cimgui.internal.CImGui.ImGuiViewportP_ClearRequestFlags
-import cimgui.internal.CImGui.ImGuiViewportP_ImGuiViewportP
 import cimgui.internal.CImGui.ImGuiViewportP_destroy
 import kotlin.Boolean
 import kotlin.Float
@@ -57,12 +55,6 @@ actual inline class ImGuiViewportP(
 
   actual val currWorkOffsetMax: Vec2
     get() = ptr.currWorkOffsetMax.fromCValue()
-
-  actual constructor() : this(ImGuiViewportP_ImGuiViewportP()!!)
-
-  actual fun clearRequestFlags() {
-    ImGuiViewportP_ClearRequestFlags(ptr)
-  }
 
   actual fun destroy() {
     ImGuiViewportP_destroy(ptr)

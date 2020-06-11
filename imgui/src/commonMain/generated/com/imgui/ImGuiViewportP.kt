@@ -36,9 +36,5 @@ expect class ImGuiViewportP {
 
   val currWorkOffsetMax: Vec2
 
-  constructor()
-
-  fun clearRequestFlags()
-
   fun destroy()
 }

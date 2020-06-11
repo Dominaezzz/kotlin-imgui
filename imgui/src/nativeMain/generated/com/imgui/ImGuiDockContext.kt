@@ -1,6 +1,5 @@
 package com.imgui
 
-import cimgui.internal.ImGuiDockContext_ImGuiDockContext
 import cimgui.internal.ImGuiDockContext_destroy
 import kotlin.Boolean
 import kotlin.Suppress
@@ -13,8 +12,6 @@ actual inline class ImGuiDockContext(
 ) {
   actual val wantFullRebuild: Boolean
     get() = ptr.pointed.WantFullRebuild
-
-  actual constructor() : this(ImGuiDockContext_ImGuiDockContext()!!)
 
   actual fun destroy() {
     ImGuiDockContext_destroy(ptr)
