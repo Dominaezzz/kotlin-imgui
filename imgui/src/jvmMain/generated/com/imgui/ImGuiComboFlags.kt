@@ -27,6 +27,9 @@ actual enum class ImGuiComboFlags(
 
   NoPreview(ImGuiComboFlags_NoPreview);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiComboFlags>
     get() = cachedInfo
   actual companion object {

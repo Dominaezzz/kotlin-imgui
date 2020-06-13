@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiWindowFlags : Flag<ImGuiWindowFlags> {
   NoTitleBar,
 
@@ -52,6 +54,8 @@ expect enum class ImGuiWindowFlags : Flag<ImGuiWindowFlags> {
   Modal,
 
   ChildMenu;
+
+  val cValue: Int
 
   companion object {
     val NoNav: Flag<ImGuiWindowFlags>

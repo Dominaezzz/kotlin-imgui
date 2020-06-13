@@ -10,6 +10,7 @@ import cimgui.internal.ImDrawCornerFlags_Right
 import cimgui.internal.ImDrawCornerFlags_Top
 import cimgui.internal.ImDrawCornerFlags_TopLeft
 import cimgui.internal.ImDrawCornerFlags_TopRight
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImDrawCornerFlags(
@@ -22,6 +23,9 @@ actual enum class ImDrawCornerFlags(
   BotLeft(ImDrawCornerFlags_BotLeft.convert()),
 
   BotRight(ImDrawCornerFlags_BotRight.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImDrawCornerFlags>
     get() = cachedInfo

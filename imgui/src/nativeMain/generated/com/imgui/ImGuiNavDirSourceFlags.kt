@@ -4,6 +4,7 @@ import cimgui.internal.ImGuiNavDirSourceFlags_
 import cimgui.internal.ImGuiNavDirSourceFlags_Keyboard
 import cimgui.internal.ImGuiNavDirSourceFlags_PadDPad
 import cimgui.internal.ImGuiNavDirSourceFlags_PadLStick
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavDirSourceFlags(
@@ -14,6 +15,9 @@ actual enum class ImGuiNavDirSourceFlags(
   PadDPad(ImGuiNavDirSourceFlags_PadDPad.convert()),
 
   PadLStick(ImGuiNavDirSourceFlags_PadLStick.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiNavDirSourceFlags>
     get() = cachedInfo

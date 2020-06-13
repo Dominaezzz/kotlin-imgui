@@ -25,6 +25,7 @@ import cimgui.internal.ImGuiButtonFlags_PressedOnDragDropHold
 import cimgui.internal.ImGuiButtonFlags_PressedOnMask_
 import cimgui.internal.ImGuiButtonFlags_PressedOnRelease
 import cimgui.internal.ImGuiButtonFlags_Repeat
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiButtonFlags(
@@ -67,6 +68,9 @@ actual enum class ImGuiButtonFlags(
   MouseButtonRight(ImGuiButtonFlags_MouseButtonRight.convert()),
 
   MouseButtonMiddle(ImGuiButtonFlags_MouseButtonMiddle.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiButtonFlags>
     get() = cachedInfo

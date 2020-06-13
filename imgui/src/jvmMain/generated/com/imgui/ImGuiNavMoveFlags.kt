@@ -26,6 +26,9 @@ actual enum class ImGuiNavMoveFlags(
 
   ScrollToEdge(ImGuiNavMoveFlags_ScrollToEdge);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiNavMoveFlags>
     get() = cachedInfo
   actual companion object {

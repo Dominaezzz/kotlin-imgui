@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiNavHighlightFlags_AlwaysDraw
 import cimgui.internal.ImGuiNavHighlightFlags_NoRounding
 import cimgui.internal.ImGuiNavHighlightFlags_TypeDefault
 import cimgui.internal.ImGuiNavHighlightFlags_TypeThin
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavHighlightFlags(
@@ -17,6 +18,9 @@ actual enum class ImGuiNavHighlightFlags(
   AlwaysDraw(ImGuiNavHighlightFlags_AlwaysDraw.convert()),
 
   NoRounding(ImGuiNavHighlightFlags_NoRounding.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiNavHighlightFlags>
     get() = cachedInfo

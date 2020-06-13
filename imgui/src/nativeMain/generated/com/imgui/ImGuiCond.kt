@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiCond_Always
 import cimgui.internal.ImGuiCond_Appearing
 import cimgui.internal.ImGuiCond_FirstUseEver
 import cimgui.internal.ImGuiCond_Once
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiCond(
@@ -17,6 +18,9 @@ actual enum class ImGuiCond(
   FirstUseEver(ImGuiCond_FirstUseEver.convert()),
 
   Appearing(ImGuiCond_Appearing.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiCond>
     get() = cachedInfo

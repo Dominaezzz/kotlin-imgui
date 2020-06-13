@@ -2,12 +2,16 @@ package com.imgui
 
 import cimgui.internal.ImGuiSliderFlags_
 import cimgui.internal.ImGuiSliderFlags_Vertical
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiSliderFlags(
   override val value: cimgui.internal.ImGuiSliderFlags
 ) : Flag<ImGuiSliderFlags> {
   Vertical(ImGuiSliderFlags_Vertical.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiSliderFlags>
     get() = cachedInfo

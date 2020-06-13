@@ -2,12 +2,16 @@ package com.imgui
 
 import cimgui.internal.ImGuiTooltipFlags_
 import cimgui.internal.ImGuiTooltipFlags_OverridePreviousTooltip
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiTooltipFlags(
   override val value: cimgui.internal.ImGuiTooltipFlags
 ) : Flag<ImGuiTooltipFlags> {
   OverridePreviousTooltip(ImGuiTooltipFlags_OverridePreviousTooltip.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiTooltipFlags>
     get() = cachedInfo

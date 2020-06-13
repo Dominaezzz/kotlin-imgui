@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiComboFlags : Flag<ImGuiComboFlags> {
   PopupAlignLeft,
 
@@ -14,6 +16,8 @@ expect enum class ImGuiComboFlags : Flag<ImGuiComboFlags> {
   NoArrowButton,
 
   NoPreview;
+
+  val cValue: Int
 
   companion object {
     val HeightMask_: Flag<ImGuiComboFlags>

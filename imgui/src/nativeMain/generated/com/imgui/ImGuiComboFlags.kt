@@ -9,6 +9,7 @@ import cimgui.internal.ImGuiComboFlags_HeightSmall
 import cimgui.internal.ImGuiComboFlags_NoArrowButton
 import cimgui.internal.ImGuiComboFlags_NoPreview
 import cimgui.internal.ImGuiComboFlags_PopupAlignLeft
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiComboFlags(
@@ -27,6 +28,9 @@ actual enum class ImGuiComboFlags(
   NoArrowButton(ImGuiComboFlags_NoArrowButton.convert()),
 
   NoPreview(ImGuiComboFlags_NoPreview.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiComboFlags>
     get() = cachedInfo

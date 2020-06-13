@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiAxis_None
 import cimgui.internal.ImGuiAxis_X
 import cimgui.internal.ImGuiAxis_Y
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiAxis(
@@ -13,6 +14,9 @@ actual enum class ImGuiAxis(
   X(ImGuiAxis_X.convert()),
 
   Y(ImGuiAxis_Y.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiAxis): ImGuiAxis = when

@@ -31,6 +31,9 @@ actual enum class ImGuiTabBarFlags(
 
   FittingPolicyScroll(ImGuiTabBarFlags_FittingPolicyScroll);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiTabBarFlags>
     get() = cachedInfo
   actual companion object {

@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiPopupPositionPolicy_ComboBox
 import cimgui.internal.ImGuiPopupPositionPolicy_Default
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiPopupPositionPolicy(
@@ -10,6 +11,9 @@ actual enum class ImGuiPopupPositionPolicy(
   Default(ImGuiPopupPositionPolicy_Default.convert()),
 
   ComboBox(ImGuiPopupPositionPolicy_ComboBox.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiPopupPositionPolicy): ImGuiPopupPositionPolicy = when

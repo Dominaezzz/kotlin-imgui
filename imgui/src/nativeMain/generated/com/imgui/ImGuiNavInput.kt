@@ -23,6 +23,7 @@ import cimgui.internal.ImGuiNavInput_LStickUp
 import cimgui.internal.ImGuiNavInput_Menu
 import cimgui.internal.ImGuiNavInput_TweakFast
 import cimgui.internal.ImGuiNavInput_TweakSlow
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavInput(
@@ -71,6 +72,9 @@ actual enum class ImGuiNavInput(
   KeyDown_(ImGuiNavInput_KeyDown_.convert()),
 
   InternalStart_(ImGuiNavInput_InternalStart_.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiNavInput): ImGuiNavInput = when

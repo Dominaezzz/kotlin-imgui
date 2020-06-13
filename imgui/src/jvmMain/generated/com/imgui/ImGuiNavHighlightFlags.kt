@@ -17,6 +17,9 @@ actual enum class ImGuiNavHighlightFlags(
 
   NoRounding(ImGuiNavHighlightFlags_NoRounding);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiNavHighlightFlags>
     get() = cachedInfo
   actual companion object {

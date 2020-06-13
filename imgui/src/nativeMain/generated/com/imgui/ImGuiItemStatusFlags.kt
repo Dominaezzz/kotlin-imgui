@@ -8,6 +8,7 @@ import cimgui.internal.ImGuiItemStatusFlags_HasDisplayRect
 import cimgui.internal.ImGuiItemStatusFlags_HoveredRect
 import cimgui.internal.ImGuiItemStatusFlags_ToggledOpen
 import cimgui.internal.ImGuiItemStatusFlags_ToggledSelection
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiItemStatusFlags(
@@ -26,6 +27,9 @@ actual enum class ImGuiItemStatusFlags(
   HasDeactivated(ImGuiItemStatusFlags_HasDeactivated.convert()),
 
   Deactivated(ImGuiItemStatusFlags_Deactivated.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiItemStatusFlags>
     get() = cachedInfo

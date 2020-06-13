@@ -71,6 +71,9 @@ actual enum class ImGuiNavInput(
 
   InternalStart_(ImGuiNavInput_InternalStart_);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiNavInput = when (value) {
       ImGuiNavInput_Activate -> Activate

@@ -8,6 +8,9 @@ actual enum class ImGuiTooltipFlags(
 ) : Flag<ImGuiTooltipFlags> {
   OverridePreviousTooltip(ImGuiTooltipFlags_OverridePreviousTooltip);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiTooltipFlags>
     get() = cachedInfo
   actual companion object {

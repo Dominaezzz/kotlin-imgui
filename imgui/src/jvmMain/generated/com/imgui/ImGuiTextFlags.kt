@@ -8,6 +8,9 @@ actual enum class ImGuiTextFlags(
 ) : Flag<ImGuiTextFlags> {
   NoWidthForLargeClippedText(ImGuiTextFlags_NoWidthForLargeClippedText);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiTextFlags>
     get() = cachedInfo
   actual companion object {

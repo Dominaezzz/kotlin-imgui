@@ -9,6 +9,7 @@ import cimgui.internal.ImGuiConfigFlags_NavEnableSetMousePos
 import cimgui.internal.ImGuiConfigFlags_NavNoCaptureKeyboard
 import cimgui.internal.ImGuiConfigFlags_NoMouse
 import cimgui.internal.ImGuiConfigFlags_NoMouseCursorChange
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiConfigFlags(
@@ -29,6 +30,9 @@ actual enum class ImGuiConfigFlags(
   IsSRGB(ImGuiConfigFlags_IsSRGB.convert()),
 
   IsTouchScreen(ImGuiConfigFlags_IsTouchScreen.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiConfigFlags>
     get() = cachedInfo

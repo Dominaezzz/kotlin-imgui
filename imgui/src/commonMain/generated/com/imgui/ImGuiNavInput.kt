@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiNavInput {
   Activate,
 
@@ -44,6 +46,8 @@ expect enum class ImGuiNavInput {
   KeyDown_,
 
   InternalStart_;
+
+  val cValue: Int
 
   companion object
 }

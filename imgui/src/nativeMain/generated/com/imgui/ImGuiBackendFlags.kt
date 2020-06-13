@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiBackendFlags_HasGamepad
 import cimgui.internal.ImGuiBackendFlags_HasMouseCursors
 import cimgui.internal.ImGuiBackendFlags_HasSetMousePos
 import cimgui.internal.ImGuiBackendFlags_RendererHasVtxOffset
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiBackendFlags(
@@ -17,6 +18,9 @@ actual enum class ImGuiBackendFlags(
   HasSetMousePos(ImGuiBackendFlags_HasSetMousePos.convert()),
 
   RendererHasVtxOffset(ImGuiBackendFlags_RendererHasVtxOffset.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiBackendFlags>
     get() = cachedInfo

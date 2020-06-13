@@ -14,6 +14,9 @@ actual enum class ImDrawListFlags(
 
   AllowVtxOffset(ImDrawListFlags_AllowVtxOffset);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImDrawListFlags>
     get() = cachedInfo
   actual companion object {

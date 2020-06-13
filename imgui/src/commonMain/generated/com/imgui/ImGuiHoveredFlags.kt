@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiHoveredFlags : Flag<ImGuiHoveredFlags> {
   ChildWindows,
 
@@ -14,6 +16,8 @@ expect enum class ImGuiHoveredFlags : Flag<ImGuiHoveredFlags> {
   AllowWhenOverlapped,
 
   AllowWhenDisabled;
+
+  val cValue: Int
 
   companion object {
     val RectOnly: Flag<ImGuiHoveredFlags>

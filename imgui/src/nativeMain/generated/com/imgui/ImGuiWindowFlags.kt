@@ -30,6 +30,7 @@ import cimgui.internal.ImGuiWindowFlags_NoTitleBar
 import cimgui.internal.ImGuiWindowFlags_Popup
 import cimgui.internal.ImGuiWindowFlags_Tooltip
 import cimgui.internal.ImGuiWindowFlags_UnsavedDocument
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiWindowFlags(
@@ -86,6 +87,9 @@ actual enum class ImGuiWindowFlags(
   Modal(ImGuiWindowFlags_Modal.convert()),
 
   ChildMenu(ImGuiWindowFlags_ChildMenu.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiWindowFlags>
     get() = cachedInfo

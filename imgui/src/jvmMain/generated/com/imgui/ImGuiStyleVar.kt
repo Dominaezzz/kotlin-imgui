@@ -74,6 +74,9 @@ actual enum class ImGuiStyleVar(
 
   SelectableTextAlign(ImGuiStyleVar_SelectableTextAlign);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiStyleVar = when (value) {
       ImGuiStyleVar_Alpha -> Alpha

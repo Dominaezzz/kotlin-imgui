@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiNavHighlightFlags : Flag<ImGuiNavHighlightFlags> {
   TypeDefault,
 
@@ -8,6 +10,8 @@ expect enum class ImGuiNavHighlightFlags : Flag<ImGuiNavHighlightFlags> {
   AlwaysDraw,
 
   NoRounding;
+
+  val cValue: Int
 
   companion object
 }

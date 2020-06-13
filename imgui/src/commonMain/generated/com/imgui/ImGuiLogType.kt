@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiLogType {
   None,
 
@@ -10,6 +12,8 @@ expect enum class ImGuiLogType {
   Buffer,
 
   Clipboard;
+
+  val cValue: Int
 
   companion object
 }

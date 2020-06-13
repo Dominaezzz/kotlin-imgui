@@ -29,6 +29,9 @@ actual enum class ImGuiItemFlags(
 
   Default_(ImGuiItemFlags_Default_);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiItemFlags>
     get() = cachedInfo
   actual companion object {

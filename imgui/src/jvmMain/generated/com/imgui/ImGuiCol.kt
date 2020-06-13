@@ -149,6 +149,9 @@ actual enum class ImGuiCol(
 
   ModalWindowDimBg(ImGuiCol_ModalWindowDimBg);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiCol = when (value) {
       ImGuiCol_Text -> Text

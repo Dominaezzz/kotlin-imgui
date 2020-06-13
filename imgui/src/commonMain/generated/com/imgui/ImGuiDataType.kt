@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiDataType {
   S8,
 
@@ -20,6 +22,8 @@ expect enum class ImGuiDataType {
   Float,
 
   Double;
+
+  val cValue: Int
 
   companion object
 }

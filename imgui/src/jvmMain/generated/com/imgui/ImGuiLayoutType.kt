@@ -11,6 +11,9 @@ actual enum class ImGuiLayoutType(
 
   Vertical(ImGuiLayoutType_Vertical);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiLayoutType = when (value) {
       ImGuiLayoutType_Horizontal -> Horizontal

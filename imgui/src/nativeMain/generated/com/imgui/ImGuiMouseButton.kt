@@ -4,6 +4,7 @@ import cimgui.internal.ImGuiMouseButton_
 import cimgui.internal.ImGuiMouseButton_Left
 import cimgui.internal.ImGuiMouseButton_Middle
 import cimgui.internal.ImGuiMouseButton_Right
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiMouseButton(
@@ -14,6 +15,9 @@ actual enum class ImGuiMouseButton(
   Right(ImGuiMouseButton_Right.convert()),
 
   Middle(ImGuiMouseButton_Middle.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiMouseButton): ImGuiMouseButton = when

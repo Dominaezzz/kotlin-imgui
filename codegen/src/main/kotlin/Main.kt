@@ -267,6 +267,14 @@ fun main(args: Array<String>) {
 		nativeEnum.addProperty(nativeValueProp.build())
 		jvmEnum.addProperty(jvmValueProp.build())
 
+		commonEnum.addProperty("cValue", INT)
+		nativeEnum.addProperty(PropertySpec.builder("cValue", INT, KModifier.ACTUAL)
+				.getter(FunSpec.getterBuilder().addStatement("return value.%M()", CONVERT).build())
+				.build())
+		jvmEnum.addProperty(PropertySpec.builder("cValue", INT, KModifier.ACTUAL)
+				.getter(FunSpec.getterBuilder().addStatement("return value").build())
+				.build())
+
 		val compositeFlags = mutableListOf<Pair<String, String>>()
 		val lookUpTable = CodeBlock.builder()
 

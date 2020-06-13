@@ -86,6 +86,9 @@ actual enum class ImGuiWindowFlags(
 
   ChildMenu(ImGuiWindowFlags_ChildMenu);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiWindowFlags>
     get() = cachedInfo
   actual companion object {

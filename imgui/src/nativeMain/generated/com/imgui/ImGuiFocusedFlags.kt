@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiFocusedFlags_AnyWindow
 import cimgui.internal.ImGuiFocusedFlags_ChildWindows
 import cimgui.internal.ImGuiFocusedFlags_RootAndChildWindows
 import cimgui.internal.ImGuiFocusedFlags_RootWindow
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiFocusedFlags(
@@ -15,6 +16,9 @@ actual enum class ImGuiFocusedFlags(
   RootWindow(ImGuiFocusedFlags_RootWindow.convert()),
 
   AnyWindow(ImGuiFocusedFlags_AnyWindow.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiFocusedFlags>
     get() = cachedInfo

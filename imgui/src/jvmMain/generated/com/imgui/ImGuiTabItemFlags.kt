@@ -17,6 +17,9 @@ actual enum class ImGuiTabItemFlags(
 
   NoPushId(ImGuiTabItemFlags_NoPushId);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiTabItemFlags>
     get() = cachedInfo
   actual companion object {

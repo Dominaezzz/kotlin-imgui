@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiMouseCursor {
   None,
 
@@ -20,6 +22,8 @@ expect enum class ImGuiMouseCursor {
   Hand,
 
   NotAllowed;
+
+  val cValue: Int
 
   companion object
 }

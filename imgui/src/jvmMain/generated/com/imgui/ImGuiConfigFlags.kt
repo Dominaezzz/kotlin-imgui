@@ -29,6 +29,9 @@ actual enum class ImGuiConfigFlags(
 
   IsTouchScreen(ImGuiConfigFlags_IsTouchScreen);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiConfigFlags>
     get() = cachedInfo
   actual companion object {

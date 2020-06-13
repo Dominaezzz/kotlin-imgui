@@ -6,6 +6,7 @@ import cimgui.internal.ImGuiDir_Left
 import cimgui.internal.ImGuiDir_None
 import cimgui.internal.ImGuiDir_Right
 import cimgui.internal.ImGuiDir_Up
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDir(
@@ -20,6 +21,9 @@ actual enum class ImGuiDir(
   Up(ImGuiDir_Up.convert()),
 
   Down(ImGuiDir_Down.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiDir): ImGuiDir = when (value.convert<ImGuiDir_>()) {

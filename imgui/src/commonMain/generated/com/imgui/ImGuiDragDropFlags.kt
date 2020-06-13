@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiDragDropFlags : Flag<ImGuiDragDropFlags> {
   SourceNoPreviewTooltip,
 
@@ -18,6 +20,8 @@ expect enum class ImGuiDragDropFlags : Flag<ImGuiDragDropFlags> {
   AcceptNoDrawDefaultRect,
 
   AcceptNoPreviewTooltip;
+
+  val cValue: Int
 
   companion object {
     val AcceptPeekOnly: Flag<ImGuiDragDropFlags>

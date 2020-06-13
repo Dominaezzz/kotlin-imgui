@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiButtonFlags : Flag<ImGuiButtonFlags> {
   Repeat,
 
@@ -38,6 +40,8 @@ expect enum class ImGuiButtonFlags : Flag<ImGuiButtonFlags> {
   MouseButtonRight,
 
   MouseButtonMiddle;
+
+  val cValue: Int
 
   companion object {
     val MouseButtonMask_: Flag<ImGuiButtonFlags>

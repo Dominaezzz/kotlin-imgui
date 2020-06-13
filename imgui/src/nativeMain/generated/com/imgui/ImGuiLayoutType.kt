@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiLayoutType_
 import cimgui.internal.ImGuiLayoutType_Horizontal
 import cimgui.internal.ImGuiLayoutType_Vertical
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiLayoutType(
@@ -11,6 +12,9 @@ actual enum class ImGuiLayoutType(
   Horizontal(ImGuiLayoutType_Horizontal.convert()),
 
   Vertical(ImGuiLayoutType_Vertical.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiLayoutType): ImGuiLayoutType = when

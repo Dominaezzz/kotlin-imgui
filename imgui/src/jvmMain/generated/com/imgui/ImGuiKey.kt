@@ -71,6 +71,9 @@ actual enum class ImGuiKey(
 
   Z(ImGuiKey_Z);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiKey = when (value) {
       ImGuiKey_Tab -> Tab

@@ -9,6 +9,7 @@ import cimgui.internal.ImGuiItemFlags_NoNav
 import cimgui.internal.ImGuiItemFlags_NoNavDefaultFocus
 import cimgui.internal.ImGuiItemFlags_NoTabStop
 import cimgui.internal.ImGuiItemFlags_SelectableDontClosePopup
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiItemFlags(
@@ -29,6 +30,9 @@ actual enum class ImGuiItemFlags(
   MixedValue(ImGuiItemFlags_MixedValue.convert()),
 
   Default_(ImGuiItemFlags_Default_.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiItemFlags>
     get() = cachedInfo

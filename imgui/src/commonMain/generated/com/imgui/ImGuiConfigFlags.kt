@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiConfigFlags : Flag<ImGuiConfigFlags> {
   NavEnableKeyboard,
 
@@ -16,6 +18,8 @@ expect enum class ImGuiConfigFlags : Flag<ImGuiConfigFlags> {
   IsSRGB,
 
   IsTouchScreen;
+
+  val cValue: Int
 
   companion object
 }

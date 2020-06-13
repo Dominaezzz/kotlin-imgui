@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiDataType_U16
 import cimgui.internal.ImGuiDataType_U32
 import cimgui.internal.ImGuiDataType_U64
 import cimgui.internal.ImGuiDataType_U8
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDataType(
@@ -35,6 +36,9 @@ actual enum class ImGuiDataType(
   Float(ImGuiDataType_Float.convert()),
 
   Double(ImGuiDataType_Double.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiDataType): ImGuiDataType = when

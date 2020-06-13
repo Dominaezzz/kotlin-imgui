@@ -22,6 +22,7 @@ import cimgui.internal.ImGuiInputTextFlags_NoMarkEdited
 import cimgui.internal.ImGuiInputTextFlags_NoUndoRedo
 import cimgui.internal.ImGuiInputTextFlags_Password
 import cimgui.internal.ImGuiInputTextFlags_ReadOnly
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiInputTextFlags(
@@ -68,6 +69,9 @@ actual enum class ImGuiInputTextFlags(
   Multiline(ImGuiInputTextFlags_Multiline.convert()),
 
   NoMarkEdited(ImGuiInputTextFlags_NoMarkEdited.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiInputTextFlags>
     get() = cachedInfo

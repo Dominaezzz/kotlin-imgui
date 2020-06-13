@@ -20,6 +20,9 @@ actual enum class ImGuiSelectableFlags(
 
   AllowItemOverlap(ImGuiSelectableFlags_AllowItemOverlap);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiSelectableFlags>
     get() = cachedInfo
   actual companion object {

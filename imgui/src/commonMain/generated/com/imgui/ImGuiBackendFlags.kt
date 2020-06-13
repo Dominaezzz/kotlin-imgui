@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiBackendFlags : Flag<ImGuiBackendFlags> {
   HasGamepad,
 
@@ -8,6 +10,8 @@ expect enum class ImGuiBackendFlags : Flag<ImGuiBackendFlags> {
   HasSetMousePos,
 
   RendererHasVtxOffset;
+
+  val cValue: Int
 
   companion object
 }

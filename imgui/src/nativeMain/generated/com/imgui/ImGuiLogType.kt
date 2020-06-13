@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiLogType_Clipboard
 import cimgui.internal.ImGuiLogType_File
 import cimgui.internal.ImGuiLogType_None
 import cimgui.internal.ImGuiLogType_TTY
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiLogType(
@@ -19,6 +20,9 @@ actual enum class ImGuiLogType(
   Buffer(ImGuiLogType_Buffer.convert()),
 
   Clipboard(ImGuiLogType_Clipboard.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiLogType): ImGuiLogType = when

@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiColorEditFlags : Flag<ImGuiColorEditFlags> {
   NoAlpha,
 
@@ -46,6 +48,8 @@ expect enum class ImGuiColorEditFlags : Flag<ImGuiColorEditFlags> {
   InputRGB,
 
   InputHSV;
+
+  val cValue: Int
 
   companion object
 }

@@ -28,6 +28,9 @@ actual enum class ImGuiHoveredFlags(
 
   AllowWhenDisabled(ImGuiHoveredFlags_AllowWhenDisabled);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiHoveredFlags>
     get() = cachedInfo
   actual companion object {

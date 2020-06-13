@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiMouseCursor_ResizeNESW
 import cimgui.internal.ImGuiMouseCursor_ResizeNS
 import cimgui.internal.ImGuiMouseCursor_ResizeNWSE
 import cimgui.internal.ImGuiMouseCursor_TextInput
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiMouseCursor(
@@ -35,6 +36,9 @@ actual enum class ImGuiMouseCursor(
   Hand(ImGuiMouseCursor_Hand.convert()),
 
   NotAllowed(ImGuiMouseCursor_NotAllowed.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiMouseCursor): ImGuiMouseCursor = when
