@@ -267,5 +267,9 @@ expect class ImGuiContext {
 
   constructor(sharedFontAtlas: ImFontAtlas)
 
+  fun colorEditLastColor(index: Int): Float
+
+  fun framerateSecPerFrame(index: Int): Float
+
   fun destroy()
 }

@@ -9,6 +9,7 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -404,6 +405,16 @@ actual inline class ImGuiContext(
 
   actual constructor(sharedFontAtlas: ImFontAtlas) :
       this(ImGuiContext_ImGuiContext(sharedFontAtlas.ptr)!!)
+
+  actual fun colorEditLastColor(index: Int): Float {
+    require(index in 0..3)
+    return ptr.pointed.ColorEditLastColor.get(index)
+  }
+
+  actual fun framerateSecPerFrame(index: Int): Float {
+    require(index in 0..120)
+    return ptr.pointed.FramerateSecPerFrame.get(index)
+  }
 
   actual fun destroy() {
     ImGuiContext_destroy(ptr)

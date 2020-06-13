@@ -13,6 +13,10 @@ expect class ImGuiMenuColumns {
 
   constructor()
 
+  fun pos(index: Int): Float
+
+  fun nextWidths(index: Int): Float
+
   fun calcExtraSpace(availW: Float): Float
 
   fun declColumns(

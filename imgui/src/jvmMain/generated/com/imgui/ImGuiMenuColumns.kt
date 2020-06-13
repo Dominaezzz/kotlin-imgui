@@ -1,10 +1,12 @@
 package com.imgui
 
+import cimgui.internal.CImGui
 import cimgui.internal.CImGui.ImGuiMenuColumns_CalcExtraSpace
 import cimgui.internal.CImGui.ImGuiMenuColumns_DeclColumns
 import cimgui.internal.CImGui.ImGuiMenuColumns_ImGuiMenuColumns
 import cimgui.internal.CImGui.ImGuiMenuColumns_Update
 import cimgui.internal.CImGui.ImGuiMenuColumns_destroy
+import cimgui.internal.CImGui.floatArray_getitem
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -24,6 +26,16 @@ actual inline class ImGuiMenuColumns(
     get() = ptr.nextWidth
 
   actual constructor() : this(ImGuiMenuColumns_ImGuiMenuColumns()!!)
+
+  actual fun pos(index: Int): Float {
+    require(index in 0..3)
+    return floatArray_getitem(ptr.pos, index)
+  }
+
+  actual fun nextWidths(index: Int): Float {
+    require(index in 0..3)
+    return floatArray_getitem(ptr.nextWidths, index)
+  }
 
   actual fun calcExtraSpace(availW: Float): Float = ImGuiMenuColumns_CalcExtraSpace(ptr, availW)
 

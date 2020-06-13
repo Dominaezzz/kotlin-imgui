@@ -12,6 +12,9 @@ import kotlinx.serialization.json.JsonObject
 import java.nio.file.Paths
 
 val POINTED = MemberName("kotlinx.cinterop", "pointed")
+val VALUE = MemberName("kotlinx.cinterop", "value")
+val GET = MemberName("kotlinx.cinterop", "get")
+val SET = MemberName("kotlinx.cinterop", "set")
 val CONVERT = MemberName("kotlinx.cinterop", "convert")
 val WCSTR = MemberName("kotlinx.cinterop", "wcstr")
 val TO_KSTRING = MemberName("kotlinx.cinterop", "toKString")
@@ -839,20 +842,20 @@ fun main(args: Array<String>) {
 			// Skip imgui internal/private members.
 			if (member.name.startsWith('_')) continue
 
-			val memberNameKt = member.name.let {
-				if (member.name == "ID") "id" else it.decapitalize()
-			}
+			val memberNameKt = member.name.substringBefore('[')
+					.let { if (member.name == "ID") "id" else it.decapitalize() }
 
-			if (member.size == null || member.type == "const char*") {
-				// TODO: Improve this here with a white list of functions.
-				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
-				val shouldAssert = !canBeNull || member.type == "const char*"
-				val isMutable = member.name.substringBefore('[') in mutableStructFields[structName].orEmpty()
-				try {
-					val (typeKt, nativeConv, jvmConv) = convertNativeTypeToKt(member.type, true)
-					// If return value can be null and we're not asserting, then we return nullable.
-					val propType = typeKt.copy(canBeNull && !shouldAssert)
+			// TODO: Improve this here with a white list of functions.
+			val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
+			val shouldAssert = !canBeNull || member.type == "const char*"
+			val isMutable = member.name.substringBefore('[') in mutableStructFields[structName].orEmpty()
 
+			try {
+				val (typeKt, nativeConv, jvmConv) = convertNativeTypeToKt(member.type, true)
+				// If return value can be null and we're not asserting, then we return nullable.
+				val propType = typeKt.copy(canBeNull && !shouldAssert)
+
+				if (member.size == null || member.type == "const char*") {
 					val commonProp = PropertySpec.builder(memberNameKt, propType, KModifier.EXPECT)
 					val nativeProp = PropertySpec.builder(memberNameKt, propType, KModifier.ACTUAL)
 					val jvmProp = PropertySpec.builder(memberNameKt, propType, KModifier.ACTUAL)
@@ -905,11 +908,72 @@ fun main(args: Array<String>) {
 					commonStruct.addProperty(commonProp.build())
 					nativeStruct.addProperty(nativeProp.build())
 					jvmStruct.addProperty(jvmProp.build())
-				} catch (e: NotImplementedError) {
-					println("MEMBER: $structName -> ${member.name}: ${member.type}")
-					// Skip members with non-trivial type.
-					continue
+				} else {
+					val commonGetterFunc = FunSpec.builder(memberNameKt)
+							.addModifiers(KModifier.EXPECT)
+							.returns(propType)
+							.addParameter("index", INT)
+					val nativeGetterFunc = FunSpec.builder(memberNameKt)
+							.addModifiers(KModifier.ACTUAL)
+							.returns(propType)
+							.addParameter("index", INT)
+					val jvmGetterFunc = FunSpec.builder(memberNameKt)
+							.addModifiers(KModifier.ACTUAL)
+							.returns(propType)
+							.addParameter("index", INT)
+
+					nativeGetterFunc.addStatement("require(index in 0..${member.size})")
+					nativeGetterFunc.addCode("return ptr.%M.%N.%M(index)", POINTED, member.name.substringBefore('['), GET)
+					if (member.type == "bool") nativeGetterFunc.addCode(".%M", VALUE) // kludge
+					nativeGetterFunc.addCode(nativeConv)
+					nativeGetterFunc.addCode("\n")
+
+					val cimguiClass = ClassName("cimgui.internal", "CImGui")
+					val swigGetItem = MemberName(cimguiClass, "${member.type}Array_getitem")
+					val swigSetItem = MemberName(cimguiClass, "${member.type}Array_setitem")
+
+					jvmGetterFunc.addStatement("require(index in 0..${member.size})")
+					jvmGetterFunc.addCode("return %M(ptr.%N, index)", swigGetItem, memberNameKt)
+					jvmGetterFunc.addCode(jvmConv)
+					jvmGetterFunc.addCode("\n")
+
+					commonStruct.addFunction(commonGetterFunc.build())
+					nativeStruct.addFunction(nativeGetterFunc.build())
+					jvmStruct.addFunction(jvmGetterFunc.build())
+
+					if (isMutable) {
+						val commonSetterFunc = FunSpec.builder(memberNameKt)
+								.addModifiers(KModifier.EXPECT)
+								.addParameter("index", INT)
+								.addParameter("value", propType)
+						val nativeSetterFunc = FunSpec.builder(memberNameKt)
+								.addModifiers(KModifier.ACTUAL)
+								.addParameter("index", INT)
+								.addParameter("value", propType)
+						val jvmSetterFunc = FunSpec.builder(memberNameKt)
+								.addModifiers(KModifier.ACTUAL)
+								.addParameter("index", INT)
+								.addParameter("value", propType)
+
+						nativeSetterFunc.addStatement("require(index in 0..${member.size})")
+						if (member.type == "bool") {
+							nativeSetterFunc.addStatement("ptr.%M.%N.%M(index).%M = value", POINTED, member.name.substringBefore('['), GET, VALUE)
+						} else {
+							nativeSetterFunc.addStatement("ptr.%M.%N.%M(index, value)", POINTED, member.name.substringBefore('['), SET)
+						}
+
+						jvmSetterFunc.addStatement("require(index in 0..${member.size})")
+						jvmSetterFunc.addStatement("%M(ptr.%N, index, value)", swigSetItem, memberNameKt)
+
+						commonStruct.addFunction(commonSetterFunc.build())
+						nativeStruct.addFunction(nativeSetterFunc.build())
+						jvmStruct.addFunction(jvmSetterFunc.build())
+					}
 				}
+			} catch (e: NotImplementedError) {
+				println("MEMBER: $structName -> ${member.name}: ${member.type}")
+				// Skip members with non-trivial type.
+				continue
 			}
 		}
 

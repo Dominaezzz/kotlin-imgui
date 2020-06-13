@@ -1,5 +1,6 @@
 package com.imgui
 
+import cimgui.internal.CImGui.ImGuiIDArray_getitem
 import cimgui.internal.CImGui.ImGuiWindow_CalcFontSize
 import cimgui.internal.CImGui.ImGuiWindow_GetIDInt
 import cimgui.internal.CImGui.ImGuiWindow_GetIDNoKeepAliveInt
@@ -193,6 +194,11 @@ actual inline class ImGuiWindow(
 
   actual constructor(context: ImGuiContext, name: String) :
       this(ImGuiWindow_ImGuiWindow(context.ptr, name)!!)
+
+  actual fun navLastIds(index: Int): ImGuiID {
+    require(index in 0..2)
+    return ImGuiIDArray_getitem(ptr.navLastIds, index).let(::ImGuiID)
+  }
 
   actual fun calcFontSize(): Float = ImGuiWindow_CalcFontSize(ptr)
 

@@ -2,6 +2,7 @@ package com.imgui
 
 import kotlin.Boolean
 import kotlin.Float
+import kotlin.Int
 
 expect class ImGuiStyle {
   val alpha: Float
@@ -75,6 +76,8 @@ expect class ImGuiStyle {
   val circleSegmentMaxError: Float
 
   constructor()
+
+  fun colors(index: Int): Vec4
 
   fun scaleAllSizes(scaleFactor: Float)
 

@@ -2,9 +2,11 @@ package com.imgui
 
 import cimgui.internal.CImGui.ImGuiWindowTempData_ImGuiWindowTempData
 import cimgui.internal.CImGui.ImGuiWindowTempData_destroy
+import cimgui.internal.CImGui.shortArray_getitem
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.Short
 import kotlin.Suppress
 import kotlin.UInt
 
@@ -100,6 +102,11 @@ actual inline class ImGuiWindowTempData(
     get() = ptr.textWrapPos
 
   actual constructor() : this(ImGuiWindowTempData_ImGuiWindowTempData()!!)
+
+  actual fun stackSizesBackup(index: Int): Short {
+    require(index in 0..6)
+    return shortArray_getitem(ptr.stackSizesBackup, index)
+  }
 
   actual fun destroy() {
     ImGuiWindowTempData_destroy(ptr)

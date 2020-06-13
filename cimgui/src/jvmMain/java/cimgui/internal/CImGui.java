@@ -4015,6 +4015,23 @@ public class CImGui {
     return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
   }
 
+  public static SWIGTYPE_p_short new_shortArray(int nelements) {
+    long cPtr = CImGuiJNI.new_shortArray(nelements);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_short(cPtr, false);
+  }
+
+  public static void delete_shortArray(SWIGTYPE_p_short ary) {
+    CImGuiJNI.delete_shortArray(SWIGTYPE_p_short.getCPtr(ary));
+  }
+
+  public static short shortArray_getitem(SWIGTYPE_p_short ary, int index) {
+    return CImGuiJNI.shortArray_getitem(SWIGTYPE_p_short.getCPtr(ary), index);
+  }
+
+  public static void shortArray_setitem(SWIGTYPE_p_short ary, int index, short value) {
+    CImGuiJNI.shortArray_setitem(SWIGTYPE_p_short.getCPtr(ary), index, value);
+  }
+
   public static SWIGTYPE_p_int new_intArray(int nelements) {
     long cPtr = CImGuiJNI.new_intArray(nelements);
     return (cPtr == 0) ? null : new SWIGTYPE_p_int(cPtr, false);
@@ -4049,6 +4066,23 @@ public class CImGui {
     CImGuiJNI.floatArray_setitem(SWIGTYPE_p_float.getCPtr(ary), index, value);
   }
 
+  public static SWIGTYPE_p_double new_doubleArray(int nelements) {
+    long cPtr = CImGuiJNI.new_doubleArray(nelements);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_double(cPtr, false);
+  }
+
+  public static void delete_doubleArray(SWIGTYPE_p_double ary) {
+    CImGuiJNI.delete_doubleArray(SWIGTYPE_p_double.getCPtr(ary));
+  }
+
+  public static double doubleArray_getitem(SWIGTYPE_p_double ary, int index) {
+    return CImGuiJNI.doubleArray_getitem(SWIGTYPE_p_double.getCPtr(ary), index);
+  }
+
+  public static void doubleArray_setitem(SWIGTYPE_p_double ary, int index, double value) {
+    CImGuiJNI.doubleArray_setitem(SWIGTYPE_p_double.getCPtr(ary), index, value);
+  }
+
   public static SWIGTYPE_p_bool new_boolArray(int nelements) {
     long cPtr = CImGuiJNI.new_boolArray(nelements);
     return (cPtr == 0) ? null : new SWIGTYPE_p_bool(cPtr, false);
@@ -4081,6 +4115,57 @@ public class CImGui {
 
   public static void ushortArray_setitem(SWIGTYPE_p_unsigned_short ary, int index, int value) {
     CImGuiJNI.ushortArray_setitem(SWIGTYPE_p_unsigned_short.getCPtr(ary), index, value);
+  }
+
+  public static ImVec2 new_ImVec2Array(int nelements) {
+    long cPtr = CImGuiJNI.new_ImVec2Array(nelements);
+    return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
+  public static void delete_ImVec2Array(ImVec2 ary) {
+    CImGuiJNI.delete_ImVec2Array(ImVec2.getCPtr(ary), ary);
+  }
+
+  public static ImVec2 ImVec2Array_getitem(ImVec2 ary, int index) {
+    return new ImVec2(CImGuiJNI.ImVec2Array_getitem(ImVec2.getCPtr(ary), ary, index), true);
+  }
+
+  public static void ImVec2Array_setitem(ImVec2 ary, int index, ImVec2 value) {
+    CImGuiJNI.ImVec2Array_setitem(ImVec2.getCPtr(ary), ary, index, ImVec2.getCPtr(value), value);
+  }
+
+  public static ImVec4 new_ImVec4Array(int nelements) {
+    long cPtr = CImGuiJNI.new_ImVec4Array(nelements);
+    return (cPtr == 0) ? null : new ImVec4(cPtr, false);
+  }
+
+  public static void delete_ImVec4Array(ImVec4 ary) {
+    CImGuiJNI.delete_ImVec4Array(ImVec4.getCPtr(ary), ary);
+  }
+
+  public static ImVec4 ImVec4Array_getitem(ImVec4 ary, int index) {
+    return new ImVec4(CImGuiJNI.ImVec4Array_getitem(ImVec4.getCPtr(ary), ary, index), true);
+  }
+
+  public static void ImVec4Array_setitem(ImVec4 ary, int index, ImVec4 value) {
+    CImGuiJNI.ImVec4Array_setitem(ImVec4.getCPtr(ary), ary, index, ImVec4.getCPtr(value), value);
+  }
+
+  public static SWIGTYPE_p_unsigned_int new_ImGuiIDArray(int nelements) {
+    long cPtr = CImGuiJNI.new_ImGuiIDArray(nelements);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_int(cPtr, false);
+  }
+
+  public static void delete_ImGuiIDArray(SWIGTYPE_p_unsigned_int ary) {
+    CImGuiJNI.delete_ImGuiIDArray(SWIGTYPE_p_unsigned_int.getCPtr(ary));
+  }
+
+  public static long ImGuiIDArray_getitem(SWIGTYPE_p_unsigned_int ary, int index) {
+    return CImGuiJNI.ImGuiIDArray_getitem(SWIGTYPE_p_unsigned_int.getCPtr(ary), index);
+  }
+
+  public static void ImGuiIDArray_setitem(SWIGTYPE_p_unsigned_int ary, int index, long value) {
+    CImGuiJNI.ImGuiIDArray_setitem(SWIGTYPE_p_unsigned_int.getCPtr(ary), index, value);
   }
 
   public static ImDrawCmd new_ImDrawCmdArray(int nelements) {

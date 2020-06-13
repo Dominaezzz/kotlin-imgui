@@ -550,6 +550,22 @@ static void* voidp_value(void* *obj) {
 }
 
 
+static short *new_shortArray(int nelements) { 
+  return new short[nelements](); 
+}
+
+static void delete_shortArray(short *ary) { 
+  delete [] ary; 
+}
+
+static short shortArray_getitem(short *ary, int index) {
+    return ary[index];
+}
+static void shortArray_setitem(short *ary, int index, short value) {
+    ary[index] = value;
+}
+
+
 static int *new_intArray(int nelements) { 
   return new int[nelements](); 
 }
@@ -582,6 +598,22 @@ static void floatArray_setitem(float *ary, int index, float value) {
 }
 
 
+static double *new_doubleArray(int nelements) { 
+  return new double[nelements](); 
+}
+
+static void delete_doubleArray(double *ary) { 
+  delete [] ary; 
+}
+
+static double doubleArray_getitem(double *ary, int index) {
+    return ary[index];
+}
+static void doubleArray_setitem(double *ary, int index, double value) {
+    ary[index] = value;
+}
+
+
 static bool *new_boolArray(int nelements) { 
   return new bool[nelements](); 
 }
@@ -610,6 +642,54 @@ static unsigned short ushortArray_getitem(unsigned short *ary, int index) {
     return ary[index];
 }
 static void ushortArray_setitem(unsigned short *ary, int index, unsigned short value) {
+    ary[index] = value;
+}
+
+
+static ImVec2 *new_ImVec2Array(int nelements) { 
+  return new ImVec2[nelements](); 
+}
+
+static void delete_ImVec2Array(ImVec2 *ary) { 
+  delete [] ary; 
+}
+
+static ImVec2 ImVec2Array_getitem(ImVec2 *ary, int index) {
+    return ary[index];
+}
+static void ImVec2Array_setitem(ImVec2 *ary, int index, ImVec2 value) {
+    ary[index] = value;
+}
+
+
+static ImVec4 *new_ImVec4Array(int nelements) { 
+  return new ImVec4[nelements](); 
+}
+
+static void delete_ImVec4Array(ImVec4 *ary) { 
+  delete [] ary; 
+}
+
+static ImVec4 ImVec4Array_getitem(ImVec4 *ary, int index) {
+    return ary[index];
+}
+static void ImVec4Array_setitem(ImVec4 *ary, int index, ImVec4 value) {
+    ary[index] = value;
+}
+
+
+static ImGuiID *new_ImGuiIDArray(int nelements) { 
+  return new ImGuiID[nelements](); 
+}
+
+static void delete_ImGuiIDArray(ImGuiID *ary) { 
+  delete [] ary; 
+}
+
+static ImGuiID ImGuiIDArray_getitem(ImGuiID *ary, int index) {
+    return ary[index];
+}
+static void ImGuiIDArray_setitem(ImGuiID *ary, int index, ImGuiID value) {
     ary[index] = value;
 }
 
@@ -45253,6 +45333,60 @@ SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_voidp_1value(JNIEnv *jen
 }
 
 
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1shortArray(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  short *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (short *)new_shortArray(arg1);
+  *(short **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1shortArray(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  short *arg1 = (short *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(short **)&jarg1; 
+  delete_shortArray(arg1);
+}
+
+
+SWIGEXPORT jshort JNICALL Java_cimgui_internal_CImGuiJNI_shortArray_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jshort jresult = 0 ;
+  short *arg1 = (short *) 0 ;
+  int arg2 ;
+  short result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(short **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (short)shortArray_getitem(arg1,arg2);
+  jresult = (jshort)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_shortArray_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jshort jarg3) {
+  short *arg1 = (short *) 0 ;
+  int arg2 ;
+  short arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(short **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (short)jarg3; 
+  shortArray_setitem(arg1,arg2,arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1intArray(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jlong jresult = 0 ;
   int arg1 ;
@@ -45361,6 +45495,60 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_floatArray_1setitem(JNIEn
 }
 
 
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1doubleArray(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  double *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (double *)new_doubleArray(arg1);
+  *(double **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1doubleArray(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  double *arg1 = (double *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(double **)&jarg1; 
+  delete_doubleArray(arg1);
+}
+
+
+SWIGEXPORT jdouble JNICALL Java_cimgui_internal_CImGuiJNI_doubleArray_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jdouble jresult = 0 ;
+  double *arg1 = (double *) 0 ;
+  int arg2 ;
+  double result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(double **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (double)doubleArray_getitem(arg1,arg2);
+  jresult = (jdouble)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_doubleArray_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jdouble jarg3) {
+  double *arg1 = (double *) 0 ;
+  int arg2 ;
+  double arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(double **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (double)jarg3; 
+  doubleArray_setitem(arg1,arg2,arg3);
+}
+
+
 SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1boolArray(JNIEnv *jenv, jclass jcls, jint jarg1) {
   jlong jresult = 0 ;
   int arg1 ;
@@ -45466,6 +45654,188 @@ SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ushortArray_1setitem(JNIE
   arg2 = (int)jarg2; 
   arg3 = (unsigned short)jarg3; 
   ushortArray_setitem(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVec2Array(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  ImVec2 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (ImVec2 *)new_ImVec2Array(arg1);
+  *(ImVec2 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVec2Array(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImVec2 *arg1 = (ImVec2 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVec2 **)&jarg1; 
+  delete_ImVec2Array(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVec2Array_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  ImVec2 *arg1 = (ImVec2 *) 0 ;
+  int arg2 ;
+  ImVec2 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVec2 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = ImVec2Array_getitem(arg1,arg2);
+  *(ImVec2 **)&jresult = new ImVec2((const ImVec2 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVec2Array_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  ImVec2 *arg1 = (ImVec2 *) 0 ;
+  int arg2 ;
+  ImVec2 arg3 ;
+  ImVec2 *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(ImVec2 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  argp3 = *(ImVec2 **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec2");
+    return ;
+  }
+  arg3 = *argp3; 
+  ImVec2Array_setitem(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImVec4Array(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  ImVec4 *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (ImVec4 *)new_ImVec4Array(arg1);
+  *(ImVec4 **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImVec4Array(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  ImVec4 *arg1 = (ImVec4 *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVec4 **)&jarg1; 
+  delete_ImVec4Array(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImVec4Array_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  ImVec4 *arg1 = (ImVec4 *) 0 ;
+  int arg2 ;
+  ImVec4 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ImVec4 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = ImVec4Array_getitem(arg1,arg2);
+  *(ImVec4 **)&jresult = new ImVec4((const ImVec4 &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImVec4Array_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  ImVec4 *arg1 = (ImVec4 *) 0 ;
+  int arg2 ;
+  ImVec4 arg3 ;
+  ImVec4 *argp3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(ImVec4 **)&jarg1; 
+  arg2 = (int)jarg2; 
+  argp3 = *(ImVec4 **)&jarg3; 
+  if (!argp3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null ImVec4");
+    return ;
+  }
+  arg3 = *argp3; 
+  ImVec4Array_setitem(arg1,arg2,arg3);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_new_1ImGuiIDArray(JNIEnv *jenv, jclass jcls, jint jarg1) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  ImGuiID *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  result = (ImGuiID *)new_ImGuiIDArray(arg1);
+  *(ImGuiID **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_delete_1ImGuiIDArray(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ImGuiID *arg1 = (ImGuiID *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiID **)&jarg1; 
+  delete_ImGuiIDArray(arg1);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIDArray_1getitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2) {
+  jlong jresult = 0 ;
+  ImGuiID *arg1 = (ImGuiID *) 0 ;
+  int arg2 ;
+  ImGuiID result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiID **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (ImGuiID)ImGuiIDArray_getitem(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_cimgui_internal_CImGuiJNI_ImGuiIDArray_1setitem(JNIEnv *jenv, jclass jcls, jlong jarg1, jint jarg2, jlong jarg3) {
+  ImGuiID *arg1 = (ImGuiID *) 0 ;
+  int arg2 ;
+  ImGuiID arg3 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ImGuiID **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (ImGuiID)jarg3; 
+  ImGuiIDArray_setitem(arg1,arg2,arg3);
 }
 
 

@@ -25,6 +25,7 @@ import cimgui.internal.CImGui.ImFontAtlas_ImFontAtlas
 import cimgui.internal.CImGui.ImFontAtlas_IsBuilt
 import cimgui.internal.CImGui.ImFontAtlas_SetTexID
 import cimgui.internal.CImGui.ImFontAtlas_destroy
+import cimgui.internal.CImGui.intArray_getitem
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Float
@@ -65,6 +66,11 @@ actual inline class ImFontAtlas(
     get() = ptr.texUvWhitePixel.fromCValue()
 
   actual constructor() : this(ImFontAtlas_ImFontAtlas()!!)
+
+  actual fun customRectIds(index: Int): Int {
+    require(index in 0..1)
+    return intArray_getitem(ptr.customRectIds, index)
+  }
 
   actual fun addCustomRectFontGlyph(
     font: ImFont,

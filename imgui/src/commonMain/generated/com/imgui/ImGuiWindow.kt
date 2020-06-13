@@ -123,6 +123,8 @@ expect class ImGuiWindow {
 
   constructor(context: ImGuiContext, name: String)
 
+  fun navLastIds(index: Int): ImGuiID
+
   fun calcFontSize(): Float
 
   fun getID(str: String, strEnd: String? = null): ImGuiID

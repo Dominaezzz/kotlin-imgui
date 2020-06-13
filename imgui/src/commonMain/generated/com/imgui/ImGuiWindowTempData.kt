@@ -3,6 +3,7 @@ package com.imgui
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.Short
 import kotlin.UInt
 
 expect class ImGuiWindowTempData {
@@ -65,6 +66,8 @@ expect class ImGuiWindowTempData {
   val textWrapPos: Float
 
   constructor()
+
+  fun stackSizesBackup(index: Int): Short
 
   fun destroy()
 }
