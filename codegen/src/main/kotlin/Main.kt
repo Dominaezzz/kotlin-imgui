@@ -52,6 +52,27 @@ val functionsToSkip = setOf(
 		"igImTriangleBarycentricCoords" // Needs to be handwritten in cimgui.
 )
 
+// TODO: Move to JSON file.
+val mutableStructFields = mapOf(
+		"ImGuiIO" to setOf(
+				"MouseWheel",
+				"MouseWheelH",
+				"DeltaTime",
+				"KeyCtrl",
+				"KeyShift",
+				"KeyAlt",
+				"KeySuper",
+				"BackendFlags",
+				"MouseDown",
+				"KeysDown",
+				"KeyMap",
+				"NavInputs",
+				"MousePos",
+				"DisplaySize",
+				"DisplayFramebufferScale"
+		)
+)
+
 fun String.snakeToPascalCase(abbreviations: Set<String> = emptySet()): String {
 	return splitToSequence("_")
 			.map {
@@ -826,6 +847,7 @@ fun main(args: Array<String>) {
 				// TODO: Improve this here with a white list of functions.
 				val canBeNull = member.type.endsWith("*") || member.type == "ImTextureID"
 				val shouldAssert = !canBeNull || member.type == "const char*"
+				val isMutable = member.name.substringBefore('[') in mutableStructFields[structName].orEmpty()
 				try {
 					val (typeKt, nativeConv, jvmConv) = convertNativeTypeToKt(member.type, true)
 					// If return value can be null and we're not asserting, then we return nullable.
@@ -849,6 +871,36 @@ fun main(args: Array<String>) {
 
 					nativeProp.getter(nativeGetter.build())
 					jvmProp.getter(jvmGetter.build())
+
+					if (isMutable) {
+						commonProp.mutable()
+						nativeProp.mutable()
+						jvmProp.mutable()
+
+						val nativeSetter = FunSpec.setterBuilder()
+						nativeSetter.addParameter("value", propType)
+
+						val jvmSetter = FunSpec.setterBuilder()
+						jvmSetter.addParameter("value", propType)
+
+						// TODO: Create whitelist for this.
+						if (member.type == "ImVec2") {
+							val fromKValue = MemberName("com.imgui", "fromKValue")
+							nativeSetter.addStatement("ptr.%M.%N.%M(value)", POINTED, member.name, fromKValue)
+							jvmSetter.addStatement("ptr.%N.%M(value)", memberNameKt, fromKValue)
+						} else {
+							val (_, nativeInConv, jvmInConv) = convertKotlinTypeToNative(member.type, canBeNull, false)
+							nativeSetter.addCode("ptr.%M.%N = value", POINTED, member.name)
+							nativeSetter.addCode(nativeInConv)
+							nativeSetter.addCode("\n")
+							jvmSetter.addCode("ptr.%N = value", memberNameKt)
+							jvmSetter.addCode(jvmInConv)
+							jvmSetter.addCode("\n")
+						}
+
+						nativeProp.setter(nativeSetter.build())
+						jvmProp.setter(jvmSetter.build())
+					}
 
 					commonStruct.addProperty(commonProp.build())
 					nativeStruct.addProperty(nativeProp.build())

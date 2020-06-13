@@ -181,3 +181,15 @@ internal fun ImVec2.fromCValue(): Vec2 {
 internal fun ImVec4.fromCValue(): Vec4 {
 	return Vec4(x, y, z, w)
 }
+
+internal fun ImVec2.fromKValue(value: Vec2) {
+	x = value.x
+	y = value.y
+}
+
+internal fun ImVec4.fromKValue(value: Vec4) {
+	x = value.x
+	y = value.y
+	z = value.z
+	w = value.w
+}
