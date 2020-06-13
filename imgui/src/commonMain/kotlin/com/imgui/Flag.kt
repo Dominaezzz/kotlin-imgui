@@ -41,6 +41,28 @@ operator fun <T> Flag<T>?.contains(other: Flag<T>?): Boolean where T : Enum<T>, 
 	return value and other.value == other.value
 }
 
+operator fun <T> Flag<T>.plus(other: Flag<T>): Flag<T> where T : Enum<T>, T : Flag<T> {
+	return Flag(value or other.value, info)
+}
+
+@JvmName("plusNull")
+operator fun <T> Flag<T>?.plus(other: Flag<T>?): Flag<T>? where T : Enum<T>, T : Flag<T> {
+	if (this == null) return other
+	if (other == null) return this
+	return this + other
+}
+
+operator fun <T> Flag<T>.minus(other: Flag<T>): Flag<T> where T : Enum<T>, T : Flag<T> {
+	return Flag(value and other.value.inv(), info)
+}
+
+@JvmName("minusNull")
+operator fun <T> Flag<T>?.minus(other: Flag<T>?): Flag<T>? where T : Enum<T>, T : Flag<T> {
+	if (this == null) return null
+	if (other == null) return this
+	return this - other
+}
+
 infix fun <T> Flag<T>.or(other: Flag<T>): Flag<T> where T : Enum<T>, T : Flag<T> {
 	return Flag(value or other.value, info)
 }
