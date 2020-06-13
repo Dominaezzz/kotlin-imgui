@@ -8,7 +8,7 @@ val imGuiVersion: String by rootProject.extra
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.squareup:kotlinpoet:1.4.4")
+    implementation("com.squareup:kotlinpoet:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 }
 
