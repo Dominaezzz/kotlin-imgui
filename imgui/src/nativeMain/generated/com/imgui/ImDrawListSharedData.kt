@@ -4,8 +4,10 @@ import cimgui.internal.ImDrawListSharedData_ImDrawListSharedData
 import cimgui.internal.ImDrawListSharedData_SetCircleSegmentMaxError
 import cimgui.internal.ImDrawListSharedData_destroy
 import kotlin.Float
+import kotlin.Int
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -34,6 +36,11 @@ actual inline class ImDrawListSharedData(
     get() = ptr.pointed.InitialFlags.let { ImDrawListFlags.fromMultiple(it) }
 
   actual constructor() : this(ImDrawListSharedData_ImDrawListSharedData()!!)
+
+  actual fun arcFastVtx(index: Int): Vec2 {
+    require(index in 0..12)
+    return ptr.pointed.ArcFastVtx.get(index).fromCValue()
+  }
 
   actual fun setCircleSegmentMaxError(maxError: Float) {
     ImDrawListSharedData_SetCircleSegmentMaxError(ptr, maxError)

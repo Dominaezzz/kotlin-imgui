@@ -1,6 +1,7 @@
 package com.imgui
 
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
@@ -104,6 +105,52 @@ expect class ImGuiIO {
   val mousePosPrev: Vec2
 
   constructor()
+
+  fun keyMap(index: Int): Int
+
+  fun keyMap(index: Int, value: Int)
+
+  fun mouseDown(index: Int): Boolean
+
+  fun mouseDown(index: Int, value: Boolean)
+
+  fun keysDown(index: Int): Boolean
+
+  fun keysDown(index: Int, value: Boolean)
+
+  fun navInputs(index: Int): Float
+
+  fun navInputs(index: Int, value: Float)
+
+  fun mouseClickedPos(index: Int): Vec2
+
+  fun mouseClickedTime(index: Int): Double
+
+  fun mouseClicked(index: Int): Boolean
+
+  fun mouseDoubleClicked(index: Int): Boolean
+
+  fun mouseReleased(index: Int): Boolean
+
+  fun mouseDownOwned(index: Int): Boolean
+
+  fun mouseDownWasDoubleClick(index: Int): Boolean
+
+  fun mouseDownDuration(index: Int): Float
+
+  fun mouseDownDurationPrev(index: Int): Float
+
+  fun mouseDragMaxDistanceAbs(index: Int): Vec2
+
+  fun mouseDragMaxDistanceSqr(index: Int): Float
+
+  fun keysDownDuration(index: Int): Float
+
+  fun keysDownDurationPrev(index: Int): Float
+
+  fun navInputsDownDuration(index: Int): Float
+
+  fun navInputsDownDurationPrev(index: Int): Float
 
   fun addInputCharacter(c: UInt)
 

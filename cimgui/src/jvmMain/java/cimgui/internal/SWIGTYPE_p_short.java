@@ -22,5 +22,20 @@ public class SWIGTYPE_p_short {
   public static long getCPtr(SWIGTYPE_p_short obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    SWIGTYPE_p_short that = (SWIGTYPE_p_short) o;
+
+    return swigCPtr == that.swigCPtr;
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) (swigCPtr ^ (swigCPtr >>> 32));
+  }
 }
 

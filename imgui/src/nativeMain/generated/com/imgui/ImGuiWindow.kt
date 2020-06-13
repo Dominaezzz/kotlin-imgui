@@ -16,6 +16,7 @@ import kotlin.Short
 import kotlin.String
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -195,6 +196,11 @@ actual inline class ImGuiWindow(
 
   actual constructor(context: ImGuiContext, name: String) :
       this(ImGuiWindow_ImGuiWindow(context.ptr, name)!!)
+
+  actual fun navLastIds(index: Int): ImGuiID {
+    require(index in 0..2)
+    return ptr.pointed.NavLastIds.get(index).let(::ImGuiID)
+  }
 
   actual fun calcFontSize(): Float = ImGuiWindow_CalcFontSize(ptr)
 

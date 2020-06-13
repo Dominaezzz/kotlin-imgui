@@ -1,7 +1,9 @@
 package com.imgui
 
+import cimgui.internal.CImGui
 import cimgui.internal.CImGui.ImGuiContext_ImGuiContext
 import cimgui.internal.CImGui.ImGuiContext_destroy
+import cimgui.internal.CImGui.floatArray_getitem
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Float
@@ -402,6 +404,16 @@ actual inline class ImGuiContext(
 
   actual constructor(sharedFontAtlas: ImFontAtlas) :
       this(ImGuiContext_ImGuiContext(sharedFontAtlas.ptr)!!)
+
+  actual fun colorEditLastColor(index: Int): Float {
+    require(index in 0..3)
+    return floatArray_getitem(ptr.colorEditLastColor, index)
+  }
+
+  actual fun framerateSecPerFrame(index: Int): Float {
+    require(index in 0..120)
+    return floatArray_getitem(ptr.framerateSecPerFrame, index)
+  }
 
   actual fun destroy() {
     ImGuiContext_destroy(ptr)

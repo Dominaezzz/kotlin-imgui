@@ -3,8 +3,10 @@ package com.imgui
 import cimgui.internal.CImGui.ImGuiStyle_ImGuiStyle
 import cimgui.internal.CImGui.ImGuiStyle_ScaleAllSizes
 import cimgui.internal.CImGui.ImGuiStyle_destroy
+import cimgui.internal.CImGui.ImVec4Array_getitem
 import kotlin.Boolean
 import kotlin.Float
+import kotlin.Int
 import kotlin.Suppress
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -117,6 +119,11 @@ actual inline class ImGuiStyle(
     get() = ptr.circleSegmentMaxError
 
   actual constructor() : this(ImGuiStyle_ImGuiStyle()!!)
+
+  actual fun colors(index: Int): Vec4 {
+    require(index in 0..48)
+    return ImVec4Array_getitem(ptr.colors, index).fromCValue()
+  }
 
   actual fun scaleAllSizes(scaleFactor: Float) {
     ImGuiStyle_ScaleAllSizes(ptr, scaleFactor)

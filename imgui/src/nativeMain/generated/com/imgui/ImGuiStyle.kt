@@ -5,8 +5,10 @@ import cimgui.internal.ImGuiStyle_ScaleAllSizes
 import cimgui.internal.ImGuiStyle_destroy
 import kotlin.Boolean
 import kotlin.Float
+import kotlin.Int
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -119,6 +121,11 @@ actual inline class ImGuiStyle(
     get() = ptr.pointed.CircleSegmentMaxError
 
   actual constructor() : this(ImGuiStyle_ImGuiStyle()!!)
+
+  actual fun colors(index: Int): Vec4 {
+    require(index in 0..48)
+    return ptr.pointed.Colors.get(index).fromCValue()
+  }
 
   actual fun scaleAllSizes(scaleFactor: Float) {
     ImGuiStyle_ScaleAllSizes(ptr, scaleFactor)

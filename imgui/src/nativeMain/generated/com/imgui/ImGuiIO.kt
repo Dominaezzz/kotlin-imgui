@@ -6,14 +6,18 @@ import cimgui.internal.ImGuiIO_ClearInputCharacters
 import cimgui.internal.ImGuiIO_ImGuiIO
 import cimgui.internal.ImGuiIO_destroy
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
+import kotlinx.cinterop.set
 import kotlinx.cinterop.toKString
+import kotlinx.cinterop.value
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
 actual inline class ImGuiIO(
@@ -197,6 +201,121 @@ actual inline class ImGuiIO(
     get() = ptr.pointed.MousePosPrev.fromCValue()
 
   actual constructor() : this(ImGuiIO_ImGuiIO()!!)
+
+  actual fun keyMap(index: Int): Int {
+    require(index in 0..22)
+    return ptr.pointed.KeyMap.get(index)
+  }
+
+  actual fun keyMap(index: Int, value: Int) {
+    require(index in 0..22)
+    ptr.pointed.KeyMap.set(index, value)
+  }
+
+  actual fun mouseDown(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseDown.get(index).value
+  }
+
+  actual fun mouseDown(index: Int, value: Boolean) {
+    require(index in 0..5)
+    ptr.pointed.MouseDown.get(index).value = value
+  }
+
+  actual fun keysDown(index: Int): Boolean {
+    require(index in 0..512)
+    return ptr.pointed.KeysDown.get(index).value
+  }
+
+  actual fun keysDown(index: Int, value: Boolean) {
+    require(index in 0..512)
+    ptr.pointed.KeysDown.get(index).value = value
+  }
+
+  actual fun navInputs(index: Int): Float {
+    require(index in 0..21)
+    return ptr.pointed.NavInputs.get(index)
+  }
+
+  actual fun navInputs(index: Int, value: Float) {
+    require(index in 0..21)
+    ptr.pointed.NavInputs.set(index, value)
+  }
+
+  actual fun mouseClickedPos(index: Int): Vec2 {
+    require(index in 0..5)
+    return ptr.pointed.MouseClickedPos.get(index).fromCValue()
+  }
+
+  actual fun mouseClickedTime(index: Int): Double {
+    require(index in 0..5)
+    return ptr.pointed.MouseClickedTime.get(index)
+  }
+
+  actual fun mouseClicked(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseClicked.get(index).value
+  }
+
+  actual fun mouseDoubleClicked(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseDoubleClicked.get(index).value
+  }
+
+  actual fun mouseReleased(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseReleased.get(index).value
+  }
+
+  actual fun mouseDownOwned(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseDownOwned.get(index).value
+  }
+
+  actual fun mouseDownWasDoubleClick(index: Int): Boolean {
+    require(index in 0..5)
+    return ptr.pointed.MouseDownWasDoubleClick.get(index).value
+  }
+
+  actual fun mouseDownDuration(index: Int): Float {
+    require(index in 0..5)
+    return ptr.pointed.MouseDownDuration.get(index)
+  }
+
+  actual fun mouseDownDurationPrev(index: Int): Float {
+    require(index in 0..5)
+    return ptr.pointed.MouseDownDurationPrev.get(index)
+  }
+
+  actual fun mouseDragMaxDistanceAbs(index: Int): Vec2 {
+    require(index in 0..5)
+    return ptr.pointed.MouseDragMaxDistanceAbs.get(index).fromCValue()
+  }
+
+  actual fun mouseDragMaxDistanceSqr(index: Int): Float {
+    require(index in 0..5)
+    return ptr.pointed.MouseDragMaxDistanceSqr.get(index)
+  }
+
+  actual fun keysDownDuration(index: Int): Float {
+    require(index in 0..512)
+    return ptr.pointed.KeysDownDuration.get(index)
+  }
+
+  actual fun keysDownDurationPrev(index: Int): Float {
+    require(index in 0..512)
+    return ptr.pointed.KeysDownDurationPrev.get(index)
+  }
+
+  actual fun navInputsDownDuration(index: Int): Float {
+    require(index in 0..21)
+    return ptr.pointed.NavInputsDownDuration.get(index)
+  }
+
+  actual fun navInputsDownDurationPrev(index: Int): Float {
+    require(index in 0..21)
+    return ptr.pointed.NavInputsDownDurationPrev.get(index)
+  }
 
   actual fun addInputCharacter(c: UInt) {
     ImGuiIO_AddInputCharacter(ptr, c)

@@ -33,6 +33,7 @@ import kotlin.String
 import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.wcstr
@@ -69,6 +70,11 @@ actual inline class ImFontAtlas(
     get() = ptr.pointed.TexUvWhitePixel.fromCValue()
 
   actual constructor() : this(ImFontAtlas_ImFontAtlas()!!)
+
+  actual fun customRectIds(index: Int): Int {
+    require(index in 0..1)
+    return ptr.pointed.CustomRectIds.get(index)
+  }
 
   actual fun addCustomRectFontGlyph(
     font: ImFont,

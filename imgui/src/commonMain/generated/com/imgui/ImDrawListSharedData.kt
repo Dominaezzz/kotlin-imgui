@@ -1,6 +1,7 @@
 package com.imgui
 
 import kotlin.Float
+import kotlin.Int
 
 expect class ImDrawListSharedData {
   val texUvWhitePixel: Vec2
@@ -18,6 +19,8 @@ expect class ImDrawListSharedData {
   val initialFlags: Flag<ImDrawListFlags>
 
   constructor()
+
+  fun arcFastVtx(index: Int): Vec2
 
   fun setCircleSegmentMaxError(maxError: Float)
 

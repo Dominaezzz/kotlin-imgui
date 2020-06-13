@@ -10,6 +10,7 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -26,6 +27,16 @@ actual inline class ImGuiMenuColumns(
     get() = ptr.pointed.NextWidth
 
   actual constructor() : this(ImGuiMenuColumns_ImGuiMenuColumns()!!)
+
+  actual fun pos(index: Int): Float {
+    require(index in 0..3)
+    return ptr.pointed.Pos.get(index)
+  }
+
+  actual fun nextWidths(index: Int): Float {
+    require(index in 0..3)
+    return ptr.pointed.NextWidths.get(index)
+  }
 
   actual fun calcExtraSpace(availW: Float): Float = ImGuiMenuColumns_CalcExtraSpace(ptr, availW)
 

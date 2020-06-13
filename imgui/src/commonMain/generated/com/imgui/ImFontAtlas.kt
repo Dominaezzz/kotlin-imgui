@@ -28,6 +28,8 @@ expect class ImFontAtlas {
 
   constructor()
 
+  fun customRectIds(index: Int): Int
+
   fun addCustomRectFontGlyph(
     font: ImFont,
     id: Char,

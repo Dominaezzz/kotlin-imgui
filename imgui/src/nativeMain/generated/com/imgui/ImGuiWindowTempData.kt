@@ -5,9 +5,11 @@ import cimgui.internal.ImGuiWindowTempData_destroy
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
+import kotlin.Short
 import kotlin.Suppress
 import kotlin.UInt
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -102,6 +104,11 @@ actual inline class ImGuiWindowTempData(
     get() = ptr.pointed.TextWrapPos
 
   actual constructor() : this(ImGuiWindowTempData_ImGuiWindowTempData()!!)
+
+  actual fun stackSizesBackup(index: Int): Short {
+    require(index in 0..6)
+    return ptr.pointed.StackSizesBackup.get(index)
+  }
 
   actual fun destroy() {
     ImGuiWindowTempData_destroy(ptr)

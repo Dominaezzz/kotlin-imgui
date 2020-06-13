@@ -107,9 +107,14 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %pointer_functions(void*, voidp);
 
 %include "carrays.i"
+%array_functions(short, shortArray);
 %array_functions(int, intArray);
 %array_functions(float, floatArray);
+%array_functions(double, doubleArray);
 %array_functions(bool, boolArray);
 %array_functions(unsigned short, ushortArray);
+%array_functions(ImVec2, ImVec2Array);
+%array_functions(ImVec4, ImVec4Array);
+%array_functions(ImGuiID, ImGuiIDArray);
 %array_functions(ImDrawCmd, ImDrawCmdArray);
 %array_functions(ImDrawList*, pImDrawListArray);

@@ -1,11 +1,21 @@
 package com.imgui
 
+import cimgui.internal.CImGui
 import cimgui.internal.CImGui.ImGuiIO_AddInputCharacter
 import cimgui.internal.CImGui.ImGuiIO_AddInputCharactersUTF8
 import cimgui.internal.CImGui.ImGuiIO_ClearInputCharacters
 import cimgui.internal.CImGui.ImGuiIO_ImGuiIO
 import cimgui.internal.CImGui.ImGuiIO_destroy
+import cimgui.internal.CImGui.ImVec2Array_getitem
+import cimgui.internal.CImGui.boolArray_getitem
+import cimgui.internal.CImGui.boolArray_setitem
+import cimgui.internal.CImGui.doubleArray_getitem
+import cimgui.internal.CImGui.floatArray_getitem
+import cimgui.internal.CImGui.floatArray_setitem
+import cimgui.internal.CImGui.intArray_getitem
+import cimgui.internal.CImGui.intArray_setitem
 import kotlin.Boolean
+import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
@@ -194,6 +204,121 @@ actual inline class ImGuiIO(
     get() = ptr.mousePosPrev.fromCValue()
 
   actual constructor() : this(ImGuiIO_ImGuiIO()!!)
+
+  actual fun keyMap(index: Int): Int {
+    require(index in 0..22)
+    return intArray_getitem(ptr.keyMap, index)
+  }
+
+  actual fun keyMap(index: Int, value: Int) {
+    require(index in 0..22)
+    intArray_setitem(ptr.keyMap, index, value)
+  }
+
+  actual fun mouseDown(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseDown, index)
+  }
+
+  actual fun mouseDown(index: Int, value: Boolean) {
+    require(index in 0..5)
+    boolArray_setitem(ptr.mouseDown, index, value)
+  }
+
+  actual fun keysDown(index: Int): Boolean {
+    require(index in 0..512)
+    return boolArray_getitem(ptr.keysDown, index)
+  }
+
+  actual fun keysDown(index: Int, value: Boolean) {
+    require(index in 0..512)
+    boolArray_setitem(ptr.keysDown, index, value)
+  }
+
+  actual fun navInputs(index: Int): Float {
+    require(index in 0..21)
+    return floatArray_getitem(ptr.navInputs, index)
+  }
+
+  actual fun navInputs(index: Int, value: Float) {
+    require(index in 0..21)
+    floatArray_setitem(ptr.navInputs, index, value)
+  }
+
+  actual fun mouseClickedPos(index: Int): Vec2 {
+    require(index in 0..5)
+    return ImVec2Array_getitem(ptr.mouseClickedPos, index).fromCValue()
+  }
+
+  actual fun mouseClickedTime(index: Int): Double {
+    require(index in 0..5)
+    return doubleArray_getitem(ptr.mouseClickedTime, index)
+  }
+
+  actual fun mouseClicked(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseClicked, index)
+  }
+
+  actual fun mouseDoubleClicked(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseDoubleClicked, index)
+  }
+
+  actual fun mouseReleased(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseReleased, index)
+  }
+
+  actual fun mouseDownOwned(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseDownOwned, index)
+  }
+
+  actual fun mouseDownWasDoubleClick(index: Int): Boolean {
+    require(index in 0..5)
+    return boolArray_getitem(ptr.mouseDownWasDoubleClick, index)
+  }
+
+  actual fun mouseDownDuration(index: Int): Float {
+    require(index in 0..5)
+    return floatArray_getitem(ptr.mouseDownDuration, index)
+  }
+
+  actual fun mouseDownDurationPrev(index: Int): Float {
+    require(index in 0..5)
+    return floatArray_getitem(ptr.mouseDownDurationPrev, index)
+  }
+
+  actual fun mouseDragMaxDistanceAbs(index: Int): Vec2 {
+    require(index in 0..5)
+    return ImVec2Array_getitem(ptr.mouseDragMaxDistanceAbs, index).fromCValue()
+  }
+
+  actual fun mouseDragMaxDistanceSqr(index: Int): Float {
+    require(index in 0..5)
+    return floatArray_getitem(ptr.mouseDragMaxDistanceSqr, index)
+  }
+
+  actual fun keysDownDuration(index: Int): Float {
+    require(index in 0..512)
+    return floatArray_getitem(ptr.keysDownDuration, index)
+  }
+
+  actual fun keysDownDurationPrev(index: Int): Float {
+    require(index in 0..512)
+    return floatArray_getitem(ptr.keysDownDurationPrev, index)
+  }
+
+  actual fun navInputsDownDuration(index: Int): Float {
+    require(index in 0..21)
+    return floatArray_getitem(ptr.navInputsDownDuration, index)
+  }
+
+  actual fun navInputsDownDurationPrev(index: Int): Float {
+    require(index in 0..21)
+    return floatArray_getitem(ptr.navInputsDownDurationPrev, index)
+  }
 
   actual fun addInputCharacter(c: UInt) {
     ImGuiIO_AddInputCharacter(ptr, c.toLong())
