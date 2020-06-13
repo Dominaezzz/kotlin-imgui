@@ -265,6 +265,18 @@ internal fun ImVec4.fromCValue(): Vec4 {
 	return Vec4(x, y, z, w)
 }
 
+internal fun ImVec2.fromKValue(value: Vec2) {
+	x = value.x
+	y = value.y
+}
+
+internal fun ImVec4.fromKValue(value: Vec4) {
+	x = value.x
+	y = value.y
+	z = value.z
+	w = value.w
+}
+
 
 internal fun SWIGTYPE_p_unsigned_short.toUTF16String(): String {
 	var length = 0

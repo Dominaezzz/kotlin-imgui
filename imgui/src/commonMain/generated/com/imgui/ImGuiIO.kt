@@ -9,11 +9,11 @@ import kotlin.UInt
 expect class ImGuiIO {
   val configFlags: Flag<ImGuiConfigFlags>
 
-  val backendFlags: Flag<ImGuiBackendFlags>
+  var backendFlags: Flag<ImGuiBackendFlags>
 
-  val displaySize: Vec2
+  var displaySize: Vec2
 
-  val deltaTime: Float
+  var deltaTime: Float
 
   val iniSavingRate: Float
 
@@ -39,7 +39,7 @@ expect class ImGuiIO {
 
   val fontDefault: ImFont?
 
-  val displayFramebufferScale: Vec2
+  var displayFramebufferScale: Vec2
 
   val mouseDrawCursor: Boolean
 
@@ -57,19 +57,19 @@ expect class ImGuiIO {
 
   val backendRendererName: String
 
-  val mousePos: Vec2
+  var mousePos: Vec2
 
-  val mouseWheel: Float
+  var mouseWheel: Float
 
-  val mouseWheelH: Float
+  var mouseWheelH: Float
 
-  val keyCtrl: Boolean
+  var keyCtrl: Boolean
 
-  val keyShift: Boolean
+  var keyShift: Boolean
 
-  val keyAlt: Boolean
+  var keyAlt: Boolean
 
-  val keySuper: Boolean
+  var keySuper: Boolean
 
   val wantCaptureMouse: Boolean
 

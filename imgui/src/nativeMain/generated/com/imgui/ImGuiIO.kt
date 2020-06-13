@@ -22,14 +22,23 @@ actual inline class ImGuiIO(
   actual val configFlags: Flag<ImGuiConfigFlags>
     get() = ptr.pointed.ConfigFlags.let { ImGuiConfigFlags.fromMultiple(it) }
 
-  actual val backendFlags: Flag<ImGuiBackendFlags>
+  actual var backendFlags: Flag<ImGuiBackendFlags>
     get() = ptr.pointed.BackendFlags.let { ImGuiBackendFlags.fromMultiple(it) }
+    set(value) {
+      ptr.pointed.BackendFlags = value.value
+    }
 
-  actual val displaySize: Vec2
+  actual var displaySize: Vec2
     get() = ptr.pointed.DisplaySize.fromCValue()
+    set(value) {
+      ptr.pointed.DisplaySize.fromKValue(value)
+    }
 
-  actual val deltaTime: Float
+  actual var deltaTime: Float
     get() = ptr.pointed.DeltaTime
+    set(value) {
+      ptr.pointed.DeltaTime = value
+    }
 
   actual val iniSavingRate: Float
     get() = ptr.pointed.IniSavingRate
@@ -67,8 +76,11 @@ actual inline class ImGuiIO(
   actual val fontDefault: ImFont?
     get() = ptr.pointed.FontDefault?.let(::ImFont)
 
-  actual val displayFramebufferScale: Vec2
+  actual var displayFramebufferScale: Vec2
     get() = ptr.pointed.DisplayFramebufferScale.fromCValue()
+    set(value) {
+      ptr.pointed.DisplayFramebufferScale.fromKValue(value)
+    }
 
   actual val mouseDrawCursor: Boolean
     get() = ptr.pointed.MouseDrawCursor
@@ -94,26 +106,47 @@ actual inline class ImGuiIO(
   actual val backendRendererName: String
     get() = ptr.pointed.BackendRendererName!!.toKString()
 
-  actual val mousePos: Vec2
+  actual var mousePos: Vec2
     get() = ptr.pointed.MousePos.fromCValue()
+    set(value) {
+      ptr.pointed.MousePos.fromKValue(value)
+    }
 
-  actual val mouseWheel: Float
+  actual var mouseWheel: Float
     get() = ptr.pointed.MouseWheel
+    set(value) {
+      ptr.pointed.MouseWheel = value
+    }
 
-  actual val mouseWheelH: Float
+  actual var mouseWheelH: Float
     get() = ptr.pointed.MouseWheelH
+    set(value) {
+      ptr.pointed.MouseWheelH = value
+    }
 
-  actual val keyCtrl: Boolean
+  actual var keyCtrl: Boolean
     get() = ptr.pointed.KeyCtrl
+    set(value) {
+      ptr.pointed.KeyCtrl = value
+    }
 
-  actual val keyShift: Boolean
+  actual var keyShift: Boolean
     get() = ptr.pointed.KeyShift
+    set(value) {
+      ptr.pointed.KeyShift = value
+    }
 
-  actual val keyAlt: Boolean
+  actual var keyAlt: Boolean
     get() = ptr.pointed.KeyAlt
+    set(value) {
+      ptr.pointed.KeyAlt = value
+    }
 
-  actual val keySuper: Boolean
+  actual var keySuper: Boolean
     get() = ptr.pointed.KeySuper
+    set(value) {
+      ptr.pointed.KeySuper = value
+    }
 
   actual val wantCaptureMouse: Boolean
     get() = ptr.pointed.WantCaptureMouse
