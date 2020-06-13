@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiKeyModFlags_Alt
 import cimgui.internal.ImGuiKeyModFlags_Ctrl
 import cimgui.internal.ImGuiKeyModFlags_Shift
 import cimgui.internal.ImGuiKeyModFlags_Super
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiKeyModFlags(
@@ -17,6 +18,9 @@ actual enum class ImGuiKeyModFlags(
   Alt(ImGuiKeyModFlags_Alt.convert()),
 
   Super(ImGuiKeyModFlags_Super.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiKeyModFlags>
     get() = cachedInfo

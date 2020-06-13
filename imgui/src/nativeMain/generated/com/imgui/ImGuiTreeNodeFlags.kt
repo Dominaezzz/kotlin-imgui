@@ -16,6 +16,7 @@ import cimgui.internal.ImGuiTreeNodeFlags_OpenOnDoubleClick
 import cimgui.internal.ImGuiTreeNodeFlags_Selected
 import cimgui.internal.ImGuiTreeNodeFlags_SpanAvailWidth
 import cimgui.internal.ImGuiTreeNodeFlags_SpanFullWidth
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiTreeNodeFlags(
@@ -48,6 +49,9 @@ actual enum class ImGuiTreeNodeFlags(
   SpanFullWidth(ImGuiTreeNodeFlags_SpanFullWidth.convert()),
 
   NavLeftJumpsBackHere(ImGuiTreeNodeFlags_NavLeftJumpsBackHere.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiTreeNodeFlags>
     get() = cachedInfo

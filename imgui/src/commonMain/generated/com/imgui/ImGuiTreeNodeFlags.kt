@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiTreeNodeFlags : Flag<ImGuiTreeNodeFlags> {
   Selected,
 
@@ -28,6 +30,8 @@ expect enum class ImGuiTreeNodeFlags : Flag<ImGuiTreeNodeFlags> {
   SpanFullWidth,
 
   NavLeftJumpsBackHere;
+
+  val cValue: Int
 
   companion object {
     val CollapsingHeader: Flag<ImGuiTreeNodeFlags>

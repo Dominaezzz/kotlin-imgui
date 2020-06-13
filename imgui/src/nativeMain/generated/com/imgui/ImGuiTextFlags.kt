@@ -2,12 +2,16 @@ package com.imgui
 
 import cimgui.internal.ImGuiTextFlags_
 import cimgui.internal.ImGuiTextFlags_NoWidthForLargeClippedText
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiTextFlags(
   override val value: cimgui.internal.ImGuiTextFlags
 ) : Flag<ImGuiTextFlags> {
   NoWidthForLargeClippedText(ImGuiTextFlags_NoWidthForLargeClippedText.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiTextFlags>
     get() = cachedInfo

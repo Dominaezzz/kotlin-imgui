@@ -20,6 +20,9 @@ actual enum class ImGuiDir(
 
   Down(ImGuiDir_Down);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiDir = when (value) {
       ImGuiDir_None -> None

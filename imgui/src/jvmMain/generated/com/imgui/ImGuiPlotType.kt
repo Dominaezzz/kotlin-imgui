@@ -11,6 +11,9 @@ actual enum class ImGuiPlotType(
 
   Histogram(ImGuiPlotType_Histogram);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiPlotType = when (value) {
       ImGuiPlotType_Lines -> Lines

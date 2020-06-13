@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiTabItemFlags_NoCloseWithMiddleMouseButton
 import cimgui.internal.ImGuiTabItemFlags_NoPushId
 import cimgui.internal.ImGuiTabItemFlags_SetSelected
 import cimgui.internal.ImGuiTabItemFlags_UnsavedDocument
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiTabItemFlags(
@@ -17,6 +18,9 @@ actual enum class ImGuiTabItemFlags(
   NoCloseWithMiddleMouseButton(ImGuiTabItemFlags_NoCloseWithMiddleMouseButton.convert()),
 
   NoPushId(ImGuiTabItemFlags_NoPushId.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiTabItemFlags>
     get() = cachedInfo

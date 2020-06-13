@@ -4,6 +4,7 @@ import cimgui.internal.ImGuiSeparatorFlags_
 import cimgui.internal.ImGuiSeparatorFlags_Horizontal
 import cimgui.internal.ImGuiSeparatorFlags_SpanAllColumns
 import cimgui.internal.ImGuiSeparatorFlags_Vertical
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiSeparatorFlags(
@@ -14,6 +15,9 @@ actual enum class ImGuiSeparatorFlags(
   Vertical(ImGuiSeparatorFlags_Vertical.convert()),
 
   SpanAllColumns(ImGuiSeparatorFlags_SpanAllColumns.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiSeparatorFlags>
     get() = cachedInfo

@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiNavMoveFlags : Flag<ImGuiNavMoveFlags> {
   LoopX,
 
@@ -14,6 +16,8 @@ expect enum class ImGuiNavMoveFlags : Flag<ImGuiNavMoveFlags> {
   AlsoScoreVisibleSet,
 
   ScrollToEdge;
+
+  val cValue: Int
 
   companion object
 }

@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiDir {
   None,
 
@@ -10,6 +12,8 @@ expect enum class ImGuiDir {
   Up,
 
   Down;
+
+  val cValue: Int
 
   companion object
 }

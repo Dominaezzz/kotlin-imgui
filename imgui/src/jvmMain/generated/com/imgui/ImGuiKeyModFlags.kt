@@ -17,6 +17,9 @@ actual enum class ImGuiKeyModFlags(
 
   Super(ImGuiKeyModFlags_Super);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiKeyModFlags>
     get() = cachedInfo
   actual companion object {

@@ -10,6 +10,7 @@ import cimgui.internal.ImGuiHoveredFlags_ChildWindows
 import cimgui.internal.ImGuiHoveredFlags_RectOnly
 import cimgui.internal.ImGuiHoveredFlags_RootAndChildWindows
 import cimgui.internal.ImGuiHoveredFlags_RootWindow
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiHoveredFlags(
@@ -28,6 +29,9 @@ actual enum class ImGuiHoveredFlags(
   AllowWhenOverlapped(ImGuiHoveredFlags_AllowWhenOverlapped.convert()),
 
   AllowWhenDisabled(ImGuiHoveredFlags_AllowWhenDisabled.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiHoveredFlags>
     get() = cachedInfo

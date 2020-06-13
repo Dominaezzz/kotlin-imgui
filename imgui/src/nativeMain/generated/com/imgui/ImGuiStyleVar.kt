@@ -24,6 +24,7 @@ import cimgui.internal.ImGuiStyleVar_WindowMinSize
 import cimgui.internal.ImGuiStyleVar_WindowPadding
 import cimgui.internal.ImGuiStyleVar_WindowRounding
 import cimgui.internal.ImGuiStyleVar_WindowTitleAlign
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiStyleVar(
@@ -74,6 +75,9 @@ actual enum class ImGuiStyleVar(
   ButtonTextAlign(ImGuiStyleVar_ButtonTextAlign.convert()),
 
   SelectableTextAlign(ImGuiStyleVar_SelectableTextAlign.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiStyleVar): ImGuiStyleVar = when

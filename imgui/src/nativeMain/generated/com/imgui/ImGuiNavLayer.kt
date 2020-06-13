@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiNavLayer_Main
 import cimgui.internal.ImGuiNavLayer_Menu
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavLayer(
@@ -10,6 +11,9 @@ actual enum class ImGuiNavLayer(
   Main(ImGuiNavLayer_Main.convert()),
 
   Menu(ImGuiNavLayer_Menu.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiNavLayer): ImGuiNavLayer = when

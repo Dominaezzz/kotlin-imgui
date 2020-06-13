@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiKey {
   Tab,
 
@@ -44,6 +46,8 @@ expect enum class ImGuiKey {
   Y,
 
   Z;
+
+  val cValue: Int
 
   companion object
 }

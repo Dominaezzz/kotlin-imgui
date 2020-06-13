@@ -8,6 +8,7 @@ import cimgui.internal.ImGuiNavMoveFlags_LoopY
 import cimgui.internal.ImGuiNavMoveFlags_ScrollToEdge
 import cimgui.internal.ImGuiNavMoveFlags_WrapX
 import cimgui.internal.ImGuiNavMoveFlags_WrapY
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavMoveFlags(
@@ -26,6 +27,9 @@ actual enum class ImGuiNavMoveFlags(
   AlsoScoreVisibleSet(ImGuiNavMoveFlags_AlsoScoreVisibleSet.convert()),
 
   ScrollToEdge(ImGuiNavMoveFlags_ScrollToEdge.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiNavMoveFlags>
     get() = cachedInfo

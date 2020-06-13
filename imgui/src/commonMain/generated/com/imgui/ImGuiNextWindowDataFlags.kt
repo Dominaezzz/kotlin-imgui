@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiNextWindowDataFlags : Flag<ImGuiNextWindowDataFlags> {
   HasPos,
 
@@ -14,6 +16,8 @@ expect enum class ImGuiNextWindowDataFlags : Flag<ImGuiNextWindowDataFlags> {
   HasFocus,
 
   HasBgAlpha;
+
+  val cValue: Int
 
   companion object
 }

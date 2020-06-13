@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiNavForward_ForwardActive
 import cimgui.internal.ImGuiNavForward_ForwardQueued
 import cimgui.internal.ImGuiNavForward_None
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNavForward(
@@ -13,6 +14,9 @@ actual enum class ImGuiNavForward(
   ForwardQueued(ImGuiNavForward_ForwardQueued.convert()),
 
   ForwardActive(ImGuiNavForward_ForwardActive.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiNavForward): ImGuiNavForward = when

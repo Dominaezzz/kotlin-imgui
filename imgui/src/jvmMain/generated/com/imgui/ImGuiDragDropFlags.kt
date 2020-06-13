@@ -33,6 +33,9 @@ actual enum class ImGuiDragDropFlags(
 
   AcceptNoPreviewTooltip(ImGuiDragDropFlags_AcceptNoPreviewTooltip);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiDragDropFlags>
     get() = cachedInfo
   actual companion object {

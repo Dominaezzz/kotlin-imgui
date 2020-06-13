@@ -14,6 +14,9 @@ actual enum class ImGuiAxis(
 
   Y(ImGuiAxis_Y);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiAxis = when (value) {
       ImGuiAxis_None -> None

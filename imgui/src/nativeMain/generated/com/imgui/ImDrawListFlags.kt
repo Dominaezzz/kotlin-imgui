@@ -4,6 +4,7 @@ import cimgui.internal.ImDrawListFlags_
 import cimgui.internal.ImDrawListFlags_AllowVtxOffset
 import cimgui.internal.ImDrawListFlags_AntiAliasedFill
 import cimgui.internal.ImDrawListFlags_AntiAliasedLines
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImDrawListFlags(
@@ -14,6 +15,9 @@ actual enum class ImDrawListFlags(
   AntiAliasedFill(ImDrawListFlags_AntiAliasedFill.convert()),
 
   AllowVtxOffset(ImDrawListFlags_AllowVtxOffset.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImDrawListFlags>
     get() = cachedInfo

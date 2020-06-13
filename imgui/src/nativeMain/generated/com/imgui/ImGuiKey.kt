@@ -23,6 +23,7 @@ import cimgui.internal.ImGuiKey_V
 import cimgui.internal.ImGuiKey_X
 import cimgui.internal.ImGuiKey_Y
 import cimgui.internal.ImGuiKey_Z
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiKey(
@@ -71,6 +72,9 @@ actual enum class ImGuiKey(
   Y(ImGuiKey_Y.convert()),
 
   Z(ImGuiKey_Z.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiKey): ImGuiKey = when (value.convert<ImGuiKey_>()) {

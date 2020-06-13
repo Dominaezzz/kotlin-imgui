@@ -49,6 +49,7 @@ import cimgui.internal.ImGuiCol_TitleBg
 import cimgui.internal.ImGuiCol_TitleBgActive
 import cimgui.internal.ImGuiCol_TitleBgCollapsed
 import cimgui.internal.ImGuiCol_WindowBg
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiCol(
@@ -149,6 +150,9 @@ actual enum class ImGuiCol(
   NavWindowingDimBg(ImGuiCol_NavWindowingDimBg.convert()),
 
   ModalWindowDimBg(ImGuiCol_ModalWindowDimBg.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiCol): ImGuiCol = when (value.convert<ImGuiCol_>()) {

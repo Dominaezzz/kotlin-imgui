@@ -6,6 +6,7 @@ import cimgui.internal.ImGuiColumnsFlags_NoBorder
 import cimgui.internal.ImGuiColumnsFlags_NoForceWithinWindow
 import cimgui.internal.ImGuiColumnsFlags_NoPreserveWidths
 import cimgui.internal.ImGuiColumnsFlags_NoResize
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiColumnsFlags(
@@ -20,6 +21,9 @@ actual enum class ImGuiColumnsFlags(
   NoForceWithinWindow(ImGuiColumnsFlags_NoForceWithinWindow.convert()),
 
   GrowParentContentsSize(ImGuiColumnsFlags_GrowParentContentsSize.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiColumnsFlags>
     get() = cachedInfo

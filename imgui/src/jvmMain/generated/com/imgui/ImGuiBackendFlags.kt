@@ -17,6 +17,9 @@ actual enum class ImGuiBackendFlags(
 
   RendererHasVtxOffset(ImGuiBackendFlags_RendererHasVtxOffset);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiBackendFlags>
     get() = cachedInfo
   actual companion object {

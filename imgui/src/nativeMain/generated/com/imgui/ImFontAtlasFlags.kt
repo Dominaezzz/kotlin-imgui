@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImFontAtlasFlags_
 import cimgui.internal.ImFontAtlasFlags_NoMouseCursors
 import cimgui.internal.ImFontAtlasFlags_NoPowerOfTwoHeight
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImFontAtlasFlags(
@@ -11,6 +12,9 @@ actual enum class ImFontAtlasFlags(
   NoPowerOfTwoHeight(ImFontAtlasFlags_NoPowerOfTwoHeight.convert()),
 
   NoMouseCursors(ImFontAtlasFlags_NoMouseCursors.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImFontAtlasFlags>
     get() = cachedInfo

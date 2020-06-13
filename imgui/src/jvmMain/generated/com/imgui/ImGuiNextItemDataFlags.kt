@@ -11,6 +11,9 @@ actual enum class ImGuiNextItemDataFlags(
 
   HasOpen(ImGuiNextItemDataFlags_HasOpen);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiNextItemDataFlags>
     get() = cachedInfo
   actual companion object {

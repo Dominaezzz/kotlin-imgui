@@ -23,6 +23,9 @@ actual enum class ImGuiInputReadMode(
 
   RepeatFast(ImGuiInputReadMode_RepeatFast);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiInputReadMode = when (value) {
       ImGuiInputReadMode_Down -> Down

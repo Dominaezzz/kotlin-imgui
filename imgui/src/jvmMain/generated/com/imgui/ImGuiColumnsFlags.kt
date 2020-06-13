@@ -20,6 +20,9 @@ actual enum class ImGuiColumnsFlags(
 
   GrowParentContentsSize(ImGuiColumnsFlags_GrowParentContentsSize);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiColumnsFlags>
     get() = cachedInfo
   actual companion object {

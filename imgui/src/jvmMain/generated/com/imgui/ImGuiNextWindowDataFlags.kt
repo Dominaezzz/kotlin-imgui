@@ -26,6 +26,9 @@ actual enum class ImGuiNextWindowDataFlags(
 
   HasBgAlpha(ImGuiNextWindowDataFlags_HasBgAlpha);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiNextWindowDataFlags>
     get() = cachedInfo
   actual companion object {

@@ -35,6 +35,9 @@ actual enum class ImGuiDataType(
 
   Double(ImGuiDataType_Double);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiDataType = when (value) {
       ImGuiDataType_S8 -> S8

@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiDragDropFlags_SourceExtern
 import cimgui.internal.ImGuiDragDropFlags_SourceNoDisableHover
 import cimgui.internal.ImGuiDragDropFlags_SourceNoHoldToOpenOthers
 import cimgui.internal.ImGuiDragDropFlags_SourceNoPreviewTooltip
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDragDropFlags(
@@ -33,6 +34,9 @@ actual enum class ImGuiDragDropFlags(
   AcceptNoDrawDefaultRect(ImGuiDragDropFlags_AcceptNoDrawDefaultRect.convert()),
 
   AcceptNoPreviewTooltip(ImGuiDragDropFlags_AcceptNoPreviewTooltip.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiDragDropFlags>
     get() = cachedInfo

@@ -35,6 +35,9 @@ actual enum class ImGuiMouseCursor(
 
   NotAllowed(ImGuiMouseCursor_NotAllowed);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiMouseCursor = when (value) {
       ImGuiMouseCursor_None -> None

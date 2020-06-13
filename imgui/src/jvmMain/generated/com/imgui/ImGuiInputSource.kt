@@ -20,6 +20,9 @@ actual enum class ImGuiInputSource(
 
   NavGamepad(ImGuiInputSource_NavGamepad);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiInputSource = when (value) {
       ImGuiInputSource_None -> None

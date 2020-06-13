@@ -15,6 +15,9 @@ actual enum class ImGuiFocusedFlags(
 
   AnyWindow(ImGuiFocusedFlags_AnyWindow);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiFocusedFlags>
     get() = cachedInfo
   actual companion object {

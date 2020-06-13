@@ -17,6 +17,9 @@ actual enum class ImGuiCond(
 
   Appearing(ImGuiCond_Appearing);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiCond>
     get() = cachedInfo
   actual companion object {

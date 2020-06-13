@@ -24,6 +24,7 @@ import cimgui.internal.ImGuiColorEditFlags_NoTooltip
 import cimgui.internal.ImGuiColorEditFlags_PickerHueBar
 import cimgui.internal.ImGuiColorEditFlags_PickerHueWheel
 import cimgui.internal.ImGuiColorEditFlags_Uint8
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiColorEditFlags(
@@ -74,6 +75,9 @@ actual enum class ImGuiColorEditFlags(
   InputRGB(ImGuiColorEditFlags_InputRGB.convert()),
 
   InputHSV(ImGuiColorEditFlags_InputHSV.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiColorEditFlags>
     get() = cachedInfo

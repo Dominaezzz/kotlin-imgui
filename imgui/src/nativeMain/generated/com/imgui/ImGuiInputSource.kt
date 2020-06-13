@@ -5,6 +5,7 @@ import cimgui.internal.ImGuiInputSource_Nav
 import cimgui.internal.ImGuiInputSource_NavGamepad
 import cimgui.internal.ImGuiInputSource_NavKeyboard
 import cimgui.internal.ImGuiInputSource_None
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiInputSource(
@@ -19,6 +20,9 @@ actual enum class ImGuiInputSource(
   NavKeyboard(ImGuiInputSource_NavKeyboard.convert()),
 
   NavGamepad(ImGuiInputSource_NavGamepad.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiInputSource): ImGuiInputSource = when

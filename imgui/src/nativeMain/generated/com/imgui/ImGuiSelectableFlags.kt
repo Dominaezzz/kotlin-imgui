@@ -6,6 +6,7 @@ import cimgui.internal.ImGuiSelectableFlags_AllowItemOverlap
 import cimgui.internal.ImGuiSelectableFlags_Disabled
 import cimgui.internal.ImGuiSelectableFlags_DontClosePopups
 import cimgui.internal.ImGuiSelectableFlags_SpanAllColumns
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiSelectableFlags(
@@ -20,6 +21,9 @@ actual enum class ImGuiSelectableFlags(
   Disabled(ImGuiSelectableFlags_Disabled.convert()),
 
   AllowItemOverlap(ImGuiSelectableFlags_AllowItemOverlap.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiSelectableFlags>
     get() = cachedInfo

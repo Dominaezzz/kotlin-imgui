@@ -48,6 +48,9 @@ actual enum class ImGuiTreeNodeFlags(
 
   NavLeftJumpsBackHere(ImGuiTreeNodeFlags_NavLeftJumpsBackHere);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiTreeNodeFlags>
     get() = cachedInfo
   actual companion object {

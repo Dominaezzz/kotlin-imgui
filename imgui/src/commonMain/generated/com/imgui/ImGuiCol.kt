@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiCol {
   Text,
 
@@ -96,6 +98,8 @@ expect enum class ImGuiCol {
   NavWindowingDimBg,
 
   ModalWindowDimBg;
+
+  val cValue: Int
 
   companion object
 }

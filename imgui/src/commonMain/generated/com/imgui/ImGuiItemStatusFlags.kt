@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiItemStatusFlags : Flag<ImGuiItemStatusFlags> {
   HoveredRect,
 
@@ -14,6 +16,8 @@ expect enum class ImGuiItemStatusFlags : Flag<ImGuiItemStatusFlags> {
   HasDeactivated,
 
   Deactivated;
+
+  val cValue: Int
 
   companion object
 }

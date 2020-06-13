@@ -74,6 +74,9 @@ actual enum class ImGuiColorEditFlags(
 
   InputHSV(ImGuiColorEditFlags_InputHSV);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiColorEditFlags>
     get() = cachedInfo
   actual companion object {

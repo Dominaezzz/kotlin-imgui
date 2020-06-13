@@ -14,6 +14,9 @@ actual enum class ImGuiSeparatorFlags(
 
   SpanAllColumns(ImGuiSeparatorFlags_SpanAllColumns);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiSeparatorFlags>
     get() = cachedInfo
   actual companion object {

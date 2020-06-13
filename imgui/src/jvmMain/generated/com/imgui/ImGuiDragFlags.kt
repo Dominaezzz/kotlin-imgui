@@ -8,6 +8,9 @@ actual enum class ImGuiDragFlags(
 ) : Flag<ImGuiDragFlags> {
   Vertical(ImGuiDragFlags_Vertical);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiDragFlags>
     get() = cachedInfo
   actual companion object {

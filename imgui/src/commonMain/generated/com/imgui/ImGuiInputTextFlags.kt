@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiInputTextFlags : Flag<ImGuiInputTextFlags> {
   CharsDecimal,
 
@@ -42,6 +44,8 @@ expect enum class ImGuiInputTextFlags : Flag<ImGuiInputTextFlags> {
   Multiline,
 
   NoMarkEdited;
+
+  val cValue: Int
 
   companion object
 }

@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiTabBarFlags_NoTabListScrollingButtons
 import cimgui.internal.ImGuiTabBarFlags_NoTooltip
 import cimgui.internal.ImGuiTabBarFlags_Reorderable
 import cimgui.internal.ImGuiTabBarFlags_TabListPopupButton
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiTabBarFlags(
@@ -31,6 +32,9 @@ actual enum class ImGuiTabBarFlags(
   FittingPolicyResizeDown(ImGuiTabBarFlags_FittingPolicyResizeDown.convert()),
 
   FittingPolicyScroll(ImGuiTabBarFlags_FittingPolicyScroll.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiTabBarFlags>
     get() = cachedInfo

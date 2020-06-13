@@ -14,6 +14,9 @@ actual enum class ImGuiNavDirSourceFlags(
 
   PadLStick(ImGuiNavDirSourceFlags_PadLStick);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiNavDirSourceFlags>
     get() = cachedInfo
   actual companion object {

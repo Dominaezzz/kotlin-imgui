@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiStyleVar {
   Alpha,
 
@@ -46,6 +48,8 @@ expect enum class ImGuiStyleVar {
   ButtonTextAlign,
 
   SelectableTextAlign;
+
+  val cValue: Int
 
   companion object
 }

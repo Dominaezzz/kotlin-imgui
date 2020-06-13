@@ -11,6 +11,9 @@ actual enum class ImFontAtlasFlags(
 
   NoMouseCursors(ImFontAtlasFlags_NoMouseCursors);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImFontAtlasFlags>
     get() = cachedInfo
   actual companion object {

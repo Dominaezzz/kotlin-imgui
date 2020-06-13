@@ -3,6 +3,7 @@ package com.imgui
 import cimgui.internal.ImGuiNextItemDataFlags_
 import cimgui.internal.ImGuiNextItemDataFlags_HasOpen
 import cimgui.internal.ImGuiNextItemDataFlags_HasWidth
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiNextItemDataFlags(
@@ -11,6 +12,9 @@ actual enum class ImGuiNextItemDataFlags(
   HasWidth(ImGuiNextItemDataFlags_HasWidth.convert()),
 
   HasOpen(ImGuiNextItemDataFlags_HasOpen.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiNextItemDataFlags>
     get() = cachedInfo

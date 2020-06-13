@@ -68,6 +68,9 @@ actual enum class ImGuiInputTextFlags(
 
   NoMarkEdited(ImGuiInputTextFlags_NoMarkEdited);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiInputTextFlags>
     get() = cachedInfo
   actual companion object {

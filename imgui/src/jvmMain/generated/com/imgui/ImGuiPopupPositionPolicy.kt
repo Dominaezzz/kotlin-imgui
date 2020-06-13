@@ -11,6 +11,9 @@ actual enum class ImGuiPopupPositionPolicy(
 
   ComboBox(ImGuiPopupPositionPolicy_ComboBox);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiPopupPositionPolicy = when (value) {
       ImGuiPopupPositionPolicy_Default -> Default

@@ -22,6 +22,9 @@ actual enum class ImDrawCornerFlags(
 
   BotRight(ImDrawCornerFlags_BotRight);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImDrawCornerFlags>
     get() = cachedInfo
   actual companion object {

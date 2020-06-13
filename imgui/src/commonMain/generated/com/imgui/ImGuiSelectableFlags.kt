@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiSelectableFlags : Flag<ImGuiSelectableFlags> {
   DontClosePopups,
 
@@ -10,6 +12,8 @@ expect enum class ImGuiSelectableFlags : Flag<ImGuiSelectableFlags> {
   Disabled,
 
   AllowItemOverlap;
+
+  val cValue: Int
 
   companion object
 }

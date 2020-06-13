@@ -6,6 +6,7 @@ import cimgui.internal.ImGuiInputReadMode_Released
 import cimgui.internal.ImGuiInputReadMode_Repeat
 import cimgui.internal.ImGuiInputReadMode_RepeatFast
 import cimgui.internal.ImGuiInputReadMode_RepeatSlow
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiInputReadMode(
@@ -22,6 +23,9 @@ actual enum class ImGuiInputReadMode(
   RepeatSlow(ImGuiInputReadMode_RepeatSlow.convert()),
 
   RepeatFast(ImGuiInputReadMode_RepeatFast.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiInputReadMode): ImGuiInputReadMode = when

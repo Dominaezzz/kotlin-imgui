@@ -20,6 +20,9 @@ actual enum class ImGuiLogType(
 
   Clipboard(ImGuiLogType_Clipboard);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiLogType = when (value) {
       ImGuiLogType_None -> None

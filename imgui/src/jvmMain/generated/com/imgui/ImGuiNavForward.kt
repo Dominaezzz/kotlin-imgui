@@ -14,6 +14,9 @@ actual enum class ImGuiNavForward(
 
   ForwardActive(ImGuiNavForward_ForwardActive);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiNavForward = when (value) {
       ImGuiNavForward_None -> None

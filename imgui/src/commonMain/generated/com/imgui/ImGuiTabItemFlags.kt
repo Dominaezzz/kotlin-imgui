@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiTabItemFlags : Flag<ImGuiTabItemFlags> {
   UnsavedDocument,
 
@@ -8,6 +10,8 @@ expect enum class ImGuiTabItemFlags : Flag<ImGuiTabItemFlags> {
   NoCloseWithMiddleMouseButton,
 
   NoPushId;
+
+  val cValue: Int
 
   companion object
 }

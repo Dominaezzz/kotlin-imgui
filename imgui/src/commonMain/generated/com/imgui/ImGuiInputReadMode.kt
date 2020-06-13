@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiInputReadMode {
   Down,
 
@@ -12,6 +14,8 @@ expect enum class ImGuiInputReadMode {
   RepeatSlow,
 
   RepeatFast;
+
+  val cValue: Int
 
   companion object
 }

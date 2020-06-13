@@ -11,6 +11,9 @@ actual enum class ImGuiNavLayer(
 
   Menu(ImGuiNavLayer_Menu);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiNavLayer = when (value) {
       ImGuiNavLayer_Main -> Main

@@ -67,6 +67,9 @@ actual enum class ImGuiButtonFlags(
 
   MouseButtonMiddle(ImGuiButtonFlags_MouseButtonMiddle);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiButtonFlags>
     get() = cachedInfo
   actual companion object {

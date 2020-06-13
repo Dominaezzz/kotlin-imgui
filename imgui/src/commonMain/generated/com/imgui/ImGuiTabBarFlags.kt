@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiTabBarFlags : Flag<ImGuiTabBarFlags> {
   Reorderable,
 
@@ -16,6 +18,8 @@ expect enum class ImGuiTabBarFlags : Flag<ImGuiTabBarFlags> {
   FittingPolicyResizeDown,
 
   FittingPolicyScroll;
+
+  val cValue: Int
 
   companion object {
     val FittingPolicyMask_: Flag<ImGuiTabBarFlags>

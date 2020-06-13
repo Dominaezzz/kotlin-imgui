@@ -14,6 +14,9 @@ actual enum class ImGuiMouseButton(
 
   Middle(ImGuiMouseButton_Middle);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiMouseButton = when (value) {
       ImGuiMouseButton_Left -> Left

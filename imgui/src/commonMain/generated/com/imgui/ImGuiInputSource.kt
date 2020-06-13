@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiInputSource {
   None,
 
@@ -10,6 +12,8 @@ expect enum class ImGuiInputSource {
   NavKeyboard,
 
   NavGamepad;
+
+  val cValue: Int
 
   companion object
 }
