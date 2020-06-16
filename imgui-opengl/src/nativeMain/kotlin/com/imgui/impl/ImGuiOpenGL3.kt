@@ -93,11 +93,7 @@ actual class ImGuiOpenGL3 actual constructor(
 		}
 
 		fun checkShader(handle: UInt, desc: String) {
-			val status = memScoped {
-				val value = alloc<IntVar>()
-				glGetShaderiv(handle, GL_COMPILE_STATUS, value.ptr)
-				value.value
-			}
+			val status = glGetShaderi(handle, GL_COMPILE_STATUS)
 			val infoLog = glGetShaderInfoLog(handle)
 			if (infoLog.isNotBlank()) {
 				println(infoLog)
@@ -107,11 +103,7 @@ actual class ImGuiOpenGL3 actual constructor(
 		}
 
 		fun checkProgram(handle: UInt, desc: String) {
-			val status = memScoped {
-				val value = alloc<IntVar>()
-				glGetProgramiv(handle, GL_LINK_STATUS, value.ptr)
-				value.value
-			}
+			val status = glGetProgrami(handle, GL_LINK_STATUS)
 			val infoLog = glGetProgramInfoLog(handle)
 			if (infoLog.isNotBlank()) {
 				println(infoLog)
@@ -142,22 +134,10 @@ actual class ImGuiOpenGL3 actual constructor(
 		attribLocationVtxUV = glGetAttribLocation(shaderHandle, "UV")
 		attribLocationVtxColor = glGetAttribLocation(shaderHandle, "Color")
 
-		vboHandle = memScoped {
-			val value = alloc<UIntVar>()
-			glGenBuffers(1, value.ptr)
-			value.value
-		}
-		elementsHandle = memScoped {
-			val value = alloc<UIntVar>()
-			glGenBuffers(1, value.ptr)
-			value.value
-		}
+		vboHandle = glGenBuffer()
+		elementsHandle = glGenBuffer()
 
-		fontTexture = memScoped {
-			val texture = alloc<UIntVar>()
-			glGenTextures(1, texture.ptr)
-			texture.value
-		}
+		fontTexture = glGenTexture()
 		createFontsTexture()
 
 		// Restore modified GL state
@@ -196,7 +176,7 @@ actual class ImGuiOpenGL3 actual constructor(
 		//@formatter:on
 		glUseProgram(shaderHandle)
 		glUniform1i(attribLocationTex, 0)
-		glUniformMatrix4fv(attribLocationProjMtx, 1, GL_FALSE.toUByte(), orthoProjection.refTo(0))
+		glUniformMatrix4fv(attribLocationProjMtx, 1, false, orthoProjection.refTo(0))
 		if (useSamplerBinding) {
 			// We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
 			glBindSampler(0U, 0U)
@@ -211,9 +191,9 @@ actual class ImGuiOpenGL3 actual constructor(
 		glEnableVertexAttribArray(attribLocationVtxUV.toUInt())
 		glEnableVertexAttribArray(attribLocationVtxColor.toUInt())
 		//@formatter:off
-		glVertexAttribPointer(attribLocationVtxPos.toUInt(),   2, GL_FLOAT,         GL_FALSE.toUByte(), sizeOf<ImDrawVert>().toInt(), 0L.toCPointer<ByteVar>())
-		glVertexAttribPointer(attribLocationVtxUV.toUInt(),    2, GL_FLOAT,         GL_FALSE.toUByte(), sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * 2).toCPointer<ByteVar>())
-		glVertexAttribPointer(attribLocationVtxColor.toUInt(), 4, GL_UNSIGNED_BYTE, GL_TRUE.toUByte(),  sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * (2 + 2)).toCPointer<ByteVar>())
+		glVertexAttribPointer(attribLocationVtxPos.toUInt(),   2, GL_FLOAT,         false, sizeOf<ImDrawVert>().toInt(), 0L.toCPointer<ByteVar>())
+		glVertexAttribPointer(attribLocationVtxUV.toUInt(),    2, GL_FLOAT,         false, sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * 2).toCPointer<ByteVar>())
+		glVertexAttribPointer(attribLocationVtxColor.toUInt(), 4, GL_UNSIGNED_BYTE, true,  sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * (2 + 2)).toCPointer<ByteVar>())
 		//@formatter:on
 	}
 
@@ -380,7 +360,7 @@ actual class ImGuiOpenGL3 actual constructor(
 
 	private fun destroyFontsTexture() {
 		val io = ImGui.getIO().ptr.pointed
-		glDeleteTextures(1, cValuesOf(fontTexture))
+		glDeleteTexture(fontTexture)
 		io.Fonts!!.pointed.TexID = null
 	}
 
