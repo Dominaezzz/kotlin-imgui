@@ -1,6 +1,6 @@
 package com.imgui.impl
 
-import com.imgui.ImDrawData
+import com.imgui.*
 import io.ktor.utils.io.core.*
 
 //----------------------------------------
@@ -21,15 +21,7 @@ import io.ktor.utils.io.core.*
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-expect class ImGuiOpenGL3(
-	glslVersionStr: String = "#version 130",
-	useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
-	unpackRowLength: Boolean = true,
-	usePolygonMode: Boolean = true,
-	useSamplerBinding: Boolean = false,
-	useClipOrigin: Boolean = true,
-	useDrawWithBaseVertex: Boolean = true
-) : Closeable {
+expect class ImGuiOpenGL3(glslVersionStr: String = "#version 130") : Closeable {
 
 	fun newFrame()
 

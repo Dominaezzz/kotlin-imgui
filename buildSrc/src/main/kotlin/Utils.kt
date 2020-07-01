@@ -1,6 +1,5 @@
 import com.squareup.kotlinpoet.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.*
 
 val POINTED = MemberName("kotlinx.cinterop", "pointed")
 val VALUE = MemberName("kotlinx.cinterop", "value")
@@ -55,6 +54,7 @@ val mutableStructFields = mapOf(
 		"KeyShift",
 		"KeyAlt",
 		"KeySuper",
+		"ConfigFlags",
 		"BackendFlags",
 		"MouseDown",
 		"KeysDown",
@@ -63,6 +63,18 @@ val mutableStructFields = mapOf(
 		"MousePos",
 		"DisplaySize",
 		"DisplayFramebufferScale"
+	),
+	"ImGuiPlatformMonitor" to setOf(
+		"MainPos",
+		"MainSize",
+		"WorkPos",
+		"WorkSize",
+		"DpiScale"
+	),
+	"ImGuiViewport" to setOf(
+		"PlatformRequestClose",
+		"PlatformRequestMove",
+		"PlatformRequestResize"
 	)
 )
 
