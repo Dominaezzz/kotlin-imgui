@@ -3,8 +3,6 @@ package com.imgui.impl
 import cglfw.*
 import cimgui.internal.*
 import cimgui.internal.ImGuiPlatformMonitor
-import cimgui.internal.ImGuiViewport
-import cimgui.internal.ImVec2
 import com.imgui.*
 import com.imgui.ImGuiBackendFlags
 import com.imgui.ImGuiConfigFlags
@@ -14,7 +12,7 @@ import com.imgui.ImGuiNavInput
 import com.imgui.ImGuiViewportFlags
 import com.kgl.core.Flag
 import com.kgl.glfw.*
-import io.ktor.utils.io.core.Closeable
+import io.ktor.utils.io.core.*
 import kotlinx.cinterop.*
 import platform.posix.*
 
@@ -120,14 +118,17 @@ actual class ImGuiGLFW actual constructor(window: Window, installCallbacks: Bool
 	actual fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) =
 		com.imgui.impl.mouseButtonCallback(window, button, action, mods)
 
-	actual fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) = com.imgui.impl.scrollCallback(window, offsetX, offsetY)
+	actual fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) =
+		com.imgui.impl.scrollCallback(window, offsetX, offsetY)
 
 	actual fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) =
 		com.imgui.impl.keyCallback(window, key, scancode, action, mods)
 
-	actual fun charCallback(window: Window, codepoint: UInt) = com.imgui.impl.charCallback(window, codepoint)
+	actual fun charCallback(window: Window, codepoint: UInt) =
+		com.imgui.impl.charCallback(window, codepoint)
 
-	actual fun monitorCallback(monitor: Monitor, isConnected: Boolean) = com.imgui.impl.monitorCallback(monitor, isConnected)
+	actual fun monitorCallback(monitor: Monitor, isConnected: Boolean) =
+		com.imgui.impl.monitorCallback(monitor, isConnected)
 
 	private fun updateMonitors() {
 		inline fun ImVector_ImGuiPlatformMonitor._grow_capacity(size: Int): Int {
@@ -384,7 +385,10 @@ actual class ImGuiGLFW actual constructor(window: Window, installCallbacks: Bool
 
 		fun destroyWindow() {
 			if (isWindowOwned) {
-				window.close()
+				//FIXME Workaround because currently, Window.close() also terminates Glfw
+				//window.close()
+				glfwGetWindowUserPointer(window.ptr)!!.asStableRef<Window>().dispose()
+				glfwDestroyWindow(window.ptr)
 			}
 			_window = null
 		}
@@ -544,4 +548,3 @@ private fun charCallback(window: Window, codepoint: UInt) {
 private fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
 	wantUpdateMonitors = true
 }
-
