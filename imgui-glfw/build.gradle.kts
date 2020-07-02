@@ -7,6 +7,7 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
+val kglVersion: String by rootProject.extra
 
 kotlin {
     if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
@@ -49,7 +50,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(project(":imgui"))
-                implementation("com.kgl:kgl-glfw:0.1.9-dev-9")
+                implementation("com.kgl:kgl-glfw:$kglVersion")
             }
         }
         commonTest {

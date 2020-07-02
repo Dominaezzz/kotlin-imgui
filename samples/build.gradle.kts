@@ -9,6 +9,7 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
+val kglVersion: String by rootProject.extra
 
 kotlin {
     if (HostManager.hostIsLinux) linuxX64()
@@ -47,7 +48,7 @@ kotlin {
                     val lwjglVersion = "3.2.2"
                     val lwjglNatives = "natives-linux"
 
-                    implementation("com.kgl:kgl-glfw:0.1.9-dev-9")
+                    implementation("com.kgl:kgl-glfw:$kglVersion")
 
                     implementation("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
                     implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
@@ -80,7 +81,7 @@ kotlin {
                     implementation(project(":imgui"))
                     implementation(project(":imgui-glfw"))
                     implementation(project(":imgui-opengl"))
-                    implementation("com.kgl:kgl-glfw-static:0.1.9-dev-9")
+                    implementation("com.kgl:kgl-glfw-static:$kglVersion")
                 }
             }
         }
