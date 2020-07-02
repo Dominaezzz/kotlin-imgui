@@ -348,13 +348,21 @@ actual class ImGuiGLFW actual constructor(window: Window, installCallbacks: Bool
 
 		fun createWindow(pos: Pair<Int, Int>, size: Pair<Int, Int>, makeDecorated: Boolean, makeFloating: Boolean) {
 			_window = Window(size.first, size.second, "No Title Yet", null, mainWindow) {
+				//FIXME this should be set by the user once (if at all).
+				// If the user uses a different context version, bad things may happen.
+				// A fix would require removing the glfwDefaultWindowHints call from the Window constructor
+				if (Platform.osFamily == OsFamily.MACOSX) {
+					contextVersionMajor = 3
+					contextVersionMinor = 2
+					openGLForwardCompat = true
+					openGLProfile = OpenGLProfile.Core
+				}
 				visible = false
 				focused = false
-				//focusOnShow = false
+				glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE) //FIXME focusOnShow = false
 				decorated = makeDecorated //viewport.Flags and ImGuiViewportFlags.NoDecoration.value == 0
 				floating = makeFloating //viewport.Flags and ImGuiViewportFlags.TopMost.value != 0
 			}
-			window.isFocusOnShow = false
 			isWindowOwned = true
 			window.position = pos
 
