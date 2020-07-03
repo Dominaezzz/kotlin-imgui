@@ -359,9 +359,9 @@ actual class ImGuiGLFW actual constructor(window: Window, installCallbacks: Bool
 				}
 				visible = false
 				focused = false
-				glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE) //FIXME focusOnShow = false
-				decorated = makeDecorated //viewport.Flags and ImGuiViewportFlags.NoDecoration.value == 0
-				floating = makeFloating //viewport.Flags and ImGuiViewportFlags.TopMost.value != 0
+				focusOnShow = false
+				decorated = makeDecorated
+				floating = makeFloating
 			}
 			isWindowOwned = true
 			window.position = pos
