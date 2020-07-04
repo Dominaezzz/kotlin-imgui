@@ -6,7 +6,7 @@ import com.kgl.glfw.*
 import io.ktor.utils.io.core.*
 
 private var _mainWindow: Window? = null
-private val mainWindow: Window get() = _mainWindow ?: error("ImGuiGLFW was not initialized")
+internal val mainWindow: Window get() = _mainWindow ?: error("ImGuiGLFW was not initialized")
 
 private val mouseJustPressed = BooleanArray(5) { false }
 private var wantUpdateMonitors: Boolean = true
@@ -59,7 +59,7 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		mapKey(ImGuiKey.Y, KeyboardKey.Y)
 		mapKey(ImGuiKey.Z, KeyboardKey.Z)
 
-		setupClipboard(io, window)
+		setupClipboard(io, mainWindow)
 
 		val prevErrorCallback = Glfw.setErrorCallback(null)
 		mouseCursors[ImGuiMouseCursor.Arrow.cValue] = Cursor(Cursor.Standard.Arrow)
@@ -81,10 +81,10 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		prevUserCallbackChar = null
 		prevUserCallbackMonitor = null
 		if (installCallbacks) {
-			prevUserCallbackMouseButton = window.setMouseButtonCallback(this::mouseButtonCallback)
-			prevUserCallbackScroll = window.setScrollCallback(this::scrollCallback)
-			prevUserCallbackKey = window.setKeyCallback(this::keyCallback)
-			prevUserCallbackChar = window.setCharCallback(this::charCallback)
+			prevUserCallbackMouseButton = mainWindow.setMouseButtonCallback(this::mouseButtonCallback)
+			prevUserCallbackScroll = mainWindow.setScrollCallback(this::scrollCallback)
+			prevUserCallbackKey = mainWindow.setKeyCallback(this::keyCallback)
+			prevUserCallbackChar = mainWindow.setCharCallback(this::charCallback)
 			prevUserCallbackMonitor = Glfw.setMonitorCallback(this::monitorCallback)
 		}
 
@@ -95,8 +95,8 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		// Our mouse update function expect PlatformHandle to be filled for the main viewport
 		val mainViewport = ImGui.getMainViewport()
 		// userPointer for a Window's ptr is the Window itself
-		//FIXME common
-		//mainViewport.platformHandle = glfwGetWindowUserPointer(mainWindow.ptr)
+		//FIXME codegen?
+		mainViewport.glfwWindow = mainWindow
 
 		if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
 			initPlatformInterface()
@@ -119,57 +119,23 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		com.imgui.impl.monitorCallback(monitor, isConnected)
 
 	private fun updateMonitors() {
-		//FIXME common
-		//inline fun ImVector_ImGuiPlatformMonitor._grow_capacity(size: Int): Int {
-		//	val newCapacity = if (Capacity > 0) (Capacity + Capacity / 2) else 8
-		//	return if (newCapacity > size) newCapacity else size
-		//}
-
-		//inline fun ImVector_ImGuiPlatformMonitor.reserve(newCapacity: Int) {
-		//	if (newCapacity <= Capacity) return
-		//	val newData = igMemAlloc((newCapacity * sizeOf<ImGuiPlatformMonitor>()).toULong())?.reinterpret<ImGuiPlatformMonitor>()
-		//	if (Data != null) {
-		//		memcpy(newData, Data, (Size * sizeOf<ImGuiPlatformMonitor>()).toULong())
-		//		igMemFree(Data)
-		//	}
-		//	Data = newData
-		//	Capacity = newCapacity
-		//}
-
-		//inline fun ImVector_ImGuiPlatformMonitor.resize(newSize: Int) {
-		//	if (newSize > Capacity) reserve(_grow_capacity(newSize))
-		//	Size = newSize
-		//}
-
-		//inline fun ImVector_ImGuiPlatformMonitor.push_back(value: ImGuiPlatformMonitor) {
-		//	if (Size == Capacity) reserve(_grow_capacity(Size + 1))
-		//	memcpy(Data!![Size].ptr, value.ptr, sizeOf<ImGuiPlatformMonitor>().convert())
-		//	Size++
-		//}
-
-		//val platformIO = ImGui.getPlatformIO()
-		//val glfwMonitors = Glfw.monitors
-		//platformIO.Monitors.resize(0)
-		//for (n in glfwMonitors.indices) {
-		//	memScoped {
-		//		val monitor = alloc<ImGuiPlatformMonitor>()
-		//		val (monitorX, monitorY) = glfwMonitors[n].position
-		//		val vidMode = glfwMonitors[n].videoMode
-		//		monitor.MainPos.x = monitorX.toFloat()
-		//		monitor.MainPos.y = monitorY.toFloat()
-		//		monitor.MainSize.x = vidMode.width.toFloat()
-		//		monitor.MainSize.y = vidMode.height.toFloat()
-		//		val (x, y, w, h) = glfwMonitors[n].workarea
-		//		monitor.WorkPos.x = x.toFloat()
-		//		monitor.WorkPos.y = y.toFloat()
-		//		monitor.WorkSize.x = w.toFloat()
-		//		monitor.WorkSize.y = h.toFloat()
-		//		val (xScale, _) = glfwMonitors[n].contentScale
-		//		monitor.DpiScale = xScale
-		//		platformIO.Monitors.push_back(monitor)
-		//	}
-		//}
-		//wantUpdateMonitors
+		val platformIO = ImGui.getPlatformIO()
+		val glfwMonitors = Glfw.monitors
+		platformIO.monitors.resize(0)
+		for (n in glfwMonitors.indices) {
+			val monitor = ImGuiPlatformMonitor()
+			val (monitorX, monitorY) = glfwMonitors[n].position
+			val vidMode = glfwMonitors[n].videoMode
+			monitor.mainPos = Vec2(monitorX.toFloat(), monitorY.toFloat())
+			monitor.mainSize = Vec2(vidMode.width.toFloat(), vidMode.height.toFloat())
+			val (x, y, w, h) = glfwMonitors[n].workarea
+			monitor.workPos = Vec2(x.toFloat(), y.toFloat())
+			monitor.workSize = Vec2(w.toFloat(), h.toFloat())
+			val (xScale, _) = glfwMonitors[n].contentScale
+			monitor.dpiScale = xScale
+			platformIO.monitors.pushBack(monitor)
+		}
+		wantUpdateMonitors = false
 	}
 
 	fun newFrame() {
@@ -208,29 +174,26 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 			val mousePosBackup = io.mousePos
 			io.mousePos = Vec2(-Float.MAX_VALUE, -Float.MAX_VALUE)
 			val platformIO = ImGui.getPlatformIO()
-			//FIXME common
-			//for (n in 0 until platformIO.Viewports.Size) {
-			//	val viewport = platformIO.Viewports.Data!![n]!!.pointed
-			//	val window = glfwGetWindowUserPointer(viewport.PlatformHandle!!.reinterpret())!!.asStableRef<Window>().get()
-			//	if (window.isFocused) {
-			//		if (io.WantSetMousePos) {
-			//			window.cursorPosition = mousePosBackup.useContents { x.toDouble() to y.toDouble() }
-			//		} else {
-			//			val (mouseX, mouseY) = window.cursorPosition
-			//			if (io.ConfigFlags and ImGuiConfigFlags.ViewportsEnable.value != 0) {
-			//				val (windowX, windowY) = window.position
-			//				io.MousePos.x = mouseX.toFloat() + windowX
-			//				io.MousePos.y = mouseY.toFloat() + windowY
-			//			} else {
-			//				io.MousePos.x = mouseX.toFloat()
-			//				io.MousePos.y = mouseY.toFloat()
-			//			}
-			//		}
-			//	}
-			//	for (i in 0 until 5) {
-			//		io.MouseDown[i].value = io.MouseDown[i].value || window.getMouseButton(MouseButton.from(i)) != Action.Release
-			//	}
-			//}
+			for (viewport in platformIO.viewports) {
+				val window = viewport.glfwWindow ?: error("glfwWindow should not be null")
+				if (window.isFocused) {
+					if (io.wantSetMousePos) {
+						window.cursorPosition = mousePosBackup.x.toDouble() to mousePosBackup.y.toDouble()
+					} else {
+						val (mouseX, mouseY) = window.cursorPosition
+						if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+							val (windowX, windowY) = window.position
+							io.mousePos = Vec2(mouseX.toFloat() + windowX, mouseY.toFloat() + windowY)
+						} else {
+							io.mousePos = Vec2(mouseX.toFloat(), mouseY.toFloat())
+						}
+					}
+				}
+				for (i in 0 until 5) {
+					//FIXME com.kgl.glfw.MouseButton.from for common
+					io.mouseDown(i, io.mouseDown(i) || window.getMouseButton(MouseButton.values()[i]) != Action.Release)
+				}
+			}
 		}
 
 		// Update mouse cursor.
@@ -239,21 +202,18 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 			if (!changeDisabled && mainWindow.cursorMode != CursorMode.Disabled) {
 				val imguiCursor = ImGui.getMouseCursor()
 				val platformIO = ImGui.getPlatformIO()
-				//FIXME common
-				//for (n in 0 until platformIO.Viewports.Size) {
-				//	val window = with(platformIO.Viewports.Data!![n]!!.pointed) {
-				//		glfwGetWindowUserPointer(PlatformHandle!!.reinterpret())!!.asStableRef<Window>().get()
-				//	}
-				//	if (imguiCursor == ImGuiMouseCursor.None || io.MouseDrawCursor) {
-				//		// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
-				//		window.cursorMode = CursorMode.Hidden
-				//	} else {
-				//		// Show OS mouse cursor
-				//		// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
-				//		window.setCursor(mouseCursors[imguiCursor.value] ?: mouseCursors[ImGuiMouseCursor.Arrow.value])
-				//		window.cursorMode = CursorMode.Normal
-				//	}
-				//}
+				for (viewport in platformIO.viewports) {
+					val window = viewport.glfwWindow ?: error("glfwWindow should not be null")
+					if (imguiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
+						// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
+						window.cursorMode = CursorMode.Hidden
+					} else {
+						// Show OS mouse cursor
+						// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
+						window.setCursor(mouseCursors[imguiCursor.cValue] ?: mouseCursors[ImGuiMouseCursor.Arrow.cValue])
+						window.cursorMode = CursorMode.Normal
+					}
+				}
 			}
 		}
 
@@ -330,169 +290,95 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
 	//--------------------------------------------------------------------------------------------------------
 
-	private class ImGuiViewportDataGlfw : Closeable {
+	class ImGuiGlfwViewportData {
 		var _window: Window? = null
 		val window: Window get() = _window!!
 		var isWindowOwned: Boolean = false
 		var ignoreWindowPosEventFrame: Int = -1
 		var ignoreWindowSizeEventFrame: Int = -1
 
-		fun createWindow(pos: Pair<Int, Int>, size: Pair<Int, Int>, makeDecorated: Boolean, makeFloating: Boolean) {
-			_window = Window(size.first, size.second, "No Title Yet", null, mainWindow) {
-				//FIXME this should be set by the user once (if at all).
-				// If the user uses a different context version, bad things may happen.
-				// A fix would require removing the glfwDefaultWindowHints call from the Window constructor
-				if (isMacOS) {
-					contextVersionMajor = 3
-					contextVersionMinor = 2
-					openGLForwardCompat = true
-					openGLProfile = OpenGLProfile.Core
-				}
+		fun createWindow(viewport: ImGuiViewport) {
+			with(Glfw.windowHints) {
 				visible = false
 				focused = false
 				focusOnShow = false
-				decorated = makeDecorated
-				floating = makeFloating
+				decorated = ImGuiViewportFlags.NoDecoration !in viewport.flags
+				floating = ImGuiViewportFlags.TopMost in viewport.flags
 			}
+			_window = Window(viewport.size.x.toInt(), viewport.size.y.toInt(), "No Title Yet", null, mainWindow)
 			isWindowOwned = true
-			window.position = pos
+			window.position = viewport.pos.run { x.toInt() to y.toInt() }
 
 			window.setMouseButtonCallback(::mouseButtonCallback)
 			window.setScrollCallback(::scrollCallback)
 			window.setKeyCallback(::keyCallback)
 			window.setCharCallback(::charCallback)
-			window.setCloseCallback { window ->
-				//FIXME common
-				//igFindViewportByPlatformHandle(window.ptr)?.pointed?.PlatformRequestClose = true
+			window.setCloseCallback {
+				viewport.platformRequestClose = true
 			}
-			window.setPosCallback { window, _, _ ->
-				//FIXME common
-				//igFindViewportByPlatformHandle(window.ptr)?.pointed?.let { viewport ->
-				//	viewport.PlatformUserData?.asStableRef<ImGuiViewportDataGlfw>()?.get()?.let { data ->
-				//		if (ImGui.getFrameCount() <= data.ignoreWindowPosEventFrame + 1) return@setPosCallback
-				//	}
-				//	viewport.PlatformRequestMove = true
-				//}
+			window.setPosCallback { _, _, _ ->
+				viewport.glfwViewportData?.let { data ->
+					if (ImGui.getFrameCount() <= data.ignoreWindowPosEventFrame + 1) return@setPosCallback
+				}
+				viewport.platformRequestMove = true
 			}
-			window.setSizeCallback { window, _, _ ->
-				//FIXME common
-				//igFindViewportByPlatformHandle(window.ptr)?.pointed?.let { viewport ->
-				//	viewport.PlatformUserData?.asStableRef<ImGuiViewportDataGlfw>()?.get()?.let { data ->
-				//		if (ImGui.getFrameCount() <= data.ignoreWindowSizeEventFrame + 1) return@setSizeCallback
-				//	}
-				//	viewport.PlatformRequestResize = true
-				//}
+			window.setSizeCallback { _, _, _ ->
+				viewport.glfwViewportData?.let { data ->
+					if (ImGui.getFrameCount() <= data.ignoreWindowSizeEventFrame + 1) return@setSizeCallback
+				}
+				viewport.platformRequestResize = true
 			}
 		}
 
 		fun destroyWindow() {
 			if (isWindowOwned) {
-				//FIXME Workaround because currently, Window.close() also terminates Glfw
-				//window.close()
-				//FIXME common
-				//glfwGetWindowUserPointer(window.ptr)!!.asStableRef<Window>().dispose()
-				//glfwDestroyWindow(window.ptr)
+				window.close()
 			}
 			_window = null
 		}
 
-		override fun close() {
-			check(_window == null)
+		fun showWindow() {
+			window.isVisible = true
 		}
-	}
 
-	private fun initPlatformInterface() {
-		//FIXME common
-		//val platformIO = ImGui.getPlatformIO().ptr.pointed
-		//platformIO.Platform_CreateWindow = staticCFunction { viewport ->
-		//	val data = ImGuiViewportDataGlfw()
-		//	viewport!!.pointed.PlatformUserData = StableRef.create(data).asCPointer()
-		//	data.createWindow(
-		//		viewport.pointed.Pos.x.toInt() to viewport.pointed.Pos.y.toInt(),
-		//		viewport.pointed.Size.x.toInt() to viewport.pointed.Size.y.toInt(),
-		//		viewport.pointed.Flags and ImGuiViewportFlags.NoDecoration.value == 0,
-		//		viewport.pointed.Flags and ImGuiViewportFlags.TopMost.value != 0
-		//	)
-		//	viewport.pointed.PlatformHandle = data.window.ptr
-		//}
-		//platformIO.Platform_DestroyWindow = staticCFunction { viewport ->
-		//	viewport!!.pointed.PlatformUserData?.asStableRef<ImGuiViewportDataGlfw>()?.let { dataRef ->
-		//		val data = dataRef.get()
-		//		data.destroyWindow()
-		//		dataRef.dispose()
-		//		data.close()
-		//	}
-		//	viewport.pointed.PlatformUserData = null
-		//	viewport.pointed.PlatformHandle = null
-		//}
-		//platformIO.Platform_ShowWindow = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.isVisible = true
-		//}
-		//platformIO.Platform_SetWindowPos = staticCFunction { viewport, pos ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.position = pos.useContents { x.toInt() to y.toInt() }
-		//}
-		//platformIO.Platform_GetWindowPos = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.ignoreWindowPosEventFrame = ImGui.getFrameCount()
-		//	data.window.position.let {
-		//		cValue {
-		//			x = it.first.toFloat()
-		//			y = it.second.toFloat()
-		//		}
-		//	}
-		//}
-		//platformIO.Platform_SetWindowSize = staticCFunction { viewport, size ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.size = size.useContents { x.toInt() to y.toInt() }
-		//}
-		//platformIO.Platform_GetWindowSize = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.ignoreWindowSizeEventFrame = ImGui.getFrameCount()
-		//	data.window.size.let {
-		//		cValue {
-		//			x = it.first.toFloat()
-		//			y = it.second.toFloat()
-		//		}
-		//	}
-		//}
-		//platformIO.Platform_SetWindowFocus = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.focus()
-		//}
-		//platformIO.Platform_GetWindowFocus = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.isFocused
-		//}
-		//platformIO.Platform_GetWindowMinimized = staticCFunction { viewport ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.isIconified
-		//}
-		//platformIO.Platform_SetWindowTitle = staticCFunction { viewport, title ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.setTitle(title?.toKString() ?: "")
-		//}
-		//platformIO.Platform_RenderWindow = staticCFunction { viewport, _ ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	Glfw.currentContext = data.window
-		//}
-		//platformIO.Platform_SwapBuffers = staticCFunction { viewport, _ ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	Glfw.currentContext = data.window
-		//	data.window.swapBuffers()
-		//}
-		//platformIO.Platform_SetWindowAlpha = staticCFunction { viewport, alpha ->
-		//	val data = viewport!!.pointed.PlatformUserData!!.asStableRef<ImGuiViewportDataGlfw>().get()
-		//	data.window.opacity = alpha
-		//}
+		fun getWindowPos(): Vec2 = window.position.let { (x, y) -> Vec2(x.toFloat(), y.toFloat()) }
 
-		//val mainViewport = ImGui.getMainViewport().ptr.pointed
-		//val data = ImGuiViewportDataGlfw()
-		//data._window = mainWindow
-		//data.isWindowOwned = false
-		//mainViewport.PlatformUserData = StableRef.create(data).asCPointer()
-		//mainViewport.PlatformHandle = mainWindow.ptr
+		fun setWindowPos(pos: Vec2) {
+			ignoreWindowPosEventFrame = ImGui.getFrameCount()
+			window.position = pos.x.toInt() to pos.y.toInt()
+		}
+
+		fun getWindowSize(): Vec2 = window.size.let { (x, y) -> Vec2(x.toFloat(), y.toFloat()) }
+
+		fun setWindowSize(size: Vec2) {
+			ignoreWindowSizeEventFrame = ImGui.getFrameCount()
+			window.size = size.x.toInt() to size.y.toInt()
+		}
+
+		fun getWindowFocus(): Boolean = window.isFocused
+
+		fun setWindowFocus() {
+			window.focus()
+		}
+
+		fun getWindowMinimized(): Boolean = window.isIconified
+
+		fun setWindowTitle(title: String) {
+			window.setTitle(title)
+		}
+
+		fun renderWindow() {
+			Glfw.currentContext = window
+		}
+
+		fun swapBuffers() {
+			Glfw.currentContext = window
+			window.swapBuffers()
+		}
+
+		fun setWindowAlpha(alpha: Float) {
+			window.opacity = alpha
+		}
 	}
 
 	private fun shutdownPlatformInterface() {}
@@ -552,3 +438,5 @@ private fun charCallback(window: Window, codepoint: UInt) {
 private fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
 	wantUpdateMonitors = true
 }
+
+internal expect fun initPlatformInterface()

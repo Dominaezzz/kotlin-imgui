@@ -3,15 +3,15 @@ package com.imgui
 import kotlin.Float
 
 expect class ImGuiPlatformMonitor {
-  val mainPos: Vec2
+  var mainPos: Vec2
 
-  val mainSize: Vec2
+  var mainSize: Vec2
 
-  val workPos: Vec2
+  var workPos: Vec2
 
-  val workSize: Vec2
+  var workSize: Vec2
 
-  val dpiScale: Float
+  var dpiScale: Float
 
   constructor()
 

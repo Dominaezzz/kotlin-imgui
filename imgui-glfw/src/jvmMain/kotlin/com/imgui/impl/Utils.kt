@@ -2,6 +2,7 @@ package com.imgui.impl
 
 import cimgui.internal.*
 import com.imgui.ImGuiIO
+import com.imgui.ImGuiViewport
 import com.kgl.glfw.*
 import org.lwjgl.glfw.*
 import org.lwjgl.system.*
@@ -48,3 +49,9 @@ actual fun freeClipboard(ioObj: ImGuiIO) {
 	io.setClipboardTextFn = null
 	io.getClipboardTextFn = null
 }
+
+actual var ImGuiViewport.glfwWindow: Window?
+	get() = MemoryUtil.memGlobalRefToObject<Window>(GLFW.glfwGetWindowUserPointer(SWIGTYPE_p_void.getCPtr(ptr.platformHandle)))
+	set(value) {
+		ptr.platformHandle = SWIGTYPE_p_void(value?.ptr ?: 0, false)
+	}
