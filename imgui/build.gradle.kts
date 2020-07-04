@@ -8,6 +8,15 @@ plugins {
 
 val useSingleTarget: Boolean by rootProject.extra
 
+val imGuiVersion: String by rootProject.extra
+
+val generateImGui by tasks.registering(GenerateImGuiTask::class) {
+    inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
+    commonDir.set(file("src/commonMain/generated"))
+    jvmDir.set(file("src/jvmMain/generated"))
+    nativeDir.set(file("src/nativeMain/generated"))
+}
+
 kotlin {
 	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
 	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
@@ -16,30 +25,32 @@ kotlin {
 	jvm {
 		compilations {
 			"main" {
-				defaultSourceSet {
-					kotlin.srcDir("src/jvmMain/generated")
-				}
-				dependencies {
-					api(kotlin("stdlib-jdk8"))
-					compileOnly(project(":cimgui", "jvmDefault"))
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-				}
-			}
-		}
-	}
+				compileKotlinTask.dependsOn(generateImGui)
+                defaultSourceSet {
+                    kotlin.srcDir("src/jvmMain/generated")
+                }
+                dependencies {
+                    api(kotlin("stdlib-jdk8"))
+                    compileOnly(project(":cimgui", "jvmDefault"))
+                }
+            }
+            "test" {
+                dependencies {
+                    implementation(kotlin("test"))
+                    implementation(kotlin("test-junit"))
+                }
+            }
+        }
+    }
 
 	targets.withType<KotlinNativeTarget> {
 		compilations {
 			"main" {
-				defaultSourceSet {
-					kotlin.srcDir("src/nativeMain/generated")
-					kotlin.srcDir("src/nativeMain/kotlin")
-				}
+				compileKotlinTask.dependsOn(generateImGui)
+                defaultSourceSet {
+                    kotlin.srcDir("src/nativeMain/generated")
+                    kotlin.srcDir("src/nativeMain/kotlin")
+                }
 
 				dependencies {
 					implementation(project(":cimgui"))
