@@ -3,3 +3,5 @@ build
 .idea/
 *.iml
 imgui.ini
+cimgui/src/jvmMain/java
+cimgui/src/jvmMain/cpp

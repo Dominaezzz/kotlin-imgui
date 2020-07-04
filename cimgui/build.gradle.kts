@@ -104,17 +104,19 @@ val extractImGui by tasks.registering(Copy::class) {
 val runSwig by tasks.registering(Exec::class) {
 	dependsOn(extractCWrapper)
 
+	val swigInterfaceDir = file("src/nativeInterop/swig")
 	val javaOutputDir = file("src/jvmMain/java/cimgui/internal")
 	val cppOutputDir = file("src/jvmMain/cpp")
 
 	doFirst {
-		mkdir(javaOutputDir)
-		mkdir(cppOutputDir)
 		delete(*javaOutputDir.listFiles { file -> file.extension == "java" }!!)
 	}
 
+	inputs.dir(swigInterfaceDir)
+	outputs.dirs(javaOutputDir, cppOutputDir)
+
 	executable = "swig"
-	workingDir = file("src/nativeInterop/swig").absoluteFile
+	workingDir = swigInterfaceDir.absoluteFile
 
 	args("-java", "-c++")
 	args("-package", "cimgui.internal")
@@ -150,22 +152,23 @@ kotlin {
 		withJava()
 		compilations {
 			"main" {
-				defaultSourceSet {
-					kotlin.srcDir("src/jvmMain/java")
-					kotlin.srcDir("src/jvmMain/kotlin")
-				}
-				dependencies {
-					implementation(kotlin("stdlib-jdk8"))
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-				}
-			}
-		}
-	}
+				compileKotlinTask.dependsOn(runSwig)
+                defaultSourceSet {
+                    kotlin.srcDir("src/jvmMain/java")
+                    kotlin.srcDir("src/jvmMain/kotlin")
+                }
+                dependencies {
+                    implementation(kotlin("stdlib-jdk8"))
+                }
+            }
+            "test" {
+                dependencies {
+                    implementation(kotlin("test"))
+                    implementation(kotlin("test-junit"))
+                }
+            }
+        }
+    }
 
 	sourceSets {
 		commonMain {

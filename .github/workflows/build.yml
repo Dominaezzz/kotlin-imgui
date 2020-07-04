@@ -10,6 +10,24 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
+      - name: 'Install SWIG'
+        run: |
+          case $THE_OS in
+              "windows-latest")
+                  choco install swig
+              ;;
+              "ubuntu-latest")
+                  sudo apt install -y swig
+              ;;
+              "macos-latest")
+                  brew install swig
+              ;;
+              *) echo "Unknown OS!";;
+          esac
+        shell: bash
+        env:
+          THE_OS: ${{ matrix.os }}
+
       - name: 'Install OpenGL'
         run: |
           sudo apt-get update
