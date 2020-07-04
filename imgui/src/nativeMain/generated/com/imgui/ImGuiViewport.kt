@@ -39,14 +39,23 @@ actual inline class ImGuiViewport(
   actual val parentViewportId: ImGuiID
     get() = ptr.pointed.ParentViewportId.let(::ImGuiID)
 
-  actual val platformRequestMove: Boolean
+  actual var platformRequestMove: Boolean
     get() = ptr.pointed.PlatformRequestMove
+    set(value) {
+      ptr.pointed.PlatformRequestMove = value
+    }
 
-  actual val platformRequestResize: Boolean
+  actual var platformRequestResize: Boolean
     get() = ptr.pointed.PlatformRequestResize
+    set(value) {
+      ptr.pointed.PlatformRequestResize = value
+    }
 
-  actual val platformRequestClose: Boolean
+  actual var platformRequestClose: Boolean
     get() = ptr.pointed.PlatformRequestClose
+    set(value) {
+      ptr.pointed.PlatformRequestClose = value
+    }
 
   actual constructor() : this(ImGuiViewport_ImGuiViewport()!!)
 

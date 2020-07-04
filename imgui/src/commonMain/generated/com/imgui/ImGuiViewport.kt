@@ -22,11 +22,11 @@ expect class ImGuiViewport {
 
   val parentViewportId: ImGuiID
 
-  val platformRequestMove: Boolean
+  var platformRequestMove: Boolean
 
-  val platformRequestResize: Boolean
+  var platformRequestResize: Boolean
 
-  val platformRequestClose: Boolean
+  var platformRequestClose: Boolean
 
   constructor()
 

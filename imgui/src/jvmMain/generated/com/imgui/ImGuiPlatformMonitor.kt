@@ -9,20 +9,35 @@ import kotlin.Suppress
 actual inline class ImGuiPlatformMonitor(
   val ptr: cimgui.internal.ImGuiPlatformMonitor
 ) {
-  actual val mainPos: Vec2
+  actual var mainPos: Vec2
     get() = ptr.mainPos.fromCValue()
+    set(value) {
+      ptr.mainPos.fromKValue(value)
+    }
 
-  actual val mainSize: Vec2
+  actual var mainSize: Vec2
     get() = ptr.mainSize.fromCValue()
+    set(value) {
+      ptr.mainSize.fromKValue(value)
+    }
 
-  actual val workPos: Vec2
+  actual var workPos: Vec2
     get() = ptr.workPos.fromCValue()
+    set(value) {
+      ptr.workPos.fromKValue(value)
+    }
 
-  actual val workSize: Vec2
+  actual var workSize: Vec2
     get() = ptr.workSize.fromCValue()
+    set(value) {
+      ptr.workSize.fromKValue(value)
+    }
 
-  actual val dpiScale: Float
+  actual var dpiScale: Float
     get() = ptr.dpiScale
+    set(value) {
+      ptr.dpiScale = value
+    }
 
   actual constructor() : this(ImGuiPlatformMonitor_ImGuiPlatformMonitor()!!)
 

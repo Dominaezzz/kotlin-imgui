@@ -84,8 +84,8 @@ class Simple(private val window: Window) {
 			// Update and Render additional Platform Windows
 			// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
 			//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-			val io = ImGui.getIO().ptr.pointed
-			if (io.ConfigFlags and ImGuiConfigFlags.ViewportsEnable.value != 0) {
+			val io = ImGui.getIO()
+			if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
 				val backupCurrentContext = Glfw.currentContext
 				ImGui.updatePlatformWindows()
 				ImGui.renderPlatformWindowsDefault()

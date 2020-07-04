@@ -11,20 +11,35 @@ import kotlinx.cinterop.pointed
 actual inline class ImGuiPlatformMonitor(
   val ptr: CPointer<cimgui.internal.ImGuiPlatformMonitor>
 ) {
-  actual val mainPos: Vec2
+  actual var mainPos: Vec2
     get() = ptr.pointed.MainPos.fromCValue()
+    set(value) {
+      ptr.pointed.MainPos.fromKValue(value)
+    }
 
-  actual val mainSize: Vec2
+  actual var mainSize: Vec2
     get() = ptr.pointed.MainSize.fromCValue()
+    set(value) {
+      ptr.pointed.MainSize.fromKValue(value)
+    }
 
-  actual val workPos: Vec2
+  actual var workPos: Vec2
     get() = ptr.pointed.WorkPos.fromCValue()
+    set(value) {
+      ptr.pointed.WorkPos.fromKValue(value)
+    }
 
-  actual val workSize: Vec2
+  actual var workSize: Vec2
     get() = ptr.pointed.WorkSize.fromCValue()
+    set(value) {
+      ptr.pointed.WorkSize.fromKValue(value)
+    }
 
-  actual val dpiScale: Float
+  actual var dpiScale: Float
     get() = ptr.pointed.DpiScale
+    set(value) {
+      ptr.pointed.DpiScale = value
+    }
 
   actual constructor() : this(ImGuiPlatformMonitor_ImGuiPlatformMonitor()!!)
 
