@@ -5,6 +5,7 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -106,6 +107,11 @@ actual inline class ImGuiDockNode(
 
   actual val markedForPosSizeWrite: Boolean
     get() = ptr.pointed.MarkedForPosSizeWrite
+
+  actual fun childNodes(index: Int): ImGuiDockNode? {
+    require(index in 0..2)
+    return ptr.pointed.ChildNodes.get(index)?.let(::ImGuiDockNode)
+  }
 
   actual fun destroy() {
     ImGuiDockNode_destroy(ptr)

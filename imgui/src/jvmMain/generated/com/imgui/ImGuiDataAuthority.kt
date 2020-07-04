@@ -14,6 +14,9 @@ actual enum class ImGuiDataAuthority(
 
   Window(ImGuiDataAuthority_Window);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiDataAuthority = when (value) {
       ImGuiDataAuthority_Auto -> Auto

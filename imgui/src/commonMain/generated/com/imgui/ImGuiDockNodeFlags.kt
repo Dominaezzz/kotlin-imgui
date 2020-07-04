@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiDockNodeFlags : Flag<ImGuiDockNodeFlags> {
   KeepAliveOnly,
 
@@ -12,6 +14,8 @@ expect enum class ImGuiDockNodeFlags : Flag<ImGuiDockNodeFlags> {
   NoResize,
 
   AutoHideTabBar;
+
+  val cValue: Int
 
   companion object
 }

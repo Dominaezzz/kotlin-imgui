@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiViewportFlags_NoInputs
 import cimgui.internal.ImGuiViewportFlags_NoRendererClear
 import cimgui.internal.ImGuiViewportFlags_NoTaskBarIcon
 import cimgui.internal.ImGuiViewportFlags_TopMost
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiViewportFlags(
@@ -35,6 +36,9 @@ actual enum class ImGuiViewportFlags(
   NoAutoMerge(ImGuiViewportFlags_NoAutoMerge.convert()),
 
   CanHostOtherWindows(ImGuiViewportFlags_CanHostOtherWindows.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiViewportFlags>
     get() = cachedInfo

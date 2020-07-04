@@ -7,6 +7,7 @@ import cimgui.internal.ImGuiDockNodeFlags_NoDockingInCentralNode
 import cimgui.internal.ImGuiDockNodeFlags_NoResize
 import cimgui.internal.ImGuiDockNodeFlags_NoSplit
 import cimgui.internal.ImGuiDockNodeFlags_PassthruCentralNode
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDockNodeFlags(
@@ -23,6 +24,9 @@ actual enum class ImGuiDockNodeFlags(
   NoResize(ImGuiDockNodeFlags_NoResize.convert()),
 
   AutoHideTabBar(ImGuiDockNodeFlags_AutoHideTabBar.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiDockNodeFlags>
     get() = cachedInfo

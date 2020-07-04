@@ -11,6 +11,7 @@ import cimgui.internal.ImGuiPopupFlags_MouseButtonMiddle
 import cimgui.internal.ImGuiPopupFlags_MouseButtonRight
 import cimgui.internal.ImGuiPopupFlags_NoOpenOverExistingPopup
 import cimgui.internal.ImGuiPopupFlags_NoOpenOverItems
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiPopupFlags(
@@ -25,6 +26,9 @@ actual enum class ImGuiPopupFlags(
   AnyPopupId(ImGuiPopupFlags_AnyPopupId.convert()),
 
   AnyPopupLevel(ImGuiPopupFlags_AnyPopupLevel.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   override val info: Flag.EnumInfo<ImGuiPopupFlags>
     get() = cachedInfo

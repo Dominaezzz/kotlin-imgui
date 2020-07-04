@@ -68,5 +68,7 @@ expect class ImGuiDockNode {
 
   val markedForPosSizeWrite: Boolean
 
+  fun childNodes(index: Int): ImGuiDockNode?
+
   fun destroy()
 }

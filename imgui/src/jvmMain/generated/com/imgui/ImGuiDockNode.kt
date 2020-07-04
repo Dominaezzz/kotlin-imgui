@@ -1,6 +1,7 @@
 package com.imgui
 
 import cimgui.internal.CImGui.ImGuiDockNode_destroy
+import cimgui.internal.CImGui.pImGuiDockNodeArray_getitem
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
@@ -104,6 +105,11 @@ actual inline class ImGuiDockNode(
 
   actual val markedForPosSizeWrite: Boolean
     get() = ptr.markedForPosSizeWrite
+
+  actual fun childNodes(index: Int): ImGuiDockNode? {
+    require(index in 0..2)
+    return pImGuiDockNodeArray_getitem(ptr.childNodes, index)?.let(::ImGuiDockNode)
+  }
 
   actual fun destroy() {
     ImGuiDockNode_destroy(ptr)

@@ -7,6 +7,8 @@ import org.lwjgl.glfw.*
 import org.lwjgl.system.*
 import org.lwjgl.system.dyncall.*
 
+actual val isMacOS: Boolean = "mac" in System.getProperty("os.name").toLowerCase()
+actual val isWin32: Boolean = "win" in System.getProperty("os.name").toLowerCase()
 
 actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 	val io = ioObj.ptr
