@@ -35,6 +35,9 @@ actual enum class ImGuiViewportFlags(
 
   CanHostOtherWindows(ImGuiViewportFlags_CanHostOtherWindows);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiViewportFlags>
     get() = cachedInfo
   actual companion object {

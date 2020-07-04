@@ -1,6 +1,8 @@
 package com.imgui
 
 import cimgui.internal.CImGui.ImGuiViewportP_destroy
+import cimgui.internal.CImGui.intArray_getitem
+import cimgui.internal.CImGui.pImDrawListArray_getitem
 import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
@@ -55,6 +57,16 @@ actual inline class ImGuiViewportP(
 
   actual val currWorkOffsetMax: Vec2
     get() = ptr.currWorkOffsetMax.fromCValue()
+
+  actual fun lastFrameDrawLists(index: Int): Int {
+    require(index in 0..2)
+    return intArray_getitem(ptr.lastFrameDrawLists, index)
+  }
+
+  actual fun drawLists(index: Int): ImDrawList? {
+    require(index in 0..2)
+    return pImDrawListArray_getitem(ptr.drawLists, index)?.let(::ImDrawList)
+  }
 
   actual fun destroy() {
     ImGuiViewportP_destroy(ptr)

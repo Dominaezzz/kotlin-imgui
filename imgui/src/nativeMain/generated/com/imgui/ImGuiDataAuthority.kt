@@ -4,6 +4,7 @@ import cimgui.internal.ImGuiDataAuthority_
 import cimgui.internal.ImGuiDataAuthority_Auto
 import cimgui.internal.ImGuiDataAuthority_DockNode
 import cimgui.internal.ImGuiDataAuthority_Window
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDataAuthority(
@@ -14,6 +15,9 @@ actual enum class ImGuiDataAuthority(
   DockNode(ImGuiDataAuthority_DockNode.convert()),
 
   Window(ImGuiDataAuthority_Window.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiDataAuthority): ImGuiDataAuthority = when

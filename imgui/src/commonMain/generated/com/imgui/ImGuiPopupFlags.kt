@@ -1,5 +1,7 @@
 package com.imgui
 
+import kotlin.Int
+
 expect enum class ImGuiPopupFlags : Flag<ImGuiPopupFlags> {
   MouseButtonLeft,
 
@@ -10,6 +12,8 @@ expect enum class ImGuiPopupFlags : Flag<ImGuiPopupFlags> {
   AnyPopupId,
 
   AnyPopupLevel;
+
+  val cValue: Int
 
   companion object {
     val MouseButtonRight: Flag<ImGuiPopupFlags>

@@ -5,6 +5,8 @@ import com.imgui.*
 import com.kgl.glfw.*
 import kotlinx.cinterop.*
 
+actual val isMacOS: Boolean = Platform.osFamily == OsFamily.MACOSX
+actual val isWin32: Boolean = Platform.osFamily == OsFamily.WINDOWS
 
 actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 	val io = ioObj.ptr.pointed
@@ -17,5 +19,4 @@ actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 	}
 }
 
-actual fun freeClipboard(ioObj: ImGuiIO) {
-}
+actual fun freeClipboard(ioObj: ImGuiIO) {}

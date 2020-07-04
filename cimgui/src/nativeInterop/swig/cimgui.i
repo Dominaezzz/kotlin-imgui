@@ -120,3 +120,4 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %array_functions(ImGuiID, ImGuiIDArray);
 %array_functions(ImDrawCmd, ImDrawCmdArray);
 %array_functions(ImDrawList*, pImDrawListArray);
+%array_functions(ImGuiDockNode*, pImGuiDockNodeArray);

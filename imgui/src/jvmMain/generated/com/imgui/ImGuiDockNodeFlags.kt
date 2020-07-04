@@ -23,6 +23,9 @@ actual enum class ImGuiDockNodeFlags(
 
   AutoHideTabBar(ImGuiDockNodeFlags_AutoHideTabBar);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiDockNodeFlags>
     get() = cachedInfo
   actual companion object {

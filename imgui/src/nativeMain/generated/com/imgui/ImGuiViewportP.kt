@@ -7,6 +7,7 @@ import kotlin.Int
 import kotlin.Short
 import kotlin.Suppress
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
 
 @Suppress("ACTUAL_WITHOUT_EXPECT")
@@ -57,6 +58,16 @@ actual inline class ImGuiViewportP(
 
   actual val currWorkOffsetMax: Vec2
     get() = ptr.pointed.CurrWorkOffsetMax.fromCValue()
+
+  actual fun lastFrameDrawLists(index: Int): Int {
+    require(index in 0..2)
+    return ptr.pointed.LastFrameDrawLists.get(index)
+  }
+
+  actual fun drawLists(index: Int): ImDrawList? {
+    require(index in 0..2)
+    return ptr.pointed.DrawLists.get(index)?.let(::ImDrawList)
+  }
 
   actual fun destroy() {
     ImGuiViewportP_destroy(ptr)

@@ -4,6 +4,7 @@ import cimgui.internal.ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow
 import cimgui.internal.ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing
 import cimgui.internal.ImGuiDockNodeState_HostWindowVisible
 import cimgui.internal.ImGuiDockNodeState_Unknown
+import kotlin.Int
 import kotlinx.cinterop.convert
 
 actual enum class ImGuiDockNodeState(
@@ -16,6 +17,9 @@ actual enum class ImGuiDockNodeState(
   HostWindowHiddenBecauseWindowsAreResizing(ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing.convert()),
 
   HostWindowVisible(ImGuiDockNodeState_HostWindowVisible.convert());
+
+  actual val cValue: Int
+    get() = value.convert()
 
   actual companion object {
     fun from(value: cimgui.internal.ImGuiDockNodeState): ImGuiDockNodeState = when

@@ -17,6 +17,9 @@ actual enum class ImGuiDockNodeState(
 
   HostWindowVisible(ImGuiDockNodeState_HostWindowVisible);
 
+  actual val cValue: Int
+    get() = value
+
   actual companion object {
     fun from(value: Int): ImGuiDockNodeState = when (value) {
       ImGuiDockNodeState_Unknown -> Unknown

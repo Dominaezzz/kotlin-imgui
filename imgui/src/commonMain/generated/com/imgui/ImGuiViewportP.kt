@@ -36,5 +36,9 @@ expect class ImGuiViewportP {
 
   val currWorkOffsetMax: Vec2
 
+  fun lastFrameDrawLists(index: Int): Int
+
+  fun drawLists(index: Int): ImDrawList?
+
   fun destroy()
 }

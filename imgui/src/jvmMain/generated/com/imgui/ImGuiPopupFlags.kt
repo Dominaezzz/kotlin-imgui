@@ -25,6 +25,9 @@ actual enum class ImGuiPopupFlags(
 
   AnyPopupLevel(ImGuiPopupFlags_AnyPopupLevel);
 
+  actual val cValue: Int
+    get() = value
+
   override val info: Flag.EnumInfo<ImGuiPopupFlags>
     get() = cachedInfo
   actual companion object {
