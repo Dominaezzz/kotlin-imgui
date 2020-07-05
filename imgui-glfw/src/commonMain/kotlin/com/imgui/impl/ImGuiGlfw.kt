@@ -95,7 +95,6 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		// Our mouse update function expect PlatformHandle to be filled for the main viewport
 		val mainViewport = ImGui.getMainViewport()
 		// userPointer for a Window's ptr is the Window itself
-		//FIXME codegen?
 		mainViewport.glfwWindow = mainWindow
 
 		if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
@@ -200,17 +199,17 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		run {
 			val changeDisabled = ImGuiConfigFlags.NoMouseCursorChange in io.configFlags
 			if (!changeDisabled && mainWindow.cursorMode != CursorMode.Disabled) {
-				val imguiCursor = ImGui.getMouseCursor()
+				val imGuiCursor = ImGui.getMouseCursor()
 				val platformIO = ImGui.getPlatformIO()
 				for (viewport in platformIO.viewports) {
 					val window = viewport.glfwWindow!!
-					if (imguiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
+					if (imGuiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
 						// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
 						window.cursorMode = CursorMode.Hidden
 					} else {
 						// Show OS mouse cursor
 						// FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
-						window.setCursor(mouseCursors[imguiCursor.cValue] ?: mouseCursors[ImGuiMouseCursor.Arrow.cValue])
+						window.setCursor(mouseCursors[imGuiCursor.cValue] ?: mouseCursors[ImGuiMouseCursor.Arrow.cValue])
 						window.cursorMode = CursorMode.Normal
 					}
 				}
@@ -444,5 +443,3 @@ private fun charCallback(window: Window, codepoint: UInt) {
 private fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
 	wantUpdateMonitors = true
 }
-
-internal expect fun initPlatformInterface()

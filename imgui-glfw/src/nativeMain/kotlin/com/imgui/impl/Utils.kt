@@ -125,7 +125,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 			val newData = igMemAlloc((newCapacity * sizeOf<cimgui.internal.ImGuiPlatformMonitor>()).toULong())
 				?.reinterpret<cimgui.internal.ImGuiPlatformMonitor>()
 			if (monitors.Data != null) {
-				memcpy(newData, monitors.Data, (monitors.Size * sizeOf<cimgui.internal.ImGuiPlatformMonitor>()).toULong())
+				memcpy(newData, monitors.Data, (size * sizeOf<cimgui.internal.ImGuiPlatformMonitor>()).toULong())
 				igMemFree(monitors.Data)
 			}
 			monitors.Data = newData
@@ -138,8 +138,8 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 		}
 
 		override fun pushBack(element: ImGuiPlatformMonitor) {
-			if (monitors.Size == monitors.Capacity) reserve(growCapacity(monitors.Size + 1))
-			memcpy(monitors.Data!![monitors.Size].ptr, element.ptr, sizeOf<cimgui.internal.ImGuiPlatformMonitor>().toULong())
+			if (size == capacity) reserve(growCapacity(size + 1))
+			memcpy(monitors.Data!![size].ptr, element.ptr, sizeOf<cimgui.internal.ImGuiPlatformMonitor>().toULong())
 			monitors.Size += 1
 		}
 	}
@@ -165,7 +165,7 @@ actual val ImGuiPlatformIO.viewports: ImVector<ImGuiViewport>
 			val newData = igMemAlloc((newCapacity * sizeOf<CPointerVar<cimgui.internal.ImGuiViewport>>()).toULong())
 				?.reinterpret<CPointerVar<cimgui.internal.ImGuiViewport>>()
 			if (viewports.Data != null) {
-				memcpy(newData, viewports.Data, (viewports.Size * sizeOf<CPointerVar<cimgui.internal.ImGuiViewport>>()).toULong())
+				memcpy(newData, viewports.Data, (size * sizeOf<CPointerVar<cimgui.internal.ImGuiViewport>>()).toULong())
 				igMemFree(viewports.Data)
 			}
 			viewports.Data = newData
@@ -178,8 +178,8 @@ actual val ImGuiPlatformIO.viewports: ImVector<ImGuiViewport>
 		}
 
 		override fun pushBack(element: ImGuiViewport) {
-			if (viewports.Size == viewports.Capacity) reserve(growCapacity(viewports.Size + 1))
-			memcpy(viewports.Data!![viewports.Size]!!, element.ptr, sizeOf<CPointerVar<cimgui.internal.ImGuiViewport>>().toULong())
+			if (size == capacity) reserve(growCapacity(size + 1))
+			memcpy(viewports.Data!![size]!!, element.ptr, sizeOf<CPointerVar<cimgui.internal.ImGuiViewport>>().toULong())
 			viewports.Size += 1
 		}
 	}
