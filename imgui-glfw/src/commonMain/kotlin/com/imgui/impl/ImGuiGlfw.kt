@@ -175,7 +175,7 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 			io.mousePos = Vec2(-Float.MAX_VALUE, -Float.MAX_VALUE)
 			val platformIO = ImGui.getPlatformIO()
 			for (viewport in platformIO.viewports) {
-				val window = viewport.glfwWindow ?: error("glfwWindow should not be null")
+				val window = viewport.glfwWindow!!
 				if (window.isFocused) {
 					if (io.wantSetMousePos) {
 						window.cursorPosition = mousePosBackup.x.toDouble() to mousePosBackup.y.toDouble()
@@ -203,7 +203,7 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 				val imguiCursor = ImGui.getMouseCursor()
 				val platformIO = ImGui.getPlatformIO()
 				for (viewport in platformIO.viewports) {
-					val window = viewport.glfwWindow ?: error("glfwWindow should not be null")
+					val window = viewport.glfwWindow!!
 					if (imguiCursor == ImGuiMouseCursor.None || io.mouseDrawCursor) {
 						// Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
 						window.cursorMode = CursorMode.Hidden
@@ -290,9 +290,14 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
 	//--------------------------------------------------------------------------------------------------------
 
-	class ImGuiGlfwViewportData {
-		var _window: Window? = null
-		val window: Window get() = _window!!
+	class ViewportData {
+		private var _window: Window? = null
+		var window: Window
+			get() = _window!!
+			set(value) {
+				_window = value
+			}
+
 		var isWindowOwned: Boolean = false
 		var ignoreWindowPosEventFrame: Int = -1
 		var ignoreWindowSizeEventFrame: Int = -1
@@ -305,7 +310,8 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 				decorated = ImGuiViewportFlags.NoDecoration !in viewport.flags
 				floating = ImGuiViewportFlags.TopMost in viewport.flags
 			}
-			_window = Window(viewport.size.x.toInt(), viewport.size.y.toInt(), "No Title Yet", null, mainWindow)
+			val (width, height) = viewport.size
+			_window = Window(width.toInt(), height.toInt(), "No Title Yet", null, mainWindow)
 			isWindowOwned = true
 			window.position = viewport.pos.run { x.toInt() to y.toInt() }
 
