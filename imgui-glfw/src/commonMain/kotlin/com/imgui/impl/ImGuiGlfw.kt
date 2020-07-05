@@ -133,6 +133,7 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 			val (xScale, _) = glfwMonitors[n].contentScale
 			monitor.dpiScale = xScale
 			platformIO.monitors.pushBack(monitor)
+			monitor.destroy()
 		}
 		wantUpdateMonitors = false
 	}
