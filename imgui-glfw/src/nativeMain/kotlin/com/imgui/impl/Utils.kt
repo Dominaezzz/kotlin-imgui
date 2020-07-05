@@ -30,14 +30,14 @@ actual fun freeClipboard(ioObj: ImGuiIO) {}
 internal actual fun initPlatformInterface() {
 	val platformIO = ImGui.getPlatformIO().ptr.pointed
 	platformIO.Platform_CreateWindow = staticCFunction { viewport ->
-		val data = ImGuiGLFW.ImGuiGlfwViewportData()
+		val data = ImGuiGlfw.ViewportData()
 		viewport!!.pointed.PlatformUserData = StableRef.create(data).asCPointer()
 		data.createWindow(ImGuiViewport(viewport))
 		viewport.pointed.PlatformHandle = data.window.ptr
 	}
 	platformIO.Platform_DestroyWindow = staticCFunction { viewportPtr ->
 		val viewport = ImGuiViewport(viewportPtr!!)
-		viewportPtr.pointed.PlatformUserData?.asStableRef<ImGuiGLFW.ImGuiGlfwViewportData>()?.let { dataRef ->
+		viewportPtr.pointed.PlatformUserData?.asStableRef<ImGuiGlfw.ViewportData>()?.let { dataRef ->
 			val data = dataRef.get()
 			data.destroyWindow()
 			dataRef.dispose()
@@ -87,8 +87,8 @@ internal actual fun initPlatformInterface() {
 	}
 
 	val mainViewport = ImGui.getMainViewport()
-	val data = ImGuiGLFW.ImGuiGlfwViewportData()
-	data._window = mainWindow
+	val data = ImGuiGlfw.ViewportData()
+	data.window = mainWindow
 	data.isWindowOwned = false
 	mainViewport.glfwViewportData = data
 	mainViewport.glfwWindow = mainWindow
@@ -100,10 +100,10 @@ actual var ImGuiViewport.glfwWindow: Window?
 		ptr.pointed.PlatformHandle = value?.ptr
 	}
 
-actual var ImGuiViewport.glfwViewportData: ImGuiGLFW.ImGuiGlfwViewportData?
-	get() = ptr.pointed.PlatformUserData?.asStableRef<ImGuiGLFW.ImGuiGlfwViewportData>()?.get()
+actual var ImGuiViewport.glfwViewportData: ImGuiGlfw.ViewportData?
+	get() = ptr.pointed.PlatformUserData?.asStableRef<ImGuiGlfw.ViewportData>()?.get()
 	set(value) {
-		ptr.pointed.PlatformUserData?.asStableRef<ImGuiGLFW.ImGuiGlfwViewportData>()?.dispose()
+		ptr.pointed.PlatformUserData?.asStableRef<ImGuiGlfw.ViewportData>()?.dispose()
 		ptr.pointed.PlatformUserData = value?.let { StableRef.create(value).asCPointer() }
 	}
 

@@ -11,7 +11,7 @@ expect fun setupClipboard(ioObj: ImGuiIO, window: Window)
 expect fun freeClipboard(ioObj: ImGuiIO)
 
 expect var ImGuiViewport.glfwWindow: Window?
-expect var ImGuiViewport.glfwViewportData: ImGuiGLFW.ImGuiGlfwViewportData?
+expect var ImGuiViewport.glfwViewportData: ImGuiGlfw.ViewportData?
 
 abstract class ImVector<T> : Iterable<T> {
 	abstract val capacity: Int
