@@ -29,19 +29,16 @@ actual fun freeClipboard(ioObj: ImGuiIO) {}
 
 internal actual fun initPlatformInterface() {
 	val platformIO = ImGui.getPlatformIO().ptr.pointed
-	platformIO.Platform_CreateWindow = staticCFunction { viewport ->
+	platformIO.Platform_CreateWindow = staticCFunction { viewportPtr ->
+		val viewport = ImGuiViewport(viewportPtr!!)
 		val data = ImGuiGlfw.ViewportData()
-		viewport!!.pointed.PlatformUserData = StableRef.create(data).asCPointer()
-		data.createWindow(ImGuiViewport(viewport))
-		viewport.pointed.PlatformHandle = data.window.ptr
+		viewport.glfwViewportData = data
+		data.createWindow(viewport)
+		viewport.glfwWindow = data.window
 	}
 	platformIO.Platform_DestroyWindow = staticCFunction { viewportPtr ->
 		val viewport = ImGuiViewport(viewportPtr!!)
-		viewportPtr.pointed.PlatformUserData?.asStableRef<ImGuiGlfw.ViewportData>()?.let { dataRef ->
-			val data = dataRef.get()
-			data.destroyWindow()
-			dataRef.dispose()
-		}
+		viewport.glfwViewportData?.destroyWindow()
 		viewport.glfwViewportData = null
 		viewport.glfwWindow = null
 	}
