@@ -226,13 +226,13 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 				val axes = Joystick._1.axes!!
 				val buttons = Joystick._1.buttons!!
 
-				inline fun mapButton(navNo: ImGuiNavInput, buttonNo: Int) {
+				fun mapButton(navNo: ImGuiNavInput, buttonNo: Int) {
 					if (buttons.size > buttonNo && buttons[buttonNo] == Action.Press) {
 						io.navInputs(navNo.cValue, 1f)
 					}
 				}
 
-				inline fun mapAnalog(navNo: ImGuiNavInput, axisNo: Int, v0: Float, v1: Float) {
+				fun mapAnalog(navNo: ImGuiNavInput, axisNo: Int, v0: Float, v1: Float) {
 					var v = if (axes.size > axisNo) axes[axes.size] else v0
 					v = (v - v0) / (v1 - v0)
 					v = v.coerceAtMost(1.0f)
