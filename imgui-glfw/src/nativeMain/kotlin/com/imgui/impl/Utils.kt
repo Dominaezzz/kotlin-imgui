@@ -92,7 +92,7 @@ internal actual fun initPlatformInterface() {
 }
 
 actual var ImGuiViewport.glfwWindow: Window?
-	get() = glfwGetWindowUserPointer(ptr.pointed.PlatformHandle?.reinterpret())?.asStableRef<Window>()?.get()
+	get() = ptr.pointed.PlatformHandle?.let { glfwGetWindowUserPointer(it.reinterpret())?.asStableRef<Window>()?.get() }
 	set(value) {
 		ptr.pointed.PlatformHandle = value?.ptr
 	}
