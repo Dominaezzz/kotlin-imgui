@@ -27,16 +27,19 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: 'assemble --stacktrace'
+          wrapper-cache-enabled: false
 
       - name: 'Test'
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: 'check --stacktrace'
+          wrapper-cache-enabled: false
 
       - name: 'Publish to BinTray'
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: 'smartPublish --stacktrace'
+          wrapper-cache-enabled: false
         if: startsWith(github.ref, 'refs/tags/')
         env:
           BINTRAY_API_KEY: ${{ secrets.bintray_api_key }}
