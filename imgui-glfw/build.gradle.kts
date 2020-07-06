@@ -1,48 +1,24 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.HostManager
+import org.jetbrains.kotlin.konan.target.presetName
 
 plugins {
     kotlin("multiplatform")
     `maven-publish`
 }
 
-val useSingleTarget: Boolean by rootProject.extra
+val isIdeaActive: Boolean by rootProject.extra
 val kglVersion: String by rootProject.extra
 
 kotlin {
-    if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-    if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-    if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+    linuxX64()
+    mingwX64()
+    macosX64()
+    jvm()
 
-    jvm {
-        compilations {
-            "main" {
-                dependencies {
-                    api(kotlin("stdlib-jdk8"))
-                    compileOnly(project(":cimgui", "jvmDefault"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
-    }
-
-    targets.withType<KotlinNativeTarget> {
-        compilations {
-            "main" {
-                defaultSourceSet {
-                    kotlin.srcDir("src/nativeMain/kotlin")
-                }
-
-                dependencies {
-                    implementation(project(":cimgui"))
-                }
-            }
-        }
+    if (isIdeaActive) {
+        // Create a target based on current host. i.e for auto-complete and stuff.
+        targetFromPreset(presets.getByName(HostManager.host.presetName), "native")
     }
 
     sourceSets {
@@ -57,6 +33,35 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        val nativeMain = maybeCreate("nativeMain")
+        nativeMain.apply {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(project(":cimgui"))
+            }
+        }
+
+        for (target in targets.withType<KotlinNativeTarget>()) {
+            // Skip the IDE target.
+            if (target.name == "native") continue
+
+            val main = getByName("${target.konanTarget.presetName}Main")
+            main.dependsOn(nativeMain)
+        }
+
+        named("jvmMain") {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+                compileOnly(project(":cimgui", "jvmDefault"))
+            }
+        }
+        named("jvmTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
     }

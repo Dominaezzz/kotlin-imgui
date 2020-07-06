@@ -15,7 +15,7 @@ plugins {
     `maven-publish`
 }
 
-val useSingleTarget: Boolean by rootProject.extra
+val isIdeaActive: Boolean by rootProject.extra
 val imGuiVersion: String by rootProject.extra
 
 val konanUserDir = file(System.getenv("KONAN_DATA_DIR") ?: "${System.getProperty("user.home")}/.konan")
@@ -144,29 +144,14 @@ val objFileNames = listOf(
 )
 
 kotlin {
-    if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-    if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-    if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+    linuxX64()
+    mingwX64()
+    macosX64()
+    jvm { withJava() }
 
-    jvm {
-        withJava()
-        compilations {
-            "main" {
-                defaultSourceSet {
-                    kotlin.srcDir("src/jvmMain/java")
-                    kotlin.srcDir("src/jvmMain/kotlin")
-                }
-                dependencies {
-                    implementation(kotlin("stdlib-jdk8"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
+    if (isIdeaActive) {
+        // Create a target based on current host. i.e for auto-complete and stuff.
+        targetFromPreset(presets.getByName(HostManager.host.presetName), "native")
     }
 
     sourceSets {
@@ -179,6 +164,31 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        val nativeMain = maybeCreate("nativeMain")
+        nativeMain.apply {
+            dependsOn(commonMain.get())
+        }
+
+        for (target in targets.withType<KotlinNativeTarget>()) {
+            // Skip the IDE target.
+            if (target.name == "native") continue
+
+            val main = getByName("${target.konanTarget.presetName}Main")
+            main.dependsOn(nativeMain)
+        }
+
+        named("jvmMain") {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+            }
+        }
+        named("jvmTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
     }

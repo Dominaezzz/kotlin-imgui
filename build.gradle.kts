@@ -19,7 +19,7 @@ group = "com.kotlin-imgui"
 
 val imGuiVersion: String by extra("1.76")
 val kglVersion: String by extra("0.1.9-dev-9")
-val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
+val isIdeaActive: Boolean by extra { System.getProperty("idea.active") == "true" }
 
 subprojects {
 	group = rootProject.group

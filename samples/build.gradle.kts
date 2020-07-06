@@ -2,24 +2,38 @@ import org.gradle.nativeplatform.OperatingSystemFamily.*
 import org.gradle.nativeplatform.MachineArchitecture.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.HostManager
+import org.jetbrains.kotlin.konan.target.KonanTarget
+import org.jetbrains.kotlin.konan.target.presetName
 
 plugins {
     kotlin("multiplatform")
     application
 }
 
-val useSingleTarget: Boolean by rootProject.extra
 val kglVersion: String by rootProject.extra
+val lwjglVersion = "3.2.2"
+val lwjglNatives = when (HostManager.host) {
+    KonanTarget.LINUX_X64 -> "natives-linux"
+    KonanTarget.MINGW_X64 -> "natives-windows"
+    KonanTarget.MINGW_X86 -> "natives-windows-x86"
+    KonanTarget.MACOS_X64 -> "natives-macos"
+    else -> TODO("Unkown OS")
+}
 
 kotlin {
-    if (HostManager.hostIsLinux) linuxX64()
-    if (HostManager.hostIsMingw) mingwX64()
-    if (HostManager.hostIsMac) macosX64()
+    // Create a single native target based on current host.
+    targetFromPreset(presets.getByName(HostManager.host.presetName))
+    jvm { withJava() }
 
     sourceSets {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation(project(":imgui"))
+                implementation(project(":imgui-glfw"))
+                implementation(project(":imgui-opengl"))
+
+                implementation("com.kgl:kgl-glfw:$kglVersion")
             }
         }
         commonTest {
@@ -28,64 +42,62 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
+
+        val nativeMain = maybeCreate("nativeMain")
+        nativeMain.apply {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation("com.kgl:kgl-glfw-static:$kglVersion")
+            }
+        }
+
+        for (target in targets.withType<KotlinNativeTarget>()) {
+            // Skip the IDE target.
+            if (target.name == "native") continue
+
+            val main = getByName("${target.konanTarget.presetName}Main")
+            main.dependsOn(nativeMain)
+        }
+
+        named("jvmMain") {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+
+                implementation(project(":cimgui", "jvmDefault"))
+                implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
+            }
+        }
+        named("jvmTest") {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
     }
 
     jvm {
-        withJava()
         compilations {
             "main" {
                 dependencies {
-                    implementation(kotlin("stdlib-jdk8"))
+                    val target = HostManager.host
 
-                    implementation(project(":imgui"))
-                    implementation(project(":imgui-glfw"))
-                    implementation(project(":imgui-opengl"))
-                    implementation(project(":cimgui", "jvmDefault"))
-                    runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
-                    // runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
-                    // runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
+                    runtimeOnly(project(":cimgui", "jvm${target.presetName.capitalize()}Default"))
 
-                    val lwjglVersion = "3.2.2"
-                    val lwjglNatives = "natives-linux"
-
-                    implementation("com.kgl:kgl-glfw:$kglVersion")
-
-                    implementation("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
-                    implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
-                    implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
-                    implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
+                    runtimeOnly("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
+                    runtimeOnly("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
+                    runtimeOnly("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
                 }
             }
         }
 
-        attributes {
-            attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(LINUX))  // or MACOS or WINDOWS
-            attribute(ARCHITECTURE_ATTRIBUTE,     objects.named(X86_64)) // or x86 or arm32 or arm64
-        }
+        // TODO: Not too sure how to consume these (nicely) yet.
+        // attributes {
+        //     attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(LINUX))  // or MACOS or WINDOWS
+        //     attribute(ARCHITECTURE_ATTRIBUTE,     objects.named(X86_64)) // or x86 or arm32 or arm64
+        // }
     }
 
     targets.withType<KotlinNativeTarget> {
-        compilations {
-            "main" {
-                defaultSourceSet {
-                    kotlin.srcDir("src/nativeMain/kotlin")
-                }
-
-                dependencies {
-                    implementation(project(":imgui"))
-                    implementation(project(":imgui-glfw"))
-                    implementation(project(":imgui-opengl"))
-                    implementation("com.kgl:kgl-glfw-static:$kglVersion")
-                }
-            }
-        }
-
         binaries {
             executable {
                 // Change to specify fully qualified name of your application's entry point:
