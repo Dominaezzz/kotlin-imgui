@@ -145,12 +145,14 @@ fun main(args: Array<String>) {
 
 	check(Glfw.init())
 
-	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example") {
+	with(Glfw.windowHints) {
 		contextVersionMajor = 3
 		contextVersionMinor = 2
 		openGLProfile = OpenGLProfile.Core  // 3.2+ only
 		openGLForwardCompat = true          // Required on Mac
 	}
+
+	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example")
 	Glfw.currentContext = window
 	Glfw.setSwapInterval(1) // Enable vsync
 

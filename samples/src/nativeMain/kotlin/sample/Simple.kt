@@ -10,7 +10,6 @@ import com.kgl.opengl.GL_COLOR_BUFFER_BIT
 import com.kgl.opengl.glClear
 import com.kgl.opengl.glClearColor
 import com.kgl.opengl.glViewport
-import kotlinx.cinterop.pointed
 
 class Simple(private val window: Window) {
 	private val glfw: ImGuiGLFW
@@ -149,7 +148,7 @@ fun main(args: Array<String>) {
 
 	check(Glfw.init())
 
-	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example") {
+	with(Glfw.windowHints) {
 		if (Platform.osFamily == OsFamily.MACOSX) {
 			contextVersionMajor = 3
 			contextVersionMinor = 2
@@ -162,6 +161,8 @@ fun main(args: Array<String>) {
 			// openGLForwardCompat = true          // 3.0+ only
 		}
 	}
+
+	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example")
 	Glfw.currentContext = window
 	Glfw.setSwapInterval(1) // Enable vsync
 
