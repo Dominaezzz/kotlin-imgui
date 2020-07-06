@@ -234,8 +234,8 @@ fun main(args: Array<String>) {
 	}
 
 	for ((enumName, entries) in enums) {
-		// Ignore internal flags
-		if (enumName.endsWith("FlagsPrivate_")) continue
+		// Ignore internal flags and enums
+		if (enumName.endsWith("Private_")) continue
 
 		val isBitmask = enumName in enumBitMasks
 
