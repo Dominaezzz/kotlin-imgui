@@ -11,9 +11,6 @@ import kotlinx.cinterop.pointed
 actual inline class ImDrawCmd(
   val ptr: CPointer<cimgui.internal.ImDrawCmd>
 ) {
-  actual val elemCount: UInt
-    get() = ptr.pointed.ElemCount.toUInt()
-
   actual val clipRect: Vec4
     get() = ptr.pointed.ClipRect.fromCValue()
 
@@ -25,6 +22,9 @@ actual inline class ImDrawCmd(
 
   actual val idxOffset: UInt
     get() = ptr.pointed.IdxOffset.toUInt()
+
+  actual val elemCount: UInt
+    get() = ptr.pointed.ElemCount.toUInt()
 
   actual constructor() : this(ImDrawCmd_ImDrawCmd()!!)
 

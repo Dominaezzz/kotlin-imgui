@@ -15,7 +15,9 @@ expect enum class ImGuiNextWindowDataFlags : Flag<ImGuiNextWindowDataFlags> {
 
   HasFocus,
 
-  HasBgAlpha;
+  HasBgAlpha,
+
+  HasScroll;
 
   val cValue: Int
 

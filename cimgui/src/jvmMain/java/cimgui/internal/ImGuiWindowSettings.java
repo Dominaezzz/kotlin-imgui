@@ -70,6 +70,14 @@ public class ImGuiWindowSettings {
     return CImGuiJNI.ImGuiWindowSettings_Collapsed_get(swigCPtr, this);
   }
 
+  public void setWantApply(boolean value) {
+    CImGuiJNI.ImGuiWindowSettings_WantApply_set(swigCPtr, this, value);
+  }
+
+  public boolean getWantApply() {
+    return CImGuiJNI.ImGuiWindowSettings_WantApply_get(swigCPtr, this);
+  }
+
   public ImGuiWindowSettings() {
     this(CImGuiJNI.new_ImGuiWindowSettings(), true);
   }

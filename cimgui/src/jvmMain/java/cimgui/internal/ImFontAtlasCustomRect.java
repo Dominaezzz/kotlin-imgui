@@ -36,14 +36,6 @@ public class ImFontAtlasCustomRect {
     }
   }
 
-  public void setID(long value) {
-    CImGuiJNI.ImFontAtlasCustomRect_ID_set(swigCPtr, this, value);
-  }
-
-  public long getID() {
-    return CImGuiJNI.ImFontAtlasCustomRect_ID_get(swigCPtr, this);
-  }
-
   public void setWidth(int value) {
     CImGuiJNI.ImFontAtlasCustomRect_Width_set(swigCPtr, this, value);
   }
@@ -74,6 +66,14 @@ public class ImFontAtlasCustomRect {
 
   public int getY() {
     return CImGuiJNI.ImFontAtlasCustomRect_Y_get(swigCPtr, this);
+  }
+
+  public void setGlyphID(long value) {
+    CImGuiJNI.ImFontAtlasCustomRect_GlyphID_set(swigCPtr, this, value);
+  }
+
+  public long getGlyphID() {
+    return CImGuiJNI.ImFontAtlasCustomRect_GlyphID_get(swigCPtr, this);
   }
 
   public void setGlyphAdvanceX(float value) {

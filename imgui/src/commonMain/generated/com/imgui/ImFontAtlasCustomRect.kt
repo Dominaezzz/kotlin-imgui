@@ -6,8 +6,6 @@ import kotlin.UInt
 import kotlin.UShort
 
 expect class ImFontAtlasCustomRect {
-  val id: UInt
-
   val width: UShort
 
   val height: UShort
@@ -15,6 +13,8 @@ expect class ImFontAtlasCustomRect {
   val x: UShort
 
   val y: UShort
+
+  val glyphID: UInt
 
   val glyphAdvanceX: Float
 

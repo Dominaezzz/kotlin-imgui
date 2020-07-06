@@ -6,6 +6,7 @@ import cimgui.internal.ImGuiNextWindowDataFlags_HasCollapsed
 import cimgui.internal.ImGuiNextWindowDataFlags_HasContentSize
 import cimgui.internal.ImGuiNextWindowDataFlags_HasFocus
 import cimgui.internal.ImGuiNextWindowDataFlags_HasPos
+import cimgui.internal.ImGuiNextWindowDataFlags_HasScroll
 import cimgui.internal.ImGuiNextWindowDataFlags_HasSize
 import cimgui.internal.ImGuiNextWindowDataFlags_HasSizeConstraint
 import kotlin.Int
@@ -26,7 +27,9 @@ actual enum class ImGuiNextWindowDataFlags(
 
   HasFocus(ImGuiNextWindowDataFlags_HasFocus.convert()),
 
-  HasBgAlpha(ImGuiNextWindowDataFlags_HasBgAlpha.convert());
+  HasBgAlpha(ImGuiNextWindowDataFlags_HasBgAlpha.convert()),
+
+  HasScroll(ImGuiNextWindowDataFlags_HasScroll.convert());
 
   actual val cValue: Int
     get() = value.convert()
@@ -45,6 +48,7 @@ actual enum class ImGuiNextWindowDataFlags(
       ImGuiNextWindowDataFlags_HasSizeConstraint -> HasSizeConstraint
       ImGuiNextWindowDataFlags_HasFocus -> HasFocus
       ImGuiNextWindowDataFlags_HasBgAlpha -> HasBgAlpha
+      ImGuiNextWindowDataFlags_HasScroll -> HasScroll
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
 

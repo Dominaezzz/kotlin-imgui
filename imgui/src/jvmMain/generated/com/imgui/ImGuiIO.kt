@@ -203,6 +203,9 @@ actual inline class ImGuiIO(
   actual val mousePosPrev: Vec2
     get() = ptr.mousePosPrev.fromCValue()
 
+  actual val penPressure: Float
+    get() = ptr.penPressure
+
   actual constructor() : this(ImGuiIO_ImGuiIO()!!)
 
   actual fun keyMap(index: Int): Int {

@@ -88,14 +88,6 @@ public class ImDrawList {
     return CImGuiJNI.ImDrawList__OwnerName_get(swigCPtr, this);
   }
 
-  public void set_VtxCurrentOffset(long value) {
-    CImGuiJNI.ImDrawList__VtxCurrentOffset_set(swigCPtr, this, value);
-  }
-
-  public long get_VtxCurrentOffset() {
-    return CImGuiJNI.ImDrawList__VtxCurrentOffset_get(swigCPtr, this);
-  }
-
   public void set_VtxCurrentIdx(long value) {
     CImGuiJNI.ImDrawList__VtxCurrentIdx_set(swigCPtr, this, value);
   }
@@ -147,6 +139,15 @@ public class ImDrawList {
   public ImVector_ImVec2 get_Path() {
     long cPtr = CImGuiJNI.ImDrawList__Path_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImVector_ImVec2(cPtr, false);
+  }
+
+  public void set_CmdHeader(ImDrawCmd value) {
+    CImGuiJNI.ImDrawList__CmdHeader_set(swigCPtr, this, ImDrawCmd.getCPtr(value), value);
+  }
+
+  public ImDrawCmd get_CmdHeader() {
+    long cPtr = CImGuiJNI.ImDrawList__CmdHeader_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImDrawCmd(cPtr, false);
   }
 
   public void set_Splitter(ImDrawListSplitter value) {

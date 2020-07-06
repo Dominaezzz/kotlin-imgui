@@ -13,9 +13,6 @@ import kotlin.UShort
 actual inline class ImFontAtlasCustomRect(
   val ptr: cimgui.internal.ImFontAtlasCustomRect
 ) {
-  actual val id: UInt
-    get() = ptr.id.toUInt()
-
   actual val width: UShort
     get() = ptr.width.toUShort()
 
@@ -27,6 +24,9 @@ actual inline class ImFontAtlasCustomRect(
 
   actual val y: UShort
     get() = ptr.y.toUShort()
+
+  actual val glyphID: UInt
+    get() = ptr.glyphID.toUInt()
 
   actual val glyphAdvanceX: Float
     get() = ptr.glyphAdvanceX

@@ -24,8 +24,6 @@ import cimgui.internal.CImGui.ImDrawList_AddTriangleFilled
 import cimgui.internal.CImGui.ImDrawList_ChannelsMerge
 import cimgui.internal.CImGui.ImDrawList_ChannelsSetCurrent
 import cimgui.internal.CImGui.ImDrawList_ChannelsSplit
-import cimgui.internal.CImGui.ImDrawList_Clear
-import cimgui.internal.CImGui.ImDrawList_ClearFreeMemory
 import cimgui.internal.CImGui.ImDrawList_CloneOutput
 import cimgui.internal.CImGui.ImDrawList_ImDrawList
 import cimgui.internal.CImGui.ImDrawList_PathArcTo
@@ -49,8 +47,12 @@ import cimgui.internal.CImGui.ImDrawList_PrimWriteVtx
 import cimgui.internal.CImGui.ImDrawList_PushClipRect
 import cimgui.internal.CImGui.ImDrawList_PushClipRectFullScreen
 import cimgui.internal.CImGui.ImDrawList_PushTextureID
-import cimgui.internal.CImGui.ImDrawList_UpdateClipRect
-import cimgui.internal.CImGui.ImDrawList_UpdateTextureID
+import cimgui.internal.CImGui.ImDrawList__ClearFreeMemory
+import cimgui.internal.CImGui.ImDrawList__OnChangedClipRect
+import cimgui.internal.CImGui.ImDrawList__OnChangedTextureID
+import cimgui.internal.CImGui.ImDrawList__OnChangedVtxOffset
+import cimgui.internal.CImGui.ImDrawList__PopUnusedDrawCmd
+import cimgui.internal.CImGui.ImDrawList__ResetForNewFrame
 import cimgui.internal.CImGui.ImDrawList_destroy
 import kotlin.Boolean
 import kotlin.Float
@@ -399,14 +401,6 @@ actual inline class ImDrawList(
     ImDrawList_ChannelsSplit(ptr, count)
   }
 
-  actual fun clear() {
-    ImDrawList_Clear(ptr)
-  }
-
-  actual fun clearFreeMemory() {
-    ImDrawList_ClearFreeMemory(ptr)
-  }
-
   actual fun cloneOutput(): ImDrawList = ImDrawList_CloneOutput(ptr)!!.let(::ImDrawList)
 
   actual fun pathArcTo(
@@ -609,12 +603,28 @@ actual inline class ImDrawList(
     ImDrawList_PushTextureID(ptr, textureId.value)
   }
 
-  actual fun updateClipRect() {
-    ImDrawList_UpdateClipRect(ptr)
+  actual fun _ClearFreeMemory() {
+    ImDrawList__ClearFreeMemory(ptr)
   }
 
-  actual fun updateTextureID() {
-    ImDrawList_UpdateTextureID(ptr)
+  actual fun _OnChangedClipRect() {
+    ImDrawList__OnChangedClipRect(ptr)
+  }
+
+  actual fun _OnChangedTextureID() {
+    ImDrawList__OnChangedTextureID(ptr)
+  }
+
+  actual fun _OnChangedVtxOffset() {
+    ImDrawList__OnChangedVtxOffset(ptr)
+  }
+
+  actual fun _PopUnusedDrawCmd() {
+    ImDrawList__PopUnusedDrawCmd(ptr)
+  }
+
+  actual fun _ResetForNewFrame() {
+    ImDrawList__ResetForNewFrame(ptr)
   }
 
   actual fun destroy() {

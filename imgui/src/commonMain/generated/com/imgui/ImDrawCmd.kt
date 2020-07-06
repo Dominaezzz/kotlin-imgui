@@ -3,8 +3,6 @@ package com.imgui
 import kotlin.UInt
 
 expect class ImDrawCmd {
-  val elemCount: UInt
-
   val clipRect: Vec4
 
   val textureId: ImTextureID?
@@ -12,6 +10,8 @@ expect class ImDrawCmd {
   val vtxOffset: UInt
 
   val idxOffset: UInt
+
+  val elemCount: UInt
 
   constructor()
 

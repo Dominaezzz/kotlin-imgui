@@ -160,6 +160,31 @@ public class ImGuiContext {
     return CImGuiJNI.ImGuiContext_WithinEndChild_get(swigCPtr, this);
   }
 
+  public void setTestEngineHookItems(boolean value) {
+    CImGuiJNI.ImGuiContext_TestEngineHookItems_set(swigCPtr, this, value);
+  }
+
+  public boolean getTestEngineHookItems() {
+    return CImGuiJNI.ImGuiContext_TestEngineHookItems_get(swigCPtr, this);
+  }
+
+  public void setTestEngineHookIdInfo(long value) {
+    CImGuiJNI.ImGuiContext_TestEngineHookIdInfo_set(swigCPtr, this, value);
+  }
+
+  public long getTestEngineHookIdInfo() {
+    return CImGuiJNI.ImGuiContext_TestEngineHookIdInfo_get(swigCPtr, this);
+  }
+
+  public void setTestEngine(SWIGTYPE_p_void value) {
+    CImGuiJNI.ImGuiContext_TestEngine_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_void getTestEngine() {
+    long cPtr = CImGuiJNI.ImGuiContext_TestEngine_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_void(cPtr, false);
+  }
+
   public void setWindows(ImVector_ImGuiWindowPtr value) {
     CImGuiJNI.ImGuiContext_Windows_set(swigCPtr, this, ImVector_ImGuiWindowPtr.getCPtr(value), value);
   }
@@ -851,6 +876,23 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImGuiNavMoveResult(cPtr, false);
   }
 
+  public void setNavWrapRequestWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiContext_NavWrapRequestWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  }
+
+  public ImGuiWindow getNavWrapRequestWindow() {
+    long cPtr = CImGuiJNI.ImGuiContext_NavWrapRequestWindow_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
+  }
+
+  public void setNavWrapRequestFlags(int value) {
+    CImGuiJNI.ImGuiContext_NavWrapRequestFlags_set(swigCPtr, this, value);
+  }
+
+  public int getNavWrapRequestFlags() {
+    return CImGuiJNI.ImGuiContext_NavWrapRequestFlags_get(swigCPtr, this);
+  }
+
   public void setNavWindowingTarget(ImGuiWindow value) {
     CImGuiJNI.ImGuiContext_NavWindowingTarget_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
   }
@@ -869,12 +911,12 @@ public class ImGuiContext {
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
-  public void setNavWindowingList(ImGuiWindow value) {
-    CImGuiJNI.ImGuiContext_NavWindowingList_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
+  public void setNavWindowingListWindow(ImGuiWindow value) {
+    CImGuiJNI.ImGuiContext_NavWindowingListWindow_set(swigCPtr, this, ImGuiWindow.getCPtr(value), value);
   }
 
-  public ImGuiWindow getNavWindowingList() {
-    long cPtr = CImGuiJNI.ImGuiContext_NavWindowingList_get(swigCPtr, this);
+  public ImGuiWindow getNavWindowingListWindow() {
+    long cPtr = CImGuiJNI.ImGuiContext_NavWindowingListWindow_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImGuiWindow(cPtr, false);
   }
 
@@ -1124,6 +1166,14 @@ public class ImGuiContext {
 
   public int getDragDropAcceptFrameCount() {
     return CImGuiJNI.ImGuiContext_DragDropAcceptFrameCount_get(swigCPtr, this);
+  }
+
+  public void setDragDropHoldJustPressedId(long value) {
+    CImGuiJNI.ImGuiContext_DragDropHoldJustPressedId_set(swigCPtr, this, value);
+  }
+
+  public long getDragDropHoldJustPressedId() {
+    return CImGuiJNI.ImGuiContext_DragDropHoldJustPressedId_get(swigCPtr, this);
   }
 
   public void setDragDropPayloadBufHeap(ImVector_unsigned_char value) {

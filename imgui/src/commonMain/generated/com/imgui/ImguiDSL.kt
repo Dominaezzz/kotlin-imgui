@@ -166,14 +166,14 @@ inline fun ImGui.popup(
 @OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextItem(
     strId: String? = null,
-    mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
+    popupFlags: Flag<ImGuiPopupFlags> = ImGuiPopupFlags.MouseButtonRight,
     block: () -> Unit
 ) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }
 
-    if (beginPopupContextItem(strId, mouseButton)) {
+    if (beginPopupContextItem(strId, popupFlags)) {
         try {
             block()
         } finally {
@@ -185,14 +185,14 @@ inline fun ImGui.popupContextItem(
 @OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextVoid(
     strId: String? = null,
-    mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
+    popupFlags: Flag<ImGuiPopupFlags> = ImGuiPopupFlags.MouseButtonRight,
     block: () -> Unit
 ) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }
 
-    if (beginPopupContextVoid(strId, mouseButton)) {
+    if (beginPopupContextVoid(strId, popupFlags)) {
         try {
             block()
         } finally {
@@ -204,15 +204,14 @@ inline fun ImGui.popupContextVoid(
 @OptIn(ExperimentalContracts::class)
 inline fun ImGui.popupContextWindow(
     strId: String? = null,
-    mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
-    alsoOverItems: Boolean = true,
+    popupFlags: Flag<ImGuiPopupFlags> = ImGuiPopupFlags.MouseButtonRight,
     block: () -> Unit
 ) {
     contract {
         callsInPlace(block, InvocationKind.AT_MOST_ONCE)
     }
 
-    if (beginPopupContextWindow(strId, mouseButton, alsoOverItems)) {
+    if (beginPopupContextWindow(strId, popupFlags)) {
         try {
             block()
         } finally {

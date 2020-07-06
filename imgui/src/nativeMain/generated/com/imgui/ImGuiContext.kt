@@ -52,6 +52,12 @@ actual inline class ImGuiContext(
   actual val withinEndChild: Boolean
     get() = ptr.pointed.WithinEndChild
 
+  actual val testEngineHookItems: Boolean
+    get() = ptr.pointed.TestEngineHookItems
+
+  actual val testEngineHookIdInfo: ImGuiID
+    get() = ptr.pointed.TestEngineHookIdInfo.let(::ImGuiID)
+
   actual val windowsActiveCount: Int
     get() = ptr.pointed.WindowsActiveCount
 
@@ -235,14 +241,20 @@ actual inline class ImGuiContext(
   actual val navMoveClipDir: ImGuiDir
     get() = ptr.pointed.NavMoveClipDir.let { ImGuiDir.from(it) }
 
+  actual val navWrapRequestWindow: ImGuiWindow?
+    get() = ptr.pointed.NavWrapRequestWindow?.let(::ImGuiWindow)
+
+  actual val navWrapRequestFlags: Flag<ImGuiNavMoveFlags>
+    get() = ptr.pointed.NavWrapRequestFlags.let { ImGuiNavMoveFlags.fromMultiple(it) }
+
   actual val navWindowingTarget: ImGuiWindow?
     get() = ptr.pointed.NavWindowingTarget?.let(::ImGuiWindow)
 
   actual val navWindowingTargetAnim: ImGuiWindow?
     get() = ptr.pointed.NavWindowingTargetAnim?.let(::ImGuiWindow)
 
-  actual val navWindowingList: ImGuiWindow?
-    get() = ptr.pointed.NavWindowingList?.let(::ImGuiWindow)
+  actual val navWindowingListWindow: ImGuiWindow?
+    get() = ptr.pointed.NavWindowingListWindow?.let(::ImGuiWindow)
 
   actual val navWindowingTimer: Float
     get() = ptr.pointed.NavWindowingTimer
@@ -315,6 +327,9 @@ actual inline class ImGuiContext(
 
   actual val dragDropAcceptFrameCount: Int
     get() = ptr.pointed.DragDropAcceptFrameCount
+
+  actual val dragDropHoldJustPressedId: ImGuiID
+    get() = ptr.pointed.DragDropHoldJustPressedId.let(::ImGuiID)
 
   actual val currentTabBar: ImGuiTabBar?
     get() = ptr.pointed.CurrentTabBar?.let(::ImGuiTabBar)

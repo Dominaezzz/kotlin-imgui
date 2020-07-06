@@ -104,6 +104,15 @@ public class ImGuiNextWindowData {
     return (cPtr == 0) ? null : new ImVec2(cPtr, false);
   }
 
+  public void setScrollVal(ImVec2 value) {
+    CImGuiJNI.ImGuiNextWindowData_ScrollVal_set(swigCPtr, this, ImVec2.getCPtr(value), value);
+  }
+
+  public ImVec2 getScrollVal() {
+    long cPtr = CImGuiJNI.ImGuiNextWindowData_ScrollVal_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImVec2(cPtr, false);
+  }
+
   public void setCollapsedVal(boolean value) {
     CImGuiJNI.ImGuiNextWindowData_CollapsedVal_set(swigCPtr, this, value);
   }

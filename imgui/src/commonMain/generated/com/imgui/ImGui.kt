@@ -87,17 +87,14 @@ expect object ImGui {
 
     fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>? = null): Boolean
 
-    fun beginPopupContextItem(strId: String? = null, mouseButton: ImGuiMouseButton =
-            ImGuiMouseButton.Right): Boolean
+    fun beginPopupContextItem(strId: String? = null, popupFlags: Flag<ImGuiPopupFlags> =
+            ImGuiPopupFlags.MouseButtonRight): Boolean
 
-    fun beginPopupContextVoid(strId: String? = null, mouseButton: ImGuiMouseButton =
-            ImGuiMouseButton.Right): Boolean
+    fun beginPopupContextVoid(strId: String? = null, popupFlags: Flag<ImGuiPopupFlags> =
+            ImGuiPopupFlags.MouseButtonRight): Boolean
 
-    fun beginPopupContextWindow(
-        strId: String? = null,
-        mouseButton: ImGuiMouseButton = ImGuiMouseButton.Right,
-        alsoOverItems: Boolean = true
-    ): Boolean
+    fun beginPopupContextWindow(strId: String? = null, popupFlags: Flag<ImGuiPopupFlags> =
+            ImGuiPopupFlags.MouseButtonRight): Boolean
 
     fun beginPopupEx(id: ImGuiID, extraFlags: Flag<ImGuiWindowFlags>): Boolean
 
@@ -170,6 +167,8 @@ expect object ImGui {
     fun clearActiveID()
 
     fun clearDragDrop()
+
+    fun clearIniSettings()
 
     fun closeButton(id: ImGuiID, pos: Vec2): Boolean
 
@@ -687,6 +686,17 @@ expect object ImGui {
         tintCol: Vec4 = Vec4(1f, 1f, 1f, 1f)
     ): Boolean
 
+    fun imageButtonEx(
+        id: ImGuiID,
+        textureId: ImTextureID,
+        size: Vec2,
+        uv0: Vec2,
+        uv1: Vec2,
+        padding: Vec2,
+        bgCol: Vec4,
+        tintCol: Vec4
+    ): Boolean
+
     fun indent(indentW: Float = 0.0f)
 
     fun initialize(context: ImGuiContext)
@@ -826,9 +836,9 @@ expect object ImGui {
 
     fun isNavInputDown(n: ImGuiNavInput): Boolean
 
-    fun isPopupOpen(strId: String): Boolean
+    fun isPopupOpen(strId: String, flags: Flag<ImGuiPopupFlags>? = null): Boolean
 
-    fun isPopupOpen(id: ImGuiID): Boolean
+    fun isPopupOpen(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>): Boolean
 
     fun isRectVisible(size: Vec2): Boolean
 
@@ -920,12 +930,12 @@ expect object ImGui {
 
     fun nextColumn()
 
-    fun openPopup(strId: String)
+    fun openPopup(strId: String, popupFlags: Flag<ImGuiPopupFlags>? = null)
 
-    fun openPopupEx(id: ImGuiID)
+    fun openPopupContextItem(strId: String? = null, popupFlags: Flag<ImGuiPopupFlags> =
+            ImGuiPopupFlags.MouseButtonRight): Boolean
 
-    fun openPopupOnItemClick(strId: String? = null, mouseButton: ImGuiMouseButton =
-            ImGuiMouseButton.Right): Boolean
+    fun openPopupEx(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>? = null)
 
     fun popAllowKeyboardFocus()
 
@@ -1202,6 +1212,8 @@ expect object ImGui {
         cond: Flag<ImGuiCond>? = null,
         pivot: Vec2 = Vec2.Zero
     )
+
+    fun setNextWindowScroll(scroll: Vec2)
 
     fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>? = null)
 

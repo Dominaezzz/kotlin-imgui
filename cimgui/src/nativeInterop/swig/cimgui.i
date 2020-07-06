@@ -43,6 +43,8 @@
 %ignore ImGuiTextBuffer_appendfv;
 %ignore igImFormatStringV;
 
+%ignore ImGuiDataTypePrivate_;
+
 
 %include cimgui_stringarray.i
 %include cimgui_valuesgetter.i

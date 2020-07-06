@@ -36,14 +36,6 @@ public class ImDrawCmd {
     }
   }
 
-  public void setElemCount(long value) {
-    CImGuiJNI.ImDrawCmd_ElemCount_set(swigCPtr, this, value);
-  }
-
-  public long getElemCount() {
-    return CImGuiJNI.ImDrawCmd_ElemCount_get(swigCPtr, this);
-  }
-
   public void setClipRect(ImVec4 value) {
     CImGuiJNI.ImDrawCmd_ClipRect_set(swigCPtr, this, ImVec4.getCPtr(value), value);
   }
@@ -76,6 +68,14 @@ public class ImDrawCmd {
 
   public long getIdxOffset() {
     return CImGuiJNI.ImDrawCmd_IdxOffset_get(swigCPtr, this);
+  }
+
+  public void setElemCount(long value) {
+    CImGuiJNI.ImDrawCmd_ElemCount_set(swigCPtr, this, value);
+  }
+
+  public long getElemCount() {
+    return CImGuiJNI.ImDrawCmd_ElemCount_get(swigCPtr, this);
   }
 
   public void setUserCallback(SWIGTYPE_p_f_p_q_const__ImDrawList_p_q_const__ImDrawCmd__void value) {

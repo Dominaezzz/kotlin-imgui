@@ -9,6 +9,7 @@
 package cimgui.internal;
 
 public final class ImGuiCond_ {
+  public final static int ImGuiCond_None = 0;
   public final static int ImGuiCond_Always = 1 << 0;
   public final static int ImGuiCond_Once = 1 << 1;
   public final static int ImGuiCond_FirstUseEver = 1 << 2;

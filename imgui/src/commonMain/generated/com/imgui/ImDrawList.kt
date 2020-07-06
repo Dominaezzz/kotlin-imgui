@@ -189,10 +189,6 @@ expect class ImDrawList {
 
   fun channelsSplit(count: Int)
 
-  fun clear()
-
-  fun clearFreeMemory()
-
   fun cloneOutput(): ImDrawList
 
   fun pathArcTo(
@@ -294,9 +290,17 @@ expect class ImDrawList {
 
   fun pushTextureID(textureId: ImTextureID)
 
-  fun updateClipRect()
+  fun _ClearFreeMemory()
 
-  fun updateTextureID()
+  fun _OnChangedClipRect()
+
+  fun _OnChangedTextureID()
+
+  fun _OnChangedVtxOffset()
+
+  fun _PopUnusedDrawCmd()
+
+  fun _ResetForNewFrame()
 
   fun destroy()
 }

@@ -5,7 +5,6 @@ import kotlin.Char
 import kotlin.Float
 import kotlin.Int
 import kotlin.String
-import kotlin.UInt
 
 expect class ImFontAtlas {
   val locked: Boolean
@@ -39,11 +38,7 @@ expect class ImFontAtlas {
     offset: Vec2 = Vec2.Zero
   ): Int
 
-  fun addCustomRectRegular(
-    id: UInt,
-    width: Int,
-    height: Int
-  ): Int
+  fun addCustomRectRegular(width: Int, height: Int): Int
 
   fun addFont(fontCfg: ImFontConfig): ImFont
 

@@ -514,7 +514,7 @@ fun main(args: Array<String>) {
 				try {
 					val isEnum = "${arg.type}_" in enums
 					val isBitMask = "${arg.type}_" in enumBitMasks
-					val isNullable = defaultValue == "((void*)0)" || (isBitMask && defaultValue == "0")
+					val isNullable = defaultValue == "((void*)0)" || (isBitMask && (defaultValue == "0" || defaultValue?.endsWith("_None") == true))
 
 					val (type, nativeConv, jvmConv, propToPtr) = convertKotlinTypeToNative(arg.type, isNullable, false)
 					val actualType = arg.type.removePrefix("const ")
@@ -551,10 +551,10 @@ fun main(args: Array<String>) {
 								defaultValue matches vec2Regex -> vec2Regex.replace(defaultValue, "Vec2($1f, $2f)")
 								defaultValue matches vec4Regex -> vec4Regex.replace(defaultValue, "Vec4($1f, $2f, $3f, $4f)")
 								// For enum flags.
-								isBitMask && defaultValue == "0" -> "null"
-								isBitMask -> defaultValue.replaceFirst('_', '.')
+								isBitMask && (defaultValue == "0" || defaultValue.endsWith("_None")) -> "null"
+								isBitMask && defaultValue.toIntOrNull() == null -> defaultValue.replaceFirst('_', '.')
 								isEnum && defaultValue.toIntOrNull() != null -> enums.getValue("${arg.type}_")
-										.single { it.value == defaultValue }.name.replace('_', '.')
+										.first { it.value == defaultValue }.name.replace('_', '.')
 								else -> defaultValue
 							})
 						}

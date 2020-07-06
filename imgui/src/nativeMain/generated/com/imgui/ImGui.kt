@@ -45,6 +45,7 @@ import cimgui.internal.igCheckbox
 import cimgui.internal.igCheckboxFlags
 import cimgui.internal.igClearActiveID
 import cimgui.internal.igClearDragDrop
+import cimgui.internal.igClearIniSettings
 import cimgui.internal.igCloseButton
 import cimgui.internal.igCloseCurrentPopup
 import cimgui.internal.igClosePopupToLevel
@@ -208,6 +209,7 @@ import cimgui.internal.igImTriangleContainsPoint
 import cimgui.internal.igImUpperPowerOfTwo
 import cimgui.internal.igImage
 import cimgui.internal.igImageButton
+import cimgui.internal.igImageButtonEx
 import cimgui.internal.igIndent
 import cimgui.internal.igInitialize
 import cimgui.internal.igInputDouble
@@ -291,8 +293,8 @@ import cimgui.internal.igNewFrame
 import cimgui.internal.igNewLine
 import cimgui.internal.igNextColumn
 import cimgui.internal.igOpenPopup
+import cimgui.internal.igOpenPopupContextItem
 import cimgui.internal.igOpenPopupEx
-import cimgui.internal.igOpenPopupOnItemClick
 import cimgui.internal.igPopAllowKeyboardFocus
 import cimgui.internal.igPopButtonRepeat
 import cimgui.internal.igPopClipRect
@@ -374,6 +376,7 @@ import cimgui.internal.igSetNextWindowCollapsed
 import cimgui.internal.igSetNextWindowContentSize
 import cimgui.internal.igSetNextWindowFocus
 import cimgui.internal.igSetNextWindowPos
+import cimgui.internal.igSetNextWindowScroll
 import cimgui.internal.igSetNextWindowSize
 import cimgui.internal.igSetScrollFromPosXFloat
 import cimgui.internal.igSetScrollFromPosXWindowPtr
@@ -564,17 +567,14 @@ actual object ImGui {
     actual fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>?): Boolean =
             igBeginPopup(strId, flags?.value ?: 0)
 
-    actual fun beginPopupContextItem(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igBeginPopupContextItem(strId, mouseButton.value)
+    actual fun beginPopupContextItem(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextItem(strId, popupFlags.value)
 
-    actual fun beginPopupContextVoid(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igBeginPopupContextVoid(strId, mouseButton.value)
+    actual fun beginPopupContextVoid(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextVoid(strId, popupFlags.value)
 
-    actual fun beginPopupContextWindow(
-        strId: String?,
-        mouseButton: ImGuiMouseButton,
-        alsoOverItems: Boolean
-    ): Boolean = igBeginPopupContextWindow(strId, mouseButton.value, alsoOverItems)
+    actual fun beginPopupContextWindow(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextWindow(strId, popupFlags.value)
 
     actual fun beginPopupEx(id: ImGuiID, extraFlags: Flag<ImGuiWindowFlags>): Boolean =
             igBeginPopupEx(id.value, extraFlags.value)
@@ -688,6 +688,10 @@ actual object ImGui {
 
     actual fun clearDragDrop() {
         igClearDragDrop()
+    }
+
+    actual fun clearIniSettings() {
+        igClearIniSettings()
     }
 
     actual fun closeButton(id: ImGuiID, pos: Vec2): Boolean = igCloseButton(id.value,
@@ -1414,6 +1418,18 @@ actual object ImGui {
     ): Boolean = igImageButton(userTextureId.value, size.toCValue(), uv0.toCValue(), uv1.toCValue(),
             framePadding, bgCol.toCValue(), tintCol.toCValue())
 
+    actual fun imageButtonEx(
+        id: ImGuiID,
+        textureId: ImTextureID,
+        size: Vec2,
+        uv0: Vec2,
+        uv1: Vec2,
+        padding: Vec2,
+        bgCol: Vec4,
+        tintCol: Vec4
+    ): Boolean = igImageButtonEx(id.value, textureId.value, size.toCValue(), uv0.toCValue(),
+            uv1.toCValue(), padding.toCValue(), bgCol.toCValue(), tintCol.toCValue())
+
     actual fun indent(indentW: Float) {
         igIndent(indentW)
     }
@@ -1609,9 +1625,11 @@ actual object ImGui {
 
     actual fun isNavInputDown(n: ImGuiNavInput): Boolean = igIsNavInputDown(n.value)
 
-    actual fun isPopupOpen(strId: String): Boolean = igIsPopupOpenStr(strId)
+    actual fun isPopupOpen(strId: String, flags: Flag<ImGuiPopupFlags>?): Boolean =
+            igIsPopupOpenStr(strId, flags?.value ?: 0)
 
-    actual fun isPopupOpen(id: ImGuiID): Boolean = igIsPopupOpenID(id.value)
+    actual fun isPopupOpen(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igIsPopupOpenID(id.value, popupFlags.value)
 
     actual fun isRectVisible(size: Vec2): Boolean = igIsRectVisibleNil(size.toCValue())
 
@@ -1757,16 +1775,16 @@ actual object ImGui {
         igNextColumn()
     }
 
-    actual fun openPopup(strId: String) {
-        igOpenPopup(strId)
+    actual fun openPopup(strId: String, popupFlags: Flag<ImGuiPopupFlags>?) {
+        igOpenPopup(strId, popupFlags?.value ?: 0)
     }
 
-    actual fun openPopupEx(id: ImGuiID) {
-        igOpenPopupEx(id.value)
-    }
+    actual fun openPopupContextItem(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igOpenPopupContextItem(strId, popupFlags.value)
 
-    actual fun openPopupOnItemClick(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igOpenPopupOnItemClick(strId, mouseButton.value)
+    actual fun openPopupEx(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>?) {
+        igOpenPopupEx(id.value, popupFlags?.value ?: 0)
+    }
 
     actual fun popAllowKeyboardFocus() {
         igPopAllowKeyboardFocus()
@@ -2208,6 +2226,10 @@ actual object ImGui {
         pivot: Vec2
     ) {
         igSetNextWindowPos(pos.toCValue(), cond?.value ?: 0, pivot.toCValue())
+    }
+
+    actual fun setNextWindowScroll(scroll: Vec2) {
+        igSetNextWindowScroll(scroll.toCValue())
     }
 
     actual fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {

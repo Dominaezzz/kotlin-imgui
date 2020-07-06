@@ -14,5 +14,6 @@ public final class ImGuiTabItemFlags_ {
   public final static int ImGuiTabItemFlags_SetSelected = 1 << 1;
   public final static int ImGuiTabItemFlags_NoCloseWithMiddleMouseButton = 1 << 2;
   public final static int ImGuiTabItemFlags_NoPushId = 1 << 3;
+  public final static int ImGuiTabItemFlags_NoTooltip = 1 << 4;
 }
 

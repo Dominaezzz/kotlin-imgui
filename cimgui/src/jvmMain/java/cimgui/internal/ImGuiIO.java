@@ -688,6 +688,14 @@ public class ImGuiIO {
     return (cPtr == 0) ? null : new SWIGTYPE_p_float(cPtr, false);
   }
 
+  public void setPenPressure(float value) {
+    CImGuiJNI.ImGuiIO_PenPressure_set(swigCPtr, this, value);
+  }
+
+  public float getPenPressure() {
+    return CImGuiJNI.ImGuiIO_PenPressure_get(swigCPtr, this);
+  }
+
   public void setInputQueueSurrogate(int value) {
     CImGuiJNI.ImGuiIO_InputQueueSurrogate_set(swigCPtr, this, value);
   }

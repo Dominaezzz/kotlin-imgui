@@ -2,6 +2,7 @@ package com.imgui
 
 import cimgui.internal.ImGuiTabItemFlags_.ImGuiTabItemFlags_NoCloseWithMiddleMouseButton
 import cimgui.internal.ImGuiTabItemFlags_.ImGuiTabItemFlags_NoPushId
+import cimgui.internal.ImGuiTabItemFlags_.ImGuiTabItemFlags_NoTooltip
 import cimgui.internal.ImGuiTabItemFlags_.ImGuiTabItemFlags_SetSelected
 import cimgui.internal.ImGuiTabItemFlags_.ImGuiTabItemFlags_UnsavedDocument
 import kotlin.Int
@@ -15,7 +16,9 @@ actual enum class ImGuiTabItemFlags(
 
   NoCloseWithMiddleMouseButton(ImGuiTabItemFlags_NoCloseWithMiddleMouseButton),
 
-  NoPushId(ImGuiTabItemFlags_NoPushId);
+  NoPushId(ImGuiTabItemFlags_NoPushId),
+
+  NoTooltip(ImGuiTabItemFlags_NoTooltip);
 
   actual val cValue: Int
     get() = value
@@ -30,6 +33,7 @@ actual enum class ImGuiTabItemFlags(
       ImGuiTabItemFlags_SetSelected -> SetSelected
       ImGuiTabItemFlags_NoCloseWithMiddleMouseButton -> NoCloseWithMiddleMouseButton
       ImGuiTabItemFlags_NoPushId -> NoPushId
+      ImGuiTabItemFlags_NoTooltip -> NoTooltip
       else -> throw NoSuchElementException("""Unknown enum constant $value""")
     }
 

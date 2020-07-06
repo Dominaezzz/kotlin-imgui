@@ -104,6 +104,8 @@ expect class ImGuiIO {
 
   val mousePosPrev: Vec2
 
+  val penPressure: Float
+
   constructor()
 
   fun keyMap(index: Int): Int

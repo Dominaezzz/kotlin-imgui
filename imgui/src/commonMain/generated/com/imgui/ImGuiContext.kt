@@ -31,6 +31,10 @@ expect class ImGuiContext {
 
   val withinEndChild: Boolean
 
+  val testEngineHookItems: Boolean
+
+  val testEngineHookIdInfo: ImGuiID
+
   val windowsActiveCount: Int
 
   val currentWindow: ImGuiWindow?
@@ -153,11 +157,15 @@ expect class ImGuiContext {
 
   val navMoveClipDir: ImGuiDir
 
+  val navWrapRequestWindow: ImGuiWindow?
+
+  val navWrapRequestFlags: Flag<ImGuiNavMoveFlags>
+
   val navWindowingTarget: ImGuiWindow?
 
   val navWindowingTargetAnim: ImGuiWindow?
 
-  val navWindowingList: ImGuiWindow?
+  val navWindowingListWindow: ImGuiWindow?
 
   val navWindowingTimer: Float
 
@@ -206,6 +214,8 @@ expect class ImGuiContext {
   val dragDropAcceptIdPrev: ImGuiID
 
   val dragDropAcceptFrameCount: Int
+
+  val dragDropHoldJustPressedId: ImGuiID
 
   val currentTabBar: ImGuiTabBar?
 

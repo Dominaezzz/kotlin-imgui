@@ -7,6 +7,8 @@ expect class ImGuiWindowSettings {
 
   val collapsed: Boolean
 
+  val wantApply: Boolean
+
   constructor()
 
   fun destroy()

@@ -37,6 +37,9 @@ actual inline class ImGuiNextWindowData(
   actual val contentSizeVal: Vec2
     get() = ptr.pointed.ContentSizeVal.fromCValue()
 
+  actual val scrollVal: Vec2
+    get() = ptr.pointed.ScrollVal.fromCValue()
+
   actual val collapsedVal: Boolean
     get() = ptr.pointed.CollapsedVal
 

@@ -55,6 +55,8 @@ expect class ImGuiStyle {
 
   val tabBorderSize: Float
 
+  val tabMinWidthForUnselectedCloseButton: Float
+
   val colorButtonPosition: ImGuiDir
 
   val buttonTextAlign: Vec2

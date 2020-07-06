@@ -9,7 +9,9 @@ expect enum class ImGuiTabItemFlags : Flag<ImGuiTabItemFlags> {
 
   NoCloseWithMiddleMouseButton,
 
-  NoPushId;
+  NoPushId,
+
+  NoTooltip;
 
   val cValue: Int
 

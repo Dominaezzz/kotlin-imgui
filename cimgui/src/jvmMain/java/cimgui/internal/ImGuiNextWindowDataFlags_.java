@@ -17,5 +17,6 @@ public final class ImGuiNextWindowDataFlags_ {
   public final static int ImGuiNextWindowDataFlags_HasSizeConstraint = 1 << 4;
   public final static int ImGuiNextWindowDataFlags_HasFocus = 1 << 5;
   public final static int ImGuiNextWindowDataFlags_HasBgAlpha = 1 << 6;
+  public final static int ImGuiNextWindowDataFlags_HasScroll = 1 << 7;
 }
 

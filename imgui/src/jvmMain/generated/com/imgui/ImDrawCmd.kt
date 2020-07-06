@@ -9,9 +9,6 @@ import kotlin.UInt
 actual inline class ImDrawCmd(
   val ptr: cimgui.internal.ImDrawCmd
 ) {
-  actual val elemCount: UInt
-    get() = ptr.elemCount.toUInt()
-
   actual val clipRect: Vec4
     get() = ptr.clipRect.fromCValue()
 
@@ -23,6 +20,9 @@ actual inline class ImDrawCmd(
 
   actual val idxOffset: UInt
     get() = ptr.idxOffset.toUInt()
+
+  actual val elemCount: UInt
+    get() = ptr.elemCount.toUInt()
 
   actual constructor() : this(ImDrawCmd_ImDrawCmd()!!)
 

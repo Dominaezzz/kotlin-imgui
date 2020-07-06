@@ -31,7 +31,6 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.UInt
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.get
 import kotlinx.cinterop.pointed
@@ -86,11 +85,8 @@ actual inline class ImFontAtlas(
   ): Int = ImFontAtlas_AddCustomRectFontGlyph(ptr, font.ptr, id.toShort().toUShort(), width, height,
       advanceX, offset.toCValue())
 
-  actual fun addCustomRectRegular(
-    id: UInt,
-    width: Int,
-    height: Int
-  ): Int = ImFontAtlas_AddCustomRectRegular(ptr, id, width, height)
+  actual fun addCustomRectRegular(width: Int, height: Int): Int =
+      ImFontAtlas_AddCustomRectRegular(ptr, width, height)
 
   actual fun addFont(fontCfg: ImFontConfig): ImFont = ImFontAtlas_AddFont(ptr,
       fontCfg.ptr)!!.let(::ImFont)

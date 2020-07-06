@@ -73,7 +73,7 @@ actual fun ImGui.combo(label: String, currentItem: KMutableProperty0<Int>, items
 		}
 	}
 	return usingProperty(currentItem) { currentItemPtr ->
-		CImGui.igComboFnPtr(label, currentItemPtr, getter, itemsCount, popupMaxHeightInItems)
+		CImGui.igComboFnBoolPtr(label, currentItemPtr, getter, itemsCount, popupMaxHeightInItems)
 	}
 }
 
@@ -91,7 +91,7 @@ actual fun ImGui.listBox(label: String, currentItem: KMutableProperty0<Int>, ite
 		}
 	}
 	return usingProperty(currentItem) { currentItemPtr ->
-		CImGui.igListBoxFnPtr(label, currentItemPtr, getter, itemsCount, heightInItems)
+		CImGui.igListBoxFnBoolPtr(label, currentItemPtr, getter, itemsCount, heightInItems)
 	}
 }
 
@@ -111,7 +111,7 @@ actual fun ImGui.plotHistogram(label: String, valuesGetter: (Int) -> Float, valu
 		}
 	}
 	return usingVec2(graphSize) { graphSizePtr ->
-		CImGui.igPlotHistogramFnPtr(label, getter, valuesCount, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr)
+		CImGui.igPlotHistogramFnFloatPtr(label, getter, valuesCount, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr)
 	}
 }
 
@@ -131,6 +131,6 @@ actual fun ImGui.plotLines(label: String, valuesGetter: (Int) -> Float, valuesCo
 		}
 	}
 	return usingVec2(graphSize) { graphSizePtr ->
-		CImGui.igPlotLinesFnPtr(label, getter, valuesCount, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr)
+		CImGui.igPlotLinesFnFloatPtr(label, getter, valuesCount, valuesOffset, overlayText, scaleMin, scaleMax, graphSizePtr)
 	}
 }

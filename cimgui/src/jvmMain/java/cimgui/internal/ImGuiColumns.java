@@ -132,12 +132,21 @@ public class ImGuiColumns {
     return CImGuiJNI.ImGuiColumns_HostCursorMaxPosX_get(swigCPtr, this);
   }
 
-  public void setHostClipRect(ImRect value) {
-    CImGuiJNI.ImGuiColumns_HostClipRect_set(swigCPtr, this, ImRect.getCPtr(value), value);
+  public void setHostInitialClipRect(ImRect value) {
+    CImGuiJNI.ImGuiColumns_HostInitialClipRect_set(swigCPtr, this, ImRect.getCPtr(value), value);
   }
 
-  public ImRect getHostClipRect() {
-    long cPtr = CImGuiJNI.ImGuiColumns_HostClipRect_get(swigCPtr, this);
+  public ImRect getHostInitialClipRect() {
+    long cPtr = CImGuiJNI.ImGuiColumns_HostInitialClipRect_get(swigCPtr, this);
+    return (cPtr == 0) ? null : new ImRect(cPtr, false);
+  }
+
+  public void setHostBackupClipRect(ImRect value) {
+    CImGuiJNI.ImGuiColumns_HostBackupClipRect_set(swigCPtr, this, ImRect.getCPtr(value), value);
+  }
+
+  public ImRect getHostBackupClipRect() {
+    long cPtr = CImGuiJNI.ImGuiColumns_HostBackupClipRect_get(swigCPtr, this);
     return (cPtr == 0) ? null : new ImRect(cPtr, false);
   }
 

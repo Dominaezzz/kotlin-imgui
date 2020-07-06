@@ -45,6 +45,7 @@ import cimgui.internal.CImGui.igCheckbox
 import cimgui.internal.CImGui.igCheckboxFlags
 import cimgui.internal.CImGui.igClearActiveID
 import cimgui.internal.CImGui.igClearDragDrop
+import cimgui.internal.CImGui.igClearIniSettings
 import cimgui.internal.CImGui.igCloseButton
 import cimgui.internal.CImGui.igCloseCurrentPopup
 import cimgui.internal.CImGui.igClosePopupToLevel
@@ -208,6 +209,7 @@ import cimgui.internal.CImGui.igImTriangleContainsPoint
 import cimgui.internal.CImGui.igImUpperPowerOfTwo
 import cimgui.internal.CImGui.igImage
 import cimgui.internal.CImGui.igImageButton
+import cimgui.internal.CImGui.igImageButtonEx
 import cimgui.internal.CImGui.igIndent
 import cimgui.internal.CImGui.igInitialize
 import cimgui.internal.CImGui.igInputDouble
@@ -291,8 +293,8 @@ import cimgui.internal.CImGui.igNewFrame
 import cimgui.internal.CImGui.igNewLine
 import cimgui.internal.CImGui.igNextColumn
 import cimgui.internal.CImGui.igOpenPopup
+import cimgui.internal.CImGui.igOpenPopupContextItem
 import cimgui.internal.CImGui.igOpenPopupEx
-import cimgui.internal.CImGui.igOpenPopupOnItemClick
 import cimgui.internal.CImGui.igPopAllowKeyboardFocus
 import cimgui.internal.CImGui.igPopButtonRepeat
 import cimgui.internal.CImGui.igPopClipRect
@@ -374,6 +376,7 @@ import cimgui.internal.CImGui.igSetNextWindowCollapsed
 import cimgui.internal.CImGui.igSetNextWindowContentSize
 import cimgui.internal.CImGui.igSetNextWindowFocus
 import cimgui.internal.CImGui.igSetNextWindowPos
+import cimgui.internal.CImGui.igSetNextWindowScroll
 import cimgui.internal.CImGui.igSetNextWindowSize
 import cimgui.internal.CImGui.igSetScrollFromPosXFloat
 import cimgui.internal.CImGui.igSetScrollFromPosXWindowPtr
@@ -573,17 +576,14 @@ actual object ImGui {
     actual fun beginPopup(strId: String, flags: Flag<ImGuiWindowFlags>?): Boolean =
             igBeginPopup(strId, flags?.value ?: 0)
 
-    actual fun beginPopupContextItem(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igBeginPopupContextItem(strId, mouseButton.value)
+    actual fun beginPopupContextItem(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextItem(strId, popupFlags.value)
 
-    actual fun beginPopupContextVoid(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igBeginPopupContextVoid(strId, mouseButton.value)
+    actual fun beginPopupContextVoid(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextVoid(strId, popupFlags.value)
 
-    actual fun beginPopupContextWindow(
-        strId: String?,
-        mouseButton: ImGuiMouseButton,
-        alsoOverItems: Boolean
-    ): Boolean = igBeginPopupContextWindow(strId, mouseButton.value, alsoOverItems)
+    actual fun beginPopupContextWindow(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igBeginPopupContextWindow(strId, popupFlags.value)
 
     actual fun beginPopupEx(id: ImGuiID, extraFlags: Flag<ImGuiWindowFlags>): Boolean =
             igBeginPopupEx(id.value, extraFlags.value)
@@ -702,6 +702,10 @@ actual object ImGui {
 
     actual fun clearDragDrop() {
         igClearDragDrop()
+    }
+
+    actual fun clearIniSettings() {
+        igClearIniSettings()
     }
 
     actual fun closeButton(id: ImGuiID, pos: Vec2): Boolean = usingVec2 { ptrPos -> 
@@ -1488,6 +1492,30 @@ actual object ImGui {
         }
     }
 
+    actual fun imageButtonEx(
+        id: ImGuiID,
+        textureId: ImTextureID,
+        size: Vec2,
+        uv0: Vec2,
+        uv1: Vec2,
+        padding: Vec2,
+        bgCol: Vec4,
+        tintCol: Vec4
+    ): Boolean = usingVec2 { ptrSize -> 
+        usingVec2 { ptrUv0 -> 
+            usingVec2 { ptrUv1 -> 
+                usingVec2 { ptrPadding -> 
+                    usingVec4 { ptrBgCol -> 
+                        usingVec4 { ptrTintCol -> 
+                            igImageButtonEx(id.value, textureId.value, ptrSize, ptrUv0, ptrUv1,
+                                    ptrPadding, ptrBgCol, ptrTintCol)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     actual fun indent(indentW: Float) {
         igIndent(indentW)
     }
@@ -1688,9 +1716,11 @@ actual object ImGui {
 
     actual fun isNavInputDown(n: ImGuiNavInput): Boolean = igIsNavInputDown(n.value)
 
-    actual fun isPopupOpen(strId: String): Boolean = igIsPopupOpenStr(strId)
+    actual fun isPopupOpen(strId: String, flags: Flag<ImGuiPopupFlags>?): Boolean =
+            igIsPopupOpenStr(strId, flags?.value ?: 0)
 
-    actual fun isPopupOpen(id: ImGuiID): Boolean = igIsPopupOpenID(id.value)
+    actual fun isPopupOpen(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igIsPopupOpenID(id.value, popupFlags.value)
 
     actual fun isRectVisible(size: Vec2): Boolean = usingVec2 { ptrSize -> 
         igIsRectVisibleNil(ptrSize)
@@ -1844,16 +1874,16 @@ actual object ImGui {
         igNextColumn()
     }
 
-    actual fun openPopup(strId: String) {
-        igOpenPopup(strId)
+    actual fun openPopup(strId: String, popupFlags: Flag<ImGuiPopupFlags>?) {
+        igOpenPopup(strId, popupFlags?.value ?: 0)
     }
 
-    actual fun openPopupEx(id: ImGuiID) {
-        igOpenPopupEx(id.value)
-    }
+    actual fun openPopupContextItem(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
+            igOpenPopupContextItem(strId, popupFlags.value)
 
-    actual fun openPopupOnItemClick(strId: String?, mouseButton: ImGuiMouseButton): Boolean =
-            igOpenPopupOnItemClick(strId, mouseButton.value)
+    actual fun openPopupEx(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>?) {
+        igOpenPopupEx(id.value, popupFlags?.value ?: 0)
+    }
 
     actual fun popAllowKeyboardFocus() {
         igPopAllowKeyboardFocus()
@@ -2364,6 +2394,12 @@ actual object ImGui {
             usingVec2 { ptrPivot -> 
                 igSetNextWindowPos(ptrPos, cond?.value ?: 0, ptrPivot)
             }
+        }
+    }
+
+    actual fun setNextWindowScroll(scroll: Vec2) {
+        usingVec2 { ptrScroll -> 
+            igSetNextWindowScroll(ptrScroll)
         }
     }
 

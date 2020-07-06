@@ -15,6 +15,9 @@ actual inline class ImGuiWindowSettings(
   actual val collapsed: Boolean
     get() = ptr.collapsed
 
+  actual val wantApply: Boolean
+    get() = ptr.wantApply
+
   actual constructor() : this(ImGuiWindowSettings_ImGuiWindowSettings()!!)
 
   actual fun destroy() {

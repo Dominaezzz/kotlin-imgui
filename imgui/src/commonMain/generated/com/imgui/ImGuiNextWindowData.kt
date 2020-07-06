@@ -20,6 +20,8 @@ expect class ImGuiNextWindowData {
 
   val contentSizeVal: Vec2
 
+  val scrollVal: Vec2
+
   val collapsedVal: Boolean
 
   val bgAlphaVal: Float
