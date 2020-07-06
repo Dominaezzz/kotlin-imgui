@@ -51,8 +51,7 @@ val functionsToSkip = setOf(
 		"igInputText",
 		"igInputTextMultiline",
 		"igInputTextWithHint",
-		"igSetNextWindowSizeConstraints",
-		"igImTriangleBarycentricCoords" // Needs to be handwritten in cimgui.
+		"igSetNextWindowSizeConstraints"
 )
 
 // TODO: Move to JSON file.
@@ -403,8 +402,8 @@ fun main(args: Array<String>) {
 	}
 
 	for (privateType in privateTypes) {
-		val nativePointerClass = C_POINTER.parameterizedBy(ClassName("cnames.structs", privateType))
-		val jvmPointerClass = ClassName("cimgui.internal", "SWIGTYPE_p_$privateType")
+		val nativePointerClass = C_POINTER.parameterizedBy(ClassName("cimgui.internal", privateType))
+		val jvmPointerClass = ClassName("cimgui.internal", privateType)
 
 		val commonType = TypeSpec.expectClassBuilder(privateType).build()
 		val nativeType = TypeSpec.classBuilder(privateType)
@@ -446,6 +445,7 @@ fun main(args: Array<String>) {
 	defLoop@for (overload in definitions.flatMap { (_, overloads) -> overloads }) {
 		// TODO: Not needed in wrapper.
 		if (overload.nonUDT != null) continue
+		if (overload.location == "internal") continue
 
 		val defName = overload.cimguiName
 		if (defName in functionsToSkip) continue
@@ -818,7 +818,14 @@ fun main(args: Array<String>) {
 	}
 	imguiDSL.indent("    ").build().writeTo(commonDir)
 
+	val internalStructs = definitions.flatMap { it.value }
+			.filter { it.location == "internal" && it.structName.isNotEmpty() }
+			.map { it.structName }
+			.toSet()
+
 	for ((structName, members) in structs) {
+		if (structName in internalStructs) continue
+
 		val imguiStructClass = ClassName("cimgui.internal", structName)
 
 		val nativePointerClass = C_POINTER.parameterizedBy(imguiStructClass)

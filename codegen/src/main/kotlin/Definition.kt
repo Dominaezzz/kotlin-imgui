@@ -96,7 +96,12 @@ data class Definition(
 		val nonUDT: Int? = null,
 
 		@SerialName("funcname")
-		val functionName: String? = null
+		val functionName: String? = null,
+
+		/**
+		 * The header file that this functions was declared in (should be either 'imgui' or 'internal')
+		 */
+		val location: String? = null
 )
 {
 	@Serializable

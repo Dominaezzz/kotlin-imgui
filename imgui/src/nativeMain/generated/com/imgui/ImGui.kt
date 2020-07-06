@@ -1,16 +1,12 @@
 package com.imgui
 
 import cimgui.internal.igAcceptDragDropPayload
-import cimgui.internal.igActivateItem
 import cimgui.internal.igAlignTextToFramePadding
 import cimgui.internal.igArrowButton
-import cimgui.internal.igArrowButtonEx
 import cimgui.internal.igBegin
-import cimgui.internal.igBeginChildEx
 import cimgui.internal.igBeginChildFrame
 import cimgui.internal.igBeginChildID
 import cimgui.internal.igBeginChildStr
-import cimgui.internal.igBeginColumns
 import cimgui.internal.igBeginCombo
 import cimgui.internal.igBeginDragDropSource
 import cimgui.internal.igBeginDragDropTarget
@@ -22,35 +18,20 @@ import cimgui.internal.igBeginPopup
 import cimgui.internal.igBeginPopupContextItem
 import cimgui.internal.igBeginPopupContextVoid
 import cimgui.internal.igBeginPopupContextWindow
-import cimgui.internal.igBeginPopupEx
 import cimgui.internal.igBeginPopupModal
 import cimgui.internal.igBeginTabBar
 import cimgui.internal.igBeginTabItem
 import cimgui.internal.igBeginTooltip
-import cimgui.internal.igBeginTooltipEx
-import cimgui.internal.igBringWindowToDisplayBack
-import cimgui.internal.igBringWindowToDisplayFront
-import cimgui.internal.igBringWindowToFocusFront
 import cimgui.internal.igBullet
 import cimgui.internal.igBulletText
 import cimgui.internal.igButton
-import cimgui.internal.igButtonEx
 import cimgui.internal.igCalcItemWidth
 import cimgui.internal.igCalcListClipping
-import cimgui.internal.igCalcTypematicRepeatAmount
-import cimgui.internal.igCalcWrapWidthForPos
 import cimgui.internal.igCaptureKeyboardFromApp
 import cimgui.internal.igCaptureMouseFromApp
 import cimgui.internal.igCheckbox
 import cimgui.internal.igCheckboxFlags
-import cimgui.internal.igClearActiveID
-import cimgui.internal.igClearDragDrop
-import cimgui.internal.igClearIniSettings
-import cimgui.internal.igCloseButton
 import cimgui.internal.igCloseCurrentPopup
-import cimgui.internal.igClosePopupToLevel
-import cimgui.internal.igClosePopupsOverWindow
-import cimgui.internal.igCollapseButton
 import cimgui.internal.igCollapsingHeaderBoolPtr
 import cimgui.internal.igCollapsingHeaderTreeNodeFlags
 import cimgui.internal.igColorButton
@@ -64,11 +45,7 @@ import cimgui.internal.igColorPicker4
 import cimgui.internal.igColumns
 import cimgui.internal.igComboStr
 import cimgui.internal.igCreateContext
-import cimgui.internal.igCreateNewWindowSettings
-import cimgui.internal.igDataTypeGetInfo
 import cimgui.internal.igDebugCheckVersionAndDataLayout
-import cimgui.internal.igDebugDrawItemRect
-import cimgui.internal.igDebugStartItemPicker
 import cimgui.internal.igDestroyContext
 import cimgui.internal.igDragFloat
 import cimgui.internal.igDragFloat2
@@ -84,7 +61,6 @@ import cimgui.internal.igDummy
 import cimgui.internal.igEnd
 import cimgui.internal.igEndChild
 import cimgui.internal.igEndChildFrame
-import cimgui.internal.igEndColumns
 import cimgui.internal.igEndCombo
 import cimgui.internal.igEndDragDropSource
 import cimgui.internal.igEndDragDropTarget
@@ -97,60 +73,32 @@ import cimgui.internal.igEndPopup
 import cimgui.internal.igEndTabBar
 import cimgui.internal.igEndTabItem
 import cimgui.internal.igEndTooltip
-import cimgui.internal.igFindOrCreateColumns
-import cimgui.internal.igFindOrCreateWindowSettings
-import cimgui.internal.igFindRenderedTextEnd
-import cimgui.internal.igFindSettingsHandler
-import cimgui.internal.igFindWindowByID
-import cimgui.internal.igFindWindowByName
-import cimgui.internal.igFindWindowSettings
-import cimgui.internal.igFocusTopMostWindowUnderOne
-import cimgui.internal.igFocusWindow
-import cimgui.internal.igFocusableItemRegister
-import cimgui.internal.igFocusableItemUnregister
-import cimgui.internal.igGcAwakeTransientWindowBuffers
-import cimgui.internal.igGcCompactTransientWindowBuffers
-import cimgui.internal.igGetActiveID
 import cimgui.internal.igGetBackgroundDrawList
 import cimgui.internal.igGetClipboardText
 import cimgui.internal.igGetColorU32Col
 import cimgui.internal.igGetColorU32U32
 import cimgui.internal.igGetColorU32Vec4
 import cimgui.internal.igGetColumnIndex
-import cimgui.internal.igGetColumnNormFromOffset
 import cimgui.internal.igGetColumnOffset
-import cimgui.internal.igGetColumnOffsetFromNorm
 import cimgui.internal.igGetColumnWidth
 import cimgui.internal.igGetColumnsCount
-import cimgui.internal.igGetColumnsID
 import cimgui.internal.igGetCurrentContext
-import cimgui.internal.igGetCurrentWindow
-import cimgui.internal.igGetCurrentWindowRead
 import cimgui.internal.igGetCursorPosX
 import cimgui.internal.igGetCursorPosY
-import cimgui.internal.igGetDefaultFont
 import cimgui.internal.igGetDragDropPayload
 import cimgui.internal.igGetDrawData
 import cimgui.internal.igGetDrawListSharedData
-import cimgui.internal.igGetFocusID
-import cimgui.internal.igGetFocusScopeID
 import cimgui.internal.igGetFont
 import cimgui.internal.igGetFontSize
 import cimgui.internal.igGetForegroundDrawListNil
-import cimgui.internal.igGetForegroundDrawListWindowPtr
 import cimgui.internal.igGetFrameCount
 import cimgui.internal.igGetFrameHeight
 import cimgui.internal.igGetFrameHeightWithSpacing
-import cimgui.internal.igGetHoveredID
 import cimgui.internal.igGetIDStr
 import cimgui.internal.igGetIDStrStr
 import cimgui.internal.igGetIO
-import cimgui.internal.igGetInputTextState
-import cimgui.internal.igGetItemID
-import cimgui.internal.igGetItemStatusFlags
 import cimgui.internal.igGetKeyIndex
 import cimgui.internal.igGetKeyPressedAmount
-import cimgui.internal.igGetMergedKeyModFlags
 import cimgui.internal.igGetMouseCursor
 import cimgui.internal.igGetScrollMaxX
 import cimgui.internal.igGetScrollMaxY
@@ -163,55 +111,15 @@ import cimgui.internal.igGetStyleColorVec4
 import cimgui.internal.igGetTextLineHeight
 import cimgui.internal.igGetTextLineHeightWithSpacing
 import cimgui.internal.igGetTime
-import cimgui.internal.igGetTopMostPopupModal
 import cimgui.internal.igGetTreeNodeToLabelSpacing
 import cimgui.internal.igGetVersion
 import cimgui.internal.igGetWindowContentRegionWidth
 import cimgui.internal.igGetWindowDrawList
 import cimgui.internal.igGetWindowHeight
-import cimgui.internal.igGetWindowResizeID
 import cimgui.internal.igGetWindowWidth
-import cimgui.internal.igImAlphaBlendColors
-import cimgui.internal.igImCharIsBlankW
-import cimgui.internal.igImDot
-import cimgui.internal.igImFloorFloat
-import cimgui.internal.igImFontAtlasBuildFinish
-import cimgui.internal.igImFontAtlasBuildInit
-import cimgui.internal.igImFontAtlasBuildSetupFont
-import cimgui.internal.igImFontAtlasBuildWithStbTruetype
-import cimgui.internal.igImGetDirQuadrantFromDelta
-import cimgui.internal.igImHashStr
-import cimgui.internal.igImInvLength
-import cimgui.internal.igImIsPowerOfTwo
-import cimgui.internal.igImLengthSqrVec2
-import cimgui.internal.igImLengthSqrVec4
-import cimgui.internal.igImLinearSweep
-import cimgui.internal.igImModPositive
-import cimgui.internal.igImParseFormatFindEnd
-import cimgui.internal.igImParseFormatFindStart
-import cimgui.internal.igImParseFormatPrecision
-import cimgui.internal.igImPowFloat
-import cimgui.internal.igImPowdouble
-import cimgui.internal.igImSaturate
-import cimgui.internal.igImStrSkipBlank
-import cimgui.internal.igImStrbolW
-import cimgui.internal.igImStreolRange
-import cimgui.internal.igImStricmp
-import cimgui.internal.igImStristr
-import cimgui.internal.igImStrlenW
-import cimgui.internal.igImStrnicmp
-import cimgui.internal.igImTextCharFromUtf8
-import cimgui.internal.igImTextCountCharsFromUtf8
-import cimgui.internal.igImTextCountUtf8BytesFromChar
-import cimgui.internal.igImTextCountUtf8BytesFromStr
-import cimgui.internal.igImTriangleArea
-import cimgui.internal.igImTriangleContainsPoint
-import cimgui.internal.igImUpperPowerOfTwo
 import cimgui.internal.igImage
 import cimgui.internal.igImageButton
-import cimgui.internal.igImageButtonEx
 import cimgui.internal.igIndent
-import cimgui.internal.igInitialize
 import cimgui.internal.igInputDouble
 import cimgui.internal.igInputFloat
 import cimgui.internal.igInputFloat2
@@ -222,14 +130,10 @@ import cimgui.internal.igInputInt2
 import cimgui.internal.igInputInt3
 import cimgui.internal.igInputInt4
 import cimgui.internal.igInvisibleButton
-import cimgui.internal.igIsActiveIdUsingKey
-import cimgui.internal.igIsActiveIdUsingNavDir
-import cimgui.internal.igIsActiveIdUsingNavInput
 import cimgui.internal.igIsAnyItemActive
 import cimgui.internal.igIsAnyItemFocused
 import cimgui.internal.igIsAnyItemHovered
 import cimgui.internal.igIsAnyMouseDown
-import cimgui.internal.igIsDragDropPayloadBeingAccepted
 import cimgui.internal.igIsItemActivated
 import cimgui.internal.igIsItemActive
 import cimgui.internal.igIsItemClicked
@@ -239,33 +143,24 @@ import cimgui.internal.igIsItemEdited
 import cimgui.internal.igIsItemFocused
 import cimgui.internal.igIsItemHovered
 import cimgui.internal.igIsItemToggledOpen
-import cimgui.internal.igIsItemToggledSelection
 import cimgui.internal.igIsItemVisible
 import cimgui.internal.igIsKeyDown
 import cimgui.internal.igIsKeyPressed
-import cimgui.internal.igIsKeyPressedMap
 import cimgui.internal.igIsKeyReleased
 import cimgui.internal.igIsMouseClicked
 import cimgui.internal.igIsMouseDoubleClicked
 import cimgui.internal.igIsMouseDown
-import cimgui.internal.igIsMouseDragPastThreshold
 import cimgui.internal.igIsMouseDragging
 import cimgui.internal.igIsMouseHoveringRect
 import cimgui.internal.igIsMousePosValid
 import cimgui.internal.igIsMouseReleased
-import cimgui.internal.igIsNavInputDown
-import cimgui.internal.igIsPopupOpenID
 import cimgui.internal.igIsPopupOpenStr
 import cimgui.internal.igIsRectVisibleNil
 import cimgui.internal.igIsRectVisibleVec2
 import cimgui.internal.igIsWindowAppearing
-import cimgui.internal.igIsWindowChildOf
 import cimgui.internal.igIsWindowCollapsed
 import cimgui.internal.igIsWindowFocused
 import cimgui.internal.igIsWindowHovered
-import cimgui.internal.igIsWindowNavFocusable
-import cimgui.internal.igItemSizeVec2
-import cimgui.internal.igKeepAliveID
 import cimgui.internal.igLabelText
 import cimgui.internal.igListBoxFooter
 import cimgui.internal.igListBoxHeaderInt
@@ -274,35 +169,22 @@ import cimgui.internal.igLoadIniSettingsFromDisk
 import cimgui.internal.igLoadIniSettingsFromMemory
 import cimgui.internal.igLogButtons
 import cimgui.internal.igLogFinish
-import cimgui.internal.igLogRenderedText
 import cimgui.internal.igLogText
-import cimgui.internal.igLogToBuffer
 import cimgui.internal.igLogToClipboard
 import cimgui.internal.igLogToFile
 import cimgui.internal.igLogToTTY
-import cimgui.internal.igMarkIniSettingsDirtyNil
-import cimgui.internal.igMarkIniSettingsDirtyWindowPtr
-import cimgui.internal.igMarkItemEdited
 import cimgui.internal.igMenuItemBool
 import cimgui.internal.igMenuItemBoolPtr
-import cimgui.internal.igNavInitWindow
-import cimgui.internal.igNavMoveRequestButNoResultYet
-import cimgui.internal.igNavMoveRequestCancel
-import cimgui.internal.igNavMoveRequestTryWrapping
 import cimgui.internal.igNewFrame
 import cimgui.internal.igNewLine
 import cimgui.internal.igNextColumn
 import cimgui.internal.igOpenPopup
 import cimgui.internal.igOpenPopupContextItem
-import cimgui.internal.igOpenPopupEx
 import cimgui.internal.igPopAllowKeyboardFocus
 import cimgui.internal.igPopButtonRepeat
 import cimgui.internal.igPopClipRect
-import cimgui.internal.igPopColumnsBackground
-import cimgui.internal.igPopFocusScope
 import cimgui.internal.igPopFont
 import cimgui.internal.igPopID
-import cimgui.internal.igPopItemFlag
 import cimgui.internal.igPopItemWidth
 import cimgui.internal.igPopStyleColor
 import cimgui.internal.igPopStyleVar
@@ -311,17 +193,11 @@ import cimgui.internal.igProgressBar
 import cimgui.internal.igPushAllowKeyboardFocus
 import cimgui.internal.igPushButtonRepeat
 import cimgui.internal.igPushClipRect
-import cimgui.internal.igPushColumnClipRect
-import cimgui.internal.igPushColumnsBackground
-import cimgui.internal.igPushFocusScope
 import cimgui.internal.igPushFont
 import cimgui.internal.igPushIDInt
 import cimgui.internal.igPushIDStr
 import cimgui.internal.igPushIDStrStr
-import cimgui.internal.igPushItemFlag
 import cimgui.internal.igPushItemWidth
-import cimgui.internal.igPushMultiItemsWidths
-import cimgui.internal.igPushOverrideID
 import cimgui.internal.igPushStyleColorU32
 import cimgui.internal.igPushStyleColorVec4
 import cimgui.internal.igPushStyleVarFloat
@@ -330,19 +206,6 @@ import cimgui.internal.igPushTextWrapPos
 import cimgui.internal.igRadioButtonBool
 import cimgui.internal.igRadioButtonIntPtr
 import cimgui.internal.igRender
-import cimgui.internal.igRenderArrow
-import cimgui.internal.igRenderArrowPointingAt
-import cimgui.internal.igRenderBullet
-import cimgui.internal.igRenderCheckMark
-import cimgui.internal.igRenderColorRectWithAlphaCheckerboard
-import cimgui.internal.igRenderFrame
-import cimgui.internal.igRenderFrameBorder
-import cimgui.internal.igRenderMouseCursor
-import cimgui.internal.igRenderText
-import cimgui.internal.igRenderTextClipped
-import cimgui.internal.igRenderTextClippedEx
-import cimgui.internal.igRenderTextEllipsis
-import cimgui.internal.igRenderTextWrapped
 import cimgui.internal.igResetMouseDragDelta
 import cimgui.internal.igSameLine
 import cimgui.internal.igSaveIniSettingsToDisk
@@ -350,25 +213,19 @@ import cimgui.internal.igSaveIniSettingsToMemory
 import cimgui.internal.igSelectableBool
 import cimgui.internal.igSelectableBoolPtr
 import cimgui.internal.igSeparator
-import cimgui.internal.igSeparatorEx
-import cimgui.internal.igSetActiveID
 import cimgui.internal.igSetClipboardText
 import cimgui.internal.igSetColorEditOptions
 import cimgui.internal.igSetColumnOffset
 import cimgui.internal.igSetColumnWidth
 import cimgui.internal.igSetCurrentContext
-import cimgui.internal.igSetCurrentFont
 import cimgui.internal.igSetCursorPos
 import cimgui.internal.igSetCursorPosX
 import cimgui.internal.igSetCursorPosY
 import cimgui.internal.igSetCursorScreenPos
-import cimgui.internal.igSetFocusID
-import cimgui.internal.igSetHoveredID
 import cimgui.internal.igSetItemAllowOverlap
 import cimgui.internal.igSetItemDefaultFocus
 import cimgui.internal.igSetKeyboardFocusHere
 import cimgui.internal.igSetMouseCursor
-import cimgui.internal.igSetNavID
 import cimgui.internal.igSetNextItemOpen
 import cimgui.internal.igSetNextItemWidth
 import cimgui.internal.igSetNextWindowBgAlpha
@@ -376,35 +233,25 @@ import cimgui.internal.igSetNextWindowCollapsed
 import cimgui.internal.igSetNextWindowContentSize
 import cimgui.internal.igSetNextWindowFocus
 import cimgui.internal.igSetNextWindowPos
-import cimgui.internal.igSetNextWindowScroll
 import cimgui.internal.igSetNextWindowSize
 import cimgui.internal.igSetScrollFromPosXFloat
-import cimgui.internal.igSetScrollFromPosXWindowPtr
 import cimgui.internal.igSetScrollFromPosYFloat
-import cimgui.internal.igSetScrollFromPosYWindowPtr
 import cimgui.internal.igSetScrollHereX
 import cimgui.internal.igSetScrollHereY
 import cimgui.internal.igSetScrollXFloat
-import cimgui.internal.igSetScrollXWindowPtr
 import cimgui.internal.igSetScrollYFloat
-import cimgui.internal.igSetScrollYWindowPtr
 import cimgui.internal.igSetStateStorage
 import cimgui.internal.igSetTabItemClosed
 import cimgui.internal.igSetTooltip
 import cimgui.internal.igSetWindowCollapsedBool
 import cimgui.internal.igSetWindowCollapsedStr
-import cimgui.internal.igSetWindowCollapsedWindowPtr
 import cimgui.internal.igSetWindowFocusNil
 import cimgui.internal.igSetWindowFocusStr
 import cimgui.internal.igSetWindowFontScale
 import cimgui.internal.igSetWindowPosStr
 import cimgui.internal.igSetWindowPosVec2
-import cimgui.internal.igSetWindowPosWindowPtr
 import cimgui.internal.igSetWindowSizeStr
 import cimgui.internal.igSetWindowSizeVec2
-import cimgui.internal.igSetWindowSizeWindowPtr
-import cimgui.internal.igShadeVertsLinearColorGradientKeepAlpha
-import cimgui.internal.igShadeVertsLinearUV
 import cimgui.internal.igShowAboutWindow
 import cimgui.internal.igShowDemoWindow
 import cimgui.internal.igShowFontSelector
@@ -412,8 +259,6 @@ import cimgui.internal.igShowMetricsWindow
 import cimgui.internal.igShowStyleEditor
 import cimgui.internal.igShowStyleSelector
 import cimgui.internal.igShowUserGuide
-import cimgui.internal.igShrinkWidths
-import cimgui.internal.igShutdown
 import cimgui.internal.igSliderAngle
 import cimgui.internal.igSliderFloat
 import cimgui.internal.igSliderFloat2
@@ -425,37 +270,22 @@ import cimgui.internal.igSliderInt3
 import cimgui.internal.igSliderInt4
 import cimgui.internal.igSmallButton
 import cimgui.internal.igSpacing
-import cimgui.internal.igStartMouseMovingWindow
 import cimgui.internal.igStyleColorsClassic
 import cimgui.internal.igStyleColorsDark
 import cimgui.internal.igStyleColorsLight
-import cimgui.internal.igTabBarCloseTab
-import cimgui.internal.igTabBarFindTabByID
-import cimgui.internal.igTabBarQueueChangeTabOrder
-import cimgui.internal.igTabBarRemoveTab
-import cimgui.internal.igTabItemEx
-import cimgui.internal.igTempInputIsActive
 import cimgui.internal.igText
 import cimgui.internal.igTextColored
 import cimgui.internal.igTextDisabled
-import cimgui.internal.igTextEx
 import cimgui.internal.igTextUnformatted
 import cimgui.internal.igTextWrapped
-import cimgui.internal.igTreeNodeBehavior
-import cimgui.internal.igTreeNodeBehaviorIsOpen
 import cimgui.internal.igTreeNodeExStr
 import cimgui.internal.igTreeNodeExStrStr
 import cimgui.internal.igTreeNodeStr
 import cimgui.internal.igTreeNodeStrStr
 import cimgui.internal.igTreePop
-import cimgui.internal.igTreePushOverrideID
 import cimgui.internal.igTreePushPtr
 import cimgui.internal.igTreePushStr
 import cimgui.internal.igUnindent
-import cimgui.internal.igUpdateHoveredWindowAndCaptureFlags
-import cimgui.internal.igUpdateMouseMovingWindowEndFrame
-import cimgui.internal.igUpdateMouseMovingWindowNewFrame
-import cimgui.internal.igUpdateWindowParentAndRootLinks
 import cimgui.internal.igVSliderFloat
 import cimgui.internal.igVSliderInt
 import cimgui.internal.igValueBool
@@ -476,28 +306,16 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.usePinned
-import kotlinx.cinterop.wcstr
 
 actual object ImGui {
     actual fun acceptDragDropPayload(type: String, flags: Flag<ImGuiDragDropFlags>?): ImGuiPayload =
             igAcceptDragDropPayload(type, flags?.value ?: 0)!!.let(::ImGuiPayload)
-
-    actual fun activateItem(id: ImGuiID) {
-        igActivateItem(id.value)
-    }
 
     actual fun alignTextToFramePadding() {
         igAlignTextToFramePadding()
     }
 
     actual fun arrowButton(strId: String, dir: ImGuiDir): Boolean = igArrowButton(strId, dir.value)
-
-    actual fun arrowButtonEx(
-        strId: String,
-        dir: ImGuiDir,
-        sizeArg: Vec2,
-        flags: Flag<ImGuiButtonFlags>?
-    ): Boolean = igArrowButtonEx(strId, dir.value, sizeArg.toCValue(), flags?.value ?: 0)
 
     actual fun begin(
         name: String,
@@ -521,27 +339,11 @@ actual object ImGui {
         flags: Flag<ImGuiWindowFlags>?
     ): Boolean = igBeginChildID(id.value, size.toCValue(), border, flags?.value ?: 0)
 
-    actual fun beginChildEx(
-        name: String,
-        id: ImGuiID,
-        sizeArg: Vec2,
-        border: Boolean,
-        flags: Flag<ImGuiWindowFlags>
-    ): Boolean = igBeginChildEx(name, id.value, sizeArg.toCValue(), border, flags.value)
-
     actual fun beginChildFrame(
         id: ImGuiID,
         size: Vec2,
         flags: Flag<ImGuiWindowFlags>?
     ): Boolean = igBeginChildFrame(id.value, size.toCValue(), flags?.value ?: 0)
-
-    actual fun beginColumns(
-        strId: String,
-        count: Int,
-        flags: Flag<ImGuiColumnsFlags>?
-    ) {
-        igBeginColumns(strId, count, flags?.value ?: 0)
-    }
 
     actual fun beginCombo(
         label: String,
@@ -576,9 +378,6 @@ actual object ImGui {
     actual fun beginPopupContextWindow(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
             igBeginPopupContextWindow(strId, popupFlags.value)
 
-    actual fun beginPopupEx(id: ImGuiID, extraFlags: Flag<ImGuiWindowFlags>): Boolean =
-            igBeginPopupEx(id.value, extraFlags.value)
-
     actual fun beginPopupModal(
         name: String,
         pOpen: KMutableProperty0<Boolean>?,
@@ -602,23 +401,6 @@ actual object ImGui {
         igBeginTooltip()
     }
 
-    actual fun beginTooltipEx(extraFlags: Flag<ImGuiWindowFlags>,
-            tooltipFlags: Flag<ImGuiTooltipFlags>) {
-        igBeginTooltipEx(extraFlags.value, tooltipFlags.value)
-    }
-
-    actual fun bringWindowToDisplayBack(window: ImGuiWindow) {
-        igBringWindowToDisplayBack(window.ptr)
-    }
-
-    actual fun bringWindowToDisplayFront(window: ImGuiWindow) {
-        igBringWindowToDisplayFront(window.ptr)
-    }
-
-    actual fun bringWindowToFocusFront(window: ImGuiWindow) {
-        igBringWindowToFocusFront(window.ptr)
-    }
-
     actual fun bullet() {
         igBullet()
     }
@@ -628,12 +410,6 @@ actual object ImGui {
     }
 
     actual fun button(label: String, size: Vec2): Boolean = igButton(label, size.toCValue())
-
-    actual fun buttonEx(
-        label: String,
-        sizeArg: Vec2,
-        flags: Flag<ImGuiButtonFlags>?
-    ): Boolean = igButtonEx(label, sizeArg.toCValue(), flags?.value ?: 0)
 
     actual fun calcItemWidth(): Float = igCalcItemWidth()
 
@@ -650,16 +426,6 @@ actual object ImGui {
             }
         }
     }
-
-    actual fun calcTypematicRepeatAmount(
-        t0: Float,
-        t1: Float,
-        repeatDelay: Float,
-        repeatRate: Float
-    ): Int = igCalcTypematicRepeatAmount(t0, t1, repeatDelay, repeatRate)
-
-    actual fun calcWrapWidthForPos(pos: Vec2, wrapPosX: Float): Float =
-            igCalcWrapWidthForPos(pos.toCValue(), wrapPosX)
 
     actual fun captureKeyboardFromApp(wantCaptureKeyboardValue: Boolean) {
         igCaptureKeyboardFromApp(wantCaptureKeyboardValue)
@@ -682,36 +448,9 @@ actual object ImGui {
         igCheckboxFlags(label, ptrFlags, flagsValue)
     }
 
-    actual fun clearActiveID() {
-        igClearActiveID()
-    }
-
-    actual fun clearDragDrop() {
-        igClearDragDrop()
-    }
-
-    actual fun clearIniSettings() {
-        igClearIniSettings()
-    }
-
-    actual fun closeButton(id: ImGuiID, pos: Vec2): Boolean = igCloseButton(id.value,
-            pos.toCValue())
-
     actual fun closeCurrentPopup() {
         igCloseCurrentPopup()
     }
-
-    actual fun closePopupToLevel(remaining: Int, restoreFocusToWindowUnderPopup: Boolean) {
-        igClosePopupToLevel(remaining, restoreFocusToWindowUnderPopup)
-    }
-
-    actual fun closePopupsOverWindow(refWindow: ImGuiWindow,
-            restoreFocusToWindowUnderPopup: Boolean) {
-        igClosePopupsOverWindow(refWindow.ptr, restoreFocusToWindowUnderPopup)
-    }
-
-    actual fun collapseButton(id: ImGuiID, pos: Vec2): Boolean = igCollapseButton(id.value,
-            pos.toCValue())
 
     actual fun collapsingHeader(label: String, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
             igCollapsingHeaderTreeNodeFlags(label, flags?.value ?: 0)
@@ -836,12 +575,6 @@ actual object ImGui {
     actual fun createContext(sharedFontAtlas: ImFontAtlas?): ImGuiContext =
             igCreateContext(sharedFontAtlas?.ptr)!!.let(::ImGuiContext)
 
-    actual fun createNewWindowSettings(name: String): ImGuiWindowSettings =
-            igCreateNewWindowSettings(name)!!.let(::ImGuiWindowSettings)
-
-    actual fun dataTypeGetInfo(dataType: ImGuiDataType): ImGuiDataTypeInfo =
-            igDataTypeGetInfo(dataType.value)!!.let(::ImGuiDataTypeInfo)
-
     actual fun debugCheckVersionAndDataLayout(
         versionStr: String,
         szIo: ULong,
@@ -852,14 +585,6 @@ actual object ImGui {
         szDrawidx: ULong
     ): Boolean = igDebugCheckVersionAndDataLayout(versionStr, szIo.convert(), szStyle.convert(),
             szVec2.convert(), szVec4.convert(), szDrawvert.convert(), szDrawidx.convert())
-
-    actual fun debugDrawItemRect(col: UInt) {
-        igDebugDrawItemRect(col)
-    }
-
-    actual fun debugStartItemPicker() {
-        igDebugStartItemPicker()
-    }
 
     actual fun destroyContext(ctx: ImGuiContext?) {
         igDestroyContext(ctx?.ptr)
@@ -1030,10 +755,6 @@ actual object ImGui {
         igEndChildFrame()
     }
 
-    actual fun endColumns() {
-        igEndColumns()
-    }
-
     actual fun endCombo() {
         igEndCombo()
     }
@@ -1082,52 +803,6 @@ actual object ImGui {
         igEndTooltip()
     }
 
-    actual fun findOrCreateColumns(window: ImGuiWindow, id: ImGuiID): ImGuiColumns =
-            igFindOrCreateColumns(window.ptr, id.value)!!.let(::ImGuiColumns)
-
-    actual fun findOrCreateWindowSettings(name: String): ImGuiWindowSettings =
-            igFindOrCreateWindowSettings(name)!!.let(::ImGuiWindowSettings)
-
-    actual fun findRenderedTextEnd(text: String, textEnd: String?): String? =
-            igFindRenderedTextEnd(text, textEnd)?.toKString()
-
-    actual fun findSettingsHandler(typeName: String): ImGuiSettingsHandler =
-            igFindSettingsHandler(typeName)!!.let(::ImGuiSettingsHandler)
-
-    actual fun findWindowByID(id: ImGuiID): ImGuiWindow =
-            igFindWindowByID(id.value)!!.let(::ImGuiWindow)
-
-    actual fun findWindowByName(name: String): ImGuiWindow =
-            igFindWindowByName(name)!!.let(::ImGuiWindow)
-
-    actual fun findWindowSettings(id: ImGuiID): ImGuiWindowSettings =
-            igFindWindowSettings(id.value)!!.let(::ImGuiWindowSettings)
-
-    actual fun focusTopMostWindowUnderOne(underThisWindow: ImGuiWindow, ignoreWindow: ImGuiWindow) {
-        igFocusTopMostWindowUnderOne(underThisWindow.ptr, ignoreWindow.ptr)
-    }
-
-    actual fun focusWindow(window: ImGuiWindow) {
-        igFocusWindow(window.ptr)
-    }
-
-    actual fun focusableItemRegister(window: ImGuiWindow, id: ImGuiID): Boolean =
-            igFocusableItemRegister(window.ptr, id.value)
-
-    actual fun focusableItemUnregister(window: ImGuiWindow) {
-        igFocusableItemUnregister(window.ptr)
-    }
-
-    actual fun gcAwakeTransientWindowBuffers(window: ImGuiWindow) {
-        igGcAwakeTransientWindowBuffers(window.ptr)
-    }
-
-    actual fun gcCompactTransientWindowBuffers(window: ImGuiWindow) {
-        igGcCompactTransientWindowBuffers(window.ptr)
-    }
-
-    actual fun getActiveID(): ImGuiID = igGetActiveID().let(::ImGuiID)
-
     actual fun getBackgroundDrawList(): ImDrawList = igGetBackgroundDrawList()!!.let(::ImDrawList)
 
     actual fun getClipboardText(): String? = igGetClipboardText()?.toKString()
@@ -1141,32 +816,17 @@ actual object ImGui {
 
     actual fun getColumnIndex(): Int = igGetColumnIndex()
 
-    actual fun getColumnNormFromOffset(columns: ImGuiColumns, offset: Float): Float =
-            igGetColumnNormFromOffset(columns.ptr, offset)
-
     actual fun getColumnOffset(columnIndex: Int): Float = igGetColumnOffset(columnIndex)
-
-    actual fun getColumnOffsetFromNorm(columns: ImGuiColumns, offsetNorm: Float): Float =
-            igGetColumnOffsetFromNorm(columns.ptr, offsetNorm)
 
     actual fun getColumnWidth(columnIndex: Int): Float = igGetColumnWidth(columnIndex)
 
     actual fun getColumnsCount(): Int = igGetColumnsCount()
 
-    actual fun getColumnsID(strId: String, count: Int): ImGuiID = igGetColumnsID(strId,
-            count).let(::ImGuiID)
-
     actual fun getCurrentContext(): ImGuiContext = igGetCurrentContext()!!.let(::ImGuiContext)
-
-    actual fun getCurrentWindow(): ImGuiWindow = igGetCurrentWindow()!!.let(::ImGuiWindow)
-
-    actual fun getCurrentWindowRead(): ImGuiWindow = igGetCurrentWindowRead()!!.let(::ImGuiWindow)
 
     actual fun getCursorPosX(): Float = igGetCursorPosX()
 
     actual fun getCursorPosY(): Float = igGetCursorPosY()
-
-    actual fun getDefaultFont(): ImFont = igGetDefaultFont()!!.let(::ImFont)
 
     actual fun getDragDropPayload(): ImGuiPayload = igGetDragDropPayload()!!.let(::ImGuiPayload)
 
@@ -1175,10 +835,6 @@ actual object ImGui {
     actual fun getDrawListSharedData(): ImDrawListSharedData =
             igGetDrawListSharedData()!!.let(::ImDrawListSharedData)
 
-    actual fun getFocusID(): ImGuiID = igGetFocusID().let(::ImGuiID)
-
-    actual fun getFocusScopeID(): ImGuiID = igGetFocusScopeID().let(::ImGuiID)
-
     actual fun getFont(): ImFont = igGetFont()!!.let(::ImFont)
 
     actual fun getFontSize(): Float = igGetFontSize()
@@ -1186,16 +842,11 @@ actual object ImGui {
     actual fun getForegroundDrawList(): ImDrawList =
             igGetForegroundDrawListNil()!!.let(::ImDrawList)
 
-    actual fun getForegroundDrawList(window: ImGuiWindow): ImDrawList =
-            igGetForegroundDrawListWindowPtr(window.ptr)!!.let(::ImDrawList)
-
     actual fun getFrameCount(): Int = igGetFrameCount()
 
     actual fun getFrameHeight(): Float = igGetFrameHeight()
 
     actual fun getFrameHeightWithSpacing(): Float = igGetFrameHeightWithSpacing()
-
-    actual fun getHoveredID(): ImGuiID = igGetHoveredID().let(::ImGuiID)
 
     actual fun getID(strId: String): ImGuiID = igGetIDStr(strId).let(::ImGuiID)
 
@@ -1204,14 +855,6 @@ actual object ImGui {
 
     actual fun getIO(): ImGuiIO = igGetIO()!!.let(::ImGuiIO)
 
-    actual fun getInputTextState(id: ImGuiID): ImGuiInputTextState =
-            igGetInputTextState(id.value)!!.let(::ImGuiInputTextState)
-
-    actual fun getItemID(): ImGuiID = igGetItemID().let(::ImGuiID)
-
-    actual fun getItemStatusFlags(): Flag<ImGuiItemStatusFlags> = igGetItemStatusFlags().let {
-            ImGuiItemStatusFlags.fromMultiple(it) }
-
     actual fun getKeyIndex(imguiKey: ImGuiKey): Int = igGetKeyIndex(imguiKey.value)
 
     actual fun getKeyPressedAmount(
@@ -1219,9 +862,6 @@ actual object ImGui {
         repeatDelay: Float,
         rate: Float
     ): Int = igGetKeyPressedAmount(keyIndex, repeatDelay, rate)
-
-    actual fun getMergedKeyModFlags(): Flag<ImGuiKeyModFlags> = igGetMergedKeyModFlags().let {
-            ImGuiKeyModFlags.fromMultiple(it) }
 
     actual fun getMouseCursor(): ImGuiMouseCursor = igGetMouseCursor().let {
             ImGuiMouseCursor.from(it) }
@@ -1250,8 +890,6 @@ actual object ImGui {
 
     actual fun getTime(): Double = igGetTime()
 
-    actual fun getTopMostPopupModal(): ImGuiWindow = igGetTopMostPopupModal()!!.let(::ImGuiWindow)
-
     actual fun getTreeNodeToLabelSpacing(): Float = igGetTreeNodeToLabelSpacing()
 
     actual fun getVersion(): String? = igGetVersion()?.toKString()
@@ -1262,138 +900,7 @@ actual object ImGui {
 
     actual fun getWindowHeight(): Float = igGetWindowHeight()
 
-    actual fun getWindowResizeID(window: ImGuiWindow, n: Int): ImGuiID =
-            igGetWindowResizeID(window.ptr, n).let(::ImGuiID)
-
     actual fun getWindowWidth(): Float = igGetWindowWidth()
-
-    actual fun imAlphaBlendColors(colA: UInt, colB: UInt): UInt = igImAlphaBlendColors(colA,
-            colB).toUInt()
-
-    actual fun imCharIsBlankW(c: UInt): Boolean = igImCharIsBlankW(c)
-
-    actual fun imDot(a: Vec2, b: Vec2): Float = igImDot(a.toCValue(), b.toCValue())
-
-    actual fun imFloor(f: Float): Float = igImFloorFloat(f)
-
-    actual fun imFontAtlasBuildFinish(atlas: ImFontAtlas) {
-        igImFontAtlasBuildFinish(atlas.ptr)
-    }
-
-    actual fun imFontAtlasBuildInit(atlas: ImFontAtlas) {
-        igImFontAtlasBuildInit(atlas.ptr)
-    }
-
-    actual fun imFontAtlasBuildSetupFont(
-        atlas: ImFontAtlas,
-        font: ImFont,
-        fontConfig: ImFontConfig,
-        ascent: Float,
-        descent: Float
-    ) {
-        igImFontAtlasBuildSetupFont(atlas.ptr, font.ptr, fontConfig.ptr, ascent, descent)
-    }
-
-    actual fun imFontAtlasBuildWithStbTruetype(atlas: ImFontAtlas): Boolean =
-            igImFontAtlasBuildWithStbTruetype(atlas.ptr)
-
-    actual fun imGetDirQuadrantFromDelta(dx: Float, dy: Float): ImGuiDir =
-            igImGetDirQuadrantFromDelta(dx, dy).let { ImGuiDir.from(it) }
-
-    actual fun imHashStr(
-        data: String,
-        dataSize: ULong,
-        seed: UInt
-    ): UInt = igImHashStr(data, dataSize.convert(), seed).toUInt()
-
-    actual fun imInvLength(lhs: Vec2, failValue: Float): Float = igImInvLength(lhs.toCValue(),
-            failValue)
-
-    actual fun imIsPowerOfTwo(v: Int): Boolean = igImIsPowerOfTwo(v)
-
-    actual fun imLengthSqr(lhs: Vec2): Float = igImLengthSqrVec2(lhs.toCValue())
-
-    actual fun imLengthSqr(lhs: Vec4): Float = igImLengthSqrVec4(lhs.toCValue())
-
-    actual fun imLinearSweep(
-        current: Float,
-        target: Float,
-        speed: Float
-    ): Float = igImLinearSweep(current, target, speed)
-
-    actual fun imModPositive(a: Int, b: Int): Int = igImModPositive(a, b)
-
-    actual fun imParseFormatFindEnd(format: String): String? =
-            igImParseFormatFindEnd(format)?.toKString()
-
-    actual fun imParseFormatFindStart(format: String): String? =
-            igImParseFormatFindStart(format)?.toKString()
-
-    actual fun imParseFormatPrecision(format: String, defaultValue: Int): Int =
-            igImParseFormatPrecision(format, defaultValue)
-
-    actual fun imPow(x: Float, y: Float): Float = igImPowFloat(x, y)
-
-    actual fun imPow(x: Double, y: Double): Double = igImPowdouble(x, y)
-
-    actual fun imSaturate(f: Float): Float = igImSaturate(f)
-
-    actual fun imStrSkipBlank(str: String): String? = igImStrSkipBlank(str)?.toKString()
-
-    actual fun imStrbolW(bufMidLine: String, bufBegin: String): String =
-            igImStrbolW(bufMidLine.wcstr, bufBegin.wcstr)!!.toKString()
-
-    actual fun imStreolRange(str: String, strEnd: String): String? = igImStreolRange(str,
-            strEnd)?.toKString()
-
-    actual fun imStricmp(str1: String, str2: String): Int = igImStricmp(str1, str2)
-
-    actual fun imStristr(
-        haystack: String,
-        haystackEnd: String,
-        needle: String,
-        needleEnd: String
-    ): String? = igImStristr(haystack, haystackEnd, needle, needleEnd)?.toKString()
-
-    actual fun imStrlenW(str: String): Int = igImStrlenW(str.wcstr)
-
-    actual fun imStrnicmp(
-        str1: String,
-        str2: String,
-        count: ULong
-    ): Int = igImStrnicmp(str1, str2, count.convert())
-
-    actual fun imTextCharFromUtf8(
-        outChar: KMutableProperty0<UInt>,
-        inText: String,
-        inTextEnd: String
-    ): Int = usingProperty(outChar) { ptrOutChar ->
-        igImTextCharFromUtf8(ptrOutChar, inText, inTextEnd)
-    }
-
-    actual fun imTextCountCharsFromUtf8(inText: String, inTextEnd: String): Int =
-            igImTextCountCharsFromUtf8(inText, inTextEnd)
-
-    actual fun imTextCountUtf8BytesFromChar(inText: String, inTextEnd: String): Int =
-            igImTextCountUtf8BytesFromChar(inText, inTextEnd)
-
-    actual fun imTextCountUtf8BytesFromStr(inText: String, inTextEnd: String): Int =
-            igImTextCountUtf8BytesFromStr(inText.wcstr, inTextEnd.wcstr)
-
-    actual fun imTriangleArea(
-        a: Vec2,
-        b: Vec2,
-        c: Vec2
-    ): Float = igImTriangleArea(a.toCValue(), b.toCValue(), c.toCValue())
-
-    actual fun imTriangleContainsPoint(
-        a: Vec2,
-        b: Vec2,
-        c: Vec2,
-        p: Vec2
-    ): Boolean = igImTriangleContainsPoint(a.toCValue(), b.toCValue(), c.toCValue(), p.toCValue())
-
-    actual fun imUpperPowerOfTwo(v: Int): Int = igImUpperPowerOfTwo(v)
 
     actual fun image(
         userTextureId: ImTextureID,
@@ -1418,24 +925,8 @@ actual object ImGui {
     ): Boolean = igImageButton(userTextureId.value, size.toCValue(), uv0.toCValue(), uv1.toCValue(),
             framePadding, bgCol.toCValue(), tintCol.toCValue())
 
-    actual fun imageButtonEx(
-        id: ImGuiID,
-        textureId: ImTextureID,
-        size: Vec2,
-        uv0: Vec2,
-        uv1: Vec2,
-        padding: Vec2,
-        bgCol: Vec4,
-        tintCol: Vec4
-    ): Boolean = igImageButtonEx(id.value, textureId.value, size.toCValue(), uv0.toCValue(),
-            uv1.toCValue(), padding.toCValue(), bgCol.toCValue(), tintCol.toCValue())
-
     actual fun indent(indentW: Float) {
         igIndent(indentW)
-    }
-
-    actual fun initialize(context: ImGuiContext) {
-        igInitialize(context.ptr)
     }
 
     actual fun inputDouble(
@@ -1548,13 +1039,6 @@ actual object ImGui {
     actual fun invisibleButton(strId: String, size: Vec2): Boolean = igInvisibleButton(strId,
             size.toCValue())
 
-    actual fun isActiveIdUsingKey(key: ImGuiKey): Boolean = igIsActiveIdUsingKey(key.value)
-
-    actual fun isActiveIdUsingNavDir(dir: ImGuiDir): Boolean = igIsActiveIdUsingNavDir(dir.value)
-
-    actual fun isActiveIdUsingNavInput(input: ImGuiNavInput): Boolean =
-            igIsActiveIdUsingNavInput(input.value)
-
     actual fun isAnyItemActive(): Boolean = igIsAnyItemActive()
 
     actual fun isAnyItemFocused(): Boolean = igIsAnyItemFocused()
@@ -1562,8 +1046,6 @@ actual object ImGui {
     actual fun isAnyItemHovered(): Boolean = igIsAnyItemHovered()
 
     actual fun isAnyMouseDown(): Boolean = igIsAnyMouseDown()
-
-    actual fun isDragDropPayloadBeingAccepted(): Boolean = igIsDragDropPayloadBeingAccepted()
 
     actual fun isItemActivated(): Boolean = igIsItemActivated()
 
@@ -1585,17 +1067,12 @@ actual object ImGui {
 
     actual fun isItemToggledOpen(): Boolean = igIsItemToggledOpen()
 
-    actual fun isItemToggledSelection(): Boolean = igIsItemToggledSelection()
-
     actual fun isItemVisible(): Boolean = igIsItemVisible()
 
     actual fun isKeyDown(userKeyIndex: Int): Boolean = igIsKeyDown(userKeyIndex)
 
     actual fun isKeyPressed(userKeyIndex: Int, repeat: Boolean): Boolean =
             igIsKeyPressed(userKeyIndex, repeat)
-
-    actual fun isKeyPressedMap(key: ImGuiKey, repeat: Boolean): Boolean =
-            igIsKeyPressedMap(key.value, repeat)
 
     actual fun isKeyReleased(userKeyIndex: Int): Boolean = igIsKeyReleased(userKeyIndex)
 
@@ -1606,9 +1083,6 @@ actual object ImGui {
             igIsMouseDoubleClicked(button.value)
 
     actual fun isMouseDown(button: ImGuiMouseButton): Boolean = igIsMouseDown(button.value)
-
-    actual fun isMouseDragPastThreshold(button: ImGuiMouseButton, lockThreshold: Float): Boolean =
-            igIsMouseDragPastThreshold(button.value, lockThreshold)
 
     actual fun isMouseDragging(button: ImGuiMouseButton, lockThreshold: Float): Boolean =
             igIsMouseDragging(button.value, lockThreshold)
@@ -1623,13 +1097,8 @@ actual object ImGui {
 
     actual fun isMouseReleased(button: ImGuiMouseButton): Boolean = igIsMouseReleased(button.value)
 
-    actual fun isNavInputDown(n: ImGuiNavInput): Boolean = igIsNavInputDown(n.value)
-
     actual fun isPopupOpen(strId: String, flags: Flag<ImGuiPopupFlags>?): Boolean =
             igIsPopupOpenStr(strId, flags?.value ?: 0)
-
-    actual fun isPopupOpen(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
-            igIsPopupOpenID(id.value, popupFlags.value)
 
     actual fun isRectVisible(size: Vec2): Boolean = igIsRectVisibleNil(size.toCValue())
 
@@ -1638,9 +1107,6 @@ actual object ImGui {
 
     actual fun isWindowAppearing(): Boolean = igIsWindowAppearing()
 
-    actual fun isWindowChildOf(window: ImGuiWindow, potentialParent: ImGuiWindow): Boolean =
-            igIsWindowChildOf(window.ptr, potentialParent.ptr)
-
     actual fun isWindowCollapsed(): Boolean = igIsWindowCollapsed()
 
     actual fun isWindowFocused(flags: Flag<ImGuiFocusedFlags>?): Boolean =
@@ -1648,17 +1114,6 @@ actual object ImGui {
 
     actual fun isWindowHovered(flags: Flag<ImGuiHoveredFlags>?): Boolean =
             igIsWindowHovered(flags?.value ?: 0)
-
-    actual fun isWindowNavFocusable(window: ImGuiWindow): Boolean =
-            igIsWindowNavFocusable(window.ptr)
-
-    actual fun itemSize(size: Vec2, textBaselineY: Float) {
-        igItemSizeVec2(size.toCValue(), textBaselineY)
-    }
-
-    actual fun keepAliveID(id: ImGuiID) {
-        igKeepAliveID(id.value)
-    }
 
     actual fun labelText(label: String, fmt: String) {
         igLabelText(label, fmt)
@@ -1693,20 +1148,8 @@ actual object ImGui {
         igLogFinish()
     }
 
-    actual fun logRenderedText(
-        refPos: ImVec2,
-        text: String,
-        textEnd: String?
-    ) {
-        igLogRenderedText(refPos.ptr, text, textEnd)
-    }
-
     actual fun logText(fmt: String) {
         igLogText(fmt)
-    }
-
-    actual fun logToBuffer(autoOpenDepth: Int) {
-        igLogToBuffer(autoOpenDepth)
     }
 
     actual fun logToClipboard(autoOpenDepth: Int) {
@@ -1719,18 +1162,6 @@ actual object ImGui {
 
     actual fun logToTTY(autoOpenDepth: Int) {
         igLogToTTY(autoOpenDepth)
-    }
-
-    actual fun markIniSettingsDirty() {
-        igMarkIniSettingsDirtyNil()
-    }
-
-    actual fun markIniSettingsDirty(window: ImGuiWindow) {
-        igMarkIniSettingsDirtyWindowPtr(window.ptr)
-    }
-
-    actual fun markItemEdited(id: ImGuiID) {
-        igMarkItemEdited(id.value)
     }
 
     actual fun menuItem(
@@ -1747,20 +1178,6 @@ actual object ImGui {
         enabled: Boolean
     ): Boolean = usingProperty(pSelected) { ptrPSelected ->
         igMenuItemBoolPtr(label, shortcut, ptrPSelected, enabled)
-    }
-
-    actual fun navInitWindow(window: ImGuiWindow, forceReinit: Boolean) {
-        igNavInitWindow(window.ptr, forceReinit)
-    }
-
-    actual fun navMoveRequestButNoResultYet(): Boolean = igNavMoveRequestButNoResultYet()
-
-    actual fun navMoveRequestCancel() {
-        igNavMoveRequestCancel()
-    }
-
-    actual fun navMoveRequestTryWrapping(window: ImGuiWindow, moveFlags: Flag<ImGuiNavMoveFlags>) {
-        igNavMoveRequestTryWrapping(window.ptr, moveFlags.value)
     }
 
     actual fun newFrame() {
@@ -1782,10 +1199,6 @@ actual object ImGui {
     actual fun openPopupContextItem(strId: String?, popupFlags: Flag<ImGuiPopupFlags>): Boolean =
             igOpenPopupContextItem(strId, popupFlags.value)
 
-    actual fun openPopupEx(id: ImGuiID, popupFlags: Flag<ImGuiPopupFlags>?) {
-        igOpenPopupEx(id.value, popupFlags?.value ?: 0)
-    }
-
     actual fun popAllowKeyboardFocus() {
         igPopAllowKeyboardFocus()
     }
@@ -1798,24 +1211,12 @@ actual object ImGui {
         igPopClipRect()
     }
 
-    actual fun popColumnsBackground() {
-        igPopColumnsBackground()
-    }
-
-    actual fun popFocusScope() {
-        igPopFocusScope()
-    }
-
     actual fun popFont() {
         igPopFont()
     }
 
     actual fun popID() {
         igPopID()
-    }
-
-    actual fun popItemFlag() {
-        igPopItemFlag()
     }
 
     actual fun popItemWidth() {
@@ -1858,18 +1259,6 @@ actual object ImGui {
         igPushClipRect(clipRectMin.toCValue(), clipRectMax.toCValue(), intersectWithCurrentClipRect)
     }
 
-    actual fun pushColumnClipRect(columnIndex: Int) {
-        igPushColumnClipRect(columnIndex)
-    }
-
-    actual fun pushColumnsBackground() {
-        igPushColumnsBackground()
-    }
-
-    actual fun pushFocusScope(id: ImGuiID) {
-        igPushFocusScope(id.value)
-    }
-
     actual fun pushFont(font: ImFont) {
         igPushFont(font.ptr)
     }
@@ -1886,20 +1275,8 @@ actual object ImGui {
         igPushIDInt(intId)
     }
 
-    actual fun pushItemFlag(option: Flag<ImGuiItemFlags>, enabled: Boolean) {
-        igPushItemFlag(option.value, enabled)
-    }
-
     actual fun pushItemWidth(itemWidth: Float) {
         igPushItemWidth(itemWidth)
-    }
-
-    actual fun pushMultiItemsWidths(components: Int, widthFull: Float) {
-        igPushMultiItemsWidths(components, widthFull)
-    }
-
-    actual fun pushOverrideID(id: ImGuiID) {
-        igPushOverrideID(id.value)
     }
 
     actual fun pushStyleColor(idx: ImGuiCol, col: UInt) {
@@ -1935,148 +1312,6 @@ actual object ImGui {
 
     actual fun render() {
         igRender()
-    }
-
-    actual fun renderArrow(
-        drawList: ImDrawList,
-        pos: Vec2,
-        col: UInt,
-        dir: ImGuiDir,
-        scale: Float
-    ) {
-        igRenderArrow(drawList.ptr, pos.toCValue(), col, dir.value, scale)
-    }
-
-    actual fun renderArrowPointingAt(
-        drawList: ImDrawList,
-        pos: Vec2,
-        halfSz: Vec2,
-        direction: ImGuiDir,
-        col: UInt
-    ) {
-        igRenderArrowPointingAt(drawList.ptr, pos.toCValue(), halfSz.toCValue(), direction.value,
-                col)
-    }
-
-    actual fun renderBullet(
-        drawList: ImDrawList,
-        pos: Vec2,
-        col: UInt
-    ) {
-        igRenderBullet(drawList.ptr, pos.toCValue(), col)
-    }
-
-    actual fun renderCheckMark(
-        drawList: ImDrawList,
-        pos: Vec2,
-        col: UInt,
-        sz: Float
-    ) {
-        igRenderCheckMark(drawList.ptr, pos.toCValue(), col, sz)
-    }
-
-    actual fun renderColorRectWithAlphaCheckerboard(
-        drawList: ImDrawList,
-        pMin: Vec2,
-        pMax: Vec2,
-        fillCol: UInt,
-        gridStep: Float,
-        gridOff: Vec2,
-        rounding: Float,
-        roundingCornersFlags: Int
-    ) {
-        igRenderColorRectWithAlphaCheckerboard(drawList.ptr, pMin.toCValue(), pMax.toCValue(),
-                fillCol, gridStep, gridOff.toCValue(), rounding, roundingCornersFlags)
-    }
-
-    actual fun renderFrame(
-        pMin: Vec2,
-        pMax: Vec2,
-        fillCol: UInt,
-        border: Boolean,
-        rounding: Float
-    ) {
-        igRenderFrame(pMin.toCValue(), pMax.toCValue(), fillCol, border, rounding)
-    }
-
-    actual fun renderFrameBorder(
-        pMin: Vec2,
-        pMax: Vec2,
-        rounding: Float
-    ) {
-        igRenderFrameBorder(pMin.toCValue(), pMax.toCValue(), rounding)
-    }
-
-    actual fun renderMouseCursor(
-        drawList: ImDrawList,
-        pos: Vec2,
-        scale: Float,
-        mouseCursor: ImGuiMouseCursor,
-        colFill: UInt,
-        colBorder: UInt,
-        colShadow: UInt
-    ) {
-        igRenderMouseCursor(drawList.ptr, pos.toCValue(), scale, mouseCursor.value, colFill,
-                colBorder, colShadow)
-    }
-
-    actual fun renderText(
-        pos: Vec2,
-        text: String,
-        textEnd: String?,
-        hideTextAfterHash: Boolean
-    ) {
-        igRenderText(pos.toCValue(), text, textEnd, hideTextAfterHash)
-    }
-
-    actual fun renderTextClipped(
-        posMin: Vec2,
-        posMax: Vec2,
-        text: String,
-        textEnd: String,
-        textSizeIfKnown: ImVec2,
-        align: Vec2,
-        clipRect: ImRect?
-    ) {
-        igRenderTextClipped(posMin.toCValue(), posMax.toCValue(), text, textEnd,
-                textSizeIfKnown.ptr, align.toCValue(), clipRect?.ptr)
-    }
-
-    actual fun renderTextClippedEx(
-        drawList: ImDrawList,
-        posMin: Vec2,
-        posMax: Vec2,
-        text: String,
-        textEnd: String,
-        textSizeIfKnown: ImVec2,
-        align: Vec2,
-        clipRect: ImRect?
-    ) {
-        igRenderTextClippedEx(drawList.ptr, posMin.toCValue(), posMax.toCValue(), text, textEnd,
-                textSizeIfKnown.ptr, align.toCValue(), clipRect?.ptr)
-    }
-
-    actual fun renderTextEllipsis(
-        drawList: ImDrawList,
-        posMin: Vec2,
-        posMax: Vec2,
-        clipMaxX: Float,
-        ellipsisMaxX: Float,
-        text: String,
-        textEnd: String,
-        textSizeIfKnown: ImVec2
-    ) {
-        igRenderTextEllipsis(drawList.ptr, posMin.toCValue(), posMax.toCValue(), clipMaxX,
-                ellipsisMaxX, text, textEnd, textSizeIfKnown.ptr)
-    }
-
-    actual fun renderTextWrapped(
-        pos: Vec2,
-        text: String,
-        textEnd: String,
-        wrapWidth: Float
-    ) {
-        igRenderTextWrapped(pos.toCValue(), text, textEnd, wrapWidth)
     }
 
     actual fun resetMouseDragDelta(button: ImGuiMouseButton) {
@@ -2116,14 +1351,6 @@ actual object ImGui {
         igSeparator()
     }
 
-    actual fun separatorEx(flags: Flag<ImGuiSeparatorFlags>) {
-        igSeparatorEx(flags.value)
-    }
-
-    actual fun setActiveID(id: ImGuiID, window: ImGuiWindow) {
-        igSetActiveID(id.value, window.ptr)
-    }
-
     actual fun setClipboardText(text: String) {
         igSetClipboardText(text)
     }
@@ -2144,10 +1371,6 @@ actual object ImGui {
         igSetCurrentContext(ctx.ptr)
     }
 
-    actual fun setCurrentFont(font: ImFont) {
-        igSetCurrentFont(font.ptr)
-    }
-
     actual fun setCursorPos(localPos: Vec2) {
         igSetCursorPos(localPos.toCValue())
     }
@@ -2164,14 +1387,6 @@ actual object ImGui {
         igSetCursorScreenPos(pos.toCValue())
     }
 
-    actual fun setFocusID(id: ImGuiID, window: ImGuiWindow) {
-        igSetFocusID(id.value, window.ptr)
-    }
-
-    actual fun setHoveredID(id: ImGuiID) {
-        igSetHoveredID(id.value)
-    }
-
     actual fun setItemAllowOverlap() {
         igSetItemAllowOverlap()
     }
@@ -2186,14 +1401,6 @@ actual object ImGui {
 
     actual fun setMouseCursor(cursorType: ImGuiMouseCursor) {
         igSetMouseCursor(cursorType.value)
-    }
-
-    actual fun setNavID(
-        id: ImGuiID,
-        navLayer: Int,
-        focusScopeId: ImGuiID
-    ) {
-        igSetNavID(id.value, navLayer, focusScopeId.value)
     }
 
     actual fun setNextItemOpen(isOpen: Boolean, cond: Flag<ImGuiCond>?) {
@@ -2228,10 +1435,6 @@ actual object ImGui {
         igSetNextWindowPos(pos.toCValue(), cond?.value ?: 0, pivot.toCValue())
     }
 
-    actual fun setNextWindowScroll(scroll: Vec2) {
-        igSetNextWindowScroll(scroll.toCValue())
-    }
-
     actual fun setNextWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {
         igSetNextWindowSize(size.toCValue(), cond?.value ?: 0)
     }
@@ -2240,24 +1443,8 @@ actual object ImGui {
         igSetScrollFromPosXFloat(localX, centerXRatio)
     }
 
-    actual fun setScrollFromPosX(
-        window: ImGuiWindow,
-        localX: Float,
-        centerXRatio: Float
-    ) {
-        igSetScrollFromPosXWindowPtr(window.ptr, localX, centerXRatio)
-    }
-
     actual fun setScrollFromPosY(localY: Float, centerYRatio: Float) {
         igSetScrollFromPosYFloat(localY, centerYRatio)
-    }
-
-    actual fun setScrollFromPosY(
-        window: ImGuiWindow,
-        localY: Float,
-        centerYRatio: Float
-    ) {
-        igSetScrollFromPosYWindowPtr(window.ptr, localY, centerYRatio)
     }
 
     actual fun setScrollHereX(centerXRatio: Float) {
@@ -2272,16 +1459,8 @@ actual object ImGui {
         igSetScrollXFloat(scrollX)
     }
 
-    actual fun setScrollX(window: ImGuiWindow, newScrollX: Float) {
-        igSetScrollXWindowPtr(window.ptr, newScrollX)
-    }
-
     actual fun setScrollY(scrollY: Float) {
         igSetScrollYFloat(scrollY)
-    }
-
-    actual fun setScrollY(window: ImGuiWindow, newScrollY: Float) {
-        igSetScrollYWindowPtr(window.ptr, newScrollY)
     }
 
     actual fun setStateStorage(storage: ImGuiStorage) {
@@ -2308,14 +1487,6 @@ actual object ImGui {
         igSetWindowCollapsedStr(name, collapsed, cond?.value ?: 0)
     }
 
-    actual fun setWindowCollapsed(
-        window: ImGuiWindow,
-        collapsed: Boolean,
-        cond: Flag<ImGuiCond>?
-    ) {
-        igSetWindowCollapsedWindowPtr(window.ptr, collapsed, cond?.value ?: 0)
-    }
-
     actual fun setWindowFocus() {
         igSetWindowFocusNil()
     }
@@ -2340,14 +1511,6 @@ actual object ImGui {
         igSetWindowPosStr(name, pos.toCValue(), cond?.value ?: 0)
     }
 
-    actual fun setWindowPos(
-        window: ImGuiWindow,
-        pos: Vec2,
-        cond: Flag<ImGuiCond>?
-    ) {
-        igSetWindowPosWindowPtr(window.ptr, pos.toCValue(), cond?.value ?: 0)
-    }
-
     actual fun setWindowSize(size: Vec2, cond: Flag<ImGuiCond>?) {
         igSetWindowSizeVec2(size.toCValue(), cond?.value ?: 0)
     }
@@ -2358,41 +1521,6 @@ actual object ImGui {
         cond: Flag<ImGuiCond>?
     ) {
         igSetWindowSizeStr(name, size.toCValue(), cond?.value ?: 0)
-    }
-
-    actual fun setWindowSize(
-        window: ImGuiWindow,
-        size: Vec2,
-        cond: Flag<ImGuiCond>?
-    ) {
-        igSetWindowSizeWindowPtr(window.ptr, size.toCValue(), cond?.value ?: 0)
-    }
-
-    actual fun shadeVertsLinearColorGradientKeepAlpha(
-        drawList: ImDrawList,
-        vertStartIdx: Int,
-        vertEndIdx: Int,
-        gradientP0: Vec2,
-        gradientP1: Vec2,
-        col0: UInt,
-        col1: UInt
-    ) {
-        igShadeVertsLinearColorGradientKeepAlpha(drawList.ptr, vertStartIdx, vertEndIdx,
-                gradientP0.toCValue(), gradientP1.toCValue(), col0, col1)
-    }
-
-    actual fun shadeVertsLinearUV(
-        drawList: ImDrawList,
-        vertStartIdx: Int,
-        vertEndIdx: Int,
-        a: Vec2,
-        b: Vec2,
-        uvA: Vec2,
-        uvB: Vec2,
-        clamp: Boolean
-    ) {
-        igShadeVertsLinearUV(drawList.ptr, vertStartIdx, vertEndIdx, a.toCValue(), b.toCValue(),
-                uvA.toCValue(), uvB.toCValue(), clamp)
     }
 
     actual fun showAboutWindow(pOpen: KMutableProperty0<Boolean>?) {
@@ -2425,18 +1553,6 @@ actual object ImGui {
 
     actual fun showUserGuide() {
         igShowUserGuide()
-    }
-
-    actual fun shrinkWidths(
-        items: ImGuiShrinkWidthItem,
-        count: Int,
-        widthExcess: Float
-    ) {
-        igShrinkWidths(items.ptr, count, widthExcess)
-    }
-
-    actual fun shutdown(context: ImGuiContext) {
-        igShutdown(context.ptr)
     }
 
     actual fun sliderAngle(
@@ -2563,10 +1679,6 @@ actual object ImGui {
         igSpacing()
     }
 
-    actual fun startMouseMovingWindow(window: ImGuiWindow) {
-        igStartMouseMovingWindow(window.ptr)
-    }
-
     actual fun styleColorsClassic(dst: ImGuiStyle?) {
         igStyleColorsClassic(dst?.ptr)
     }
@@ -2578,36 +1690,6 @@ actual object ImGui {
     actual fun styleColorsLight(dst: ImGuiStyle?) {
         igStyleColorsLight(dst?.ptr)
     }
-
-    actual fun tabBarCloseTab(tabBar: ImGuiTabBar, tab: ImGuiTabItem) {
-        igTabBarCloseTab(tabBar.ptr, tab.ptr)
-    }
-
-    actual fun tabBarFindTabByID(tabBar: ImGuiTabBar, tabId: ImGuiID): ImGuiTabItem =
-            igTabBarFindTabByID(tabBar.ptr, tabId.value)!!.let(::ImGuiTabItem)
-
-    actual fun tabBarQueueChangeTabOrder(
-        tabBar: ImGuiTabBar,
-        tab: ImGuiTabItem,
-        dir: Int
-    ) {
-        igTabBarQueueChangeTabOrder(tabBar.ptr, tab.ptr, dir)
-    }
-
-    actual fun tabBarRemoveTab(tabBar: ImGuiTabBar, tabId: ImGuiID) {
-        igTabBarRemoveTab(tabBar.ptr, tabId.value)
-    }
-
-    actual fun tabItemEx(
-        tabBar: ImGuiTabBar,
-        label: String,
-        pOpen: KMutableProperty0<Boolean>,
-        flags: Flag<ImGuiTabItemFlags>
-    ): Boolean = usingProperty(pOpen) { ptrPOpen ->
-        igTabItemEx(tabBar.ptr, label, ptrPOpen, flags.value)
-    }
-
-    actual fun tempInputIsActive(id: ImGuiID): Boolean = igTempInputIsActive(id.value)
 
     actual fun text(fmt: String) {
         igText(fmt)
@@ -2621,14 +1703,6 @@ actual object ImGui {
         igTextDisabled(fmt)
     }
 
-    actual fun textEx(
-        text: String,
-        textEnd: String?,
-        flags: Flag<ImGuiTextFlags>?
-    ) {
-        igTextEx(text, textEnd, flags?.value ?: 0)
-    }
-
     actual fun textUnformatted(text: String, textEnd: String?) {
         igTextUnformatted(text, textEnd)
     }
@@ -2640,16 +1714,6 @@ actual object ImGui {
     actual fun treeNode(label: String): Boolean = igTreeNodeStr(label)
 
     actual fun treeNode(strId: String, fmt: String): Boolean = igTreeNodeStrStr(strId, fmt)
-
-    actual fun treeNodeBehavior(
-        id: ImGuiID,
-        flags: Flag<ImGuiTreeNodeFlags>,
-        label: String,
-        labelEnd: String?
-    ): Boolean = igTreeNodeBehavior(id.value, flags.value, label, labelEnd)
-
-    actual fun treeNodeBehaviorIsOpen(id: ImGuiID, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
-            igTreeNodeBehaviorIsOpen(id.value, flags?.value ?: 0)
 
     actual fun treeNodeEx(label: String, flags: Flag<ImGuiTreeNodeFlags>?): Boolean =
             igTreeNodeExStr(label, flags?.value ?: 0)
@@ -2672,32 +1736,8 @@ actual object ImGui {
         igTreePushPtr(null)
     }
 
-    actual fun treePushOverrideID(id: ImGuiID) {
-        igTreePushOverrideID(id.value)
-    }
-
     actual fun unindent(indentW: Float) {
         igUnindent(indentW)
-    }
-
-    actual fun updateHoveredWindowAndCaptureFlags() {
-        igUpdateHoveredWindowAndCaptureFlags()
-    }
-
-    actual fun updateMouseMovingWindowEndFrame() {
-        igUpdateMouseMovingWindowEndFrame()
-    }
-
-    actual fun updateMouseMovingWindowNewFrame() {
-        igUpdateMouseMovingWindowNewFrame()
-    }
-
-    actual fun updateWindowParentAndRootLinks(
-        window: ImGuiWindow,
-        flags: Flag<ImGuiWindowFlags>,
-        parentWindow: ImGuiWindow
-    ) {
-        igUpdateWindowParentAndRootLinks(window.ptr, flags.value, parentWindow.ptr)
     }
 
     actual fun vSliderFloat(
