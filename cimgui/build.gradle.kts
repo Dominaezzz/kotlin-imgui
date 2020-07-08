@@ -252,11 +252,14 @@ kotlin {
         }
     }
 
-    val jvmTargets = listOf(
+    val jvmTargets =
+        if (useSingleTarget) listOf(HostManager.host)
+        else listOf(
             KonanTarget.LINUX_X64,
             KonanTarget.MACOS_X64,
             KonanTarget.MINGW_X64
-    )
+        )
+
     val osFamilyMap = mapOf<Family, OperatingSystemFamily>(
             Family.LINUX to objects.named(LINUX),
             Family.OSX to objects.named(MACOS),

@@ -31,6 +31,13 @@ kotlin {
     }
 
     jvm {
+        val osName = when {
+            HostManager.hostIsLinux -> LINUX
+            HostManager.hostIsMac -> MACOS
+            HostManager.hostIsMingw -> WINDOWS
+            else -> error("unknown")
+        }
+
         withJava()
         compilations {
             "main" {
@@ -41,12 +48,12 @@ kotlin {
                     implementation(project(":imgui-glfw"))
                     implementation(project(":imgui-opengl"))
                     implementation(project(":cimgui", "jvmDefault"))
-                    runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
-                    // runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
-                    // runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
+                    if (HostManager.hostIsLinux) runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
+                    if (HostManager.hostIsMac) runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
+                    if (HostManager.hostIsMingw) runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
 
                     val lwjglVersion = "3.2.2"
-                    val lwjglNatives = "natives-linux"
+                    val lwjglNatives = "natives-$osName"
 
                     implementation("com.kgl:kgl-glfw:$kglVersion")
 
@@ -65,8 +72,8 @@ kotlin {
         }
 
         attributes {
-            attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(LINUX))  // or MACOS or WINDOWS
-            attribute(ARCHITECTURE_ATTRIBUTE,     objects.named(X86_64)) // or x86 or arm32 or arm64
+            attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(osName))
+            attribute(ARCHITECTURE_ATTRIBUTE,     objects.named(X86_64))
         }
     }
 
