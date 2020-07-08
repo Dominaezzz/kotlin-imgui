@@ -24,7 +24,7 @@ import org.lwjgl.opengl.*
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-actual class ImguiOpenGL3 actual constructor(
+actual class ImGuiOpenGL3 actual constructor(
 		glslVersionStr: String,
 		private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
 		private val unpackRowLength: Boolean,

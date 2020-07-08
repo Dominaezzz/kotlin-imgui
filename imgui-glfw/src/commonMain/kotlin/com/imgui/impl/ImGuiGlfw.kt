@@ -5,7 +5,7 @@ import com.kgl.core.Flag
 import com.kgl.glfw.*
 import io.ktor.utils.io.core.Closeable
 
-class ImGuiGLFW(private val window: Window, installCallbacks: Boolean) : Closeable {
+class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
 	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
@@ -19,7 +19,7 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean) : Closeab
 		val io = ImGui.getIO()
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasMouseCursors
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasSetMousePos
-		// io.BackendPlatformName = "ImguiGlfw".cstr
+		// io.BackendPlatformName = "ImGuiGlfw".cstr
 
 		// Keyboard mapping.
 		fun mapKey(imGuiKey: ImGuiKey, key: KeyboardKey) {

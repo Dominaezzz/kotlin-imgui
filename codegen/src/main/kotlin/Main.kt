@@ -742,7 +742,7 @@ fun main(args: Array<String>) {
 			.addMember("%T::class", experimentalContracts)
 			.build()
 
-	val imguiDSL = FileSpec.builder("com.imgui", "ImguiDSL")
+	val imguiDSL = FileSpec.builder("com.imgui", "ImGuiDSL")
 	val functionMap = imguiObj.funSpecs.groupBy { it.name }
 	for (funSpec in imguiObj.funSpecs) {
 		if (funSpec.name == "beginTooltipEx") continue

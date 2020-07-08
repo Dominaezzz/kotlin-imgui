@@ -20,7 +20,7 @@ import io.ktor.utils.io.core.Closeable
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-expect class ImguiOpenGL3(
+expect class ImGuiOpenGL3(
 		glslVersionStr: String = "#version 130",
 		useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
 		unpackRowLength: Boolean = true,
