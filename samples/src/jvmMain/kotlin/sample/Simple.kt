@@ -1,16 +1,16 @@
 package sample
 
 import com.imgui.*
-import com.imgui.impl.ImGuiGLFW
-import com.imgui.impl.ImguiOpenGL3
+import com.imgui.impl.ImGuiGlfw
+import com.imgui.impl.ImGuiOpenGL3
 import com.kgl.glfw.Glfw
 import com.kgl.glfw.OpenGLProfile
 import com.kgl.glfw.Window
 import org.lwjgl.opengl.GL11
 
 class Simple(private val window: Window) {
-	private val glfw: ImGuiGLFW
-	private val gl: ImguiOpenGL3
+	private val glfw: ImGuiGlfw
+	private val gl: ImGuiOpenGL3
 
 	// Our state
 	private var showDemoWindow = false
@@ -38,8 +38,8 @@ class Simple(private val window: Window) {
 		// ImGui.styleColorsDark()
 
 		// Setup Platform/Renderer bindings
-		glfw = ImGuiGLFW(window, true)
-		gl = ImguiOpenGL3(glslVersion)
+		glfw = ImGuiGlfw(window, true)
+		gl = ImGuiOpenGL3(glslVersion)
 
 		// Load Fonts
 		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
