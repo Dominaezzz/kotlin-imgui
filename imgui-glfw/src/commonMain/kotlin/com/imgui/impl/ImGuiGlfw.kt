@@ -173,7 +173,7 @@ class ImGuiGLFW(private val window: Window, installCallbacks: Boolean) : Closeab
 
 		// Update gamepads
 		run {
-			for (i in 0..ImGuiNavInput.values().size) {
+			for (i in ImGuiNavInput.values().indices) {
 				io.navInputs(i, 0.0f)
 			}
 			if (ImGuiConfigFlags.NavEnableGamepad in io.configFlags) {
