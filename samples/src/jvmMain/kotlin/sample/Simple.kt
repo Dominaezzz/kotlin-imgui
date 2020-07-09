@@ -21,12 +21,12 @@ class Simple(private val window: Window) {
 		// Decide GL+GLSL versions
 
 		// GL 3.0 + GLSL 130
-		val glslVersion = "#version 130";
+		val glslVersion = "#version 130"
 
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
 		ImGui.createContext()
-		val io = ImGui.getIO()
+		// val io = ImGui.getIO()
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableKeyboard.toInt() // Enable Keyboard Controls
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableGamepad.toInt()  // Enable Gamepad Controls
 
@@ -139,7 +139,7 @@ fun main(args: Array<String>) {
 
 	// Setup window
 	Glfw.setErrorCallback { error, description ->
-		println("Glfw Error ${error}: $description");
+		println("Glfw Error ${error}: $description")
 	}
 
 	check(Glfw.init())
