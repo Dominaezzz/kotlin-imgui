@@ -1,6 +1,7 @@
 package com.imgui.impl
 
 import cimgui.internal.*
+import cimgui.internal.ImDrawData
 import cimgui.internal.ImDrawVert
 import cimgui.internal.ImGuiViewport
 import com.imgui.*
@@ -52,6 +53,8 @@ actual class ImGuiOpenGL3 actual constructor(glslVersionStr: String) : Closeable
 	private val elementsHandle: Int
 
 	init {
+		GL.createCapabilities()
+		glVersion = if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_MAJOR_VERSION) * 100 + GL30.glGetInteger(GL30.GL_MINOR_VERSION) * 10 else 200
 		glVersion =
 			if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_MAJOR_VERSION) * 100 + GL30.glGetInteger(GL30.GL_MINOR_VERSION) * 10 else 200
 		glHasPolygonMode = glVersion >= 200
@@ -70,8 +73,6 @@ actual class ImGuiOpenGL3 actual constructor(glslVersionStr: String) : Closeable
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasViewports
 
 		glslVersionString = glslVersionStr
-
-		GL.createCapabilities()
 
 		// Make a dummy GL call (we don't actually need the result)
 		// IF YOU GET A CRASH HERE: it probably means that you haven't initialized the OpenGL function loader used by this code.
