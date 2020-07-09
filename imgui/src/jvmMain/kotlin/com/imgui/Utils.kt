@@ -3,10 +3,9 @@ package com.imgui
 import cimgui.internal.*
 import cimgui.internal.ImVec2
 import cimgui.internal.ImVec4
-import java.io.File
+import java.io.*
 import java.util.*
-import kotlin.reflect.KMutableProperty0
-import kotlin.jvm.JvmName
+import kotlin.reflect.*
 
 // Use this for temp values.
 internal object ImGuiTemps {
@@ -60,12 +59,12 @@ internal fun loadCImGuiNativeLibs() {
 }
 
 internal inline fun <TReturn, TProp, TNative> usingGeneralProperty(
-		prop: KMutableProperty0<TProp>,
-		newP: () -> TNative,
-		deleteP: (TNative) -> Unit,
-		getP: (TNative) -> TProp,
-		setP: (TNative, TProp) -> Unit,
-		block: (TNative) -> TReturn
+	prop: KMutableProperty0<TProp>,
+	newP: () -> TNative,
+	deleteP: (TNative) -> Unit,
+	getP: (TNative) -> TProp,
+	setP: (TNative, TProp) -> Unit,
+	block: (TNative) -> TReturn
 ): TReturn {
 	val ptr = newP()
 	return try {
@@ -85,7 +84,14 @@ internal inline fun <TReturn, TProp, TNative> usingGeneralProperty(
 
 @JvmName("usingBoolProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Boolean>, block: (SWIGTYPE_p_bool) -> T): T {
-	return usingGeneralProperty(prop, CImGui::new_boolp, CImGui::delete_boolp, CImGui::boolp_value, CImGui::boolp_assign, block)
+	return usingGeneralProperty(
+		prop,
+		CImGui::new_boolp,
+		CImGui::delete_boolp,
+		CImGui::boolp_value,
+		CImGui::boolp_assign,
+		block
+	)
 }
 
 @JvmName("usingBoolPropertyN")
@@ -100,12 +106,12 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Boolean>?, block:
 @JvmName("usingUIntProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<UInt>, block: (SWIGTYPE_p_unsigned_int) -> T): T {
 	return usingGeneralProperty(
-			prop,
-			CImGui::new_uintp,
-			CImGui::delete_uintp,
-			{ ptr -> CImGui.uintp_value(ptr).toUInt() },
-			{ ptr, value -> CImGui.uintp_assign(ptr, value.toLong()) },
-			block
+		prop,
+		CImGui::new_uintp,
+		CImGui::delete_uintp,
+		{ ptr -> CImGui.uintp_value(ptr).toUInt() },
+		{ ptr, value -> CImGui.uintp_assign(ptr, value.toLong()) },
+		block
 	)
 }
 
@@ -120,7 +126,14 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<UInt>?, block: (S
 
 @JvmName("usingIntProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Int>, block: (SWIGTYPE_p_int) -> T): T {
-	return usingGeneralProperty(prop, CImGui::new_intp, CImGui::delete_intp, CImGui::intp_value, CImGui::intp_assign, block)
+	return usingGeneralProperty(
+		prop,
+		CImGui::new_intp,
+		CImGui::delete_intp,
+		CImGui::intp_value,
+		CImGui::intp_assign,
+		block
+	)
 }
 
 @JvmName("usingIntPropertyN")
@@ -135,12 +148,12 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Int>?, block: (SW
 @JvmName("usingULongProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<ULong>, block: (SWIGTYPE_p_size_t) -> T): T {
 	return usingGeneralProperty(
-			prop,
-			CImGui::new_size_tp,
-			CImGui::delete_size_tp,
-			{ ptr -> CImGui.size_tp_value(ptr).toULong() },
-			{ ptr, value -> CImGui.size_tp_assign(ptr, value.toLong()) },
-			block
+		prop,
+		CImGui::new_size_tp,
+		CImGui::delete_size_tp,
+		{ ptr -> CImGui.size_tp_value(ptr).toULong() },
+		{ ptr, value -> CImGui.size_tp_assign(ptr, value.toLong()) },
+		block
 	)
 }
 
@@ -155,7 +168,14 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<ULong>?, block: (
 
 @JvmName("usingFloatProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Float>, block: (SWIGTYPE_p_float) -> T): T {
-	return usingGeneralProperty(prop, CImGui::new_floatp, CImGui::delete_floatp, CImGui::floatp_value, CImGui::floatp_assign, block)
+	return usingGeneralProperty(
+		prop,
+		CImGui::new_floatp,
+		CImGui::delete_floatp,
+		CImGui::floatp_value,
+		CImGui::floatp_assign,
+		block
+	)
 }
 
 @JvmName("usingFloatPropertyN")
@@ -169,7 +189,14 @@ internal inline fun <T> usingPropertyN(prop: KMutableProperty0<Float>?, block: (
 
 @JvmName("usingDoubleProperty")
 internal inline fun <T> usingProperty(prop: KMutableProperty0<Double>, block: (SWIGTYPE_p_double) -> T): T {
-	return usingGeneralProperty(prop, CImGui::new_doublep, CImGui::delete_doublep, CImGui::doublep_value, CImGui::doublep_assign, block)
+	return usingGeneralProperty(
+		prop,
+		CImGui::new_doublep,
+		CImGui::delete_doublep,
+		CImGui::doublep_value,
+		CImGui::doublep_assign,
+		block
+	)
 }
 
 @JvmName("usingDoublePropertyN")

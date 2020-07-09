@@ -1,6 +1,6 @@
 package com.imgui
 
-import kotlin.jvm.JvmName
+import kotlin.jvm.*
 
 interface Flag<T> where T : Enum<T>, T : Flag<T> {
 	val value: Int
@@ -21,17 +21,17 @@ interface Flag<T> where T : Enum<T>, T : Flag<T> {
 
 	@ImGuiInternal
 	class EnumInfo<T> internal constructor(
-			val values: Array<T>,
-			val lookUp: Map<Int, T>
+		val values: Array<T>,
+		val lookUp: Map<Int, T>
 	) where T : Enum<T>, T : Flag<T>
 
 	private class Flags<T>(
-			override val value: Int,
-			override val info: EnumInfo<T>
+		override val value: Int,
+		override val info: EnumInfo<T>
 	) : Flag<T> where T : Enum<T>, T : Flag<T> {
-       override fun toString(): String {
-           return info.values.filter { it in this }.joinToString(" | ") { it.name }
-       }
+		override fun toString(): String {
+			return info.values.filter { it in this }.joinToString(" | ") { it.name }
+		}
 	}
 }
 

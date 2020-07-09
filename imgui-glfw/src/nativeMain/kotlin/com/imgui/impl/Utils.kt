@@ -1,14 +1,9 @@
 package com.imgui.impl
 
-import cglfw.glfwGetClipboardString
-import cglfw.glfwSetClipboardString
-import com.imgui.ImGuiIO
-import com.imgui.Vec2
-import com.kgl.glfw.Window
-import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.staticCFunction
-import kotlinx.cinterop.toKString
+import cglfw.*
+import com.imgui.*
+import com.kgl.glfw.*
+import kotlinx.cinterop.*
 
 
 actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {

@@ -1,6 +1,6 @@
 package com.imgui.impl
 
-import io.ktor.utils.io.core.Closeable
+import io.ktor.utils.io.core.*
 
 //----------------------------------------
 // OpenGL    GLSL      GLSL
@@ -21,13 +21,13 @@ import io.ktor.utils.io.core.Closeable
 //----------------------------------------
 
 expect class ImGuiOpenGL3(
-		glslVersionStr: String = "#version 130",
-		useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
-		unpackRowLength: Boolean = true,
-		usePolygonMode: Boolean = true,
-		useSamplerBinding: Boolean = false,
-		useClipOrigin: Boolean = true,
-		useDrawWithBaseVertex: Boolean = true
+	glslVersionStr: String = "#version 130",
+	useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
+	unpackRowLength: Boolean = true,
+	usePolygonMode: Boolean = true,
+	useSamplerBinding: Boolean = false,
+	useClipOrigin: Boolean = true,
+	useDrawWithBaseVertex: Boolean = true
 ) : Closeable {
 
 	fun newFrame()

@@ -1,7 +1,7 @@
 package com.imgui.impl
 
-import com.imgui.ImGuiIO
-import com.kgl.glfw.Window
+import com.imgui.*
+import com.kgl.glfw.*
 
 
 expect fun setupClipboard(ioObj: ImGuiIO, window: Window)

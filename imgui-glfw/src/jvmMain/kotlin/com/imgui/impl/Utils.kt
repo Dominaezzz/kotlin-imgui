@@ -1,14 +1,11 @@
 package com.imgui.impl
 
-import cimgui.internal.SWIGTYPE_p_f_p_void__p_char
-import cimgui.internal.SWIGTYPE_p_f_p_void_p_q_const__char__void
-import cimgui.internal.SWIGTYPE_p_void
+import cimgui.internal.*
 import com.imgui.ImGuiIO
-import com.imgui.Vec2
-import com.kgl.glfw.Window
-import org.lwjgl.glfw.GLFW
-import org.lwjgl.system.Callback
-import org.lwjgl.system.dyncall.DynCallback
+import com.kgl.glfw.*
+import org.lwjgl.glfw.*
+import org.lwjgl.system.*
+import org.lwjgl.system.dyncall.*
 
 
 actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {

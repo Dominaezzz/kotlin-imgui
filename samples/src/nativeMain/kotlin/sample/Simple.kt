@@ -1,15 +1,9 @@
 package sample
 
-import com.imgui.ImGui
-import com.imgui.impl.ImGuiGlfw
-import com.imgui.impl.ImGuiOpenGL3
-import com.kgl.glfw.Glfw
-import com.kgl.glfw.OpenGLProfile
-import com.kgl.glfw.Window
-import com.kgl.opengl.GL_COLOR_BUFFER_BIT
-import com.kgl.opengl.glClear
-import com.kgl.opengl.glClearColor
-import com.kgl.opengl.glViewport
+import com.imgui.*
+import com.imgui.impl.*
+import com.kgl.glfw.*
+import com.kgl.opengl.*
 
 class Simple(private val window: Window) {
 	private val glfw: ImGuiGlfw
@@ -114,7 +108,9 @@ class Simple(private val window: Window) {
 			ImGui.sameLine()
 			ImGui.text("counter = $counter")
 
-			ImGui.text("Application average ${round(1000.0f / io.framerate, 3)} ms/frame (${round(io.framerate, 1)} FPS)")
+			ImGui.text(
+				"Application average ${round(1000.0f / io.framerate, 3)} ms/frame (${round(io.framerate, 1)} FPS)"
+			)
 			ImGui.end()
 		}
 
