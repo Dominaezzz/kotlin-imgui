@@ -419,6 +419,4 @@ class ImGuiGlfw(val mainWindow: Window, installCallbacks: Boolean) : Closeable {
 			window.opacity = alpha
 		}
 	}
-
-	private fun shutdownPlatformInterface() {}
 }

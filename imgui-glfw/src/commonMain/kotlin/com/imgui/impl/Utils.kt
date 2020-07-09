@@ -10,8 +10,9 @@ expect fun setupClipboard(ioObj: ImGuiIO, window: Window)
 
 expect fun freeClipboard(ioObj: ImGuiIO)
 
-//FIXME commonize
+//FIXME create common properties for the callbacks and commonize the functions
 internal expect fun ImGuiGlfw.initPlatformInterface()
+internal expect fun ImGuiGlfw.shutdownPlatformInterface()
 
 expect var ImGuiIO.imGuiGlfw: ImGuiGlfw?
 
