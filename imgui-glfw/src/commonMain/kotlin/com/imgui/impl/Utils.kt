@@ -11,7 +11,9 @@ expect fun setupClipboard(ioObj: ImGuiIO, window: Window)
 expect fun freeClipboard(ioObj: ImGuiIO)
 
 //FIXME commonize
-internal expect fun initPlatformInterface()
+internal expect fun ImGuiGlfw.initPlatformInterface()
+
+expect var ImGuiIO.imGuiGlfw: ImGuiGlfw?
 
 expect var ImGuiViewport.glfwWindow: Window?
 expect var ImGuiViewport.glfwViewportData: ImGuiGlfw.ViewportData?
