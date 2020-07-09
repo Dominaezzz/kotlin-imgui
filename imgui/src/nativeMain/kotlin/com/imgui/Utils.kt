@@ -3,9 +3,9 @@ package com.imgui
 import cimgui.internal.ImVec2
 import cimgui.internal.ImVec4
 import kotlinx.cinterop.*
-import platform.posix.size_tVar
-import kotlin.native.concurrent.ThreadLocal
-import kotlin.reflect.KMutableProperty0
+import platform.posix.*
+import kotlin.native.concurrent.*
+import kotlin.reflect.*
 
 @ThreadLocal
 internal object ImGuiTemps {
@@ -56,10 +56,10 @@ internal inline fun <T> usingVec4(block: (ImVec4) -> T): T {
 }
 
 internal inline fun <T, TProp, reified TVar : CPrimitiveVar> usingGeneralProperty(
-		prop: KMutableProperty0<TProp>,
-		getValue: (TVar) -> TProp,
-		setValue: (TVar, TProp) -> Unit,
-		block: (CPointer<TVar>) -> T
+	prop: KMutableProperty0<TProp>,
+	getValue: (TVar) -> TProp,
+	setValue: (TVar, TProp) -> Unit,
+	block: (CPointer<TVar>) -> T
 ): T {
 	return usingVar<TVar, T> { nativeValue ->
 		val propValue = prop.get()

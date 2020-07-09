@@ -3,7 +3,7 @@ package com.imgui.impl
 import com.imgui.*
 import com.kgl.core.Flag
 import com.kgl.glfw.*
-import io.ktor.utils.io.core.Closeable
+import io.ktor.utils.io.core.*
 
 class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
@@ -52,11 +52,14 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 
 		mouseCursors[ImGuiMouseCursor.Arrow.cValue] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.TextInput.cValue] = Cursor(Cursor.Standard.IBeam)
-		mouseCursors[ImGuiMouseCursor.ResizeAll.cValue] = Cursor(Cursor.Standard.Arrow)   // FIXME: GLFW doesn't have this.
+		// FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.ResizeAll.cValue] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.ResizeNS.cValue] = Cursor(Cursor.Standard.VResize)
 		mouseCursors[ImGuiMouseCursor.ResizeEW.cValue] = Cursor(Cursor.Standard.HResize)
-		mouseCursors[ImGuiMouseCursor.ResizeNESW.cValue] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
-		mouseCursors[ImGuiMouseCursor.ResizeNWSE.cValue] = Cursor(Cursor.Standard.Arrow)  // FIXME: GLFW doesn't have this.
+		// FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.ResizeNESW.cValue] = Cursor(Cursor.Standard.Arrow)
+		// FIXME: GLFW doesn't have this.
+		mouseCursors[ImGuiMouseCursor.ResizeNWSE.cValue] = Cursor(Cursor.Standard.Arrow)
 		mouseCursors[ImGuiMouseCursor.Hand.cValue] = Cursor(Cursor.Standard.Hand)
 
 		if (installCallbacks) {
@@ -197,6 +200,7 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 					}
 				}
 
+				//@formatter:off
 				mapButton(ImGuiNavInput.Activate,   0)     // Cross / A
 				mapButton(ImGuiNavInput.Cancel,     1)     // Circle / B
 				mapButton(ImGuiNavInput.Menu,       2)     // Square / X
@@ -213,6 +217,7 @@ class ImGuiGlfw(private val window: Window, installCallbacks: Boolean) : Closeab
 				mapAnalog(ImGuiNavInput.LStickRight,0,  +0.3f,  +0.9f)
 				mapAnalog(ImGuiNavInput.LStickUp,   1,  +0.3f,  +0.9f)
 				mapAnalog(ImGuiNavInput.LStickDown, 1,  -0.3f,  -0.9f)
+				//@formatter:on
 
 				if (axesCount > 0 && buttonsCount > 0) {
 					io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasGamepad

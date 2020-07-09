@@ -1,6 +1,6 @@
 package sample
 
-import kotlin.math.round
+import kotlin.math.*
 
 fun pow(base: Int, exponent: Int): Int {
 	if (exponent == 0) return 1

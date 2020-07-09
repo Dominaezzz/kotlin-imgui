@@ -1,10 +1,12 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import com.imgui.ImGui
+import cimgui.internal.ImDrawData
+import cimgui.internal.ImDrawVert
+import com.imgui.*
 import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
-import io.ktor.utils.io.core.Closeable
+import io.ktor.utils.io.core.*
 import kotlinx.cinterop.*
 
 //----------------------------------------
@@ -26,13 +28,13 @@ import kotlinx.cinterop.*
 //----------------------------------------
 
 actual class ImGuiOpenGL3 actual constructor(
-		glslVersionStr: String,
-		private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
-		private val unpackRowLength: Boolean,
-		private val usePolygonMode: Boolean,
-		private val useSamplerBinding: Boolean,
-		private val useClipOrigin: Boolean,
-		private val useDrawWithBaseVertex: Boolean
+	glslVersionStr: String,
+	private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
+	private val unpackRowLength: Boolean,
+	private val usePolygonMode: Boolean,
+	private val useSamplerBinding: Boolean,
+	private val useClipOrigin: Boolean,
+	private val useDrawWithBaseVertex: Boolean
 ) : Closeable {
 
 	private val fontTexture: UInt
@@ -103,6 +105,7 @@ actual class ImGuiOpenGL3 actual constructor(
 
 			check(status == GL_TRUE.toInt()) { "ERROR: Failed to compile $desc!" }
 		}
+
 		fun checkProgram(handle: UInt, desc: String) {
 			val status = memScoped {
 				val value = alloc<IntVar>()
@@ -183,17 +186,20 @@ actual class ImGuiOpenGL3 actual constructor(
 		val T = drawData.DisplayPos.y
 		val B = drawData.DisplayPos.y + drawData.DisplaySize.y
 
+		//@formatter:off
 		val orthoProjection = floatArrayOf(
-				2.0f/(R-L),   0.0f,         0.0f,   0.0f,
-				0.0f,         2.0f/(T-B),   0.0f,   0.0f,
-				0.0f,         0.0f,        -1.0f,   0.0f,
-				(R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f
+			2.0f/(R-L),   0.0f,         0.0f,   0.0f,
+			0.0f,         2.0f/(T-B),   0.0f,   0.0f,
+			0.0f,         0.0f,        -1.0f,   0.0f,
+			(R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f
 		)
+		//@formatter:on
 		glUseProgram(shaderHandle)
 		glUniform1i(attribLocationTex, 0)
 		glUniformMatrix4fv(attribLocationProjMtx, 1, GL_FALSE.toUByte(), orthoProjection.refTo(0))
 		if (useSamplerBinding) {
-			glBindSampler(0U, 0U) // We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
+			// We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
+			glBindSampler(0U, 0U)
 		}
 
 		if (useVertexArray) glBindVertexArray(vertexArrayObject)
@@ -204,9 +210,11 @@ actual class ImGuiOpenGL3 actual constructor(
 		glEnableVertexAttribArray(attribLocationVtxPos.toUInt())
 		glEnableVertexAttribArray(attribLocationVtxUV.toUInt())
 		glEnableVertexAttribArray(attribLocationVtxColor.toUInt())
+		//@formatter:off
 		glVertexAttribPointer(attribLocationVtxPos.toUInt(),   2, GL_FLOAT,         GL_FALSE.toUByte(), sizeOf<ImDrawVert>().toInt(), 0L.toCPointer<ByteVar>())
 		glVertexAttribPointer(attribLocationVtxUV.toUInt(),    2, GL_FLOAT,         GL_FALSE.toUByte(), sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * 2).toCPointer<ByteVar>())
 		glVertexAttribPointer(attribLocationVtxColor.toUInt(), 4, GL_UNSIGNED_BYTE, GL_TRUE.toUByte(),  sizeOf<ImDrawVert>().toInt(), (sizeOf<FloatVar>() * (2 + 2)).toCPointer<ByteVar>())
+		//@formatter:on
 	}
 
 	// OpenGL3 Render function.
@@ -267,8 +275,10 @@ actual class ImGuiOpenGL3 actual constructor(
 			val cmdList = drawData.CmdLists!![n]!!.pointed
 
 			// Upload buffer
+			//@formatter:off
 			glBufferData(GL_ARRAY_BUFFER, cmdList.VtxBuffer.Size * sizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data, GL_STREAM_DRAW)
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, cmdList.IdxBuffer.Size * sizeOf<ImDrawIdxVar>(), cmdList.IdxBuffer.Data, GL_STREAM_DRAW)
+			//@formatter:on
 
 			for (cmd_i in 0 until cmdList.CmdBuffer.Size) {
 				val pcmd = cmdList.CmdBuffer.Data!![cmd_i]
@@ -292,7 +302,8 @@ actual class ImGuiOpenGL3 actual constructor(
 						if (clipOriginLowerLeft) {
 							glScissor(x.toInt(), (fbHeight - w).toInt(), (z - x).toInt(), (w - y).toInt())
 						} else {
-							glScissor(x.toInt(), y.toInt(), z.toInt(), w.toInt()) // Support for GL 4.5 rarely used glClipControl(GL_UPPER_LEFT)
+							// Support for GL 4.5 rarely used glClipControl(GL_UPPER_LEFT)
+							glScissor(x.toInt(), y.toInt(), z.toInt(), w.toInt())
 						}
 
 						// Bind texture, Draw
@@ -300,11 +311,13 @@ actual class ImGuiOpenGL3 actual constructor(
 
 						val indexType = if (sizeOf<ImDrawIdxVar>() == 2L) GL_UNSIGNED_SHORT else GL_UNSIGNED_INT
 						val indexOffset = (pcmd.IdxOffset.toLong() * sizeOf<ImDrawIdxVar>()).toCPointer<CPointed>()
+						//@formatter:off
 						if (useDrawWithBaseVertex) {
 							glDrawElementsBaseVertex(GL_TRIANGLES, pcmd.ElemCount.toInt(), indexType, indexOffset, pcmd.VtxOffset.toInt())
 						} else {
 							glDrawElements(GL_TRIANGLES, pcmd.ElemCount.toInt(), indexType, indexOffset)
 						}
+						//@formatter:on
 					}
 				}
 			}
@@ -322,7 +335,9 @@ actual class ImGuiOpenGL3 actual constructor(
 		glBindBuffer(GL_ARRAY_BUFFER, lastArrayBuffer.toUInt())
 		if (useVertexArray) glBindVertexArray(lastVertexArrayObject.toUInt())
 		glBlendEquationSeparate(lastBlendEquationRGB.toUInt(), lastBlendEquationAlpha.toUInt())
+		//@formatter:off
 		glBlendFuncSeparate(lastBlendSrcRGB.toUInt(), lastBlendDstRGB.toUInt(), lastBlendSrcAlpha.toUInt(), lastBlendDstAlpha.toUInt())
+		//@formatter:on
 		if (lastEnableBlend) glEnable(GL_BLEND) else glDisable(GL_BLEND)
 		if (lastEnableCullFace) glEnable(GL_CULL_FACE) else glDisable(GL_CULL_FACE)
 		if (lastEnableDepthTest) glEnable(GL_DEPTH_TEST) else glDisable(GL_DEPTH_TEST)
@@ -351,7 +366,9 @@ actual class ImGuiOpenGL3 actual constructor(
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR.toInt())
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR.toInt())
 			if (unpackRowLength) glPixelStorei(GL_UNPACK_ROW_LENGTH, 0)
+			//@formatter:off
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA.toInt(), width.value, height.value, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.value)
+			//@formatter:on
 		}
 
 		// Store our identifier

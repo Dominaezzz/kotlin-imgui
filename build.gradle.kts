@@ -1,7 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.konan.target.HostManager
-import java.io.ByteArrayOutputStream
+import org.jetbrains.kotlin.gradle.dsl.*
+import org.jetbrains.kotlin.gradle.plugin.mpp.*
+import org.jetbrains.kotlin.konan.target.*
+import java.io.*
 
 plugins {
 	kotlin("multiplatform") version "1.3.72" apply false
@@ -107,21 +107,28 @@ subprojects {
 		}
 
 		val publishTasks = tasks.withType<PublishToMavenRepository>()
-				.matching {
-					when {
-						HostManager.hostIsMingw -> it.name.startsWith("publishMingw") || it.name.startsWith("publishJvmMingw")
-						HostManager.hostIsMac -> it.name.startsWith("publishMacos") ||
-								it.name.startsWith("publishIos") ||
-								it.name.startsWith("publishJvmMacos")
-						HostManager.hostIsLinux -> it.name.startsWith("publishLinux") ||
-								it.name.startsWith("publishJs") ||
-								it.name.startsWith("publishJvmPublication") ||
-								it.name.startsWith("publishJvmLinux") ||
-								it.name.startsWith("publishMetadata") ||
-								it.name.startsWith("publishKotlinMultiplatform")
-						else -> TODO("Unknown host")
+			.matching {
+				when {
+					HostManager.hostIsMingw -> {
+						it.name.startsWith("publishMingw") ||
+							it.name.startsWith("publishJvmMingw")
 					}
+					HostManager.hostIsMac -> {
+						it.name.startsWith("publishMacos") ||
+							it.name.startsWith("publishIos") ||
+							it.name.startsWith("publishJvmMacos")
+					}
+					HostManager.hostIsLinux -> {
+						it.name.startsWith("publishLinux") ||
+							it.name.startsWith("publishJs") ||
+							it.name.startsWith("publishJvmPublication") ||
+							it.name.startsWith("publishJvmLinux") ||
+							it.name.startsWith("publishMetadata") ||
+							it.name.startsWith("publishKotlinMultiplatform")
+					}
+					else -> TODO("Unknown host")
 				}
+			}
 		tasks.register("smartPublish") {
 			dependsOn(publishTasks)
 		}

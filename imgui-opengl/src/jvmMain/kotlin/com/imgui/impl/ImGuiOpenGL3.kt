@@ -1,9 +1,10 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import com.imgui.ImGui
-import com.imgui.ImGuiBackendFlags
-import io.ktor.utils.io.core.Closeable
+import cimgui.internal.ImDrawData
+import cimgui.internal.ImDrawVert
+import com.imgui.*
+import io.ktor.utils.io.core.*
 import org.lwjgl.opengl.*
 
 //----------------------------------------
@@ -25,13 +26,13 @@ import org.lwjgl.opengl.*
 //----------------------------------------
 
 actual class ImGuiOpenGL3 actual constructor(
-		glslVersionStr: String,
-		private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
-		private val unpackRowLength: Boolean,
-		private val usePolygonMode: Boolean,
-		private val useSamplerBinding: Boolean,
-		private val useClipOrigin: Boolean,
-		private val useDrawWithBaseVertex: Boolean
+	glslVersionStr: String,
+	private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
+	private val unpackRowLength: Boolean,
+	private val usePolygonMode: Boolean,
+	private val useSamplerBinding: Boolean,
+	private val useClipOrigin: Boolean,
+	private val useDrawWithBaseVertex: Boolean
 ) : Closeable {
 
 	private val fontTexture: Int
@@ -100,6 +101,7 @@ actual class ImGuiOpenGL3 actual constructor(
 
 			check(status == GL30.GL_TRUE) { "ERROR: Failed to compile $desc!" }
 		}
+
 		fun checkProgram(handle: Int, desc: String) {
 			val status = GL30.glGetProgrami(handle, GL30.GL_LINK_STATUS)
 			val infoLog = GL30.glGetProgramInfoLog(handle)
@@ -164,17 +166,20 @@ actual class ImGuiOpenGL3 actual constructor(
 		val T = drawData.displayPos.y
 		val B = drawData.displayPos.y + drawData.displaySize.y
 
+		//@formatter:off
 		val orthoProjection = floatArrayOf(
-				2.0f/(R-L),   0.0f,         0.0f,   0.0f,
-				0.0f,         2.0f/(T-B),   0.0f,   0.0f,
-				0.0f,         0.0f,        -1.0f,   0.0f,
-				(R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f
+			2.0f/(R-L),   0.0f,         0.0f,   0.0f,
+			0.0f,         2.0f/(T-B),   0.0f,   0.0f,
+			0.0f,         0.0f,        -1.0f,   0.0f,
+			(R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f
 		)
+		//@formatter:on
 		GL30.glUseProgram(shaderHandle)
 		GL30.glUniform1i(attribLocationTex, 0)
 		GL30.glUniformMatrix4fv(attribLocationProjMtx, false, orthoProjection)
 		if (useSamplerBinding) {
-			GL33.glBindSampler(0, 0) // We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
+			// We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
+			GL33.glBindSampler(0, 0)
 		}
 
 		if (useVertexArray) GL30.glBindVertexArray(vertexArrayObject)
@@ -187,9 +192,11 @@ actual class ImGuiOpenGL3 actual constructor(
 		GL30.glEnableVertexAttribArray(attribLocationVtxColor)
 		val sizeOfFloat = 4L
 		val sizeOfImDrawVert = ((2 * sizeOfFloat) + (2 * sizeOfFloat) + (4 * 1)).toInt()
+		//@formatter:off
 		GL30.glVertexAttribPointer(attribLocationVtxPos, 2, GL30.GL_FLOAT, false, sizeOfImDrawVert, 0L)
 		GL30.glVertexAttribPointer(attribLocationVtxUV, 2, GL30.GL_FLOAT, false, sizeOfImDrawVert, sizeOfFloat * 2)
 		GL30.glVertexAttribPointer(attribLocationVtxColor, 4, GL30.GL_UNSIGNED_BYTE, true, sizeOfImDrawVert, sizeOfFloat * (2 + 2))
+		//@formatter:on
 	}
 
 	// OpenGL3 Render function.
@@ -253,8 +260,10 @@ actual class ImGuiOpenGL3 actual constructor(
 			val sizeOfImDrawIdx = Short.SIZE_BYTES.toLong()
 
 			// Upload buffer
+			//@formatter:off
 			GL30.nglBufferData(GL30.GL_ARRAY_BUFFER, cmdList.vtxBuffer.size * sizeOfImDrawVert, ImDrawVert.getCPtr(cmdList.vtxBuffer.data), GL30.GL_STREAM_DRAW)
 			GL30.nglBufferData(GL30.GL_ELEMENT_ARRAY_BUFFER, cmdList.idxBuffer.size * sizeOfImDrawIdx, SWIGTYPE_p_unsigned_short.getCPtr(cmdList.idxBuffer.data), GL30.GL_STREAM_DRAW)
+			//@formatter:on
 
 			for (cmd_i in 0 until cmdList.cmdBuffer.size) {
 				val pcmd = CImGui.ImDrawCmdArray_getitem(cmdList.cmdBuffer.data, cmd_i)
@@ -280,7 +289,8 @@ actual class ImGuiOpenGL3 actual constructor(
 						if (clipOriginLowerLeft) {
 							GL30.glScissor(x.toInt(), (fbHeight - w).toInt(), (z - x).toInt(), (w - y).toInt())
 						} else {
-							GL30.glScissor(x.toInt(), y.toInt(), z.toInt(), w.toInt()) // Support for GL 4.5 rarely used glClipControl(GL_UPPER_LEFT)
+							// Support for GL 4.5 rarely used glClipControl(GL_UPPER_LEFT)
+							GL30.glScissor(x.toInt(), y.toInt(), z.toInt(), w.toInt())
 						}
 
 						// Bind texture, Draw
@@ -288,11 +298,13 @@ actual class ImGuiOpenGL3 actual constructor(
 
 						val indexType = if (sizeOfImDrawIdx == 2L) GL30.GL_UNSIGNED_SHORT else GL30.GL_UNSIGNED_INT
 						val indexOffset = (pcmd.idxOffset * sizeOfImDrawIdx)
+						//@formatter:off
 						if (useDrawWithBaseVertex) {
 							GL32.glDrawElementsBaseVertex(GL30.GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset, pcmd.vtxOffset.toInt())
 						} else {
 							GL30.glDrawElements(GL30.GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset)
 						}
+						//@formatter:on
 					}
 				}
 			}
@@ -338,7 +350,9 @@ actual class ImGuiOpenGL3 actual constructor(
 			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_LINEAR)
 			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MAG_FILTER, GL30.GL_LINEAR)
 			if (unpackRowLength) GL30.glPixelStorei(GL30.GL_UNPACK_ROW_LENGTH, 0)
+			//@formatter:off
 			GL30.glTexImage2D(GL30.GL_TEXTURE_2D, 0, GL30.GL_RGBA, CImGui.intp_value(width), CImGui.intp_value(height), 0, GL30.GL_RGBA, GL30.GL_UNSIGNED_BYTE, SWIGTYPE_p_unsigned_char.getCPtr(CImGui.unsigned_charpp_value(pixels)))
+			//@formatter:on
 		} finally {
 			CImGui.delete_unsigned_charpp(pixels)
 			CImGui.delete_intp(width)
@@ -370,6 +384,7 @@ actual class ImGuiOpenGL3 actual constructor(
 	}
 
 	companion object {
-		private val ImDrawCallback_ResetRenderState = SWIGTYPE_p_f_p_q_const__ImDrawList_p_q_const__ImDrawCmd__void(-1L, false)
+		private val ImDrawCallback_ResetRenderState =
+			SWIGTYPE_p_f_p_q_const__ImDrawList_p_q_const__ImDrawCmd__void(-1L, false)
 	}
 }
