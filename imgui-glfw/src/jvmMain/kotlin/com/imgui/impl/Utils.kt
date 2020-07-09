@@ -1,6 +1,8 @@
 package com.imgui.impl
 
 import cimgui.internal.*
+import cimgui.internal.ImVec2
+import com.imgui.*
 import com.imgui.ImGuiIO
 import com.imgui.ImGuiPlatformIO
 import com.imgui.ImGuiPlatformMonitor
@@ -54,69 +56,185 @@ actual fun freeClipboard(ioObj: ImGuiIO) {
 }
 
 internal actual fun ImGuiGlfw.initPlatformInterface() {
-	//FIXME what's the SWIG equivalent of a staticCFunction???
-	//val platformIO = ImGui.getPlatformIO().ptr.pointed
-	//platformIO.Platform_CreateWindow = staticCFunction { viewportPtr ->
-	//	val viewport = ImGuiViewport(viewportPtr!!)
-	//	val data = ImGuiGlfw.ViewportData()
-	//	viewport.glfwViewportData = data
-	//	data.createWindow(viewport)
-	//	viewport.glfwWindow = data.window
-	//}
-	//platformIO.Platform_DestroyWindow = staticCFunction { viewportPtr ->
-	//	val viewport = ImGuiViewport(viewportPtr!!)
-	//	viewport.glfwViewportData?.destroyWindow()
-	//	viewport.glfwViewportData = null
-	//	viewport.glfwWindow = null
-	//}
-	//platformIO.Platform_ShowWindow = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.showWindow()
-	//}
-	//platformIO.Platform_SetWindowPos = staticCFunction { viewport, pos ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.setWindowPos(pos.useContents { Vec2(x, y) })
-	//}
-	//platformIO.Platform_GetWindowPos = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.getWindowPos().let {
-	//		cValue { x = it.x; y = it.y }
-	//	}
-	//}
-	//platformIO.Platform_SetWindowSize = staticCFunction { viewport, size ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.setWindowSize(size.useContents { Vec2(x, y) })
-	//}
-	//platformIO.Platform_GetWindowSize = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.getWindowSize().let {
-	//		cValue { x = it.x; y = it.y }
-	//	}
-	//}
-	//platformIO.Platform_SetWindowFocus = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.setWindowFocus()
-	//}
-	//platformIO.Platform_GetWindowFocus = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.getWindowFocus()
-	//}
-	//platformIO.Platform_GetWindowMinimized = staticCFunction { viewport ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.getWindowMinimized()
-	//}
-	//platformIO.Platform_SetWindowTitle = staticCFunction { viewport, title ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.setWindowTitle(title?.toKString() ?: "")
-	//}
-	//platformIO.Platform_RenderWindow = staticCFunction { viewport, _ ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.renderWindow()
-	//}
-	//platformIO.Platform_SwapBuffers = staticCFunction { viewport, _ ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.swapBuffers()
-	//}
-	//platformIO.Platform_SetWindowAlpha = staticCFunction { viewport, alpha ->
-	//	ImGuiViewport(viewport!!).glfwViewportData!!.setWindowAlpha(alpha)
-	//}
+	val platformIO = ImGui.getPlatformIO().ptr
+	platformIO.platform_CreateWindow = SWIGTYPE_p_f_p_ImGuiViewport__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(p)v"
+			override fun callback(args: Long) {
+				val imGuiGlfw = ImGui.getIO().imGuiGlfw!!
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val data = ImGuiGlfw.ViewportData(imGuiGlfw, viewport)
+				viewport.glfwViewportData = data
+				viewport.glfwWindow = data.window
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_DestroyWindow = SWIGTYPE_p_f_p_ImGuiViewport__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(p)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				viewport.glfwViewportData?.close()
+				viewport.glfwViewportData = null
+				viewport.glfwWindow = null
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_ShowWindow = SWIGTYPE_p_f_p_ImGuiViewport__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(p)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.showWindow()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SetWindowPos = SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void(
+		object : CallbackI.V { //TODO is this the right type?
+			override fun getSignature(): String = "(pp)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val pos = ImVec2(DynCallback.dcbArgPointer(args), false)
+				viewport.glfwViewportData!!.setWindowPos(Vec2(pos.x, pos.y))
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_GetWindowPos = SWIGTYPE_p_f_p_ImGuiViewport__ImVec2(
+		object : CallbackI.P { //TODO is this the right type?
+			override fun getSignature(): String = "(p)p"
+			override fun callback(args: Long): Long {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				return viewport.glfwViewportData!!.getWindowPos().let {
+					ImVec2.getCPtr(ImVec2().apply { x = it.x; y = it.y })
+				}
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SetWindowSize = SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void(
+		object : CallbackI.V { //TODO is this the right type?
+			override fun getSignature(): String = "(pp)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val size = ImVec2(DynCallback.dcbArgPointer(args), false)
+				viewport.glfwViewportData!!.setWindowSize(Vec2(size.x, size.y))
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_GetWindowSize = SWIGTYPE_p_f_p_ImGuiViewport__ImVec2(
+		object : CallbackI.P { //TODO is this the right type?
+			override fun getSignature(): String = "(p)p"
+			override fun callback(args: Long): Long {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				return viewport.glfwViewportData!!.getWindowSize().let {
+					ImVec2.getCPtr(ImVec2().apply { x = it.x; y = it.y })
+				}
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SetWindowFocus = SWIGTYPE_p_f_p_ImGuiViewport__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(p)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.setWindowFocus()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_GetWindowFocus = SWIGTYPE_p_f_p_ImGuiViewport__bool(
+		object : CallbackI.Z {
+			override fun getSignature(): String = "(p)B"
+			override fun callback(args: Long): Boolean {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				return viewport.glfwViewportData!!.getWindowFocus()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_GetWindowMinimized = SWIGTYPE_p_f_p_ImGuiViewport__bool(
+		object : CallbackI.Z {
+			override fun getSignature(): String = "(p)B"
+			override fun callback(args: Long): Boolean {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				return viewport.glfwViewportData!!.getWindowMinimized()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SetWindowTitle = SWIGTYPE_p_f_p_ImGuiViewport_p_q_const__char__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(pp)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val title = MemoryUtil.memUTF8(DynCallback.dcbArgPointer(args))
+				viewport.glfwViewportData!!.setWindowTitle(title)
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_RenderWindow = SWIGTYPE_p_f_p_ImGuiViewport_p_void__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(pp)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.renderWindow()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SwapBuffers = SWIGTYPE_p_f_p_ImGuiViewport_p_void__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(pp)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.swapBuffers()
+			}
+		}.address(),
+		false
+	)
+	platformIO.platform_SetWindowAlpha = SWIGTYPE_p_f_p_ImGuiViewport_float__void(
+		object : CallbackI.V {
+			override fun getSignature(): String = "(pf)v"
+			override fun callback(args: Long) {
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val alpha = DynCallback.dcbArgFloat(args)
+				viewport.glfwViewportData!!.setWindowAlpha(alpha)
+			}
+		}.address(),
+		false
+	)
 
-	//val mainViewport = ImGui.getMainViewport()
-	//val data = ImGuiGlfw.ViewportData()
-	//data.window = mainWindow
-	//data.isWindowOwned = false
-	//mainViewport.glfwViewportData = data
-	//mainViewport.glfwWindow = mainWindow
+	val mainViewport = ImGui.getMainViewport()
+	val data = ImGuiGlfw.ViewportData(this)
+	mainViewport.glfwViewportData = data
+	mainViewport.glfwWindow = mainWindow
 }
+
+internal actual fun ImGuiGlfw.shutdownPlatformInterface() {
+	val platformIO = ImGui.getPlatformIO().ptr
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_CreateWindow))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_DestroyWindow))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_ShowWindow))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void.getCPtr(platformIO.platform_SetWindowPos))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__ImVec2.getCPtr(platformIO.platform_GetWindowPos))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void.getCPtr(platformIO.platform_SetWindowSize))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__ImVec2.getCPtr(platformIO.platform_GetWindowSize))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_SetWindowFocus))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__bool.getCPtr(platformIO.platform_GetWindowFocus))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__bool.getCPtr(platformIO.platform_GetWindowMinimized))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_q_const__char__void.getCPtr(platformIO.platform_SetWindowTitle))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.platform_RenderWindow))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.platform_SwapBuffers))
+	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_float__void.getCPtr(platformIO.platform_SetWindowAlpha))
+}
+
 
 actual var ImGuiIO.imGuiGlfw: ImGuiGlfw?
 	get() = MemoryUtil.memGlobalRefToObject<ImGuiGlfw>(SWIGTYPE_p_void.getCPtr(ptr.backendPlatformUserData))
@@ -147,7 +265,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 
 		override operator fun get(index: Int): ImGuiPlatformMonitor {
 			val data = cimgui.internal.ImGuiPlatformMonitor.getCPtr(monitors.data)
-			return ImGuiPlatformMonitor(ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false))
+			return ImGuiPlatformMonitor(cimgui.internal.ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false))
 		}
 
 		private fun growCapacity(size: Int): Int {
@@ -163,7 +281,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 				MemoryUtil.memCopy(newData, data, size * CImGui.getPlatformMonitorSize())
 				CImGui.igMemFree(SWIGTYPE_p_void(data, false))
 			}
-			monitors.data = ImGuiPlatformMonitor(newData, false)
+			monitors.data = cimgui.internal.ImGuiPlatformMonitor(newData, false)
 			monitors.capacity = newCapacity
 		}
 

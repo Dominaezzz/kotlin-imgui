@@ -89,6 +89,9 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 	mainViewport.glfwWindow = mainWindow
 }
 
+internal actual fun ImGuiGlfw.shutdownPlatformInterface() {}
+
+
 actual var ImGuiIO.imGuiGlfw: ImGuiGlfw?
 	get() = ptr.pointed.BackendPlatformUserData?.asStableRef<ImGuiGlfw>()?.get()
 	set(value) {

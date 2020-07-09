@@ -400,16 +400,27 @@ actual class ImGuiOpenGL3 actual constructor(glslVersionStr: String) : Closeable
 	//--------------------------------------------------------------------------------------------------------
 
 	private fun initPlatformInterface() {
-		//FIXME again with the swig function pointer stuff
-		//val platformIO = ImGui.getPlatformIO().ptr.pointed
-		//platformIO.Renderer_RenderWindow = staticCFunction { viewport, _ ->
-		//	glClearColor(0f, 0f, 0f, 1f)
-		//	glClear(GL_COLOR_BUFFER_BIT)
-		//	renderDrawData(viewport!!.pointed.DrawData!!.pointed)
-		//}
+		val platformIO = ImGui.getPlatformIO().ptr
+		platformIO.renderer_RenderWindow = SWIGTYPE_p_f_p_ImGuiViewport_p_void__void(
+			object : CallbackI.V {
+				override fun getSignature(): String = "(pp)v"
+				override fun callback(args: Long) {
+					val imGuiOpenGL3 = MemoryUtil.memGlobalRefToObject<ImGuiOpenGL3>(SWIGTYPE_p_void.getCPtr(ImGui.getIO().ptr.backendRendererUserData!!))
+					val viewport = ImGuiViewport(DynCallback.dcbArgPointer(args), false)
+
+					GL30.glClearColor(0f, 0f, 0f, 1f)
+					GL30.glClear(GL30.GL_COLOR_BUFFER_BIT)
+					imGuiOpenGL3.renderDrawData(com.imgui.ImDrawData(viewport.drawData))
+				}
+			}.address(),
+			false
+		)
 	}
 
 	private fun shutdownPlatformInterface() {
+		val platformIO = ImGui.getPlatformIO().ptr
+		Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.renderer_RenderWindow))
+
 		ImGui.destroyPlatformWindows()
 	}
 
