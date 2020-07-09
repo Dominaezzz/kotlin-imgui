@@ -5,28 +5,24 @@ import com.kgl.core.Flag
 import com.kgl.glfw.*
 import io.ktor.utils.io.core.*
 
-private var _mainWindow: Window? = null
-internal val mainWindow: Window get() = _mainWindow ?: error("ImGuiGLFW was not initialized")
-
-private val mouseJustPressed = BooleanArray(5) { false }
-private var wantUpdateMonitors: Boolean = true
-
-private var prevUserCallbackMouseButton: MouseButtonCallback? = null
-private var prevUserCallbackScroll: ScrollCallback? = null
-private var prevUserCallbackKey: KeyCallback? = null
-private var prevUserCallbackChar: CharCallback? = null
-private var prevUserCallbackMonitor: MonitorCallback? = null
-
-class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
+//TODO test against older version of glfw while linking
+class ImGuiGlfw(val mainWindow: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
 	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
+	private val mouseJustPressed = BooleanArray(5) { false }
+	private var wantUpdateMonitors: Boolean = true
 	private val callbacksAreInstalled = installCallbacks
 
-	init {
-		_mainWindow = window
+	private val prevUserCallbackMouseButton: MouseButtonCallback?
+	private val prevUserCallbackScroll: ScrollCallback?
+	private val prevUserCallbackKey: KeyCallback?
+	private val prevUserCallbackChar: CharCallback?
+	private val prevUserCallbackMonitor: MonitorCallback?
 
+	init {
 		val io = ImGui.getIO()
+		io.imGuiGlfw = this
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasMouseCursors
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.HasSetMousePos
 		io.backendFlags = io.backendFlags or ImGuiBackendFlags.PlatformHasViewports
@@ -75,17 +71,18 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		mouseCursors[ImGuiMouseCursor.Hand.cValue] = Cursor(Cursor.Standard.Hand)
 		Glfw.setErrorCallback(prevErrorCallback)
 
-		prevUserCallbackMouseButton = null
-		prevUserCallbackScroll = null
-		prevUserCallbackKey = null
-		prevUserCallbackChar = null
-		prevUserCallbackMonitor = null
 		if (installCallbacks) {
 			prevUserCallbackMouseButton = mainWindow.setMouseButtonCallback(this::mouseButtonCallback)
 			prevUserCallbackScroll = mainWindow.setScrollCallback(this::scrollCallback)
 			prevUserCallbackKey = mainWindow.setKeyCallback(this::keyCallback)
 			prevUserCallbackChar = mainWindow.setCharCallback(this::charCallback)
 			prevUserCallbackMonitor = Glfw.setMonitorCallback(this::monitorCallback)
+		} else {
+			prevUserCallbackMouseButton = null
+			prevUserCallbackScroll = null
+			prevUserCallbackKey = null
+			prevUserCallbackChar = null
+			prevUserCallbackMonitor = null
 		}
 
 		// Update monitors the first time (note: monitor callback are broken in GLFW 3.2 and earlier, see github.com/glfw/glfw/issues/784)
@@ -102,20 +99,60 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		}
 	}
 
-	fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) =
-		com.imgui.impl.mouseButtonCallback(window, button, action, mods)
+	fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) {
+		if (window == mainWindow) {
+			prevUserCallbackMouseButton?.invoke(window, button, action, mods)
+		}
 
-	fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) =
-		com.imgui.impl.scrollCallback(window, offsetX, offsetY)
+		if (action == Action.Press) {
+			mouseJustPressed[button.ordinal] = true
+		}
+	}
 
-	fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) =
-		com.imgui.impl.keyCallback(window, key, scancode, action, mods)
+	fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
+		if (window == mainWindow) {
+			prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
+		}
 
-	fun charCallback(window: Window, codepoint: UInt) =
-		com.imgui.impl.charCallback(window, codepoint)
+		val io = ImGui.getIO()
+		io.mouseWheelH += offsetX.toFloat()
+		io.mouseWheel += offsetY.toFloat()
+	}
 
-	fun monitorCallback(monitor: Monitor, isConnected: Boolean) =
-		com.imgui.impl.monitorCallback(monitor, isConnected)
+	fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
+		if (window == mainWindow) {
+			prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
+		}
+
+		val io = ImGui.getIO()
+		if (action == Action.Press) {
+			io.keysDown(key.ordinal, true)
+		}
+		if (action == Action.Release) {
+			io.keysDown(key.ordinal, false)
+		}
+
+		// Modifiers are not reliable across systems
+		io.keyCtrl = io.keysDown(KeyboardKey.LEFT_CONTROL.ordinal) || io.keysDown(KeyboardKey.RIGHT_CONTROL.ordinal)
+		io.keyShift = io.keysDown(KeyboardKey.LEFT_SHIFT.ordinal) || io.keysDown(KeyboardKey.RIGHT_SHIFT.ordinal)
+		io.keyAlt = io.keysDown(KeyboardKey.LEFT_ALT.ordinal) || io.keysDown(KeyboardKey.RIGHT_ALT.ordinal)
+		io.keySuper = if (isWin32) false else {
+			io.keysDown(KeyboardKey.LEFT_SUPER.ordinal) || io.keysDown(KeyboardKey.RIGHT_SUPER.ordinal)
+		}
+	}
+
+	fun charCallback(window: Window, codepoint: UInt) {
+		if (window == mainWindow) {
+			prevUserCallbackChar?.invoke(window, codepoint)
+		}
+
+		val io = ImGui.getIO()
+		io.addInputCharacter(codepoint)
+	}
+
+	fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
+		wantUpdateMonitors = true
+	}
 
 	private fun updateMonitors() {
 		val platformIO = ImGui.getPlatformIO()
@@ -282,6 +319,8 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 		}
 
 		mouseCursors.forEach { it?.close() }
+
+		ImGui.getIO().imGuiGlfw = null
 	}
 
 	//--------------------------------------------------------------------------------------------------------
@@ -290,19 +329,18 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 	// If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
 	//--------------------------------------------------------------------------------------------------------
 
-	class ViewportData {
-		private var _window: Window? = null
-		var window: Window
-			get() = _window!!
-			set(value) {
-				_window = value
-			}
-
-		var isWindowOwned: Boolean = false
+	class ViewportData : Closeable {
+		val window: Window
+		val isWindowOwned: Boolean
 		var ignoreWindowPosEventFrame: Int = -1
 		var ignoreWindowSizeEventFrame: Int = -1
 
-		fun createWindow(viewport: ImGuiViewport) {
+		constructor(imGuiGlfw: ImGuiGlfw) {
+			window = imGuiGlfw.mainWindow
+			isWindowOwned = false
+		}
+
+		constructor(imGuiGlfw: ImGuiGlfw, viewport: ImGuiViewport) {
 			with(Glfw.windowHints) {
 				visible = false
 				focused = false
@@ -311,36 +349,31 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 				floating = ImGuiViewportFlags.TopMost in viewport.flags
 			}
 			val (width, height) = viewport.size
-			_window = Window(width.toInt(), height.toInt(), "No Title Yet", null, mainWindow)
+			window = Window(width.toInt(), height.toInt(), "No Title Yet", null, imGuiGlfw.mainWindow)
 			isWindowOwned = true
 			window.position = viewport.pos.run { x.toInt() to y.toInt() }
 
-			window.setMouseButtonCallback(::mouseButtonCallback)
-			window.setScrollCallback(::scrollCallback)
-			window.setKeyCallback(::keyCallback)
-			window.setCharCallback(::charCallback)
+			window.setMouseButtonCallback(imGuiGlfw::mouseButtonCallback)
+			window.setScrollCallback(imGuiGlfw::scrollCallback)
+			window.setKeyCallback(imGuiGlfw::keyCallback)
+			window.setCharCallback(imGuiGlfw::charCallback)
 			window.setCloseCallback {
 				viewport.platformRequestClose = true
 			}
 			window.setPosCallback { _, _, _ ->
-				viewport.glfwViewportData?.let { data ->
-					if (ImGui.getFrameCount() <= data.ignoreWindowPosEventFrame + 1) return@setPosCallback
-				}
+				if (ImGui.getFrameCount() <= ignoreWindowPosEventFrame + 1) return@setPosCallback
 				viewport.platformRequestMove = true
 			}
 			window.setSizeCallback { _, _, _ ->
-				viewport.glfwViewportData?.let { data ->
-					if (ImGui.getFrameCount() <= data.ignoreWindowSizeEventFrame + 1) return@setSizeCallback
-				}
+				if (ImGui.getFrameCount() <= ignoreWindowSizeEventFrame + 1) return@setSizeCallback
 				viewport.platformRequestResize = true
 			}
 		}
 
-		fun destroyWindow() {
+		override fun close() { // destroyWindow
 			if (isWindowOwned) {
 				window.close()
 			}
-			_window = null
 		}
 
 		fun showWindow() {
@@ -388,59 +421,4 @@ class ImGuiGlfw(window: Window, installCallbacks: Boolean) : Closeable {
 	}
 
 	private fun shutdownPlatformInterface() {}
-}
-
-private fun mouseButtonCallback(window: Window, button: MouseButton, action: Action, mods: Flag<Mod>) {
-	if (window == mainWindow) {
-		prevUserCallbackMouseButton?.invoke(window, button, action, mods)
-	}
-
-	if (action == Action.Press) {
-		mouseJustPressed[button.ordinal] = true
-	}
-}
-
-private fun scrollCallback(window: Window, offsetX: Double, offsetY: Double) {
-	if (window == mainWindow) {
-		prevUserCallbackScroll?.invoke(window, offsetX, offsetY)
-	}
-
-	val io = ImGui.getIO()
-	io.mouseWheelH += offsetX.toFloat()
-	io.mouseWheel += offsetY.toFloat()
-}
-
-private fun keyCallback(window: Window, key: KeyboardKey, scancode: Int, action: Action, mods: Flag<Mod>) {
-	if (window == mainWindow) {
-		prevUserCallbackKey?.invoke(window, key, scancode, action, mods)
-	}
-
-	val io = ImGui.getIO()
-	if (action == Action.Press) {
-		io.keysDown(key.ordinal, true)
-	}
-	if (action == Action.Release) {
-		io.keysDown(key.ordinal, false)
-	}
-
-	// Modifiers are not reliable across systems
-	io.keyCtrl = io.keysDown(KeyboardKey.LEFT_CONTROL.ordinal) || io.keysDown(KeyboardKey.RIGHT_CONTROL.ordinal)
-	io.keyShift = io.keysDown(KeyboardKey.LEFT_SHIFT.ordinal) || io.keysDown(KeyboardKey.RIGHT_SHIFT.ordinal)
-	io.keyAlt = io.keysDown(KeyboardKey.LEFT_ALT.ordinal) || io.keysDown(KeyboardKey.RIGHT_ALT.ordinal)
-	io.keySuper = if (isWin32) false else {
-		io.keysDown(KeyboardKey.LEFT_SUPER.ordinal) || io.keysDown(KeyboardKey.RIGHT_SUPER.ordinal)
-	}
-}
-
-private fun charCallback(window: Window, codepoint: UInt) {
-	if (window == mainWindow) {
-		prevUserCallbackChar?.invoke(window, codepoint)
-	}
-
-	val io = ImGui.getIO()
-	io.addInputCharacter(codepoint)
-}
-
-private fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
-	wantUpdateMonitors = true
 }

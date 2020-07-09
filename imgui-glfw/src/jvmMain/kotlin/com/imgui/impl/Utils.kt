@@ -53,7 +53,7 @@ actual fun freeClipboard(ioObj: ImGuiIO) {
 	io.getClipboardTextFn = null
 }
 
-internal actual fun initPlatformInterface() {
+internal actual fun ImGuiGlfw.initPlatformInterface() {
 	//FIXME what's the SWIG equivalent of a staticCFunction???
 	//val platformIO = ImGui.getPlatformIO().ptr.pointed
 	//platformIO.Platform_CreateWindow = staticCFunction { viewportPtr ->
@@ -118,16 +118,23 @@ internal actual fun initPlatformInterface() {
 	//mainViewport.glfwWindow = mainWindow
 }
 
+actual var ImGuiIO.imGuiGlfw: ImGuiGlfw?
+	get() = MemoryUtil.memGlobalRefToObject<ImGuiGlfw>(SWIGTYPE_p_void.getCPtr(ptr.backendPlatformUserData))
+	set(value) {
+		ptr.backendPlatformUserData?.let { JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(it)) }
+		ptr.backendPlatformUserData = value?.let { SWIGTYPE_p_void(JNINativeInterface.NewGlobalRef(it), false) }
+	}
+
 actual var ImGuiViewport.glfwWindow: Window?
 	get() = MemoryUtil.memGlobalRefToObject<Window>(GLFW.glfwGetWindowUserPointer(SWIGTYPE_p_void.getCPtr(ptr.platformHandle)))
 	set(value) {
-		ptr.platformHandle = SWIGTYPE_p_void(value?.ptr ?: 0, false)
+		ptr.platformHandle = value?.let { SWIGTYPE_p_void(it.ptr, false) }
 	}
 
 actual var ImGuiViewport.glfwViewportData: ImGuiGlfw.ViewportData?
 	get() = MemoryUtil.memGlobalRefToObject<ImGuiGlfw.ViewportData>(SWIGTYPE_p_void.getCPtr(ptr.platformUserData))
 	set(value) {
-		JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(ptr.platformHandle))
+		ptr.platformHandle?.let { JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(it)) }
 		ptr.platformHandle = value?.let { SWIGTYPE_p_void(JNINativeInterface.NewGlobalRef(it), false) }
 	}
 
@@ -140,7 +147,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 
 		override operator fun get(index: Int): ImGuiPlatformMonitor {
 			val data = cimgui.internal.ImGuiPlatformMonitor.getCPtr(monitors.data)
-			return ImGuiPlatformMonitor(cimgui.internal.ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false))
+			return ImGuiPlatformMonitor(ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false))
 		}
 
 		private fun growCapacity(size: Int): Int {
@@ -156,7 +163,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 				MemoryUtil.memCopy(newData, data, size * CImGui.getPlatformMonitorSize())
 				CImGui.igMemFree(SWIGTYPE_p_void(data, false))
 			}
-			monitors.data = cimgui.internal.ImGuiPlatformMonitor(newData, false)
+			monitors.data = ImGuiPlatformMonitor(newData, false)
 			monitors.capacity = newCapacity
 		}
 
