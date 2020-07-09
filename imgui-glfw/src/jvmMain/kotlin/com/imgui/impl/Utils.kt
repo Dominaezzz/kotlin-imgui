@@ -11,7 +11,7 @@ import org.lwjgl.system.dyncall.*
 actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 	val io = ioObj.ptr
 
-	val setClipboard = object : org.lwjgl.system.CallbackI.V {
+	val setClipboard = object : CallbackI.V {
 		override fun getSignature(): String = "(pp)v"
 
 		override fun callback(args: Long) {
@@ -21,7 +21,7 @@ actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 			GLFW.nglfwSetClipboardString(userData, text)
 		}
 	}
-	val getClipboard = object : org.lwjgl.system.CallbackI.P {
+	val getClipboard = object : CallbackI.P {
 		override fun getSignature(): String = "(p)p"
 
 		override fun callback(args: Long): Long {
