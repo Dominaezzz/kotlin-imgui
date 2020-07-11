@@ -323,7 +323,7 @@ actual val ImGuiPlatformIO.viewports: ImVector<ImGuiViewport>
 			val data = SWIGTYPE_p_p_ImGuiViewport.getCPtr(viewports.data)
 			val newData = SWIGTYPE_p_void.getCPtr(CImGui.igMemAlloc(newCapacity * CImGui.getPointerSize()))
 			if (data != 0L) {
-				MemoryUtil.memCopy(newData, data, size * CImGui.getPointerSize())
+				MemoryUtil.memCopy(data, newData, size * CImGui.getPointerSize())
 				CImGui.igMemFree(SWIGTYPE_p_void(data, false))
 			}
 			viewports.data = SWIGTYPE_p_p_ImGuiViewport(newData, false)
@@ -341,8 +341,8 @@ actual val ImGuiPlatformIO.viewports: ImVector<ImGuiViewport>
 			val newData = CImGui.new_pImGuiViewportArray(1)
 			CImGui.pImGuiViewportArray_setitem(newData, 0, element.ptr)
 			MemoryUtil.memCopy(
-				data + size * CImGui.getPointerSize(),
 				SWIGTYPE_p_p_ImGuiViewport.getCPtr(newData),
+				data + size * CImGui.getPointerSize(),
 				CImGui.getPointerSize()
 			)
 			viewports.size += 1
