@@ -26,9 +26,12 @@ class Simple(private val window: Window) {
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
 		ImGui.createContext()
-		// val io = ImGui.getIO()
+		val io = ImGui.getIO()
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableKeyboard.toInt() // Enable Keyboard Controls
 		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableGamepad.toInt()  // Enable Gamepad Controls
+		io.configFlags = io.configFlags or ImGuiConfigFlags.DockingEnable.value
+		io.configFlags = io.configFlags or ImGuiConfigFlags.ViewportsEnable.value
+
 
 		// Setup Dear ImGui style
 		ImGui.styleColorsDark()
@@ -78,6 +81,17 @@ class Simple(private val window: Window) {
 			GL11.glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
 			gl.renderDrawData(ImGui.getDrawData())
+
+			// Update and Render additional Platform Windows
+			// (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+			//  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
+			val io = ImGui.getIO()
+			if (ImGuiConfigFlags.ViewportsEnable in io.configFlags) {
+				val backupCurrentContext = Glfw.currentContext
+				ImGui.updatePlatformWindows()
+				ImGui.renderPlatformWindowsDefault()
+				Glfw.currentContext = backupCurrentContext
+			}
 
 			window.swapBuffers()
 		}

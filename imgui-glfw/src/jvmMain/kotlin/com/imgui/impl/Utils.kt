@@ -252,8 +252,8 @@ actual var ImGuiViewport.glfwWindow: Window?
 actual var ImGuiViewport.glfwViewportData: ImGuiGlfw.ViewportData?
 	get() = MemoryUtil.memGlobalRefToObject<ImGuiGlfw.ViewportData>(SWIGTYPE_p_void.getCPtr(ptr.platformUserData))
 	set(value) {
-		ptr.platformHandle?.let { JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(it)) }
-		ptr.platformHandle = value?.let { SWIGTYPE_p_void(JNINativeInterface.NewGlobalRef(it), false) }
+		ptr.platformUserData?.let { JNINativeInterface.DeleteGlobalRef(SWIGTYPE_p_void.getCPtr(it)) }
+		ptr.platformUserData = value?.let { SWIGTYPE_p_void(JNINativeInterface.NewGlobalRef(it), false) }
 	}
 
 actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
@@ -278,7 +278,7 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 			val data = cimgui.internal.ImGuiPlatformMonitor.getCPtr(monitors.data)
 			val newData = SWIGTYPE_p_void.getCPtr(CImGui.igMemAlloc(newCapacity * CImGui.getPlatformMonitorSize()))
 			if (data != 0L) {
-				MemoryUtil.memCopy(newData, data, size * CImGui.getPlatformMonitorSize())
+				MemoryUtil.memCopy(data, newData, size * CImGui.getPlatformMonitorSize())
 				CImGui.igMemFree(SWIGTYPE_p_void(data, false))
 			}
 			monitors.data = cimgui.internal.ImGuiPlatformMonitor(newData, false)
@@ -294,8 +294,8 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 			if (size == capacity) reserve(growCapacity(size + 1))
 			val data = cimgui.internal.ImGuiPlatformMonitor.getCPtr(monitors.data)
 			MemoryUtil.memCopy(
-				data + size * CImGui.getPlatformMonitorSize(),
 				cimgui.internal.ImGuiPlatformMonitor.getCPtr(element.ptr),
+				data + size * CImGui.getPlatformMonitorSize(),
 				CImGui.getPlatformMonitorSize()
 			)
 			monitors.size += 1
