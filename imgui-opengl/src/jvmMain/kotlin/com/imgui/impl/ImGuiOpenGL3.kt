@@ -1,9 +1,9 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import cimgui.internal.ImDrawData
 import cimgui.internal.ImDrawVert
 import com.imgui.*
+import com.imgui.ImDrawData
 import io.ktor.utils.io.core.*
 import org.lwjgl.opengl.*
 
@@ -48,11 +48,11 @@ actual class ImGuiOpenGL3 actual constructor(
 	private val elementsHandle: Int
 
 	init {
-		val io = ImGui.getIO().ptr
+		val io = ImGui.getIO()
 		// io.backendRendererName = "ImGui OpenGL3".cstr
 		if (useDrawWithBaseVertex) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
-			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset.value
+			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset
 		}
 
 		GL.createCapabilities()
@@ -202,9 +202,7 @@ actual class ImGuiOpenGL3 actual constructor(
 	// OpenGL3 Render function.
 	// (this used to be set in io.renderDrawListsFn and called by ImGui::Render(), but you can now call this directly from your main loop)
 	// Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so.
-	actual fun renderDrawData(data: com.imgui.ImDrawData) {
-		val drawData: ImDrawData = data.ptr
-
+	actual fun renderDrawData(drawData: ImDrawData) {
 		val fbWidth = (drawData.displaySize.x * drawData.framebufferScale.x).toInt()
 		val fbHeight = (drawData.displaySize.y * drawData.framebufferScale.y).toInt()
 		if (fbWidth <= 0 || fbHeight <= 0) return
@@ -254,7 +252,7 @@ actual class ImGuiOpenGL3 actual constructor(
 
 		// Render command lists
 		for (n in 0 until drawData.cmdListsCount) {
-			val cmdList = CImGui.pImDrawListArray_getitem(drawData.cmdLists, n)
+			val cmdList = CImGui.pImDrawListArray_getitem(drawData.ptr.cmdLists, n)
 
 			val sizeOfImDrawVert = 20L
 			val sizeOfImDrawIdx = Short.SIZE_BYTES.toLong()
@@ -367,9 +365,9 @@ actual class ImGuiOpenGL3 actual constructor(
 	}
 
 	private fun destroyFontsTexture() {
-		val io = ImGui.getIO().ptr
+		val io = ImGui.getIO()
 		GL30.glDeleteTextures(fontTexture)
-		io.fonts!!.texID = null
+		io.fonts!!.ptr.texID = null
 	}
 
 	override fun close() {

@@ -1,9 +1,9 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import cimgui.internal.ImDrawData
 import cimgui.internal.ImDrawVert
 import com.imgui.*
+import com.imgui.ImDrawData
 import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
 import io.ktor.utils.io.core.*
@@ -50,11 +50,11 @@ actual class ImGuiOpenGL3 actual constructor(
 	private val elementsHandle: UInt
 
 	init {
-		val io = ImGui.getIO().ptr.pointed
+		val io = ImGui.getIO()
 		// io.BackendRendererName = "ImGui OpenGL3".cstr
 		if (useDrawWithBaseVertex) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
-			io.BackendFlags = io.BackendFlags or ImGuiBackendFlags.RendererHasVtxOffset.value
+			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset
 		}
 
 		// Make a dummy GL call (we don't actually need the result)
@@ -161,10 +161,10 @@ actual class ImGuiOpenGL3 actual constructor(
 		}
 
 		glViewport(0, 0, fbWidth, fbHeight)
-		val L = drawData.DisplayPos.x
-		val R = drawData.DisplayPos.x + drawData.DisplaySize.x
-		val T = drawData.DisplayPos.y
-		val B = drawData.DisplayPos.y + drawData.DisplaySize.y
+		val L = drawData.displayPos.x
+		val R = drawData.displayPos.x + drawData.displaySize.x
+		val T = drawData.displayPos.y
+		val B = drawData.displayPos.y + drawData.displaySize.y
 
 		//@formatter:off
 		val orthoProjection = floatArrayOf(
@@ -200,11 +200,9 @@ actual class ImGuiOpenGL3 actual constructor(
 	// OpenGL3 Render function.
 	// (this used to be set in io.RenderDrawListsFn and called by ImGui::Render(), but you can now call this directly from your main loop)
 	// Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly, in order to be able to run within any OpenGL engine that doesn't do so.
-	actual fun renderDrawData(data: com.imgui.ImDrawData) {
-		val drawData: ImDrawData = data.ptr.pointed
-
-		val fbWidth = (drawData.DisplaySize.x * drawData.FramebufferScale.x).toInt()
-		val fbHeight = (drawData.DisplaySize.y * drawData.FramebufferScale.y).toInt()
+	actual fun renderDrawData(drawData: ImDrawData) {
+		val fbWidth = (drawData.displaySize.x * drawData.framebufferScale.x).toInt()
+		val fbHeight = (drawData.displaySize.y * drawData.framebufferScale.y).toInt()
 		if (fbWidth <= 0 || fbHeight <= 0) return
 
 		// Backup GL state
@@ -247,12 +245,12 @@ actual class ImGuiOpenGL3 actual constructor(
 		setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 
 		// Will project scissor/clipping rectangles into framebuffer space
-		val clipOff = drawData.DisplayPos         // (0,0) unless using multi-viewports
-		val clipScale = drawData.FramebufferScale // (1,1) unless using retina display which are often (2,2)
+		val clipOff = drawData.displayPos         // (0,0) unless using multi-viewports
+		val clipScale = drawData.framebufferScale // (1,1) unless using retina display which are often (2,2)
 
 		// Render command lists
-		for (n in 0 until drawData.CmdListsCount) {
-			val cmdList = drawData.CmdLists!![n]!!.pointed
+		for (n in 0 until drawData.cmdListsCount) {
+			val cmdList = drawData.ptr.pointed.CmdLists!![n]!!.pointed
 
 			// Upload buffer
 			//@formatter:off
@@ -329,7 +327,7 @@ actual class ImGuiOpenGL3 actual constructor(
 	}
 
 	private fun createFontsTexture() {
-		val io = ImGui.getIO().ptr.pointed
+		val io = ImGui.getIO()
 
 		val lastTexture = glGetInteger(GL_TEXTURE_BINDING_2D)
 
@@ -339,7 +337,7 @@ actual class ImGuiOpenGL3 actual constructor(
 			val height = alloc<IntVar>()
 
 			// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-			ImFontAtlas_GetTexDataAsRGBA32(io.Fonts, pixels.ptr, width.ptr, height.ptr, null)
+			ImFontAtlas_GetTexDataAsRGBA32(io.fonts!!.ptr, pixels.ptr, width.ptr, height.ptr, null)
 
 			// Upload texture to graphics system
 			glBindTexture(GL_TEXTURE_2D, fontTexture)
@@ -352,16 +350,16 @@ actual class ImGuiOpenGL3 actual constructor(
 		}
 
 		// Store our identifier
-		io.Fonts!!.pointed.TexID = fontTexture.toLong().toCPointer()
+		io.fonts!!.ptr.pointed.TexID = fontTexture.toLong().toCPointer()
 
 		// Restore state
 		glBindTexture(GL_TEXTURE_2D, lastTexture.toUInt())
 	}
 
 	private fun destroyFontsTexture() {
-		val io = ImGui.getIO().ptr.pointed
+		val io = ImGui.getIO()
 		glDeleteTexture(fontTexture)
-		io.Fonts!!.pointed.TexID = null
+		io.fonts!!.ptr.pointed.TexID = null
 	}
 
 	override fun close() {
