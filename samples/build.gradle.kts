@@ -20,6 +20,10 @@ kotlin {
 		commonMain {
 			dependencies {
 				implementation(kotlin("stdlib-common"))
+				implementation("com.kgl:kgl-glfw:$kglVersion")
+				implementation(project(":imgui"))
+				implementation(project(":imgui-glfw"))
+				implementation(project(":imgui-opengl"))
 			}
 		}
 		commonTest {
@@ -44,9 +48,6 @@ kotlin {
 				dependencies {
 					implementation(kotlin("stdlib-jdk8"))
 
-					implementation(project(":imgui"))
-					implementation(project(":imgui-glfw"))
-					implementation(project(":imgui-opengl"))
 					implementation(project(":cimgui", "jvmDefault"))
 					if (HostManager.hostIsLinux) runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
 					if (HostManager.hostIsMac) runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
@@ -54,9 +55,6 @@ kotlin {
 
 					val lwjglVersion = "3.2.2"
 					val lwjglNatives = "natives-$osName"
-
-					implementation("com.kgl:kgl-glfw:$kglVersion")
-
 					implementation("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
 					implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
 					implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
@@ -85,9 +83,6 @@ kotlin {
 				}
 
 				dependencies {
-					implementation(project(":imgui"))
-					implementation(project(":imgui-glfw"))
-					implementation(project(":imgui-opengl"))
 					implementation("com.kgl:kgl-glfw-static:$kglVersion")
 				}
 			}
