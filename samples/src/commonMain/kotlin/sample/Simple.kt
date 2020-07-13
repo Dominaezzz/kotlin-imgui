@@ -3,7 +3,6 @@ package sample
 import com.imgui.*
 import com.imgui.impl.*
 import com.kgl.glfw.*
-import org.lwjgl.opengl.*
 
 class Simple(private val window: Window) {
 	private val glfw: ImGuiGlfw
@@ -21,7 +20,7 @@ class Simple(private val window: Window) {
 		// Decide GL+GLSL versions
 
 		// GL 3.0 + GLSL 130
-		val glslVersion = "#version 130"
+		val glslVersion = if (isMacOS) "#version 150" else "#version 130"
 
 		// Setup Dear ImGui context
 		// IMGUI_CHECKVERSION();
@@ -74,9 +73,9 @@ class Simple(private val window: Window) {
 			// Rendering
 			ImGui.render()
 			val (display_w, display_h) = window.frameBufferSize
-			GL11.glViewport(0, 0, display_w, display_h)
-			GL11.glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
+			glViewport(0, 0, display_w, display_h)
+			glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
+			glClear(GL_COLOR_BUFFER_BIT)
 			gl.renderDrawData(ImGui.getDrawData())
 
 			window.swapBuffers()
@@ -145,10 +144,17 @@ fun main(args: Array<String>) {
 	check(Glfw.init())
 
 	with(Glfw.windowHints) {
-		contextVersionMajor = 3
-		contextVersionMinor = 2
-		openGLProfile = OpenGLProfile.Core  // 3.2+ only
-		openGLForwardCompat = true          // Required on Mac
+		if (isMacOS) {
+			contextVersionMajor = 3
+			contextVersionMinor = 2
+			openGLProfile = OpenGLProfile.Core  // 3.2+ only
+			openGLForwardCompat = true          // Required on Mac
+		} else {
+			contextVersionMajor = 3
+			contextVersionMinor = 0
+			// openGLProfile = OpenGLProfile.Core  // 3.2+ only
+			// openGLForwardCompat = true          // 3.0+ only
+		}
 	}
 
 	val window = Window(1280, 720, "Dear ImGui GLFW+OpenGL3 example")
