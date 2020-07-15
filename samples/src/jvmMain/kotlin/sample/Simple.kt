@@ -27,10 +27,10 @@ class Simple(private val window: Window) {
 		// IMGUI_CHECKVERSION();
 		ImGui.createContext()
 		val io = ImGui.getIO()
-		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableKeyboard.toInt() // Enable Keyboard Controls
-		// io.ConfigFlags = io.ConfigFlags or ImGuiConfigFlags_NavEnableGamepad.toInt()  // Enable Gamepad Controls
-		io.configFlags = io.configFlags or ImGuiConfigFlags.DockingEnable.value
-		io.configFlags = io.configFlags or ImGuiConfigFlags.ViewportsEnable.value
+		io.configFlags = io.configFlags or ImGuiConfigFlags.NavEnableKeyboard // Enable Keyboard Controls
+		// io.configFlags = io.configFlags or ImGuiConfigFlags.NavEnableGamepad // Enable Gamepad Controls
+		io.configFlags = io.configFlags or ImGuiConfigFlags.DockingEnable
+		io.configFlags = io.configFlags or ImGuiConfigFlags.ViewportsEnable
 
 
 		// Setup Dear ImGui style
