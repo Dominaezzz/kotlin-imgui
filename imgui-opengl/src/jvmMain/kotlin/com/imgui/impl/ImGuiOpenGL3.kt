@@ -1,7 +1,6 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import cimgui.internal.ImDrawData
 import cimgui.internal.ImDrawVert
 import cimgui.internal.ImGuiViewport
 import com.imgui.*
@@ -54,7 +53,6 @@ actual class ImGuiOpenGL3 actual constructor(glslVersionStr: String) : Closeable
 
 	init {
 		GL.createCapabilities()
-		glVersion = if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_MAJOR_VERSION) * 100 + GL30.glGetInteger(GL30.GL_MINOR_VERSION) * 10 else 200
 		glVersion =
 			if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_MAJOR_VERSION) * 100 + GL30.glGetInteger(GL30.GL_MINOR_VERSION) * 10 else 200
 		glHasPolygonMode = glVersion >= 200
@@ -411,7 +409,7 @@ actual class ImGuiOpenGL3 actual constructor(glslVersionStr: String) : Closeable
 
 					GL30.glClearColor(0f, 0f, 0f, 1f)
 					GL30.glClear(GL30.GL_COLOR_BUFFER_BIT)
-					imGuiOpenGL3.renderDrawData(com.imgui.ImDrawData(viewport.drawData))
+					imGuiOpenGL3.renderDrawData(ImDrawData(viewport.drawData))
 				}
 			}.address(),
 			false

@@ -8,7 +8,6 @@ import io.ktor.utils.io.core.*
 //TODO test against older version of glfw while linking
 class ImGuiGlfw(val mainWindow: Window, installCallbacks: Boolean) : Closeable {
 	private var time: Double = 0.0
-	private val mouseJustPressed = BooleanArray(5) { false }
 	private val mouseCursors = Array<Cursor?>(ImGuiMouseCursor.values().size) { null }
 	private val mouseJustPressed = BooleanArray(5) { false }
 	private var wantUpdateMonitors: Boolean = true
@@ -150,6 +149,7 @@ class ImGuiGlfw(val mainWindow: Window, installCallbacks: Boolean) : Closeable {
 		io.addInputCharacter(codepoint)
 	}
 
+	@Suppress("UNUSED_PARAMETER")
 	fun monitorCallback(monitor: Monitor, isConnected: Boolean) {
 		wantUpdateMonitors = true
 	}

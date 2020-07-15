@@ -8,10 +8,10 @@ plugins {
 
 val useSingleTarget: Boolean by rootProject.extra
 
-val imGuiVersion: String by rootProject.extra
+val cimguiVersion: String by rootProject.extra
 
 val generateImGui by tasks.registering(GenerateImGuiTask::class) {
-    inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
+    inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${cimguiVersion}/generator/output"))
     commonDir.set(file("src/commonMain/generated"))
     jvmDir.set(file("src/jvmMain/generated"))
     nativeDir.set(file("src/nativeMain/generated"))
