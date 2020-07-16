@@ -226,19 +226,33 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 internal actual fun ImGuiGlfw.shutdownPlatformInterface() {
 	val platformIO = ImGui.getPlatformIO().ptr
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_CreateWindow))
+	platformIO.platform_CreateWindow = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_DestroyWindow))
+	platformIO.platform_DestroyWindow = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_ShowWindow))
+	platformIO.platform_ShowWindow = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void.getCPtr(platformIO.platform_SetWindowPos))
+	platformIO.platform_SetWindowPos = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__ImVec2.getCPtr(platformIO.platform_GetWindowPos))
+	platformIO.platform_GetWindowPos = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_ImVec2__void.getCPtr(platformIO.platform_SetWindowSize))
+	platformIO.platform_SetWindowSize = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__ImVec2.getCPtr(platformIO.platform_GetWindowSize))
+	platformIO.platform_GetWindowSize = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__void.getCPtr(platformIO.platform_SetWindowFocus))
+	platformIO.platform_SetWindowFocus = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__bool.getCPtr(platformIO.platform_GetWindowFocus))
+	platformIO.platform_GetWindowFocus = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport__bool.getCPtr(platformIO.platform_GetWindowMinimized))
+	platformIO.platform_GetWindowMinimized = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_q_const__char__void.getCPtr(platformIO.platform_SetWindowTitle))
+	platformIO.platform_SetWindowTitle = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.platform_RenderWindow))
+	platformIO.platform_RenderWindow = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_p_void__void.getCPtr(platformIO.platform_SwapBuffers))
+	platformIO.platform_SwapBuffers = null
 	Callback.free(SWIGTYPE_p_f_p_ImGuiViewport_float__void.getCPtr(platformIO.platform_SetWindowAlpha))
+	platformIO.platform_SetWindowAlpha = null
 }
 
 
