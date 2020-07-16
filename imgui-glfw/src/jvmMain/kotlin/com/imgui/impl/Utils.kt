@@ -1,7 +1,6 @@
 package com.imgui.impl
 
 import cimgui.internal.*
-import cimgui.internal.ImVec2
 import com.imgui.*
 import com.imgui.ImGuiIO
 import com.imgui.ImGuiPlatformIO
@@ -10,7 +9,7 @@ import com.imgui.ImGuiViewport
 import com.kgl.glfw.*
 import org.lwjgl.glfw.*
 import org.lwjgl.system.*
-import org.lwjgl.system.dyncall.*
+import org.lwjgl.system.dyncall.DynCallback.*
 import org.lwjgl.system.jni.*
 
 actual val isMacOS: Boolean = "mac" in System.getProperty("os.name").toLowerCase()
@@ -23,8 +22,8 @@ actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 		override fun getSignature(): String = "(pp)v"
 
 		override fun callback(args: Long) {
-			val userData = DynCallback.dcbArgPointer(args)
-			val text = DynCallback.dcbArgPointer(args)
+			val userData = dcbArgPointer(args)
+			val text = dcbArgPointer(args)
 
 			GLFW.nglfwSetClipboardString(userData, text)
 		}
@@ -33,7 +32,7 @@ actual fun setupClipboard(ioObj: ImGuiIO, window: Window) {
 		override fun getSignature(): String = "(p)p"
 
 		override fun callback(args: Long): Long {
-			val userData = DynCallback.dcbArgPointer(args)
+			val userData = dcbArgPointer(args)
 
 			return GLFW.nglfwGetClipboardString(userData)
 		}
@@ -55,6 +54,19 @@ actual fun freeClipboard(ioObj: ImGuiIO) {
 	io.getClipboardTextFn = null
 }
 
+private fun dcbArgVec2(args: Long): Vec2 {
+	val value = dcbArgLongLong(args).toULong()
+	val firstHalf = (value shr Int.SIZE_BITS).toInt()
+	val secondHalf = (value and UInt.MAX_VALUE.toULong()).toInt()
+	return Vec2(Float.fromBits(firstHalf), Float.fromBits(secondHalf))
+}
+
+private fun dcbReturn(vec2: Vec2): Long {
+	val x = vec2.x.toRawBits().toULong()
+	val y = vec2.y.toRawBits().toULong()
+	return ((y shl Int.SIZE_BITS) or x).toLong()
+}
+
 internal actual fun ImGuiGlfw.initPlatformInterface() {
 	val platformIO = ImGui.getPlatformIO().ptr
 	platformIO.platform_CreateWindow = SWIGTYPE_p_f_p_ImGuiViewport__void(
@@ -62,7 +74,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 			override fun getSignature(): String = "(p)v"
 			override fun callback(args: Long) {
 				val imGuiGlfw = ImGui.getIO().imGuiGlfw!!
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				val data = ImGuiGlfw.ViewportData(imGuiGlfw, viewport)
 				viewport.glfwViewportData = data
 				viewport.glfwWindow = data.window
@@ -74,7 +86,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(p)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				viewport.glfwViewportData?.close()
 				viewport.glfwViewportData = null
 				viewport.glfwWindow = null
@@ -86,7 +98,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(p)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				viewport.glfwViewportData!!.showWindow()
 			}
 		}.address(),
@@ -96,9 +108,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V { //TODO is this the right type?
 			override fun getSignature(): String = "(pp)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				val pos = ImVec2(DynCallback.dcbArgPointer(args), false)
-				viewport.glfwViewportData!!.setWindowPos(Vec2(pos.x, pos.y))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.setWindowPos(dcbArgVec2(args))
 			}
 		}.address(),
 		false
@@ -107,10 +118,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.P { //TODO is this the right type?
 			override fun getSignature(): String = "(p)p"
 			override fun callback(args: Long): Long {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				return viewport.glfwViewportData!!.getWindowPos().let {
-					ImVec2.getCPtr(ImVec2().apply { x = it.x; y = it.y })
-				}
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				return dcbReturn(viewport.glfwViewportData!!.getWindowPos())
 			}
 		}.address(),
 		false
@@ -119,9 +128,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V { //TODO is this the right type?
 			override fun getSignature(): String = "(pp)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				val size = ImVec2(DynCallback.dcbArgPointer(args), false)
-				viewport.glfwViewportData!!.setWindowSize(Vec2(size.x, size.y))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				viewport.glfwViewportData!!.setWindowSize(dcbArgVec2(args))
 			}
 		}.address(),
 		false
@@ -130,10 +138,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.P { //TODO is this the right type?
 			override fun getSignature(): String = "(p)p"
 			override fun callback(args: Long): Long {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				return viewport.glfwViewportData!!.getWindowSize().let {
-					ImVec2.getCPtr(ImVec2().apply { x = it.x; y = it.y })
-				}
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				return dcbReturn(viewport.glfwViewportData!!.getWindowSize())
 			}
 		}.address(),
 		false
@@ -142,7 +148,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(p)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				viewport.glfwViewportData!!.setWindowFocus()
 			}
 		}.address(),
@@ -152,7 +158,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.Z {
 			override fun getSignature(): String = "(p)B"
 			override fun callback(args: Long): Boolean {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				return viewport.glfwViewportData!!.getWindowFocus()
 			}
 		}.address(),
@@ -162,7 +168,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.Z {
 			override fun getSignature(): String = "(p)B"
 			override fun callback(args: Long): Boolean {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				return viewport.glfwViewportData!!.getWindowMinimized()
 			}
 		}.address(),
@@ -172,8 +178,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(pp)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				val title = MemoryUtil.memUTF8(DynCallback.dcbArgPointer(args))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				val title = MemoryUtil.memUTF8(dcbArgPointer(args))
 				viewport.glfwViewportData!!.setWindowTitle(title)
 			}
 		}.address(),
@@ -183,7 +189,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(pp)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				viewport.glfwViewportData!!.renderWindow()
 			}
 		}.address(),
@@ -193,7 +199,7 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(pp)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
 				viewport.glfwViewportData!!.swapBuffers()
 			}
 		}.address(),
@@ -203,8 +209,8 @@ internal actual fun ImGuiGlfw.initPlatformInterface() {
 		object : CallbackI.V {
 			override fun getSignature(): String = "(pf)v"
 			override fun callback(args: Long) {
-				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(DynCallback.dcbArgPointer(args), false))
-				val alpha = DynCallback.dcbArgFloat(args)
+				val viewport = ImGuiViewport(cimgui.internal.ImGuiViewport(dcbArgPointer(args), false))
+				val alpha = dcbArgFloat(args)
 				viewport.glfwViewportData!!.setWindowAlpha(alpha)
 			}
 		}.address(),
@@ -265,7 +271,9 @@ actual val ImGuiPlatformIO.monitors: ImVector<ImGuiPlatformMonitor>
 
 		override operator fun get(index: Int): ImGuiPlatformMonitor {
 			val data = cimgui.internal.ImGuiPlatformMonitor.getCPtr(monitors.data)
-			return ImGuiPlatformMonitor(cimgui.internal.ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false))
+			return ImGuiPlatformMonitor(
+				cimgui.internal.ImGuiPlatformMonitor(data + CImGui.getPlatformMonitorSize() * index, false)
+			)
 		}
 
 		private fun growCapacity(size: Int): Int {
