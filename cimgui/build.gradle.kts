@@ -153,22 +153,22 @@ kotlin {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(runSwig)
-                defaultSourceSet {
-                    kotlin.srcDir("src/jvmMain/java")
-                    kotlin.srcDir("src/jvmMain/kotlin")
-                }
-                dependencies {
-                    implementation(kotlin("stdlib-jdk8"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
-    }
+				defaultSourceSet {
+					kotlin.srcDir("src/jvmMain/java")
+					kotlin.srcDir("src/jvmMain/kotlin")
+				}
+				dependencies {
+					implementation(kotlin("stdlib-jdk8"))
+				}
+			}
+			"test" {
+				dependencies {
+					implementation(kotlin("test"))
+					implementation(kotlin("test-junit"))
+				}
+			}
+		}
+	}
 
 	sourceSets {
 		commonMain {

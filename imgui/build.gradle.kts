@@ -11,10 +11,10 @@ val useSingleTarget: Boolean by rootProject.extra
 val imGuiVersion: String by rootProject.extra
 
 val generateImGui by tasks.registering(GenerateImGuiTask::class) {
-    inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
-    commonDir.set(file("src/commonMain/generated"))
-    jvmDir.set(file("src/jvmMain/generated"))
-    nativeDir.set(file("src/nativeMain/generated"))
+	inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
+	commonDir.set(file("src/commonMain/generated"))
+	jvmDir.set(file("src/jvmMain/generated"))
+	nativeDir.set(file("src/nativeMain/generated"))
 }
 
 kotlin {
@@ -26,31 +26,31 @@ kotlin {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
-                defaultSourceSet {
-                    kotlin.srcDir("src/jvmMain/generated")
-                }
-                dependencies {
-                    api(kotlin("stdlib-jdk8"))
-                    compileOnly(project(":cimgui", "jvmDefault"))
-                }
-            }
-            "test" {
-                dependencies {
-                    implementation(kotlin("test"))
-                    implementation(kotlin("test-junit"))
-                }
-            }
-        }
-    }
+				defaultSourceSet {
+					kotlin.srcDir("src/jvmMain/generated")
+				}
+				dependencies {
+					api(kotlin("stdlib-jdk8"))
+					compileOnly(project(":cimgui", "jvmDefault"))
+				}
+			}
+			"test" {
+				dependencies {
+					implementation(kotlin("test"))
+					implementation(kotlin("test-junit"))
+				}
+			}
+		}
+	}
 
 	targets.withType<KotlinNativeTarget> {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
-                defaultSourceSet {
-                    kotlin.srcDir("src/nativeMain/generated")
-                    kotlin.srcDir("src/nativeMain/kotlin")
-                }
+				defaultSourceSet {
+					kotlin.srcDir("src/nativeMain/generated")
+					kotlin.srcDir("src/nativeMain/kotlin")
+				}
 
 				dependencies {
 					implementation(project(":cimgui"))
