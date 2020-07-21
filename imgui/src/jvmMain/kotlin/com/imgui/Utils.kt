@@ -21,7 +21,7 @@ internal fun loadCImGuiNativeLibs() {
 	val extName: String
 	when {
 		osName == "Mac OS X" -> {
-			simpleOsName = "osx"
+			simpleOsName = "macos"
 			extName = "dylib"
 		}
 		osName == "Linux" -> {
@@ -35,7 +35,7 @@ internal fun loadCImGuiNativeLibs() {
 		else -> TODO("OS '$osName' not support by cimgui")
 	}
 	val simpleOsArch = when (osArch) {
-		"amd64" -> "x64"
+		"amd64", "x86_64" -> "x64"
 		else -> osArch
 	}
 

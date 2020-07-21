@@ -285,7 +285,7 @@ kotlin {
 			dependsOn("cinteropCimgui${jvmTarget.presetName.capitalize()}")
 			onlyIf { HostManager.host == jvmTarget }
 
-			val binaryDir = resourceDir.resolve("linux").resolve("x64")
+			val binaryDir = resourceDir.resolve("${osFamilyMap[jvmTarget.family]}").resolve(jvmTarget.architecture.toString().toLowerCase())
 			doFirst { mkdir(binaryDir) }
 
 			val dynLibraryFile = binaryDir.resolve("libcimgui.${jvmTarget.family.dynamicSuffix}")

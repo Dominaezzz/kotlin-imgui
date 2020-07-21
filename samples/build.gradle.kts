@@ -101,4 +101,5 @@ kotlin {
 
 application {
 	mainClassName = "sample.SimpleKt"
+	if (HostManager.hostIsMac) applicationDefaultJvmArgs = listOf("-XstartOnFirstThread")
 }

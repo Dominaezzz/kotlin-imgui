@@ -2,7 +2,7 @@ package sample
 
 import org.lwjgl.opengl.*
 
-actual val isMacOS: Boolean = "mac" in System.getProperty("os.name")
+actual val isMacOS: Boolean = "mac" in System.getProperty("os.name").toLowerCase()
 
 actual val GL_COLOR_BUFFER_BIT: UInt get() = GL11.GL_COLOR_BUFFER_BIT.toUInt()
 
