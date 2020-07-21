@@ -31,13 +31,17 @@ kotlin {
 				}
 				dependencies {
 					api(kotlin("stdlib-jdk8"))
-					compileOnly(project(":cimgui", "jvmDefault"))
+					implementation(project(":cimgui", "jvmDefault"))
 				}
 			}
 			"test" {
 				dependencies {
 					implementation(kotlin("test"))
 					implementation(kotlin("test-junit"))
+
+					if (HostManager.hostIsLinux) runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
+					if (HostManager.hostIsMac) runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
+					if (HostManager.hostIsMingw) runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
 				}
 			}
 		}
