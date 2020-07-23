@@ -308,7 +308,14 @@ kotlin {
 				args("--sysroot=${targetInfo.sysRoot}")
 			}
 			if (HostManager.hostIsMingw) {
-				args("-fdeclspec")
+				args(
+					"-fdeclspec",
+					"-static-libgcc",
+					"-static-libstdc++",
+					"-Wl,-Bstatic,--whole-archive",
+					"-lwinpthread",
+					"-Wl,--no-whole-archive,-Bdynamic"
+				)
 			} else {
 				args("-fPIC")
 			}
