@@ -268,9 +268,9 @@ actual constructor(
 		val lastEnableCullFace = GL30.glIsEnabled(GL30.GL_CULL_FACE)
 		val lastEnableDepthTest = GL30.glIsEnabled(GL30.GL_DEPTH_TEST)
 		val lastEnableScissorTest = GL30.glIsEnabled(GL30.GL_SCISSOR_TEST)
-		val clipOriginLowerLeft = if (!glHasClipOrigin) true else {
-			GL30.glGetInteger(ARBClipControl.GL_CLIP_ORIGIN) != GL30.GL_UPPER_LEFT
-		}
+		//@formatter:off
+		val clipOriginLowerLeft = !glHasClipOrigin || GL30.glGetInteger(ARBClipControl.GL_CLIP_ORIGIN) != GL30.GL_UPPER_LEFT
+		//@formatter:on
 
 		// Setup desired GL state
 		// Recreate the VAO every time (this is to easily allow multiple GL contexts to be rendered to. VAO are not shared among GL contexts)
