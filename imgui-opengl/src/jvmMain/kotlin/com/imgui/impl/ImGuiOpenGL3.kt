@@ -25,15 +25,18 @@ import org.lwjgl.opengl.*
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-actual class ImGuiOpenGL3 actual constructor(
-	glslVersionStr: String,
-	private val useVertexArray: Boolean, // if !IMGUI_IMPL_OPENGL_ES2
-	private val unpackRowLength: Boolean,
-	private val usePolygonMode: Boolean,
-	private val useSamplerBinding: Boolean,
-	private val useClipOrigin: Boolean,
-	private val useDrawWithBaseVertex: Boolean
+actual class ImGuiOpenGL3
+actual constructor(
+	glslVersionString: String,
+	isOpenGLES: Boolean
 ) : Closeable {
+	private val glVersion: Int
+	private val glIsOpenGLES: Boolean = isOpenGLES
+	private val glHasPolygonMode: Boolean
+	private val glHasUnpackRowLength: Boolean
+	private val glHasSamplerBinding: Boolean
+	private val glHasClipOrigin: Boolean
+	private val glMayHaveVertexOffset: Boolean
 
 	private val fontTexture: Int
 	private val shaderHandle: Int
@@ -48,14 +51,22 @@ actual class ImGuiOpenGL3 actual constructor(
 	private val elementsHandle: Int
 
 	init {
+		GL.createCapabilities()
+		//@formatter:off
+		glVersion = if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_MAJOR_VERSION) * 100 + GL30.glGetInteger(GL30.GL_MINOR_VERSION) * 10 else 200
+		//@formatter:on
+		glHasPolygonMode = glVersion >= 200
+		glHasUnpackRowLength = glVersion >= 200
+		glHasSamplerBinding = glVersion >= 320
+		glHasClipOrigin = glVersion >= 450
+		glMayHaveVertexOffset = !glIsOpenGLES
+
 		val io = ImGui.getIO()
-		// io.backendRendererName = "ImGui OpenGL3".cstr
-		if (useDrawWithBaseVertex) {
+		// io.backendRendererName = "ImGui OpenGL3"
+		if (glMayHaveVertexOffset) {
 			// We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
 			io.backendFlags = io.backendFlags or ImGuiBackendFlags.RendererHasVtxOffset
 		}
-
-		GL.createCapabilities()
 
 		// Make a dummy GL call (we don't actually need the result)
 		// IF YOU GET A CRASH HERE: it probably means that you haven't initialized the OpenGL function loader used by this code.
@@ -65,11 +76,13 @@ actual class ImGuiOpenGL3 actual constructor(
 		check(currentTexture >= 0)
 
 		// Create device objects
+		// Backup GL state
 		val lastTexture = GL30.glGetInteger(GL30.GL_TEXTURE_BINDING_2D)
 		val lastArrayBuffer = GL30.glGetInteger(GL30.GL_ARRAY_BUFFER_BINDING)
-		val lastVertexArray = if (useVertexArray) GL30.glGetInteger(GL30.GL_VERTEX_ARRAY_BINDING) else 0
+		val lastVertexArray = if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_VERTEX_ARRAY_BINDING) else 0
 
-		val glslVersion = glslVersionStr.takeLast(3).toInt()
+		// Parse GLSL version string
+		val glslVersion = glslVersionString.takeLast(3).toInt()
 
 		val vertexShader: String
 		val fragmentShader: String
@@ -92,33 +105,33 @@ actual class ImGuiOpenGL3 actual constructor(
 			}
 		}
 
-		fun checkShader(handle: Int, desc: String) {
+		fun checkShader(handle: Int, description: String) {
 			val status = GL30.glGetShaderi(handle, GL30.GL_COMPILE_STATUS)
 			val infoLog = GL30.glGetShaderInfoLog(handle)
 			if (infoLog.isNotBlank()) {
 				println(infoLog)
 			}
 
-			check(status == GL30.GL_TRUE) { "ERROR: Failed to compile $desc!" }
+			check(status == GL30.GL_TRUE) { "ERROR: Failed to compile $description!" }
 		}
 
-		fun checkProgram(handle: Int, desc: String) {
+		fun checkProgram(handle: Int, description: String) {
 			val status = GL30.glGetProgrami(handle, GL30.GL_LINK_STATUS)
 			val infoLog = GL30.glGetProgramInfoLog(handle)
 			if (infoLog.isNotBlank()) {
 				println(infoLog)
 			}
 
-			check(status == GL30.GL_TRUE) { "ERROR: Failed to compile $desc!" }
+			check(status == GL30.GL_TRUE) { "ERROR: Failed to compile $description!" }
 		}
 
 		vertHandle = GL30.glCreateShader(GL30.GL_VERTEX_SHADER)
-		GL30.glShaderSource(vertHandle, "$glslVersionStr\n$vertexShader")
+		GL30.glShaderSource(vertHandle, "$glslVersionString\n$vertexShader")
 		GL30.glCompileShader(vertHandle)
 		checkShader(vertHandle, "vertex shader")
 
 		fragHandle = GL30.glCreateShader(GL30.GL_FRAGMENT_SHADER)
-		GL30.glShaderSource(fragHandle, "$glslVersionStr\n$fragmentShader")
+		GL30.glShaderSource(fragHandle, "$glslVersionString\n$fragmentShader")
 		GL30.glCompileShader(fragHandle)
 		checkShader(fragHandle, "fragment shader")
 
@@ -134,16 +147,42 @@ actual class ImGuiOpenGL3 actual constructor(
 		attribLocationVtxUV = GL30.glGetAttribLocation(shaderHandle, "UV")
 		attribLocationVtxColor = GL30.glGetAttribLocation(shaderHandle, "Color")
 
-		vboHandle = GL15.glGenBuffers()
+		vboHandle = GL30.glGenBuffers()
 		elementsHandle = GL30.glGenBuffers()
 
+		// Create fonts texture
 		fontTexture = GL30.glGenTextures()
-		createFontsTexture()
+		val pixels = CImGui.new_unsigned_charpp()
+		val width = CImGui.new_intp()
+		val height = CImGui.new_intp()
+		try {
+			// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small)
+			// because it is more likely to be compatible with user's existing shaders.
+			// If your ImTextureId represent a higher-level concept than just a GL texture id,
+			// consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+			CImGui.ImFontAtlas_GetTexDataAsRGBA32(io.fonts!!.ptr, pixels, width, height, null)
+
+			// Upload texture to graphics system
+			GL30.glBindTexture(GL30.GL_TEXTURE_2D, fontTexture)
+			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_LINEAR)
+			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MAG_FILTER, GL30.GL_LINEAR)
+			if (glHasUnpackRowLength) GL30.glPixelStorei(GL30.GL_UNPACK_ROW_LENGTH, 0)
+			//@formatter:off
+			GL30.glTexImage2D(GL30.GL_TEXTURE_2D, 0, GL30.GL_RGBA, CImGui.intp_value(width), CImGui.intp_value(height), 0, GL30.GL_RGBA, GL30.GL_UNSIGNED_BYTE, SWIGTYPE_p_unsigned_char.getCPtr(CImGui.unsigned_charpp_value(pixels)))
+			//@formatter:on
+		} finally {
+			CImGui.delete_unsigned_charpp(pixels)
+			CImGui.delete_intp(width)
+			CImGui.delete_intp(height)
+		}
+
+		// Store our identifier
+		io.fonts!!.ptr.texID = SWIGTYPE_p_void(fontTexture.toLong(), false)
 
 		// Restore modified GL state
 		GL30.glBindTexture(GL30.GL_TEXTURE_2D, lastTexture)
 		GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, lastArrayBuffer)
-		if (useVertexArray) GL30.glBindVertexArray(lastVertexArray)
+		if (!glIsOpenGLES) GL30.glBindVertexArray(lastVertexArray)
 	}
 
 	actual fun newFrame() {}
@@ -156,33 +195,33 @@ actual class ImGuiOpenGL3 actual constructor(
 		GL30.glDisable(GL30.GL_CULL_FACE)
 		GL30.glDisable(GL30.GL_DEPTH_TEST)
 		GL30.glEnable(GL30.GL_SCISSOR_TEST)
-		if (usePolygonMode) {
+		if (glHasPolygonMode) {
 			GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, GL30.GL_FILL)
 		}
 
 		GL30.glViewport(0, 0, fbWidth, fbHeight)
-		val L = drawData.displayPos.x
-		val R = drawData.displayPos.x + drawData.displaySize.x
-		val T = drawData.displayPos.y
-		val B = drawData.displayPos.y + drawData.displaySize.y
+		val l = drawData.displayPos.x
+		val r = drawData.displayPos.x + drawData.displaySize.x
+		val t = drawData.displayPos.y
+		val b = drawData.displayPos.y + drawData.displaySize.y
 
 		//@formatter:off
 		val orthoProjection = floatArrayOf(
-			2.0f/(R-L),   0.0f,         0.0f,   0.0f,
-			0.0f,         2.0f/(T-B),   0.0f,   0.0f,
+			2.0f/(r-l),   0.0f,         0.0f,   0.0f,
+			0.0f,         2.0f/(t-b),   0.0f,   0.0f,
 			0.0f,         0.0f,        -1.0f,   0.0f,
-			(R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f
+			(r+l)/(l-r),  (t+b)/(b-t),  0.0f,   1.0f
 		)
 		//@formatter:on
 		GL30.glUseProgram(shaderHandle)
 		GL30.glUniform1i(attribLocationTex, 0)
 		GL30.glUniformMatrix4fv(attribLocationProjMtx, false, orthoProjection)
-		if (useSamplerBinding) {
+		if (glHasSamplerBinding) {
 			// We use combined texture/sampler state. Applications using GL 3.3 may set that otherwise.
 			GL33.glBindSampler(0, 0)
 		}
 
-		if (useVertexArray) GL30.glBindVertexArray(vertexArrayObject)
+		if (!glIsOpenGLES) GL30.glBindVertexArray(vertexArrayObject)
 
 		// Bind vertex/index buffers and setup attributes for ImDrawVert
 		GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboHandle)
@@ -212,11 +251,11 @@ actual class ImGuiOpenGL3 actual constructor(
 		GL30.glActiveTexture(GL30.GL_TEXTURE0)
 		val lastProgram = GL30.glGetInteger(GL30.GL_CURRENT_PROGRAM)
 		val lastTexture = GL30.glGetInteger(GL30.GL_TEXTURE_BINDING_2D)
-		val lastSampler = if (useSamplerBinding) GL30.glGetInteger(GL33.GL_SAMPLER_BINDING) else 0
+		val lastSampler = if (glHasSamplerBinding) GL30.glGetInteger(GL33.GL_SAMPLER_BINDING) else 0
 		val lastArrayBuffer = GL30.glGetInteger(GL30.GL_ARRAY_BUFFER_BINDING)
-		val lastVertexArrayObject = if (useVertexArray) GL30.glGetInteger(GL30.GL_VERTEX_ARRAY_BINDING) else 0
+		val lastVertexArrayObject = if (!glIsOpenGLES) GL30.glGetInteger(GL30.GL_VERTEX_ARRAY_BINDING) else 0
 		val lastPolygonMode = IntArray(2)
-		if (usePolygonMode) GL30.glGetIntegerv(GL30.GL_POLYGON_MODE, lastPolygonMode)
+		if (glHasPolygonMode) GL30.glGetIntegerv(GL30.GL_POLYGON_MODE, lastPolygonMode)
 		val lastViewport = IntArray(4); GL30.glGetIntegerv(GL30.GL_VIEWPORT, lastViewport)
 		val lastScissorBox = IntArray(4); GL30.glGetIntegerv(GL30.GL_SCISSOR_BOX, lastScissorBox)
 		val lastBlendSrcRGB = GL30.glGetInteger(GL30.GL_BLEND_SRC_RGB)
@@ -229,21 +268,14 @@ actual class ImGuiOpenGL3 actual constructor(
 		val lastEnableCullFace = GL30.glIsEnabled(GL30.GL_CULL_FACE)
 		val lastEnableDepthTest = GL30.glIsEnabled(GL30.GL_DEPTH_TEST)
 		val lastEnableScissorTest = GL30.glIsEnabled(GL30.GL_SCISSOR_TEST)
-		val clipOriginLowerLeft = if (useClipOrigin) {
-			val lastClipOrigin = GL30.glGetInteger(ARBClipControl.GL_CLIP_ORIGIN)
-			lastClipOrigin != GL30.GL_UPPER_LEFT
-		} else {
-			true
-		}
+		//@formatter:off
+		val clipOriginLowerLeft = !glHasClipOrigin || GL30.glGetInteger(ARBClipControl.GL_CLIP_ORIGIN) != GL30.GL_UPPER_LEFT
+		//@formatter:on
 
 		// Setup desired GL state
 		// Recreate the VAO every time (this is to easily allow multiple GL contexts to be rendered to. VAO are not shared among GL contexts)
 		// The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
-		val vertexArrayObject = if (useVertexArray) {
-			GL30.glGenVertexArrays()
-		} else {
-			0
-		}
+		val vertexArrayObject = if (!glIsOpenGLES) GL30.glGenVertexArrays() else 0
 		setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 
 		// Will project scissor/clipping rectangles into framebuffer space
@@ -268,11 +300,10 @@ actual class ImGuiOpenGL3 actual constructor(
 				if (pcmd.userCallback != null) {
 					// User callback, registered via ImDrawList::AddCallback()
 					// (ImDrawCallback_ResetRenderState is a special callback value used by the user to request the renderer to reset render state.)
-
 					if (pcmd.userCallback == ImDrawCallback_ResetRenderState) {
 						setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 					} else {
-						// 	pcmd.userCallback!!(cmdList, pcmd)
+						// pcmd.userCallback!!(cmdList, pcmd)
 						TODO()
 					}
 				} else {
@@ -297,7 +328,7 @@ actual class ImGuiOpenGL3 actual constructor(
 						val indexType = if (sizeOfImDrawIdx == 2L) GL30.GL_UNSIGNED_SHORT else GL30.GL_UNSIGNED_INT
 						val indexOffset = (pcmd.idxOffset * sizeOfImDrawIdx)
 						//@formatter:off
-						if (useDrawWithBaseVertex) {
+						if (glMayHaveVertexOffset) {
 							GL32.glDrawElementsBaseVertex(GL30.GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset, pcmd.vtxOffset.toInt())
 						} else {
 							GL30.glDrawElements(GL30.GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset)
@@ -308,77 +339,42 @@ actual class ImGuiOpenGL3 actual constructor(
 			}
 		}
 
-		if (useVertexArray) {
+		if (!glIsOpenGLES) {
 			GL30.glDeleteVertexArrays(vertexArrayObject)
 		}
 
 		// Restore modified state
 		GL30.glUseProgram(lastProgram)
 		GL30.glBindTexture(GL30.GL_TEXTURE_2D, lastTexture)
-		if (useSamplerBinding) GL33.glBindSampler(0, lastSampler)
+		if (glHasSamplerBinding) GL33.glBindSampler(0, lastSampler)
 		GL30.glActiveTexture(lastActiveTexture)
 		GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, lastArrayBuffer)
-		if (useVertexArray) GL30.glBindVertexArray(lastVertexArrayObject)
+		if (!glIsOpenGLES) GL30.glBindVertexArray(lastVertexArrayObject)
 		GL30.glBlendEquationSeparate(lastBlendEquationRGB, lastBlendEquationAlpha)
 		GL30.glBlendFuncSeparate(lastBlendSrcRGB, lastBlendDstRGB, lastBlendSrcAlpha, lastBlendDstAlpha)
 		if (lastEnableBlend) GL30.glEnable(GL30.GL_BLEND) else GL30.glDisable(GL30.GL_BLEND)
 		if (lastEnableCullFace) GL30.glEnable(GL30.GL_CULL_FACE) else GL30.glDisable(GL30.GL_CULL_FACE)
 		if (lastEnableDepthTest) GL30.glEnable(GL30.GL_DEPTH_TEST) else GL30.glDisable(GL30.GL_DEPTH_TEST)
 		if (lastEnableScissorTest) GL30.glEnable(GL30.GL_SCISSOR_TEST) else GL30.glDisable(GL30.GL_SCISSOR_TEST)
-		if (usePolygonMode) GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, lastPolygonMode[0])
+		if (glHasPolygonMode) GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, lastPolygonMode[0])
 		if (lastEnableBlend) GL30.glEnable(GL30.GL_BLEND) else GL30.glDisable(GL30.GL_BLEND)
 		GL30.glViewport(lastViewport[0], lastViewport[1], lastViewport[2], lastViewport[3])
 		GL30.glScissor(lastScissorBox[0], lastScissorBox[1], lastScissorBox[2], lastScissorBox[3])
 	}
 
-	private fun createFontsTexture() {
-		val io = CImGui.igGetIO()!!
-
-		val lastTexture = GL30.glGetInteger(GL30.GL_TEXTURE_BINDING_2D)
-
-		val pixels = CImGui.new_unsigned_charpp()
-		val width = CImGui.new_intp()
-		val height = CImGui.new_intp()
-		try {
-			// Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-			CImGui.ImFontAtlas_GetTexDataAsRGBA32(io.fonts, pixels, width, height, null)
-
-			// Upload texture to graphics system
-			GL30.glBindTexture(GL30.GL_TEXTURE_2D, fontTexture)
-			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_LINEAR)
-			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MAG_FILTER, GL30.GL_LINEAR)
-			if (unpackRowLength) GL30.glPixelStorei(GL30.GL_UNPACK_ROW_LENGTH, 0)
-			//@formatter:off
-			GL30.glTexImage2D(GL30.GL_TEXTURE_2D, 0, GL30.GL_RGBA, CImGui.intp_value(width), CImGui.intp_value(height), 0, GL30.GL_RGBA, GL30.GL_UNSIGNED_BYTE, SWIGTYPE_p_unsigned_char.getCPtr(CImGui.unsigned_charpp_value(pixels)))
-			//@formatter:on
-		} finally {
-			CImGui.delete_unsigned_charpp(pixels)
-			CImGui.delete_intp(width)
-			CImGui.delete_intp(height)
-		}
-
-		// Store our identifier
-		io.fonts!!.texID = SWIGTYPE_p_void(fontTexture.toLong(), false)
-
-		// Restore state
-		GL30.glBindTexture(GL30.GL_TEXTURE_2D, lastTexture)
-	}
-
-	private fun destroyFontsTexture() {
-		val io = ImGui.getIO()
-		GL30.glDeleteTextures(fontTexture)
-		io.fonts!!.ptr.texID = null
-	}
-
 	override fun close() {
-		GL15.glDeleteBuffers(intArrayOf(vboHandle, elementsHandle))
+		// Destroy device objects
+		GL30.glDeleteBuffers(intArrayOf(vboHandle, elementsHandle))
 		GL30.glDetachShader(shaderHandle, vertHandle)
 		GL30.glDetachShader(shaderHandle, fragHandle)
 		GL30.glDeleteShader(vertHandle)
 		GL30.glDeleteShader(fragHandle)
 		GL30.glDeleteProgram(shaderHandle)
 
-		destroyFontsTexture()
+		// Destroy fonts texture
+		val io = ImGui.getIO()
+		GL30.glDeleteTextures(fontTexture)
+		io.fonts!!.ptr.texID = null
 	}
 
 	companion object {

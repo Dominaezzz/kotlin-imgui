@@ -22,13 +22,8 @@ import io.ktor.utils.io.core.*
 //----------------------------------------
 
 expect class ImGuiOpenGL3(
-	glslVersionStr: String = "#version 130",
-	useVertexArray: Boolean = true, // if !IMGUI_IMPL_OPENGL_ES2
-	unpackRowLength: Boolean = true,
-	usePolygonMode: Boolean = true,
-	useSamplerBinding: Boolean = false,
-	useClipOrigin: Boolean = true,
-	useDrawWithBaseVertex: Boolean = true
+	glslVersionString: String = "#version 130",
+	isOpenGLES: Boolean = false
 ) : Closeable {
 
 	fun newFrame()
@@ -42,117 +37,117 @@ expect class ImGuiOpenGL3(
 internal object Shaders {
 	// language=glsl
 	val vertexShaderGLSL120 = """
-			uniform mat4 ProjMtx;
-			attribute vec2 Position;
-			attribute vec2 UV;
-			attribute vec4 Color;
-			varying vec2 Frag_UV;
-			varying vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
+		uniform mat4 ProjMtx;
+		attribute vec2 Position;
+		attribute vec2 UV;
+		attribute vec4 Color;
+		varying vec2 Frag_UV;
+		varying vec4 Frag_Color;
+		void main()
+		{
+		    Frag_UV = UV;
+		    Frag_Color = Color;
+		    gl_Position = ProjMtx * vec4(Position.xy,0,1);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val vertexShaderGLSL130 = """
-			uniform mat4 ProjMtx;
-			in vec2 Position;
-			in vec2 UV;
-			in vec4 Color;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
+		uniform mat4 ProjMtx;
+		in vec2 Position;
+		in vec2 UV;
+		in vec4 Color;
+		out vec2 Frag_UV;
+		out vec4 Frag_Color;
+		void main()
+		{
+		    Frag_UV = UV;
+		    Frag_Color = Color;
+		    gl_Position = ProjMtx * vec4(Position.xy,0,1);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val vertexShaderGLSL300ES = """
-			precision mediump float;
-			layout (location = 0) in vec2 Position;
-			layout (location = 1) in vec2 UV;
-			layout (location = 2) in vec4 Color;
-			uniform mat4 ProjMtx;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
+		precision mediump float;
+		layout (location = 0) in vec2 Position;
+		layout (location = 1) in vec2 UV;
+		layout (location = 2) in vec4 Color;
+		uniform mat4 ProjMtx;
+		out vec2 Frag_UV;
+		out vec4 Frag_Color;
+		void main()
+		{
+		    Frag_UV = UV;
+		    Frag_Color = Color;
+		    gl_Position = ProjMtx * vec4(Position.xy,0,1);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val vertexShaderGLSL410Core = """
-			layout (location = 0) in vec2 Position;
-			layout (location = 1) in vec2 UV;
-			layout (location = 2) in vec4 Color;
-			uniform mat4 ProjMtx;
-			out vec2 Frag_UV;
-			out vec4 Frag_Color;
-			void main()
-			{
-			    Frag_UV = UV;
-			    Frag_Color = Color;
-			    gl_Position = ProjMtx * vec4(Position.xy,0,1);
-			}
+		layout (location = 0) in vec2 Position;
+		layout (location = 1) in vec2 UV;
+		layout (location = 2) in vec4 Color;
+		uniform mat4 ProjMtx;
+		out vec2 Frag_UV;
+		out vec4 Frag_Color;
+		void main()
+		{
+		    Frag_UV = UV;
+		    Frag_Color = Color;
+		    gl_Position = ProjMtx * vec4(Position.xy,0,1);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val fragmentShaderGLSL120 = """
-			#ifdef GL_ES
-			    precision mediump float;
-			#endif
-			uniform sampler2D Texture;
-			varying vec2 Frag_UV;
-			varying vec4 Frag_Color;
-			void main()
-			{
-			    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);
-			}
+		#ifdef GL_ES
+		    precision mediump float;
+		#endif
+		uniform sampler2D Texture;
+		varying vec2 Frag_UV;
+		varying vec4 Frag_Color;
+		void main()
+		{
+		    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val fragmentShaderGLSL130 = """
-			uniform sampler2D Texture;
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
+		uniform sampler2D Texture;
+		in vec2 Frag_UV;
+		in vec4 Frag_Color;
+		out vec4 Out_Color;
+		void main()
+		{
+		    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val fragmentShaderGLSL300ES = """
-			precision mediump float;
-			uniform sampler2D Texture;
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			layout (location = 0) out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
+		precision mediump float;
+		uniform sampler2D Texture;
+		in vec2 Frag_UV;
+		in vec4 Frag_Color;
+		layout (location = 0) out vec4 Out_Color;
+		void main()
+		{
+		    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
+		}
 		""".trimIndent()
 
 	// language=glsl
 	val fragmentShaderGLSL410Core = """
-			in vec2 Frag_UV;
-			in vec4 Frag_Color;
-			uniform sampler2D Texture;
-			layout (location = 0) out vec4 Out_Color;
-			void main()
-			{
-			    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
-			}
+		in vec2 Frag_UV;
+		in vec4 Frag_Color;
+		uniform sampler2D Texture;
+		layout (location = 0) out vec4 Out_Color;
+		void main()
+		{
+		    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);
+		}
 		""".trimIndent()
 }
