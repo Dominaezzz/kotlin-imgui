@@ -4,6 +4,7 @@ import cimgui.internal.*
 import cimgui.internal.ImDrawVert
 import com.imgui.*
 import com.imgui.ImDrawData
+import com.imgui.ImDrawList
 import com.imgui.ImGuiBackendFlags
 import com.kgl.opengl.*
 import io.ktor.utils.io.core.*
@@ -278,30 +279,29 @@ actual constructor(
 
 		// Render command lists
 		for (n in 0 until drawData.cmdListsCount) {
-			val cmdList = drawData.ptr.pointed.CmdLists!![n]!!.pointed
+			val cmdList = ImDrawList(drawData.ptr.pointed.CmdLists!![n]!!)
 
 			// Upload buffer
 			//@formatter:off
-			glBufferData(GL_ARRAY_BUFFER, cmdList.VtxBuffer.Size * sizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data, GL_STREAM_DRAW)
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, cmdList.IdxBuffer.Size * sizeOf<ImDrawIdxVar>(), cmdList.IdxBuffer.Data, GL_STREAM_DRAW)
+			glBufferData(GL_ARRAY_BUFFER, cmdList.vtxBuffer.size * sizeOf<ImDrawVert>(), cmdList.vtxBuffer[0].ptr, GL_STREAM_DRAW)
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, cmdList.ptr.pointed.IdxBuffer.Size * sizeOf<ImDrawIdxVar>(), cmdList.ptr.pointed.IdxBuffer.Data, GL_STREAM_DRAW)
 			//@formatter:on
 
-			for (cmd_i in 0 until cmdList.CmdBuffer.Size) {
-				val pcmd = cmdList.CmdBuffer.Data!![cmd_i]
-				if (pcmd.UserCallback != null) {
+			for (pcmd in cmdList.cmdBuffer) {
+				if (pcmd.ptr.pointed.UserCallback != null) {
 					// User callback, registered via ImDrawList::AddCallback()
 					// (ImDrawCallback_ResetRenderState is a special callback value used by the user to request the renderer to reset render state.)
-					if (pcmd.UserCallback == ImDrawCallback_ResetRenderState) {
+					if (pcmd.ptr.pointed.UserCallback == ImDrawCallback_ResetRenderState) {
 						setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 					} else {
-						pcmd.UserCallback!!(cmdList.ptr, pcmd.ptr)
+						pcmd.ptr.pointed.UserCallback!!(cmdList.ptr, pcmd.ptr)
 					}
 				} else {
 					// Project scissor/clipping rectangles into framebuffer space
-					val x = (pcmd.ClipRect.x - clipOff.x) * clipScale.x
-					val y = (pcmd.ClipRect.y - clipOff.y) * clipScale.y
-					val z = (pcmd.ClipRect.z - clipOff.x) * clipScale.x
-					val w = (pcmd.ClipRect.w - clipOff.y) * clipScale.y
+					val x = (pcmd.clipRect.x - clipOff.x) * clipScale.x
+					val y = (pcmd.clipRect.y - clipOff.y) * clipScale.y
+					val z = (pcmd.clipRect.z - clipOff.x) * clipScale.x
+					val w = (pcmd.clipRect.w - clipOff.y) * clipScale.y
 
 					if (x < fbWidth && y < fbHeight && z >= 0 && w >= 0.0f) {
 						// Apply scissor/clipping rectangle
@@ -313,15 +313,15 @@ actual constructor(
 						}
 
 						// Bind texture, Draw
-						glBindTexture(GL_TEXTURE_2D, pcmd.TextureId.toLong().toUInt())
+						glBindTexture(GL_TEXTURE_2D, pcmd.textureId?.value.toLong().toUInt())
 
 						val indexType = if (sizeOf<ImDrawIdxVar>() == 2L) GL_UNSIGNED_SHORT else GL_UNSIGNED_INT
-						val indexOffset = (pcmd.IdxOffset.toLong() * sizeOf<ImDrawIdxVar>()).toCPointer<CPointed>()
+						val indexOffset = (pcmd.idxOffset.toLong() * sizeOf<ImDrawIdxVar>()).toCPointer<CPointed>()
 						//@formatter:off
 						if (glMayHaveVertexOffset) {
-							glDrawElementsBaseVertex(GL_TRIANGLES, pcmd.ElemCount.toInt(), indexType, indexOffset, pcmd.VtxOffset.toInt())
+							glDrawElementsBaseVertex(GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset, pcmd.vtxOffset.toInt())
 						} else {
-							glDrawElements(GL_TRIANGLES, pcmd.ElemCount.toInt(), indexType, indexOffset)
+							glDrawElements(GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset)
 						}
 						//@formatter:on
 					}

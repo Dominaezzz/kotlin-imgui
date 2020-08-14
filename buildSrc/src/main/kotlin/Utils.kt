@@ -3,17 +3,21 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
 val POINTED = MemberName("kotlinx.cinterop", "pointed")
+val PTR = MemberName("kotlinx.cinterop", "ptr")
 val VALUE = MemberName("kotlinx.cinterop", "value")
 val GET = MemberName("kotlinx.cinterop", "get")
 val SET = MemberName("kotlinx.cinterop", "set")
 val CONVERT = MemberName("kotlinx.cinterop", "convert")
+val REINTERPRET = MemberName("kotlinx.cinterop", "reinterpret")
 val WCSTR = MemberName("kotlinx.cinterop", "wcstr")
 val TO_KSTRING = MemberName("kotlinx.cinterop", "toKString")
 val USE_PINNED = MemberName("kotlinx.cinterop", "usePinned")
 val ADDRESS_OF = MemberName("kotlinx.cinterop", "addressOf")
+val SIZE_OF = MemberName("kotlinx.cinterop", "sizeOf")
 val FLAG = ClassName("com.imgui", "Flag")
 val VEC2 = ClassName("com.imgui", "Vec2")
 val VEC4 = ClassName("com.imgui", "Vec4")
+val IM_VECTOR = ClassName("com.imgui", "ImVector")
 val C_POINTER = ClassName("kotlinx.cinterop", "CPointer")
 val K_MUTABLE_PROPERTY = ClassName("kotlin.reflect", "KMutableProperty0")
 

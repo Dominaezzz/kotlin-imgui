@@ -4,6 +4,7 @@ import cimgui.internal.*
 import cimgui.internal.ImDrawVert
 import com.imgui.*
 import com.imgui.ImDrawData
+import com.imgui.ImDrawList
 import io.ktor.utils.io.core.*
 import org.lwjgl.opengl.*
 
@@ -284,23 +285,22 @@ actual constructor(
 
 		// Render command lists
 		for (n in 0 until drawData.cmdListsCount) {
-			val cmdList = CImGui.pImDrawListArray_getitem(drawData.ptr.cmdLists, n)
+			val cmdList = ImDrawList(CImGui.pImDrawListArray_getitem(drawData.ptr.cmdLists, n))
 
 			val sizeOfImDrawVert = 20L
 			val sizeOfImDrawIdx = Short.SIZE_BYTES.toLong()
 
 			// Upload buffer
 			//@formatter:off
-			GL30.nglBufferData(GL30.GL_ARRAY_BUFFER, cmdList.vtxBuffer.size * sizeOfImDrawVert, ImDrawVert.getCPtr(cmdList.vtxBuffer.data), GL30.GL_STREAM_DRAW)
-			GL30.nglBufferData(GL30.GL_ELEMENT_ARRAY_BUFFER, cmdList.idxBuffer.size * sizeOfImDrawIdx, SWIGTYPE_p_unsigned_short.getCPtr(cmdList.idxBuffer.data), GL30.GL_STREAM_DRAW)
+			GL30.nglBufferData(GL30.GL_ARRAY_BUFFER, cmdList.vtxBuffer.size * sizeOfImDrawVert, ImDrawVert.getCPtr(cmdList.vtxBuffer[0].ptr), GL30.GL_STREAM_DRAW)
+			GL30.nglBufferData(GL30.GL_ELEMENT_ARRAY_BUFFER, cmdList.ptr.idxBuffer.size * sizeOfImDrawIdx, SWIGTYPE_p_unsigned_short.getCPtr(cmdList.ptr.idxBuffer.data), GL30.GL_STREAM_DRAW)
 			//@formatter:on
 
-			for (cmd_i in 0 until cmdList.cmdBuffer.size) {
-				val pcmd = CImGui.ImDrawCmdArray_getitem(cmdList.cmdBuffer.data, cmd_i)
-				if (pcmd.userCallback != null) {
+			for (pcmd in cmdList.cmdBuffer) {
+				if (pcmd.ptr.userCallback != null) {
 					// User callback, registered via ImDrawList::AddCallback()
 					// (ImDrawCallback_ResetRenderState is a special callback value used by the user to request the renderer to reset render state.)
-					if (pcmd.userCallback == ImDrawCallback_ResetRenderState) {
+					if (pcmd.ptr.userCallback == ImDrawCallback_ResetRenderState) {
 						setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 					} else {
 						// pcmd.userCallback!!(cmdList, pcmd)
@@ -323,10 +323,10 @@ actual constructor(
 						}
 
 						// Bind texture, Draw
-						GL30.glBindTexture(GL30.GL_TEXTURE_2D, SWIGTYPE_p_void.getCPtr(pcmd.textureId).toInt())
+						GL30.glBindTexture(GL30.GL_TEXTURE_2D, SWIGTYPE_p_void.getCPtr(pcmd.textureId?.value).toInt())
 
 						val indexType = if (sizeOfImDrawIdx == 2L) GL30.GL_UNSIGNED_SHORT else GL30.GL_UNSIGNED_INT
-						val indexOffset = (pcmd.idxOffset * sizeOfImDrawIdx)
+						val indexOffset = (pcmd.idxOffset.toInt() * sizeOfImDrawIdx)
 						//@formatter:off
 						if (glMayHaveVertexOffset) {
 							GL32.glDrawElementsBaseVertex(GL30.GL_TRIANGLES, pcmd.elemCount.toInt(), indexType, indexOffset, pcmd.vtxOffset.toInt())

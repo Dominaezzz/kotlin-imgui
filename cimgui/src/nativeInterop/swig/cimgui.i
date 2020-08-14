@@ -2,6 +2,8 @@
 
 %inline %{
 #define CIMGUI_DEFINE_ENUMS_AND_STRUCTS
+
+void* memcpy(void* dest, const void* src, size_t n);
 %}
 
 %{
@@ -111,12 +113,49 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %include "carrays.i"
 %array_functions(short, shortArray);
 %array_functions(int, intArray);
-%array_functions(float, floatArray);
 %array_functions(double, doubleArray);
 %array_functions(bool, boolArray);
 %array_functions(unsigned short, ushortArray);
-%array_functions(ImVec2, ImVec2Array);
-%array_functions(ImVec4, ImVec4Array);
-%array_functions(ImGuiID, ImGuiIDArray);
-%array_functions(ImDrawCmd, ImDrawCmdArray);
 %array_functions(ImDrawList*, pImDrawListArray);
+
+%javaconst(0);
+%include "cmalloc.i"
+
+%define ADD_IM_VECTOR_UTILS(TYPE)
+%sizeof(TYPE)
+%array_functions(TYPE, TYPE ## Array);
+%enddef
+
+ADD_IM_VECTOR_UTILS(char);
+ADD_IM_VECTOR_UTILS(float);
+ADD_IM_VECTOR_UTILS(ImDrawChannel);
+ADD_IM_VECTOR_UTILS(ImDrawCmd);
+ADD_IM_VECTOR_UTILS(ImDrawIdx);
+ADD_IM_VECTOR_UTILS(ImDrawListPtr);
+ADD_IM_VECTOR_UTILS(ImDrawVert);
+ADD_IM_VECTOR_UTILS(ImFontAtlasCustomRect);
+ADD_IM_VECTOR_UTILS(ImFontConfig);
+ADD_IM_VECTOR_UTILS(ImFontGlyph);
+ADD_IM_VECTOR_UTILS(ImFontPtr);
+ADD_IM_VECTOR_UTILS(ImGuiColorMod);
+ADD_IM_VECTOR_UTILS(ImGuiColumnData);
+ADD_IM_VECTOR_UTILS(ImGuiColumns);
+ADD_IM_VECTOR_UTILS(ImGuiGroupData);
+ADD_IM_VECTOR_UTILS(ImGuiID);
+ADD_IM_VECTOR_UTILS(ImGuiItemFlags);
+ADD_IM_VECTOR_UTILS(ImGuiPopupData);
+ADD_IM_VECTOR_UTILS(ImGuiPtrOrIndex);
+ADD_IM_VECTOR_UTILS(ImGuiSettingsHandler);
+ADD_IM_VECTOR_UTILS(ImGuiShrinkWidthItem);
+ADD_IM_VECTOR_UTILS(ImGuiStoragePair);
+ADD_IM_VECTOR_UTILS(ImGuiStyleMod);
+ADD_IM_VECTOR_UTILS(ImGuiTabBar);
+ADD_IM_VECTOR_UTILS(ImGuiTabItem);
+ADD_IM_VECTOR_UTILS(ImGuiTextRange);
+ADD_IM_VECTOR_UTILS(ImGuiWindowPtr);
+ADD_IM_VECTOR_UTILS(ImGuiWindowSettings);
+ADD_IM_VECTOR_UTILS(ImTextureID);
+ADD_IM_VECTOR_UTILS(ImU32);
+ADD_IM_VECTOR_UTILS(ImVec2);
+ADD_IM_VECTOR_UTILS(ImVec4);
+ADD_IM_VECTOR_UTILS(ImWchar);

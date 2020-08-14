@@ -1,20 +1,14 @@
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.list
 import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import kotlinx.serialization.json.JsonLiteral
 import kotlinx.serialization.json.JsonObject
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import java.nio.file.Paths
 
 open class GenerateImGuiTask : DefaultTask() {
 	@InputDirectory
@@ -93,6 +87,13 @@ open class GenerateImGuiTask : DefaultTask() {
 						} else {
 							TODO()
 						}
+					} else if (type.startsWith("ImVector_")) {
+						val elementName = type.removePrefix("ImVector_")
+						if (elementName !in structs) TODO()
+						ReturnValue(
+							IM_VECTOR.parameterizedBy(ClassName("com.imgui", elementName)),
+							CodeBlock.of(".let(::%T)", ClassName("com.imgui", type))
+						)
 					} else {
 						TODO()
 					}
@@ -815,6 +816,147 @@ open class GenerateImGuiTask : DefaultTask() {
 			imguiDSL.addFunction(dsl)
 		}
 		imguiDSL.build().writeTo(commonDir.asFile.get())
+
+		val imVectors = structs.values.flatten()
+			.filter { it.type.startsWith("ImVector_") && it.templateType in structs }
+			.map { it.type }.toSet()
+		for (imVector in imVectors) {
+			val imVectorType = ClassName("cimgui.internal", imVector)
+			val ctor = FunSpec.constructorBuilder().addParameter("ptr", imVectorType).build()
+			val cimguiType = ClassName("cimgui.internal", imVector.removePrefix("ImVector_"))
+			val templatedType = ClassName("com.imgui", cimguiType.simpleName)
+			val superType = IM_VECTOR.parameterizedBy(templatedType)
+
+			val nativeType = TypeSpec.classBuilder(imVector)
+				.primaryConstructor(ctor)
+				.superclass(superType)
+				.addProperty(PropertySpec.builder("ptr", imVectorType).initializer("ptr").build())
+				.addProperty(
+					PropertySpec.builder("capacity", INT, KModifier.OVERRIDE)
+						.getter(FunSpec.getterBuilder().addStatement("return ptr.Capacity").build())
+						.build()
+				)
+				.addProperty(
+					PropertySpec.builder("size", INT, KModifier.OVERRIDE)
+						.getter(FunSpec.getterBuilder().addStatement("return ptr.Size").build())
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("get")
+						.addModifiers(KModifier.OPERATOR, KModifier.OVERRIDE)
+						.addParameter("index", INT)
+						.returns(templatedType)
+						.addStatement("return %T(ptr.Data!![index].%M)", templatedType, PTR)
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("reserve")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("newCapacity", INT)
+						.addStatement("if (newCapacity <= capacity) return")
+						.addStatement("val newData = igMemAlloc((newCapacity * %M<%T>()).toULong())?.%M<%T>()", SIZE_OF, cimguiType, REINTERPRET, cimguiType)
+						.beginControlFlow("if (ptr.Data != null)")
+						.addStatement("memcpy(newData, ptr.Data, (size * %M<%T>()).toULong())", SIZE_OF, cimguiType)
+						.addStatement("igMemFree(ptr.Data)")
+						.endControlFlow()
+						.addStatement("ptr.Data = newData")
+						.addStatement("ptr.Capacity = newCapacity")
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("resize")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("newSize", INT)
+						.addStatement("if (newSize > capacity) reserve(growCapacity(newSize))")
+						.addStatement("ptr.Size = newSize")
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("pushBack")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("element", templatedType)
+						.addStatement("if (size == capacity) reserve(growCapacity(size + 1))")
+						.addStatement("memcpy(ptr.Data!![size].%M, element.ptr, %M<%T>().toULong())", PTR, SIZE_OF, cimguiType)
+						.addStatement("ptr.Size += 1")
+						.build()
+				)
+				.build()
+
+			val jvmSize = CodeBlock.of("%T.sizeof_${cimguiType.simpleName}.toLong()", ClassName("cimgui.internal", "CImGuiConstants"))
+			val jvmType = TypeSpec.classBuilder(imVector)
+				.primaryConstructor(ctor)
+				.superclass(superType)
+				.addProperty(PropertySpec.builder("ptr", imVectorType).initializer("ptr").build())
+				.addProperty(
+					PropertySpec.builder("capacity", INT, KModifier.OVERRIDE)
+						.getter(FunSpec.getterBuilder().addStatement("return ptr.capacity").build())
+						.build()
+				)
+				.addProperty(
+					PropertySpec.builder("size", INT, KModifier.OVERRIDE)
+						.getter(FunSpec.getterBuilder().addStatement("return ptr.size").build())
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("get")
+						.addModifiers(KModifier.OPERATOR, KModifier.OVERRIDE)
+						.addParameter("index", INT)
+						.returns(templatedType)
+						.addStatement("val base = %T.getCPtr(ptr.data)", cimguiType)
+						.addStatement("val offset = %L * index", jvmSize)
+						.addStatement("return %T(%T(base + offset, false))", templatedType, cimguiType)
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("reserve")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("newCapacity", INT)
+						.addStatement("if (newCapacity <= capacity) return")
+						.addStatement("val data = %T.getCPtr(ptr.data)", cimguiType)
+						.addStatement("val newData = igMemAlloc(newCapacity * %L)", jvmSize)
+						.beginControlFlow("if (data != 0L)")
+						.addStatement("memcpy(newData, data, size * %L)", jvmSize)
+						.addStatement("igMemFree(data)")
+						.endControlFlow()
+						.addStatement("ptr.data = %T(newData, false)", cimguiType)
+						.addStatement("ptr.capacity = newCapacity")
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("resize")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("newSize", INT)
+						.addStatement("if (newSize > capacity) reserve(growCapacity(newSize))")
+						.addStatement("ptr.size = newSize")
+						.build()
+				)
+				.addFunction(
+					FunSpec.builder("pushBack")
+						.addModifiers(KModifier.OVERRIDE)
+						.addParameter("element", templatedType)
+						.addStatement("if (size == capacity) reserve(growCapacity(size + 1))")
+						.addStatement("val data = %T.getCPtr(ptr.data)", cimguiType)
+						.addStatement("memcpy(data + size * %L, %T.getCPtr(element.ptr), %L)", jvmSize, cimguiType, jvmSize)
+						.addStatement("ptr.size += 1")
+						.build()
+				)
+				.build()
+
+			FileSpec.builder("com.imgui", imVector)
+				.addType(nativeType)
+				.addImport("kotlinx.cinterop", "get")
+				.addImport("cimgui.internal", "igMemAlloc")
+				.addImport("cimgui.internal", "igMemFree")
+				.addImport("platform.posix", "memcpy")
+				.build().writeTo(nativeDir.asFile.get())
+
+			FileSpec.builder("com.imgui", imVector)
+				.addType(jvmType)
+				.addImport("cimgui.internal.CImGuiJNI", "igMemAlloc")
+				.addImport("cimgui.internal.CImGuiJNI", "igMemFree")
+				.addImport("cimgui.internal.CImGuiJNI", "memcpy")
+				.build().writeTo(jvmDir.asFile.get())
+		}
 
 		val internalStructs = definitions.flatMap { it.value }
 			.filter { it.location == "internal" && it.structName.isNotEmpty() }
