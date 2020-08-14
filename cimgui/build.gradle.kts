@@ -74,22 +74,17 @@ val cimguiOutput = cimguiDir.resolve("generator/output")
 val imguiDir = cimguiDir.resolve("imgui")
 val libsDir = buildDir.resolve("libs")
 
-val cloneCimgui by tasks.registering {
-	doLast {
-		if (!cimguiDir.exists()) {
-			exec {
-				commandLine(
-					"git",
-					"clone",
-					"--single-branch",
-					"--branch", cimguiVersion,
-					"--recurse-submodules",
-					"https://github.com/cimgui/cimgui",
-					cimguiDir
-				)
-			}
-		}
-	}
+val cloneCimgui by tasks.registering(Exec::class) {
+	commandLine(
+		"git",
+		"clone",
+		"--single-branch",
+		"--branch", cimguiVersion,
+		"--recurse-submodules",
+		"https://github.com/cimgui/cimgui",
+		cimguiDir
+	)
+	outputs.dir(cimguiDir)
 }
 
 val runSwig by tasks.registering(Exec::class) {
