@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.konan.target.*
 import java.io.*
 
 plugins {
-	kotlin("multiplatform") version "1.3.72" apply false
+	kotlin("multiplatform") version "1.4.10" apply false
 	id("de.undercouch.download") version ("4.0.2") apply false
 }
 
@@ -18,7 +18,7 @@ version = stdout.toString().trim()
 group = "com.kotlin-imgui"
 
 val imGuiVersion: String by extra("1.77")
-val kglVersion: String by extra("0.1.9-dev-13")
+val kglVersion: String by extra("0.1.10")
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 
 subprojects {
