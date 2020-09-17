@@ -120,6 +120,7 @@ SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
 %array_functions(double, doubleArray);
 %array_functions(bool, boolArray);
 %array_functions(unsigned short, ushortArray);
+%array_functions(ImWchar, ImWcharArray);
 %array_functions(ImVec2, ImVec2Array);
 %array_functions(ImVec4, ImVec4Array);
 %array_functions(ImGuiID, ImGuiIDArray);
