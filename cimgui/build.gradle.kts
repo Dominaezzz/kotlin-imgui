@@ -144,41 +144,110 @@ val objFileNames = listOf(
 )
 
 kotlin {
-	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
-
 	jvm {
 		withJava()
 		compilations {
-			"main" {
+			all { kotlinOptions.jvmTarget = "1.8" }
+			named("main") {
 				compileKotlinTask.dependsOn(runSwig)
-				dependencies {
-					implementation(kotlin("stdlib-jdk8"))
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-				}
 			}
 		}
 	}
 
-	sourceSets {
-		commonMain {
-			dependencies {
-				implementation(kotlin("stdlib-common"))
+	val jvmTargets =
+		if (useSingleTarget) listOf(HostManager.host)
+		else listOf(
+			KonanTarget.LINUX_X64,
+			KonanTarget.MACOS_X64,
+			KonanTarget.MINGW_X64
+		)
+
+	val osFamilyMap = mapOf<Family, OperatingSystemFamily>(
+		Family.LINUX to objects.named(LINUX),
+		Family.OSX to objects.named(MACOS),
+		Family.MINGW to objects.named(WINDOWS)
+	)
+	val osArchMap = mapOf<Architecture, MachineArchitecture>(
+		Architecture.X86 to objects.named(X86),
+		Architecture.X64 to objects.named(X86_64),
+		Architecture.ARM32 to objects.named("arm32"),
+		Architecture.ARM64 to objects.named("arm64")
+	)
+
+	for (jvmTarget in jvmTargets) {
+		val targetSuffix = jvmTarget.presetName.capitalize()
+		val resourceDir = buildDir.resolve("resources/${jvmTarget.presetName}")
+
+		val compileCImGui = tasks.register<Exec>("compileJniLibFor$targetSuffix") {
+			dependsOn(extractImGui, extractCWrapper)
+			dependsOn("cinteropCimgui$targetSuffix")
+			onlyIf { HostManager.host == jvmTarget }
+
+			val binaryDir = resourceDir.resolve("${osFamilyMap[jvmTarget.family]}")
+				.resolve(jvmTarget.architecture.toString().toLowerCase())
+			doFirst { mkdir(binaryDir) }
+
+			val dynLibraryFile = binaryDir.resolve("libcimgui.${jvmTarget.family.dynamicSuffix}")
+
+			inputs.files(jvmSourceFiles)
+			outputs.file(dynLibraryFile)
+
+			environment("PATH", "$llvmBinFolder;${System.getenv("PATH")}")
+			if (jvmTarget == KonanTarget.MACOS_X64) {
+				environment(
+					"CPATH",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+				)
 			}
+			executable = llvmBinFolder.resolve("clang++").absolutePath
+
+			val targetInfo = targetInfoMap.getValue(jvmTarget)
+			if (HostManager.host != jvmTarget) {
+				args("-target", targetInfo.targetName)
+				args("--sysroot=${targetInfo.sysRoot}")
+			}
+			if (HostManager.hostIsMingw) {
+				args(
+					"-fdeclspec",
+					"-static-libgcc",
+					"-static-libstdc++",
+					"-Wl,-Bstatic,--whole-archive",
+					"-lwinpthread",
+					"-Wl,--no-whole-archive,-Bdynamic"
+				)
+			} else {
+				args("-fPIC")
+			}
+			args(targetInfo.clangArgs)
+			args(
+				"-shared", "-Wall",
+				"-I$imguiDir", "-I$cimguiOutput", "-I$cimguiDir",
+				"-I${Jvm.current().javaHome.resolve("include")}",
+				"-I${Jvm.current().javaHome.resolve("include/${HostManager.jniHostPlatformIncludeDir}")}",
+				"-o", dynLibraryFile.absolutePath
+			)
+			args(jvmSourceFiles.map { it.absolutePath })
 		}
-		commonTest {
-			dependencies {
-				implementation(kotlin("test-common"))
-				implementation(kotlin("test-annotations-common"))
+
+		jvm("jvm$targetSuffix") {
+			compilations {
+				all { kotlinOptions.jvmTarget = "1.8" }
+				named("main") {
+					compileKotlinTask.dependsOn(compileCImGui)
+				}
+			}
+
+			attributes {
+				attribute(OPERATING_SYSTEM_ATTRIBUTE, osFamilyMap.getValue(jvmTarget.family))
+				attribute(ARCHITECTURE_ATTRIBUTE, osArchMap.getValue(jvmTarget.architecture))
 			}
 		}
 	}
+
+	// cannot have names because of jvm architecture dependency
+	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
+	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
 
 	targets.withType<KotlinNativeTarget> {
 		val libDir = buildDir.resolve("lib").resolve(name)
@@ -229,133 +298,68 @@ kotlin {
 			args(objFiles.map { it.absolutePath })
 		}
 
-		compilations {
-			"main" {
-				cinterops {
-					create("cimgui") {
-						includeDirs(cimguiOutput, imguiDir)
-						tasks.named(interopProcessingTaskName) {
-							dependsOn(extractImGui, extractCWrapper)
-						}
-						compileImGui {
-							// This is to ensure native toolchain is downloaded before compiling with it.
-							dependsOn(tasks.named(interopProcessingTaskName))
-						}
-					}
+		compilations.named("main") {
+			cinterops.create("cimgui") {
+				includeDirs(cimguiOutput, imguiDir)
+				tasks.named(interopProcessingTaskName) {
+					dependsOn(extractImGui, extractCWrapper)
 				}
+				compileImGui {
+					// This is to ensure native toolchain is downloaded before compiling with it.
+					dependsOn(tasks.named(interopProcessingTaskName))
+				}
+			}
 
-				compileKotlinTask.dependsOn(archiveImGui)
-				kotlinOptions {
-					freeCompilerArgs = listOf("-include-binary", staticLibFile.absolutePath)
-				}
+			compileKotlinTask.dependsOn(archiveImGui)
+			kotlinOptions {
+				freeCompilerArgs = listOf("-include-binary", staticLibFile.absolutePath)
 			}
 		}
 	}
 
-	val jvmTargets =
-		if (useSingleTarget) listOf(HostManager.host)
-		else listOf(
-			KonanTarget.LINUX_X64,
-			KonanTarget.MACOS_X64,
-			KonanTarget.MINGW_X64
-		)
-
-	val osFamilyMap = mapOf<Family, OperatingSystemFamily>(
-		Family.LINUX to objects.named(LINUX),
-		Family.OSX to objects.named(MACOS),
-		Family.MINGW to objects.named(WINDOWS)
-	)
-	val osArchMap = mapOf<Architecture, MachineArchitecture>(
-		Architecture.X86 to objects.named(X86),
-		Architecture.X64 to objects.named(X86_64),
-		Architecture.ARM32 to objects.named("arm32"),
-		Architecture.ARM64 to objects.named("arm64")
-	)
-
-	for (jvmTarget in jvmTargets) {
-		val jvmGenResourceDir = buildDir.resolve("resources")
-		val resourceDir = jvmGenResourceDir.resolve(jvmTarget.presetName)
-
-		val compileCImGui = tasks.register<Exec>("compileJniLibFor${jvmTarget.presetName.capitalize()}") {
-			dependsOn(extractImGui, extractCWrapper)
-			dependsOn("cinteropCimgui${jvmTarget.presetName.capitalize()}")
-			onlyIf { HostManager.host == jvmTarget }
-
-			val binaryDir = resourceDir.resolve("${osFamilyMap[jvmTarget.family]}")
-				.resolve(jvmTarget.architecture.toString().toLowerCase())
-			doFirst { mkdir(binaryDir) }
-
-			val dynLibraryFile = binaryDir.resolve("libcimgui.${jvmTarget.family.dynamicSuffix}")
-
-			inputs.files(jvmSourceFiles)
-			outputs.file(dynLibraryFile)
-
-			environment("PATH", "$llvmBinFolder;${System.getenv("PATH")}")
-			if (jvmTarget == KonanTarget.MACOS_X64) {
-				environment(
-					"CPATH",
-					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-				)
+	sourceSets {
+		commonMain {
+			dependencies {
+				implementation(kotlin("stdlib-common"))
 			}
-			executable = llvmBinFolder.resolve("clang++").absolutePath
-
-			val targetInfo = targetInfoMap.getValue(jvmTarget)
-			if (HostManager.host != jvmTarget) {
-				args("-target", targetInfo.targetName)
-				args("--sysroot=${targetInfo.sysRoot}")
-			}
-			if (HostManager.hostIsMingw) {
-				args(
-					"-fdeclspec",
-					"-static-libgcc",
-					"-static-libstdc++",
-					"-Wl,-Bstatic,--whole-archive",
-					"-lwinpthread",
-					"-Wl,--no-whole-archive,-Bdynamic"
-				)
-			} else {
-				args("-fPIC")
-			}
-			args(targetInfo.clangArgs)
-			args(
-				"-shared", "-Wall",
-				"-I$imguiDir", "-I$cimguiOutput", "-I$cimguiDir",
-				"-I${Jvm.current().javaHome.resolve("include")}",
-				"-I${Jvm.current().javaHome.resolve("include").resolve(HostManager.jniHostPlatformIncludeDir)}",
-				"-o", dynLibraryFile.absolutePath
-			)
-			args(jvmSourceFiles.map { it.absolutePath })
 		}
 
-		jvm("jvm${jvmTarget.presetName.capitalize()}") {
-			compilations {
-				"main" {
-					compileKotlinTask.dependsOn(compileCImGui)
-					defaultSourceSet {
-						resources.srcDir(resourceDir.absolutePath)
-					}
-					dependencies {
-						implementation(kotlin("stdlib-jdk8"))
-					}
-				}
-				"test" {
-					dependencies {
-						implementation(kotlin("test"))
-						implementation(kotlin("test-junit"))
-					}
-				}
+		commonTest {
+			dependencies {
+				implementation(kotlin("test-common"))
+				implementation(kotlin("test-annotations-common"))
+			}
+		}
+
+		named("jvmMain") {}
+
+		named("jvmTest") {
+			dependencies {
+				implementation(kotlin("test-junit"))
+			}
+		}
+
+		for (jvmTarget in jvmTargets) {
+			val targetSuffix = jvmTarget.presetName.capitalize()
+			val resourceDir = buildDir.resolve("resources/${jvmTarget.presetName}")
+
+			named("jvm${targetSuffix}Main") {
+				resources.srcDir(resourceDir.absolutePath)
 			}
 
-			attributes {
-				attribute(OPERATING_SYSTEM_ATTRIBUTE, osFamilyMap.getValue(jvmTarget.family))
-				attribute(ARCHITECTURE_ATTRIBUTE, osArchMap.getValue(jvmTarget.architecture))
+			named("jvm${targetSuffix}Test") {
+				dependencies {
+					implementation(kotlin("test-junit"))
+				}
 			}
 		}
 	}
 }
 
 java {
-	sourceSets.named("main") {
-		java.srcDir(swigJavaDir)
+	sourceSets {
+		named("main") {
+			java.srcDir(swigJavaDir)
+		}
 	}
 }

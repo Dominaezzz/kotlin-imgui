@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.*
+
 plugins {
 	`java-gradle-plugin`
 	kotlin("jvm") version "1.3.72"
@@ -6,13 +8,10 @@ plugins {
 
 repositories {
 	jcenter()
-	mavenCentral()
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-	kotlinOptions {
-		jvmTarget = "1.8"
-	}
+tasks.withType<KotlinCompile> {
+	kotlinOptions.jvmTarget = "1.8"
 }
 
 dependencies {

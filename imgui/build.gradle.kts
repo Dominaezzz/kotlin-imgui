@@ -17,53 +17,22 @@ val generateImGui by tasks.registering(GenerateImGuiTask::class) {
 }
 
 kotlin {
-	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
-
 	jvm {
 		compilations {
-			"main" {
+			all { kotlinOptions.jvmTarget = "1.8" }
+			named("main") {
 				compileKotlinTask.dependsOn(generateImGui)
-				defaultSourceSet {
-					kotlin.srcDir(generateImGui.map { it.jvmDir })
-				}
-				dependencies {
-					api(kotlin("stdlib-jdk8"))
-					implementation(project(":cimgui", "jvmDefault"))
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-
-					if (HostManager.hostIsLinux) runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
-					if (HostManager.hostIsMac) runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
-					if (HostManager.hostIsMingw) runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
-				}
 			}
 		}
 	}
 
-	targets.withType<KotlinNativeTarget> {
-		compilations {
-			"main" {
-				compileKotlinTask.dependsOn(generateImGui)
-				defaultSourceSet {
-					kotlin.srcDir(generateImGui.map { it.nativeDir })
-					kotlin.srcDir("src/nativeMain/kotlin")
-				}
+	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
+	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
 
-				dependencies {
-					implementation(project(":cimgui"))
-				}
-			}
-			"test" {
-				defaultSourceSet {
-					kotlin.srcDir("src/nativeTest/kotlin")
-				}
-			}
+	targets.withType<KotlinNativeTarget> {
+		compilations.named("main") {
+			compileKotlinTask.dependsOn(generateImGui)
 		}
 	}
 
@@ -74,10 +43,41 @@ kotlin {
 				implementation(kotlin("stdlib-common"))
 			}
 		}
+
 		commonTest {
 			dependencies {
 				implementation(kotlin("test-common"))
 				implementation(kotlin("test-annotations-common"))
+			}
+		}
+
+		named("jvmMain") {
+			kotlin.srcDir(generateImGui.map { it.jvmDir })
+			dependencies {
+				implementation(project(":cimgui", "jvmDefault"))
+			}
+		}
+
+		named("jvmTest") {
+			dependencies {
+				implementation(kotlin("test-junit"))
+				runtimeOnly(project(":cimgui", "jvm${HostManager.host.presetName.capitalize()}Default"))
+			}
+		}
+
+		targets.withType<KotlinNativeTarget> {
+			named("${name}Main") {
+				kotlin.srcDir(generateImGui.map { it.nativeDir })
+				kotlin.srcDir("src/nativeMain/kotlin")
+				resources.srcDir("src/nativeMain/resources")
+				dependencies {
+					implementation(project(":cimgui"))
+				}
+			}
+
+			named("${name}Test") {
+				kotlin.srcDir("src/nativeTest/kotlin")
+				resources.srcDir("src/nativeTest/resources")
 			}
 		}
 	}

@@ -14,19 +14,18 @@ exec {
 	standardOutput = stdout
 }
 
-version = stdout.toString().trim()
 group = "com.kotlin-imgui"
+version = stdout.toString().trim()
 
+val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 val imGuiVersion: String by extra("1.77")
 val kglVersion: String by extra("0.1.10")
-val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 
 subprojects {
 	group = rootProject.group
 	version = rootProject.version
 
 	repositories {
-		mavenCentral()
 		jcenter()
 		maven("https://dl.bintray.com/dominaezzz/kotlin-native")
 	}
@@ -35,29 +34,24 @@ subprojects {
 		configure<KotlinMultiplatformExtension> {
 			sourceSets.all {
 				languageSettings.run {
-					useExperimentalAnnotation("kotlin.Experimental")
+					enableLanguageFeature("InlineClasses")
+					useExperimentalAnnotation("kotlin.RequiresOptIn")
 					useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
 					useExperimentalAnnotation("com.imgui.ImGuiInternal")
-
-					enableLanguageFeature("InlineClasses")
 				}
 			}
 
 			// Hack until https://youtrack.jetbrains.com/issue/KT-30498
+			// Cross-Platform builds are generally disabled, but linux targets can apparently be built
+			// on both macOS and Windows, which breaks on both of those platforms, so we disable the
+			// cinterop, compile, and link tasks for any non-host native target
 			targets.withType<KotlinNativeTarget> {
-				// Disable cross-platform build
 				if (!HostManager().isEnabled(konanTarget)) {
 					compilations.all {
-						cinterops.all {
-							tasks.named(interopProcessingTaskName).configure {
-								enabled = false
-							}
-						}
+						cinterops.all { tasks[interopProcessingTaskName].enabled = false }
 						compileKotlinTask.enabled = false
 					}
-					binaries.all {
-						linkTask.enabled = false
-					}
+					binaries.all { linkTask.enabled = false }
 				}
 			}
 		}
@@ -106,29 +100,31 @@ subprojects {
 			}
 		}
 
-		val publishTasks = tasks.withType<PublishToMavenRepository>()
-			.matching {
-				when {
-					HostManager.hostIsMingw -> {
-						it.name.startsWith("publishMingw") ||
-							it.name.startsWith("publishJvmMingw")
-					}
-					HostManager.hostIsMac -> {
-						it.name.startsWith("publishMacos") ||
-							it.name.startsWith("publishIos") ||
-							it.name.startsWith("publishJvmMacos")
-					}
-					HostManager.hostIsLinux -> {
-						it.name.startsWith("publishLinux") ||
-							it.name.startsWith("publishJs") ||
-							it.name.startsWith("publishJvmPublication") ||
-							it.name.startsWith("publishJvmLinux") ||
-							it.name.startsWith("publishMetadata") ||
-							it.name.startsWith("publishKotlinMultiplatform")
-					}
-					else -> TODO("Unknown host")
-				}
-			}
+		val taskPrefixes = when {
+			HostManager.hostIsLinux -> listOf(
+				"publishLinux",
+				"publishJs",
+				"publishJvmPublication",
+				"publishJvmLinux",
+				"publishMetadata",
+				"publishKotlinMultiplatform"
+			)
+			HostManager.hostIsMac -> listOf(
+				"publishMacos",
+				"publishIos",
+				"publishJvmMacos"
+			)
+			HostManager.hostIsMingw -> listOf(
+				"publishMingw",
+				"publishJvmMingw"
+			)
+			else -> error("unknown host")
+		}
+
+		val publishTasks = tasks.withType<PublishToMavenRepository>().matching { task ->
+			taskPrefixes.any { task.name.startsWith(it) }
+		}
+
 		tasks.register("smartPublish") {
 			dependsOn(publishTasks)
 		}

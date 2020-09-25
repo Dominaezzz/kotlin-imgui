@@ -10,40 +10,15 @@ val useSingleTarget: Boolean by rootProject.extra
 val kglVersion: String by rootProject.extra
 
 kotlin {
-	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
-	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
-	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
-
 	jvm {
-		compilations {
-			"main" {
-				dependencies {
-					api(kotlin("stdlib-jdk8"))
-					compileOnly(project(":cimgui", "jvmDefault"))
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-				}
-			}
+		compilations.all {
+			kotlinOptions.jvmTarget = "1.8"
 		}
 	}
 
-	targets.withType<KotlinNativeTarget> {
-		compilations {
-			"main" {
-				defaultSourceSet {
-					kotlin.srcDir("src/nativeMain/kotlin")
-				}
-
-				dependencies {
-					implementation(project(":cimgui"))
-				}
-			}
-		}
-	}
+	if (!useSingleTarget || HostManager.hostIsLinux) linuxX64()
+	if (!useSingleTarget || HostManager.hostIsMac) macosX64()
+	if (!useSingleTarget || HostManager.hostIsMingw) mingwX64()
 
 	sourceSets {
 		commonMain {
@@ -53,10 +28,38 @@ kotlin {
 				implementation("com.kgl:kgl-opengl:$kglVersion")
 			}
 		}
+
 		commonTest {
 			dependencies {
 				implementation(kotlin("test-common"))
 				implementation(kotlin("test-annotations-common"))
+			}
+		}
+
+		named("jvmMain") {
+			dependencies {
+				compileOnly(project(":cimgui", "jvmDefault"))
+			}
+		}
+
+		named("jvmTest") {
+			dependencies {
+				implementation(kotlin("test-junit"))
+			}
+		}
+
+		targets.withType<KotlinNativeTarget> {
+			named("${name}Main") {
+				kotlin.srcDir("src/nativeMain/kotlin")
+				resources.srcDir("src/nativeMain/resources")
+				dependencies {
+					implementation(project(":cimgui"))
+				}
+			}
+
+			named("${name}Test") {
+				kotlin.srcDir("src/nativeTest/kotlin")
+				resources.srcDir("src/nativeTest/resources")
 			}
 		}
 	}
