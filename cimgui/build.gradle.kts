@@ -34,7 +34,7 @@ val targetInfoMap = mapOf(
 		konanDeps.resolve("target-gcc-toolchain-3-linux-x86-64/x86_64-unknown-linux-gnu/sysroot")
 	),
 	KonanTarget.MACOS_X64 to TargetInfo(
-		"x86_64-apple-darwin10", // Not sure about this but it doesn't matter yet.
+		"x86_64-apple-darwin10",
 		konanDeps.resolve("target-sysroot-10-macos_x64")
 	),
 	KonanTarget.MINGW_X64 to TargetInfo(
@@ -69,13 +69,13 @@ val targetInfoMap = mapOf(
 )
 
 val downloadsDir = buildDir.resolve("downloads")
-val cimguiDir = downloadsDir.resolve("cimgui-${imGuiVersion}")
+val cimguiDir = downloadsDir.resolve("cimgui-$imGuiVersion")
 val cimguiOutput = cimguiDir.resolve("generator/output")
 val imguiDir = cimguiDir.resolve("imgui")
 val libsDir = buildDir.resolve("libs")
 
 val downloadCWrapper by tasks.registering(Download::class) {
-	src("https://github.com/cimgui/cimgui/archive/${imGuiVersion}.zip")
+	src("https://github.com/cimgui/cimgui/archive/$imGuiVersion.zip")
 	dest(downloadsDir.resolve("cimgui.zip"))
 	overwrite(false)
 }
@@ -85,7 +85,7 @@ val extractCWrapper by tasks.registering(Copy::class) {
 }
 
 val downloadImGui by tasks.registering(Download::class) {
-	src("https://github.com/ocornut/imgui/archive/v${imGuiVersion}.zip")
+	src("https://github.com/ocornut/imgui/archive/v$imGuiVersion.zip")
 	dest(downloadsDir.resolve("imgui.zip"))
 	overwrite(false)
 }
@@ -101,28 +101,28 @@ val extractImGui by tasks.registering(Copy::class) {
 	into(cimguiDir.resolve("imgui"))
 }
 
+val swigJavaDir = buildDir.resolve("generated-src/jvm/java")
+val swigCppDir = buildDir.resolve("generated-src/jvm/cpp")
 val runSwig by tasks.registering(Exec::class) {
 	dependsOn(extractCWrapper)
 
 	val swigInterfaceDir = file("src/nativeInterop/swig")
-	val javaOutputDir = file("src/jvmMain/java/cimgui/internal")
-	val cppOutputDir = file("src/jvmMain/cpp")
-
+	val swigCimguiDir = swigJavaDir.resolve("cimgui/internal")
 	doFirst {
-		delete(*javaOutputDir.listFiles { file -> file.extension == "java" }!!)
+		delete(swigCimguiDir.listFiles { file: File -> file.extension == "java" }!!)
 	}
 
 	inputs.dir(swigInterfaceDir)
-	outputs.dirs(javaOutputDir, cppOutputDir)
+	outputs.dirs(swigCimguiDir, swigCppDir)
 
 	executable = "swig"
 	workingDir = swigInterfaceDir.absoluteFile
 
 	args("-java", "-c++")
 	args("-package", "cimgui.internal")
-	args("-outdir", javaOutputDir.absolutePath)
-	args("-o", cppOutputDir.resolve("wrap.cpp").absolutePath)
-	args("-I${cimguiOutput}")
+	args("-outdir", swigCimguiDir.absolutePath)
+	args("-o", swigCppDir.resolve("wrap.cpp").absolutePath)
+	args("-I$cimguiOutput")
 	args("-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS")
 	args("cimgui.i")
 }
@@ -134,7 +134,7 @@ val sourceFiles = listOf(
 	imguiDir.resolve("imgui_widgets.cpp"),
 	cimguiOutput.resolve("cimgui.cpp")
 )
-val jvmSourceFiles = sourceFiles + file("src/jvmMain/cpp/wrap.cpp")
+val jvmSourceFiles = sourceFiles + swigCppDir.resolve("wrap.cpp")
 val objFileNames = listOf(
 	"imgui.o",
 	"imgui_draw.o",
@@ -153,10 +153,6 @@ kotlin {
 		compilations {
 			"main" {
 				compileKotlinTask.dependsOn(runSwig)
-				defaultSourceSet {
-					kotlin.srcDir("src/jvmMain/java")
-					kotlin.srcDir("src/jvmMain/kotlin")
-				}
 				dependencies {
 					implementation(kotlin("stdlib-jdk8"))
 				}
@@ -185,13 +181,13 @@ kotlin {
 	}
 
 	targets.withType<KotlinNativeTarget> {
-		val libDir = buildDir.resolve("lib").resolve(targetName)
+		val libDir = buildDir.resolve("lib").resolve(name)
 
 		val objDir = libDir.resolve("obj")
 		val staticLibFile = libDir.resolve("libimgui.a")
 
 		val objFiles = objFileNames.map { objDir.resolve(it) }
-		val compileImGui = tasks.register<Exec>("compileImGuiFor$targetName") {
+		val compileImGui = tasks.register<Exec>("compileImGuiFor${name.capitalize()}") {
 			dependsOn(extractImGui, extractCWrapper)
 			onlyIf { HostManager().isEnabled(konanTarget) }
 			doFirst { mkdir(objDir) }
@@ -220,7 +216,7 @@ kotlin {
 			)
 			args(sourceFiles.map { it.absolutePath })
 		}
-		val archiveImGui = tasks.register<Exec>("archiveImGuiFor$targetName") {
+		val archiveImGui = tasks.register<Exec>("archiveImGuiFor${name.capitalize()}") {
 			dependsOn(compileImGui)
 			onlyIf { HostManager().isEnabled(konanTarget) }
 
@@ -285,7 +281,8 @@ kotlin {
 			dependsOn("cinteropCimgui${jvmTarget.presetName.capitalize()}")
 			onlyIf { HostManager.host == jvmTarget }
 
-			val binaryDir = resourceDir.resolve("${osFamilyMap[jvmTarget.family]}").resolve(jvmTarget.architecture.toString().toLowerCase())
+			val binaryDir = resourceDir.resolve("${osFamilyMap[jvmTarget.family]}")
+				.resolve(jvmTarget.architecture.toString().toLowerCase())
 			doFirst { mkdir(binaryDir) }
 
 			val dynLibraryFile = binaryDir.resolve("libcimgui.${jvmTarget.family.dynamicSuffix}")
@@ -322,7 +319,7 @@ kotlin {
 			args(targetInfo.clangArgs)
 			args(
 				"-shared", "-Wall",
-				"-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
+				"-I$imguiDir", "-I$cimguiOutput", "-I$cimguiDir",
 				"-I${Jvm.current().javaHome.resolve("include")}",
 				"-I${Jvm.current().javaHome.resolve("include").resolve(HostManager.jniHostPlatformIncludeDir)}",
 				"-o", dynLibraryFile.absolutePath
@@ -354,5 +351,11 @@ kotlin {
 				attribute(ARCHITECTURE_ATTRIBUTE, osArchMap.getValue(jvmTarget.architecture))
 			}
 		}
+	}
+}
+
+java {
+	sourceSets.named("main") {
+		java.srcDir(swigJavaDir)
 	}
 }

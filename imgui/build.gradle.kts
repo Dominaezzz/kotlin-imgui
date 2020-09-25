@@ -7,14 +7,13 @@ plugins {
 }
 
 val useSingleTarget: Boolean by rootProject.extra
-
 val imGuiVersion: String by rootProject.extra
 
 val generateImGui by tasks.registering(GenerateImGuiTask::class) {
-	inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-${imGuiVersion}/generator/output"))
-	commonDir.set(file("src/commonMain/generated"))
-	jvmDir.set(file("src/jvmMain/generated"))
-	nativeDir.set(file("src/nativeMain/generated"))
+	inputDir.set(project(":cimgui").buildDir.resolve("downloads/cimgui-$imGuiVersion/generator/output"))
+	commonDir.set(buildDir.resolve("generated-src/common"))
+	jvmDir.set(buildDir.resolve("generated-src/jvm"))
+	nativeDir.set(buildDir.resolve("generated-src/native"))
 }
 
 kotlin {
@@ -27,7 +26,7 @@ kotlin {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
 				defaultSourceSet {
-					kotlin.srcDir("src/jvmMain/generated")
+					kotlin.srcDir(generateImGui.map { it.jvmDir })
 				}
 				dependencies {
 					api(kotlin("stdlib-jdk8"))
@@ -52,7 +51,7 @@ kotlin {
 			"main" {
 				compileKotlinTask.dependsOn(generateImGui)
 				defaultSourceSet {
-					kotlin.srcDir("src/nativeMain/generated")
+					kotlin.srcDir(generateImGui.map { it.nativeDir })
 					kotlin.srcDir("src/nativeMain/kotlin")
 				}
 
@@ -70,7 +69,7 @@ kotlin {
 
 	sourceSets {
 		commonMain {
-			kotlin.srcDir("src/commonMain/generated")
+			kotlin.srcDir(generateImGui.map { it.commonDir })
 			dependencies {
 				implementation(kotlin("stdlib-common"))
 			}
