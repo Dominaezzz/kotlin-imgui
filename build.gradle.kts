@@ -33,7 +33,7 @@ subprojects {
 	plugins.withId("org.jetbrains.kotlin.multiplatform") {
 		configure<KotlinMultiplatformExtension> {
 			sourceSets.all {
-				languageSettings.run {
+				languageSettings.apply {
 					enableLanguageFeature("InlineClasses")
 					useExperimentalAnnotation("kotlin.RequiresOptIn")
 					useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")

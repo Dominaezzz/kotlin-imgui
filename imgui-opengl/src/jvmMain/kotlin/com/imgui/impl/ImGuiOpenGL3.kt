@@ -304,7 +304,7 @@ actual constructor(
 						setupRenderState(drawData, fbWidth, fbHeight, vertexArrayObject)
 					} else {
 						// pcmd.userCallback!!(cmdList, pcmd)
-						TODO()
+						TODO("pcmd.userCallback (swig function pointer call?)")
 					}
 				} else {
 					// Project scissor/clipping rectangles into framebuffer space

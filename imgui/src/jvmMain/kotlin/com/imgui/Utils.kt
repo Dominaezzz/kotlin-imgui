@@ -32,7 +32,7 @@ internal fun loadCImGuiNativeLibs() {
 			simpleOsName = "windows"
 			extName = "dll"
 		}
-		else -> TODO("OS '$osName' not support by cimgui")
+		else -> error("OS '$osName' not support by cimgui")
 	}
 	val simpleOsArch = when (osArch) {
 		"amd64", "x86_64" -> "x64"

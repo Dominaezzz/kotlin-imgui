@@ -21,7 +21,7 @@ val toolChainFolder = when (HostManager.host) {
 	KonanTarget.LINUX_X64 -> "clang-llvm-8.0.0-linux-x86-64"
 	KonanTarget.MACOS_X64 -> "clang-llvm-apple-8.0.0-darwin-macos"
 	KonanTarget.MINGW_X64 -> "msys2-mingw-w64-x86_64-clang-llvm-lld-compiler_rt-8.0.1"
-	else -> TODO()
+	else -> error("unknown host")
 }
 val llvmBinFolder = konanDeps.resolve(toolChainFolder).resolve("bin")
 val androidSysRootParent = konanDeps.resolve("target-sysroot-1-android_ndk").resolve("android-21")
