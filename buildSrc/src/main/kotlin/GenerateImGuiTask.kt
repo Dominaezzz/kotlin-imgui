@@ -53,9 +53,9 @@ open class GenerateImGuiTask : DefaultTask() {
 			return when (type) {
 				"size_t" -> ReturnValue(U_LONG, CodeBlock.of(".%M()", CONVERT), CodeBlock.of(".toULong()"))
 				"void" -> ReturnValue(UNIT, CodeBlock.of(""))
-				"ImU32" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
-				"unsigned int" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
-				"unsigned short" -> ReturnValue(U_SHORT, CodeBlock.of(".toUShort()"))
+				"ImU32" -> ReturnValue(U_INT, CodeBlock.of(""), CodeBlock.of(".toUInt()"))
+				"unsigned int" -> ReturnValue(U_INT, CodeBlock.of(""), CodeBlock.of(".toUInt()"))
+				"unsigned short" -> ReturnValue(U_SHORT, CodeBlock.of(""), CodeBlock.of(".toUShort()"))
 				"const char*" -> ReturnValue(STRING, CodeBlock.of(".%M()", TO_KSTRING), CodeBlock.of(""))
 				"const ImWchar*" -> ReturnValue(
 					STRING,
@@ -457,12 +457,14 @@ open class GenerateImGuiTask : DefaultTask() {
 				val argNameKt = arg.name.snakeToPascalCase().decapitalize()
 				val defaultValue = defaultMap[arg.name]?.let {
 					// Must be a better way to do this.
-					if (it == "(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))") {
-						"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
-					} else if (it == "(((ImU32)(255)<<24)|((ImU32)(0)<<16)|((ImU32)(0)<<8)|((ImU32)(255)<<0))") {
-						"(255u shl 24) or (0u shl 16) or (0u shl 8) or (255u shl 0)"
-					} else {
-						it
+					when (it) {
+						"(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))" -> {
+							"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
+						}
+						"(((ImU32)(255)<<24)|((ImU32)(0)<<16)|((ImU32)(0)<<8)|((ImU32)(255)<<0))" -> {
+							"(255u shl 24) or (0u shl 16) or (0u shl 8) or (255u shl 0)"
+						}
+						else -> it
 					}
 				}
 
@@ -510,18 +512,22 @@ open class GenerateImGuiTask : DefaultTask() {
 
 						val paramType = type.copy(nullable = isNullable)
 						val ptrName = "ptr${argNameKt.capitalize()}"
-						if (propToPtr) {
-							val helper = if (isNullable) {
-								CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
-							} else {
-								CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
+						when {
+							propToPtr -> {
+								val helper = if (isNullable) {
+									CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
+								} else {
+									CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
+								}
+								nativeScopedHelpers.add(helper)
+								jvmScopedHelpers.add(helper)
 							}
-							nativeScopedHelpers.add(helper)
-							jvmScopedHelpers.add(helper)
-						} else if (passesStructByValue) {
-							jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
-						} else if (isUnicodeStr) {
-							jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String·{ $ptrName -> "))
+							passesStructByValue -> {
+								jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
+							}
+							isUnicodeStr -> {
+								jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String·{ $ptrName -> "))
+							}
 						}
 
 						val param = ParameterSpec.builder(argNameKt, paramType)
@@ -829,10 +835,8 @@ open class GenerateImGuiTask : DefaultTask() {
 		for ((structName, members) in structs) {
 			if (structName in internalStructs) continue
 
-			val imguiStructClass = ClassName("cimgui.internal", structName)
-
-			val nativePointerClass = C_POINTER.parameterizedBy(imguiStructClass)
-			val jvmPointerClass = imguiStructClass
+			val jvmPointerClass = ClassName("cimgui.internal", structName)
+			val nativePointerClass = C_POINTER.parameterizedBy(jvmPointerClass)
 
 			val commonStruct = TypeSpec.expectClassBuilder(structName)
 			val nativeStruct = TypeSpec.classBuilder(structName)
