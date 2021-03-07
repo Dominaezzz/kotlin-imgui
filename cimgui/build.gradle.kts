@@ -70,7 +70,6 @@ val targetInfoMap = mapOf(
 
 val downloadsDir = buildDir.resolve("downloads")
 val cimguiDir = downloadsDir.resolve("cimgui-${cimguiVersion}")
-val cimguiOutput = cimguiDir.resolve("generator/output")
 val imguiDir = cimguiDir.resolve("imgui")
 val libsDir = buildDir.resolve("libs")
 
@@ -108,7 +107,7 @@ val runSwig by tasks.registering(Exec::class) {
 	args("-package", "cimgui.internal")
 	args("-outdir", javaOutputDir.absolutePath)
 	args("-o", cppOutputDir.resolve("wrap.cpp").absolutePath)
-	args("-I${cimguiOutput}")
+	args("-I${cimguiDir}")
 	args("-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS")
 	args("cimgui.i")
 }
@@ -118,7 +117,7 @@ val sourceFiles = listOf(
 	imguiDir.resolve("imgui_draw.cpp"),
 	imguiDir.resolve("imgui_demo.cpp"),
 	imguiDir.resolve("imgui_widgets.cpp"),
-	cimguiOutput.resolve("cimgui.cpp")
+	cimguiDir.resolve("cimgui.cpp")
 )
 val jvmSourceFiles = sourceFiles + file("src/jvmMain/cpp/wrap.cpp")
 val objFileNames = listOf(
@@ -201,7 +200,7 @@ kotlin {
 			args(targetInfo.clangArgs)
 			args(
 				"-c", "-w",
-				"-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
+				"-I$imguiDir", "-I${cimguiDir}",
 				"-working-directory", objDir.absolutePath
 			)
 			args(sourceFiles.map { it.absolutePath })
@@ -223,7 +222,7 @@ kotlin {
 			"main" {
 				cinterops {
 					create("cimgui") {
-						includeDirs(cimguiOutput, imguiDir)
+						includeDirs(cimguiDir, imguiDir)
 						tasks.named(interopProcessingTaskName) {
 							dependsOn(cloneCimgui)
 						}
@@ -308,7 +307,7 @@ kotlin {
 			args(targetInfo.clangArgs)
 			args(
 				"-shared", "-Wall",
-				"-I${imguiDir}", "-I${cimguiOutput}", "-I${cimguiDir}",
+				"-I${imguiDir}", "-I${cimguiDir}",
 				"-I${Jvm.current().javaHome.resolve("include")}",
 				"-I${Jvm.current().javaHome.resolve("include").resolve(HostManager.jniHostPlatformIncludeDir)}",
 				"-o", dynLibraryFile.absolutePath
