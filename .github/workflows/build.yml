@@ -8,21 +8,30 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: 'Install SWIG'
         run: |
           case $THE_OS in
-              "windows-latest")
-                  choco install swig --version 4.0.1
-              ;;
-              "ubuntu-20.04")
-                  sudo apt install -y swig
-              ;;
-              "macos-latest")
-                  brew install swig
-              ;;
-              *) echo "Unknown OS!";;
+            "windows-latest")
+              choco install swig --version 4.0.1
+            ;;
+            "ubuntu-latest")
+              sudo apt update
+              sudo apt install -y libpcre3 libpcre3-dev
+              wget https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz
+              tar -xzf swig-4.0.2.tar.gz
+              cd swig-4.0.2
+              ./configure
+              make
+              sudo make install
+              cd ..
+              swig -version
+            ;;
+            "macos-latest")
+              brew install swig
+            ;;
+            *) echo "Unknown OS!";;
           esac
         shell: bash
         env:
@@ -30,9 +39,8 @@ jobs:
 
       - name: 'Install OpenGL'
         run: |
-          sudo apt-get update
           sudo apt install -y libglu1-mesa-dev
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-latest'
 
       - uses: actions/setup-java@v1
         with:
