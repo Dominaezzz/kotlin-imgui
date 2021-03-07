@@ -1,33 +1,24 @@
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.UnstableDefault
-import kotlinx.serialization.builtins.MapSerializer
-import kotlinx.serialization.builtins.list
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.json.JsonLiteral
-import kotlinx.serialization.json.JsonObject
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.TaskAction
-import java.nio.file.Paths
+import kotlinx.serialization.builtins.*
+import kotlinx.serialization.json.*
+import org.gradle.api.*
+import org.gradle.api.file.*
+import org.gradle.api.tasks.*
 
+@Suppress("UnstableApiUsage")
 open class GenerateImGuiTask : DefaultTask() {
 	@InputDirectory
-	val inputDir = project.objects.directoryProperty()
+	val inputDir: DirectoryProperty = project.objects.directoryProperty()
 
 	@OutputDirectory
-	val commonDir = project.objects.directoryProperty()
+	val commonDir: DirectoryProperty = project.objects.directoryProperty()
 
 	@OutputDirectory
-	val jvmDir = project.objects.directoryProperty()
+	val jvmDir: DirectoryProperty = project.objects.directoryProperty()
 
 	@OutputDirectory
-	val nativeDir = project.objects.directoryProperty()
+	val nativeDir: DirectoryProperty = project.objects.directoryProperty()
 
 	@TaskAction
 	fun generate() {
@@ -38,7 +29,8 @@ open class GenerateImGuiTask : DefaultTask() {
 		val definitionsStr = inputDir.file("definitions.json").get().asFile.readText()
 		val structsAndEnumsStr = inputDir.file("structs_and_enums.json").get().asFile.readText()
 
-		val definitions = CImGuiJson.parse(MapSerializer(String.serializer(), Definition.serializer().list), definitionsStr)
+		val definitions =
+			CImGuiJson.parse(MapSerializer(String.serializer(), Definition.serializer().list), definitionsStr)
 		val (enums, structs) = CImGuiJson.parse(StructsAndEnums.serializer(), structsAndEnumsStr)
 
 		val enumBitMasks = enums.entries
@@ -61,11 +53,15 @@ open class GenerateImGuiTask : DefaultTask() {
 			return when (type) {
 				"size_t" -> ReturnValue(U_LONG, CodeBlock.of(".%M()", CONVERT), CodeBlock.of(".toULong()"))
 				"void" -> ReturnValue(UNIT, CodeBlock.of(""))
-				"ImU32" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
-				"unsigned int" -> ReturnValue(U_INT, CodeBlock.of(".toUInt()"))
-				"unsigned short" -> ReturnValue(U_SHORT, CodeBlock.of(".toUShort()"))
+				"ImU32" -> ReturnValue(U_INT, CodeBlock.of(""), CodeBlock.of(".toUInt()"))
+				"unsigned int" -> ReturnValue(U_INT, CodeBlock.of(""), CodeBlock.of(".toUInt()"))
+				"unsigned short" -> ReturnValue(U_SHORT, CodeBlock.of(""), CodeBlock.of(".toUShort()"))
 				"const char*" -> ReturnValue(STRING, CodeBlock.of(".%M()", TO_KSTRING), CodeBlock.of(""))
-				"const ImWchar*" -> ReturnValue(STRING, CodeBlock.of(".%M()", TO_KSTRING), CodeBlock.of(".toUTF16String()"))
+				"const ImWchar*" -> ReturnValue(
+					STRING,
+					CodeBlock.of(".%M()", TO_KSTRING),
+					CodeBlock.of(".toUTF16String()")
+				)
 				"ImVec2" -> ReturnValue(VEC2, CodeBlock.of(".fromCValue()"), jvmVecConverter)
 				"ImVec4" -> ReturnValue(VEC4, CodeBlock.of(".fromCValue()"), jvmVecConverter)
 				"ImWchar" -> ReturnValue(CHAR, CodeBlock.of(".toShort().toChar()"))
@@ -113,9 +109,7 @@ open class GenerateImGuiTask : DefaultTask() {
 
 			val nullOp = if (isNullable) {
 				if (assertIfNull) "!!" else "?"
-			} else {
-				""
-			}
+			} else ""
 
 			if (type == "unsigned int") return FuncArg(U_INT, jvmConv = CodeBlock.of(".toLong()"))
 			if (type == "ImU32") return FuncArg(U_INT, jvmConv = CodeBlock.of(".toLong()"))
@@ -247,15 +241,15 @@ open class GenerateImGuiTask : DefaultTask() {
 				commonEnum.addEnumConstant(enumValueNameKt)
 				nativeEnum.addEnumConstant(
 					enumValueNameKt, TypeSpec.anonymousClassBuilder()
-					.addSuperclassConstructorParameter(
-						CodeBlock.of("%M.%M()", MemberName("cimgui.internal", enumValue.name), CONVERT)
-					)
-					.build()
+						.addSuperclassConstructorParameter(
+							CodeBlock.of("%M.%M()", MemberName("cimgui.internal", enumValue.name), CONVERT)
+						)
+						.build()
 				)
 				jvmEnum.addEnumConstant(
 					enumValueNameKt, TypeSpec.anonymousClassBuilder()
-					.addSuperclassConstructorParameter("%M", MemberName(enumJvmClass, enumValue.name))
-					.build()
+						.addSuperclassConstructorParameter("%M", MemberName(enumJvmClass, enumValue.name))
+						.build()
 				)
 				lookUpTable.addStatement("%N -> %N", enumValue.name, enumValueNameKt)
 			}
@@ -299,7 +293,11 @@ open class GenerateImGuiTask : DefaultTask() {
 					nativeCompanionObject.addProperty(
 						PropertySpec.builder(propName, flagKt)
 							.initializer(
-								CodeBlock.of("%T(%M.toInt(), cachedInfo)", FLAG, MemberName("cimgui.internal", constName))
+								CodeBlock.of(
+									"%T(%M.toInt(), cachedInfo)",
+									FLAG,
+									MemberName("cimgui.internal", constName)
+								)
 							)
 							.addModifiers(KModifier.ACTUAL)
 							.build()
@@ -459,12 +457,14 @@ open class GenerateImGuiTask : DefaultTask() {
 				val argNameKt = arg.name.snakeToPascalCase().decapitalize()
 				val defaultValue = defaultMap[arg.name]?.let {
 					// Must be a better way to do this.
-					if (it == "(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))") {
-						"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
-					} else if (it == "(((ImU32)(255)<<24)|((ImU32)(0)<<16)|((ImU32)(0)<<8)|((ImU32)(255)<<0))") {
-						"(255u shl 24) or (0u shl 16) or (0u shl 8) or (255u shl 0)"
-					} else {
-						it
+					when (it) {
+						"(((ImU32)(255)<<24)|((ImU32)(255)<<16)|((ImU32)(255)<<8)|((ImU32)(255)<<0))" -> {
+							"(255u shl 24) or (255u shl 16) or (255u shl 8) or (255u shl 0)"
+						}
+						"(((ImU32)(255)<<24)|((ImU32)(0)<<16)|((ImU32)(0)<<8)|((ImU32)(255)<<0))" -> {
+							"(255u shl 24) or (0u shl 16) or (0u shl 8) or (255u shl 0)"
+						}
+						else -> it
 					}
 				}
 
@@ -501,25 +501,33 @@ open class GenerateImGuiTask : DefaultTask() {
 						val isNullable = defaultValue == "((void*)0)" ||
 							(isBitMask && (defaultValue == "0" || defaultValue?.endsWith("_None") == true))
 
-						val (type, nativeConv, jvmConv, propToPtr) = convertKotlinTypeToNative(arg.type, isNullable, false)
+						val (type, nativeConv, jvmConv, propToPtr) = convertKotlinTypeToNative(
+							arg.type,
+							isNullable,
+							false
+						)
 						val actualType = arg.type.removePrefix("const ")
 						val passesStructByValue = actualType == "ImVec4" || actualType == "ImVec2"
 						val isUnicodeStr = arg.type == "const ImWchar*"
 
 						val paramType = type.copy(nullable = isNullable)
 						val ptrName = "ptr${argNameKt.capitalize()}"
-						if (propToPtr) {
-							val helper = if (isNullable) {
-								CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
-							} else {
-								CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
+						when {
+							propToPtr -> {
+								val helper = if (isNullable) {
+									CodeBlock.of("usingPropertyN($argNameKt) { $ptrName ->")
+								} else {
+									CodeBlock.of("usingProperty($argNameKt) { $ptrName ->")
+								}
+								nativeScopedHelpers.add(helper)
+								jvmScopedHelpers.add(helper)
 							}
-							nativeScopedHelpers.add(helper)
-							jvmScopedHelpers.add(helper)
-						} else if (passesStructByValue) {
-							jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
-						} else if (isUnicodeStr) {
-							jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String·{ $ptrName -> "))
+							passesStructByValue -> {
+								jvmScopedHelpers.add(CodeBlock.of("using${actualType.removePrefix("Im")} { $ptrName -> "))
+							}
+							isUnicodeStr -> {
+								jvmScopedHelpers.add(CodeBlock.of("${argNameKt}.usingUTF16String·{ $ptrName -> "))
+							}
 						}
 
 						val param = ParameterSpec.builder(argNameKt, paramType)
@@ -611,7 +619,10 @@ open class GenerateImGuiTask : DefaultTask() {
 					add("\n")
 					indent()
 				}
-				add("%M(", MemberName(cimguiClass, if (returnsStructByValue) "${cImGuiFunName}_nonUDT" else cImGuiFunName))
+				add(
+					"%M(",
+					MemberName(cimguiClass, if (returnsStructByValue) "${cImGuiFunName}_nonUDT" else cImGuiFunName)
+				)
 				if (returnsStructByValue) {
 					add("returnVal")
 					if (jvmArguments.isNotEmpty()) add(", ")
@@ -824,10 +835,8 @@ open class GenerateImGuiTask : DefaultTask() {
 		for ((structName, members) in structs) {
 			if (structName in internalStructs) continue
 
-			val imguiStructClass = ClassName("cimgui.internal", structName)
-
-			val nativePointerClass = C_POINTER.parameterizedBy(imguiStructClass)
-			val jvmPointerClass = imguiStructClass
+			val jvmPointerClass = ClassName("cimgui.internal", structName)
+			val nativePointerClass = C_POINTER.parameterizedBy(jvmPointerClass)
 
 			val commonStruct = TypeSpec.expectClassBuilder(structName)
 			val nativeStruct = TypeSpec.classBuilder(structName)
@@ -913,7 +922,11 @@ open class GenerateImGuiTask : DefaultTask() {
 								nativeSetter.addStatement("ptr.%M.%N.%M(value)", POINTED, member.name, fromKValue)
 								jvmSetter.addStatement("ptr.%N.%M(value)", memberNameKt, fromKValue)
 							} else {
-								val (_, nativeInConv, jvmInConv) = convertKotlinTypeToNative(member.type, canBeNull, false)
+								val (_, nativeInConv, jvmInConv) = convertKotlinTypeToNative(
+									member.type,
+									canBeNull,
+									false
+								)
 								nativeSetter.addCode("ptr.%M.%N = value", POINTED, member.name)
 								nativeSetter.addCode(nativeInConv)
 								nativeSetter.addCode("\n")

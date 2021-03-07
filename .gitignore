@@ -3,8 +3,3 @@ build
 .idea/
 *.iml
 imgui.ini
-cimgui/src/jvmMain/java
-cimgui/src/jvmMain/cpp
-imgui/src/commonMain/generated
-imgui/src/jvmMain/generated
-imgui/src/nativeMain/generated

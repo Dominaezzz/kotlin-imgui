@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-After `kotlin-imgui` is setup in your application, you can use it from _anywhere_ in your program loop:
+After `kotlin-imgui` is set up in your application, you can use it from _anywhere_ in your program loop:
 ```kotlin
 with(ImGui) {
     text("Hello, world ${123}")

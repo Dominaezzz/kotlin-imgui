@@ -1,4 +1,3 @@
-import com.imgui.ImFont
-import com.imgui.ImFontAtlas
+import com.imgui.*
 
 expect fun ImFontAtlas.getTexDataAsRGBA32()

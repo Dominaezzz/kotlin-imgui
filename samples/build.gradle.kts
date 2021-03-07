@@ -12,9 +12,33 @@ val useSingleTarget: Boolean by rootProject.extra
 val kglVersion: String by rootProject.extra
 
 kotlin {
+	val osName = when {
+		HostManager.hostIsLinux -> LINUX
+		HostManager.hostIsMac -> MACOS
+		HostManager.hostIsMingw -> WINDOWS
+		else -> error("unknown host")
+	}
+
+	jvm {
+		withJava()
+
+		attributes {
+			attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(osName))
+			attribute(ARCHITECTURE_ATTRIBUTE, objects.named(X86_64))
+		}
+	}
+
 	if (HostManager.hostIsLinux) linuxX64()
-	if (HostManager.hostIsMingw) mingwX64()
 	if (HostManager.hostIsMac) macosX64()
+	if (HostManager.hostIsMingw) mingwX64()
+
+	targets.withType<KotlinNativeTarget> {
+		binaries {
+			executable {
+				entryPoint = "sample.main"
+			}
+		}
+	}
 
 	sourceSets {
 		commonMain {
@@ -26,74 +50,46 @@ kotlin {
 				implementation(project(":imgui-opengl"))
 			}
 		}
+
 		commonTest {
 			dependencies {
 				implementation(kotlin("test-common"))
 				implementation(kotlin("test-annotations-common"))
 			}
 		}
-	}
 
-	jvm {
-		val osName = when {
-			HostManager.hostIsLinux -> LINUX
-			HostManager.hostIsMac -> MACOS
-			HostManager.hostIsMingw -> WINDOWS
-			else -> error("unknown")
-		}
+		named("jvmMain") {
+			dependencies {
+				implementation(project(":cimgui", "jvmDefault"))
+				runtimeOnly(project(":cimgui", "jvm${HostManager.host.presetName.capitalize()}Default"))
 
-		withJava()
-		compilations {
-			"main" {
-				dependencies {
-					implementation(kotlin("stdlib-jdk8"))
-
-					implementation(project(":cimgui", "jvmDefault"))
-					if (HostManager.hostIsLinux) runtimeOnly(project(":cimgui", "jvmLinuxX64Default"))
-					if (HostManager.hostIsMac) runtimeOnly(project(":cimgui", "jvmMacosX64Default"))
-					if (HostManager.hostIsMingw) runtimeOnly(project(":cimgui", "jvmMingwX64Default"))
-
-					val lwjglVersion = "3.2.2"
-					val lwjglNatives = "natives-$osName"
-					implementation("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
-					implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
-					implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
-					implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
-				}
-			}
-			"test" {
-				dependencies {
-					implementation(kotlin("test"))
-					implementation(kotlin("test-junit"))
-				}
+				val lwjglVersion = "3.2.2"
+				val lwjglNatives = "natives-$osName"
+				implementation("org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives")
+				implementation("org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives")
+				implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives")
+				implementation("org.lwjgl:lwjgl-opengl:$lwjglVersion")
 			}
 		}
 
-		attributes {
-			attribute(OPERATING_SYSTEM_ATTRIBUTE, objects.named(osName))
-			attribute(ARCHITECTURE_ATTRIBUTE, objects.named(X86_64))
+		named("jvmTest") {
+			dependencies {
+				implementation(kotlin("test-junit"))
+			}
 		}
-	}
 
-	targets.withType<KotlinNativeTarget> {
-		compilations {
-			"main" {
-				defaultSourceSet {
-					kotlin.srcDir("src/nativeMain/kotlin")
-				}
-
+		targets.withType<KotlinNativeTarget> {
+			named("${name}Main") {
+				kotlin.srcDir("src/nativeMain/kotlin")
+				resources.srcDir("src/nativeMain/resources")
 				dependencies {
 					implementation("com.kgl:kgl-glfw-static:$kglVersion")
 				}
 			}
-		}
 
-		binaries {
-			executable {
-				// Change to specify fully qualified name of your application's entry point:
-				entryPoint = "sample.main"
-				// Specify command-line arguments, if necessary:
-				runTask?.args("")
+			named("${name}Test") {
+				kotlin.srcDir("src/nativeTest/kotlin")
+				resources.srcDir("src/nativeTest/resources")
 			}
 		}
 	}
