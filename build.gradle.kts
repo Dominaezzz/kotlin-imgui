@@ -26,8 +26,13 @@ subprojects {
 	version = rootProject.version
 
 	repositories {
-		jcenter()
-		maven("https://dl.bintray.com/dominaezzz/kotlin-native")
+		mavenCentral()
+		maven("https://maven.pkg.github.com/Dominaezzz/kgl") {
+			credentials {
+				username = System.getenv("GITHUB_USER")
+				password = System.getenv("GITHUB_TOKEN")
+			}
+		}
 	}
 
 	plugins.withId("org.jetbrains.kotlin.multiplatform") {

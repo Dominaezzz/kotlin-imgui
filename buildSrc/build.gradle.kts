@@ -7,7 +7,7 @@ plugins {
 }
 
 repositories {
-	jcenter()
+	mavenCentral()
 }
 
 tasks.withType<KotlinCompile> {
