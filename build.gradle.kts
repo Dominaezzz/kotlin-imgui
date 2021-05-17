@@ -19,7 +19,7 @@ version = stdout.toString().trim()
 
 val useSingleTarget: Boolean by extra { System.getProperty("idea.active") == "true" }
 val imGuiVersion: String by extra("1.77")
-val kglVersion: String by extra("0.1.10")
+val kglVersion: String by extra("0.1.11")
 
 subprojects {
 	group = rootProject.group
