@@ -64,21 +64,18 @@ subprojects {
 
 	plugins.withId("maven-publish") {
 		configure<PublishingExtension> {
-			val vcs: String by project
-			val bintrayOrg: String by project
-			val bintrayRepository: String by project
-
 			repositories {
-				maven("https://api.bintray.com/maven/$bintrayOrg/$bintrayRepository/kotlin-imgui/;publish=0;override=0") {
-					name = "bintray"
+				maven("https://maven.pkg.github.com/Dominaezzz/${rootProject.name}") {
+					name = "GitHubPackages"
 					credentials {
-						username = System.getenv("BINTRAY_USER")
-						password = System.getenv("BINTRAY_API_KEY")
+						username = System.getenv("GITHUB_USER")
+						password = System.getenv("GITHUB_TOKEN")
 					}
 				}
 			}
 
 			publications.withType<MavenPublication> {
+				val vcs = "https://github.com/Dominaezzz/kotlin-imgui"
 				pom {
 					name.set(project.name)
 					description.set(project.description)
@@ -86,7 +83,7 @@ subprojects {
 					licenses {
 						license {
 							name.set("The Apache Software License, Version 2.0")
-							url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+							url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
 							distribution.set("repo")
 						}
 					}

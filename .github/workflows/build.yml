@@ -67,7 +67,7 @@ jobs:
           GITHUB_USER: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Publish to BinTray'
+      - name: 'Publish'
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: 'smartPublish --stacktrace'
@@ -76,5 +76,3 @@ jobs:
         env:
           GITHUB_USER: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BINTRAY_API_KEY: ${{ secrets.bintray_api_key }}
-          BINTRAY_USER: ${{ secrets.bintray_user }}
